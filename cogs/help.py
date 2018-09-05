@@ -3,20 +3,8 @@ from discord.ext import commands
 
 import dbl
 
-from datetime import datetime
-import requests
-
 import time
-from random import choice, randint
-import random
-import subprocess
 from discord.ext.commands import errors, converter
-from random import choice as rnd
-
-import aiohttp
-import asyncio
-import sys
-import json
 
 
 class Help:
@@ -69,7 +57,7 @@ class Help:
                 name = "Crypto"
                 d = "Get current crypto stats"
             elif cmd == "Bot" or cmd == "bot":
-                modules = ["`servers`", "`stats`", "`support`"]
+                modules = ["`servers`", "`stats`", "`support`", "`ping`"]
                 name = "Bot"
                 d = "Bot info/stats"
             elif cmd == "Economy" or cmd == "economy":
