@@ -454,52 +454,6 @@ class Utility:
             #await self.bot.say(rnd(re['senses'][0]['definitions']))
             #await self.bot.say(re['senses'][0]['examples'][0]['text'])
 
-
-    @commands.command(pass_context=True, aliases=['btc'])
-    async def bitcoin(self, ctx):
-        """Get BTC Stats"""
-        try:
-            await self.add_money(user=ctx.message.author.id, count=1)
-        except:
-            pass
-        r = requests.get("https://www.bitstamp.net/api/v2/ticker/btcusd/").json()
-        e = requests.get("https://www.bitstamp.net/api/v2/ticker/btceur/").json()
-        embed = discord.Embed(colour=0xf4d142)
-        embed.add_field(name="1 Bitcoin equals..", value=f"**$**{r['last']}\n**€**{e['last']}")
-        embed.add_field(name="BTC High..", value=f"**$**{r['high']}\n**€**{e['high']}")
-        embed.set_thumbnail(url="https://static.vecteezy.com/system/resources/previews/000/205/146/non_2x/vector-bitcoin-symbol-on-orange-background.jpg")
-        await self.bot.say(embed=embed)
-
-    @commands.command(pass_context=True, aliases=['xrp'])
-    async def ripple(self, ctx):
-        """Get XRP Stats"""
-        try:
-            await self.add_money(user=ctx.message.author.id, count=1)
-        except:
-            pass
-        r = requests.get("https://www.bitstamp.net/api/v2/ticker/xrpusd/").json()
-        e = requests.get("https://www.bitstamp.net/api/v2/ticker/xrpeur/").json()
-        embed = discord.Embed(colour=0x0000ff)
-        embed.add_field(name="1 Ripple equals..", value=f"**$**{r['last']}\n**€**{e['last']}")
-        embed.add_field(name="XRP High..", value=f"**$**{r['high']}\n**€**{e['high']}")
-        embed.set_thumbnail(url="https://www.cryptocoinsnieuws.nl/wp-content/uploads/2018/01/ripple-xrp.png")
-        await self.bot.say(embed=embed)
-
-    @commands.command(pass_context=True, aliases=['ltc'])
-    async def litecoin(self, ctx):
-        """Get LTC Stats"""
-        try:
-            await self.add_money(user=ctx.message.author.id, count=1)
-        except:
-            pass
-        r = requests.get("https://www.bitstamp.net/api/v2/ticker/ltcusd/").json()
-        e = requests.get("https://www.bitstamp.net/api/v2/ticker/ltceur/").json()
-        embed = discord.Embed()
-        embed.add_field(name="1 Litecoin equals..", value=f"**$**{r['last']}\n**€**{e['last']}")
-        embed.add_field(name="LTC High..", value=f"**$**{r['high']}\n**€**{e['high']}")
-        embed.set_thumbnail(url="https://a1finance.cz/wp-content/uploads/2017/08/Official_Litecoin_Logo.jpg")
-        await self.bot.say(embed=embed)
-
     @commands.command(pass_context=True)
     async def hastebin(self, ctx, *, message):
         """Send your text to a haste bin
@@ -612,21 +566,6 @@ class Utility:
             embed.set_author(name="Success!")
             embed.add_field(name="Strawpoll link..", value=f"https://strawpoll.me/{resp['id']}")
             await self.bot.say(embed=embed)
-
-    @commands.command(pass_context=True, aliases=['eth'])
-    async def ethereum(self, ctx):
-        """Get ETH Stats"""
-        try:
-            await self.add_money(user=ctx.message.author.id, count=1)
-        except:
-            pass
-        r = requests.get("https://www.bitstamp.net/api/v2/ticker/ethusd/").json()
-        e = requests.get("https://www.bitstamp.net/api/v2/ticker/etheur/").json()
-        embed = discord.Embed(colour=0x00a6ff)
-        embed.add_field(name="1 Ethereum equals..", value=f"**$**{r['last']}\n**€**{e['last']}")
-        embed.add_field(name="ETH High..", value=f"**$**{r['high']}\n**€**{e['high']}")
-        embed.set_thumbnail(url="https://cryptorunner.com/wp-content/uploads/2017/10/ethereum-symbol.png")
-        await self.bot.say(embed=embed)
 
     @commands.command(pass_context=True, aliases=['mapimage'])
     async def map(self, ctx, *, location):#app_id=HKvIwMJ55iDxTJdHr03l&app_code=CZiIfYufln4tXB4UU9mbZA
@@ -892,14 +831,6 @@ class Utility:
                         await self.bot.send_message(ctx.message.channel, "The output is too long to send to chat. Here is the file..")
                         await self.bot.send_file(ctx.message.channel, 'assets\\eval.txt', filename=f'siri-eval.txt')
                         return
-                    #elif len(result) < 500:
-                        #b = open("khaki-eval.txt","w")
-                        #b.write("\n{}".format(page, lang="py"))
-                        #b.close()
-
-                        #await self.bot.send_message(ctx.message.channel, "The output is too long to send to chat. Here is the file..")
-                        #await self.bot.send_file(ctx.message.channel, 'khaki-eval.txt', filename=f'khaki-eval.txt')
-                        #return
                     else:
                         embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, page, lang="py"))
                         embed.set_footer(text="Code Evaluation | {} ".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
