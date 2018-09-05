@@ -41,7 +41,7 @@ class Economy:
         - White
 
         """
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open('assets//economy.json', 'r') as f:
             users = json.load(f)
 
         if colour is None:
@@ -76,7 +76,7 @@ class Economy:
             else:
                 await self.bot.say("That isn't a valid colour! View the colour list with `siri help cmd setcolour`\n```If you would like to suggest a colour, send a ticket ('siri ticket <message>') with the colour name and hex.```")
             
-            with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'w') as f:
+            with open('assets/economy.json', 'w') as f:
                 json.dump(users, f)
         else:
             await self.bot.say("You don't have a bank account, create one with `siri bank create`!")
@@ -84,7 +84,7 @@ class Economy:
     @commands.command(pass_context=True)
     async def description(self, ctx, *, message):
         """Sets Profile Description"""
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open(r'assets\economy.json', 'r') as f:
             users = json.load(f)
 
         if message is None:
@@ -104,7 +104,7 @@ class Economy:
     @commands.command(pass_context=True, aliases=['birthday'])
     async def bday(self, ctx, day=None, month=None, year=None):
         """Sets Profile Birthday"""
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open('assets\\economy.json', 'r') as f:
             users = json.load(f)
         try:
             date = day.split('-')
@@ -137,7 +137,7 @@ class Economy:
     @commands.command(pass_context=True)
     async def eat(self, ctx):
         """Eat an apple"""
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open('assets//economy.json', 'r') as f:
             users = json.load(f)
         if ctx.message.author.id in users:
             if users[ctx.message.author.id]['apple'] > 0:
@@ -153,7 +153,7 @@ class Economy:
     @commands.command(pass_context=True)
     async def buy(self, ctx, item = None):
         """Buy an item ('siri store' to see the items)"""
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open('assets//economy.json', 'r') as f:
             users = json.load(f)
         msg = await self.bot.say("Processing..")
         if not ctx.message.author.id in users:
@@ -200,7 +200,7 @@ class Economy:
     @commands.command(pass_context=True, aliases=['Profile'])
     async def profile(self, ctx, user: discord.User=None):
         """Get user profile"""
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open('assets//economy.json', 'r') as f:
             users = json.load(f)
 
         if user is None:
@@ -259,7 +259,7 @@ class Economy:
     @commands.command(pass_context=True)
     async def give(self, ctx, count:int, user: discord.User=None):
         """Give your money to another user"""
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open('assets//economy.json', 'r') as f:
             users = json.load(f)
 
         #b = ''.join(count)
@@ -285,7 +285,7 @@ class Economy:
             embed = discord.Embed(colour=0xeeeeff, description=f"{ctx.message.author.mention} has given {user.mention} **{self.s}**{count}!")
             await self.bot.say(embed=embed)
 
-            with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'w') as f:
+            with open('assets//economy.json', 'w') as f:
                 json.dump(users, f)
             #except:
                 #await self.bot.say("")
@@ -297,7 +297,7 @@ class Economy:
     @commands.cooldown(1, 86400, commands.BucketType.user)
     async def daily(self, ctx):
         """Get your daily §15"""
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open('assets//economy.json', 'r') as f:
             users = json.load(f)
 
         if ctx.message.author.id in users:
@@ -306,19 +306,15 @@ class Economy:
             embed.set_footer(text=f"Balance: {self.s}{users[ctx.message.author.id]['money']}")
             await self.bot.say(embed=embed)
 
-            with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'w') as f:
+            with open('assets//economy.json', 'w') as f:
                 json.dump(users, f)
         else:
             await self.bot.say("You don't have a bank account, create one with `siri bank create`!") 
 
-    #async def on_command_error(self, ctx, error):
-        #if isinstance(error, commands.CommandOnCooldown):
-            #await self.bot.send_message(ctx.message.channel, "You already got your daily today!")
-
     @commands.command(pass_context=True, aliases=['bal'])
     async def balance(self, ctx, user:discord.User=None):
         """Check your balance"""
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open('assets//economy.json', 'r') as f:
             users = json.load(f)
 
         if user is None:
@@ -339,7 +335,7 @@ class Economy:
     @commands.group(pass_context=True)
     async def bank(self, ctx):
         if ctx.invoked_subcommand is None:
-            with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+            with open('assets//economy.json', 'r') as f:
                 users = json.load(f)
 
             if ctx.message.author.id in users:
@@ -352,7 +348,7 @@ class Economy:
     async def _create(self, ctx):
         """Create an account"""
         msg = await self.bot.say("Please wait..")
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open('assets//economy.json', 'r') as f:
             users = json.load(f)
 
         if ctx.message.author.id in users:
@@ -363,7 +359,7 @@ class Economy:
             await self.update_data(users, ctx.message.author.id)
             await self.add_money(users, user=ctx.message.author.id, count=20)
 
-            with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'w') as f:
+            with open('assets//economy.json', 'w') as f:
                 json.dump(users, f)
 
             await self.bot.delete_message(msg)
@@ -373,14 +369,14 @@ class Economy:
     async def _fcreate(self, ctx, user: discord.User):
         """Create an account"""
         msg = await self.bot.say("Please wait..")
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open('assets//economy.jsonn', 'r') as f:
             users = json.load(f)
         if ctx.message.author.id =='396153668820402197':
 
             await self.update_data(users, user.id)
             await self.add_money(users, user=user.id, count=20)
 
-            with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'w') as f:
+            with open('assets//economy.json', 'w') as f:
                 json.dump(users, f)
 
             await self.bot.delete_message(msg)
@@ -393,14 +389,14 @@ class Economy:
 
     @commands.command(pass_context=True)
     async def mtransfer(self, ctx, count:int, user: discord.User=None):
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open('assets//economy.json', 'r') as f:
             users = json.load(f)
         if ctx.message.author.id =='396153668820402197':
             await self.bot.say(":ok_hand: Done.")
             try:
                 await self.add_money(users, user=user.id, count=count)
 
-                with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'w') as f:
+                with open('assets//economy.json', 'w') as f:
                     json.dump(users, f)   
             except Exception as e:
                 await self.bot.say("```e```")         
@@ -422,17 +418,17 @@ class Economy:
 
     async def apple(self, users, user=None, count=None):
         users[user]['apple'] += count
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'w') as f:
+        with open('assets//economy.json', 'w') as f:
                 json.dump(users, f)
 
     async def iphone(self, users, user=None, count=None):
         users[user]['iphone'] += count
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'w') as f:
+        with open('assets//economy.json', 'w') as f:
                 json.dump(users, f)
 
     async def house(self, users, user=None, count=None):
         users[user]['house'] += count
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'w') as f:
+        with open('assets//economy.json', 'w') as f:
                 json.dump(users, f)
 
     async def set_desc(self, users, user=None, description=None):
