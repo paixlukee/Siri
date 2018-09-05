@@ -7,13 +7,11 @@ import requests
 import time
 from random import choice, randint
 import random
-import subprocess
 from discord.ext.commands import errors, converter
 from random import choice as rnd
 
 import aiohttp
 import asyncio
-import sys
 import json
 from .utils import checks, money
 
@@ -22,18 +20,6 @@ class Utility:
     def __init__(self, bot):
         self.bot = bot
 
-    def dstr(self, duration):
-        minutes, seconds = divmod(duration, 60)
-        hours, minutes = divmod(minutes, 60)
-        days, hours = divmod(hours, 24)
-
-        duration = []
-        #if days > 0: duration.append(f'{days}d')
-        if hours > 0: duration.append(f'{hours} hour(s)')
-        if minutes > 0: duration.append(f'{minutes} minute(s)')
-        #if seconds > 0 or len(duration) == 0: duration.append(f'{seconds}s')
-
-        return ' '.join(duration)
 
     async def add_money(self, user=None, count=None):
         with open('assets\\economy.json', 'r') as f:
@@ -72,8 +58,6 @@ class Utility:
 
             resp = r.json()
             response = resp['result']['fulfillment']['messages'][0]['speech']
-                    #ra = requests.get("https://api.dialogflow.com/v1/contexts?v=20150910&sessionId=12345", headers={"Authorization" : "Bearer 1663b12fcc24462e9711d9801be96485"}).json()
-                    #await self.bot.say(ra)
             await self.bot.send_message(message.channel, f"**{message.author.name}**, {response}")
 
 
