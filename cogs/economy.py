@@ -215,16 +215,6 @@ class Economy:
                 except:
                     await self.bot.say("There was an error! I-I tried everything..!")
 
-
-        if member.status == 'online':
-            emoji = '<:online:468721284390453268>'
-        elif member.status == 'idle':
-            emoji = '<:idle:483080613687984131>'
-        elif member.status == 'dnd':
-            emoji = '<:dnd:478843647282905088>'
-        else:
-            emoji = '<:online:468721284390453268>'
-
         if member.id in users:
             bal = users[member.id]['money']
             description = users[member.id]['description']
@@ -419,28 +409,6 @@ class Economy:
             trl.set_footer(text="Sorry about that.")
             await self.bot.say(embed=trl)
 
-    @commands.command(pass_context=True)
-    async def post(self, ctx, *, ms):
-        c = self.bot.get_channel('478833607126024192')
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
-            users = json.load(f)
-        if ctx.message.author.id =='396153668820402197':
-            msg = await self.bot.say("Posting..")
-            try:
-                r = requests.post(f"https://hastebin.com/documents",
-                data=
-                ms
-                ).json()
-                await self.bot.delete_message(msg)
-                await self.bot.say(":ok_hand: Posted")
-                await self.bot.send_message(c, f":point_right: https://hastebin.com/{r['key']}")
-            except Exception as e:
-                await self.bot.delete_message(msg)
-                await self.bot.say(f"Something went wrong. /:\n```py\n{e}```")                    
-        else:
-            trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
-            trl.set_footer(text="Sorry about that.")
-            await self.bot.say(embed=trl)
 
     async def update_data(self, users, user):
         users[user] = {}
