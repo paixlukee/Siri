@@ -32,8 +32,9 @@ async def get_pre(bot, message):
     prefixes.append('Siri ')
     return prefixes
 
+prefixes = ['hey siri ', 'siri ', 'Siri ', 'Hey Siri ', 'siri, '] 
 
-bot = commands.Bot(command_prefix=get_pre)
+bot = commands.Bot(command_prefix=*prefixes)
 
 bot.remove_command("help")
 
