@@ -1,8 +1,6 @@
 import discord
 from discord.ext import commands
 
-import dbl
-
 from datetime import datetime
 import requests
 
@@ -38,17 +36,17 @@ class Utility:
         return ' '.join(duration)
 
     async def add_money(self, user=None, count=None):
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open('assets\\economy.json', 'r') as f:
                 users = json.load(f)
                 users[user]['money'] += count
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'w') as f:
+        with open('assets\\economy.json', 'w') as f:
                  json.dump(users, f)
 
     async def take_money(self, user=None, count=None):
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+        with open('assets\\economy.json', 'r') as f:
                 users = json.load(f)
                 users[user]['money'] -= count
-        with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'w') as f:
+        with open('assets\\economy.json', 'w') as f:
                  json.dump(users, f)
 
     async def on_message(self, message):
@@ -151,12 +149,8 @@ class Utility:
 
             author = ctx.message.author
 
-            stat = discord.Embed(color=0x36393E, description="\n\n**Siri**\n\n\n**Python**... `3.6`\n**Servers**... `{}`\n**Messages Received**... `{}`\n**Voice Clients**... `{}`\n**Prv Channels In**... `{}`".format(str(len(self.bot.servers)), str(len(self.bot.messages)), str(len(self.bot.voice_clients)), str(len(self.bot.private_channels))))
+            stat = discord.Embed(color=0x36393E, description="\n\n**Siri. Discord Bot.**\n\n\n**Python**... `3.6`\n**Servers**... `{}`\n**Messages Received**... `{}`\n**Voice Clients**... `{}`\n**Prv Channels In**... `{}`".format(str(len(self.bot.servers)), str(len(self.bot.messages)), str(len(self.bot.voice_clients)), str(len(self.bot.private_channels))))
 
-            stat.add_field(name="**Bot Owner**", value="lukee#0420", inline=False)
-            stat.add_field(name="**Status**", value="Online", inline=False)
-            stat.add_field(name="**Version**", value="v1", inline=False)
-            stat.add_field(name="**Bot User ID**", value="468913182463885323", inline=False)
 
             await self.bot.say(embed=stat)
 
@@ -372,14 +366,7 @@ class Utility:
                 await self.bot.say(embed=embed)
 
             except Exception as e:
-                mv = title.replace(" ", "+")
-                try:
-                    #r = e           
-                    r = requests.get(f"http://www.hot2z.com/api/v1.0/ebdb42e0bdf7efbf9a2aaf83f81e4344a91a8440/?title={mv}&max=1").json()
-                except:
-                    r = e 
-                    r = {"error": "404"}
-                await self.bot.say(f"I couldn't find that movie or series.. ")
+                await self.bot.say(f"I couldn't find that movie or series..")
 
     @commands.command(pass_context=True, aliases=['today'])
     async def news(self, ctx):#03d8e32c7dd349e3b9efe0338e08e890
@@ -531,15 +518,6 @@ class Utility:
         embed.add_field(name="Hastebin link", value='https://hastebin.com/' + r['key'])
         await self.bot.say(embed=embed)
     
-    @commands.command(pass_context=True)
-    async def resetp(self, ctx):
-        if ctx.message.author.id =='396153668820402197':
-            await self.bot.say(":ok_hand: Now resetting..")
-            await self.bot.change_presence(game=discord.Game(name=f'...', type=3))
-        else:
-            trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
-            trl.set_footer(text="Sorry about that.")
-            await self.bot.say(embed=trl)
 
     @commands.command(pass_context=True, aliases=['dstatus'])
     async def discordstatus(self, ctx):
@@ -672,7 +650,7 @@ class Utility:
         except:
             pass
         to = lang_code
-        msg = message.replace(" ", "+")
+        msg = message.replace(" ", "+")#dont steal my key lol
         async with aiohttp.ClientSession(headers={'Accept': 'application/json'}) as session:
                 async with session.get(f"https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20180825T052109Z.c36b5e400701326d.b710f868bfd135fe1f3b1e490a3db5f02ae83db3&lang={to}&text={msg}") as get:
                     resp = await get.json()
@@ -687,7 +665,6 @@ class Utility:
                     embed.set_thumbnail(url="https://cdn6.aptoide.com/imgs/4/8/8/48860afe26ae45e7f0ab3737017e5ab5_icon.png?w=240")
                     embed.set_author(name='TRANSLATION', icon_url='https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120')
                     await self.bot.say(embed=embed)
-        #trnsl.1.1.20180825T052109Z.c36b5e400701326d.b710f868bfd135fe1f3b1e490a3db5f02ae83db3
 
     @commands.command(pass_context=True, aliases=['detect'])
     async def langdetect(self, ctx, *, message):
@@ -749,15 +726,6 @@ class Utility:
         except:
             pass
         await self.bot.say(embed=embed)
-
-    @commands.command(pass_context=True)
-    async def htest(self, ctx):
-        try:
-            target = discord.utils.get(ctx.message.server.channels, name="pokemon-toxic-lol")
-            await self.bot.send_message(target, "woah it worked :weary:")
-        except Exception as e:
-            embed = discord.Embed(colour=0xff0000, description=f"```{e}```")
-            await self.bot.say(embed=embed)
 
 
     @commands.command(pass_context=True, aliases="resp")
@@ -922,7 +890,7 @@ class Utility:
                         b.close()
 
                         await self.bot.send_message(ctx.message.channel, "The output is too long to send to chat. Here is the file..")
-                        await self.bot.send_file(ctx.message.channel, 'khaki-eval.txt', filename=f'khaki-eval.txt')
+                        await self.bot.send_file(ctx.message.channel, 'assets\\eval.txt', filename=f'siri-eval.txt')
                         return
                     #elif len(result) < 500:
                         #b = open("khaki-eval.txt","w")
