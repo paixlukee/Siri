@@ -2,7 +2,9 @@ import json
 import asyncio
 
 class Config:
-    """The "database" object. Internally based on ``json``."""
+    """The "database" object. Internally based on ``json``.
+    
+    CREDITS: iWeeti"""
 
     def __init__(self, name, **options):
         self.name = name
