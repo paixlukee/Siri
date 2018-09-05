@@ -169,7 +169,7 @@ async def restart(ctx):
     if ctx.message.author.id =='396153668820402197':
         await bot.say("I'll see you in a bit!")
         await bot.logout()
-        subprocess.call([sys.executable, fr"C:\Users\Luke Jeffries\Siri\siri.py"])
+        subprocess.call([sys.executable, r"siri.py"])
     else:
         trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
         trl.set_footer(text="Sorry about that.")
