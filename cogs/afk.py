@@ -40,9 +40,12 @@ class AFK:
     async def afk_on(self, user=None, reason=None):
         with open('assets//afk_members.json', 'r') as f:
             users = json.load(f)
-            
-        users[user]['AFK'] = True
-        users[user]['reason'] = reason
+         
+        if user in users:
+            users[user] = {}
+        else:
+            users[user]['AFK'] = True
+            users[user]['reason'] = reason
         
         with open('assets//afk_members.json', 'r') as f:
             json.dump(users, f)
