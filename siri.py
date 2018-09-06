@@ -23,18 +23,9 @@ import json
 ###
 extension = ['cogs.utility', 'cogs.help', 'cogs.music', 'cogs.economy']
 
-async def get_pre(bot, message):
-    prefixes = []
-    prefixes.append('hey siri ')
-    prefixes.append('Hey Siri ')
-    prefixes.append('siri, ')
-    prefixes.append('siri ')
-    prefixes.append('Siri ')
-    return prefixes
-
 prefixes = ['hey siri ', 'siri ', 'Siri ', 'Hey Siri ', 'siri, '] 
 
-bot = commands.Bot(command_prefix=*prefixes)
+bot = commands.Bot(command_prefix=prefixes)
 
 bot.remove_command("help")
 
@@ -175,6 +166,37 @@ async def restart(ctx):
         trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
         trl.set_footer(text="Sorry about that.")
         await bot.say(embed=trl)
+        
+        
+@bot.command(pass_context=True, hidden=True)
+async def pull(ctx):
+    if ctx.message.author.id =='396153668820402197':
+        shell = await run_cmd('git pull Siri --no-commit --no-edit --ff-only master')
+        await run_cmd('git fetch --all')
+        embed = discord.Embed(colour=0x0000ff, description=f"```{shell}```")
+        embed.set_author(name="Pulled from git..", icon_url="https://avatars0.githubusercontent.com/u/9919?s=280&v=4")
+        msg = await bot.say(embed=embed)
+    else:
+        trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
+        trl.set_footer(text="Sorry about that.")
+        await bot.say(embed=trl)
+
+@bot.command(pass_context=True, hidden=True)
+async def shell(ctx, *, code):
+    if ctx.message.author.id =='396153668820402197':
+        embed = discord.Embed(colour=0x000fff, description=f"```Connecting to shell..```")
+        embed.set_author(name="Please Wait.", icon_url=bot.user.avatar_url)
+        msg = await bot.say(embed=embed)
+        shell = await run_cmd(code)
+        embed = discord.Embed(colour=0x000fff, description=f"```{shell}```")
+        embed.set_author(name="Shell", icon_url=bot.user.avatar_url)
+        await bot.delete_message(msg)
+        await bot.say( embed=embed)
+    else:
+        trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
+        trl.set_footer(text="Sorry about that.")
+        await bot.say(embed=trl)
+
 
 @bot.command(pass_context=True)
 async def ping(ctx):
