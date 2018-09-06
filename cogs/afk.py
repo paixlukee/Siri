@@ -41,7 +41,7 @@ class AFK:
         with open(r'assets\afk_members.json', 'w') as f:
             json.dump(users, f)
      
-     async def afk_off(self, user=None):
+    async def afk_off(self, user=None):
         with open(r'assets\afk_members.json', 'r') as f:
             users = json.load(f)
             
