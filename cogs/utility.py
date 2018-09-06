@@ -772,8 +772,8 @@ class Utility:
                 for e in self.bot.servers:
                     #users = len(set(self.bot.get_all_members()))
                     print(f"{e.name} [{e.id}] ({len(e.members)}),")
-            elif code == 'cogs.economy.json':
-                with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'r') as f:
+            elif code == 'cogs.economy.json':#yes my eval sux so i have to do it like this fuck off
+                with open('assets\\economy.json', 'r') as f:
                     users = json.load(f)
                 embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, users))
                 embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
