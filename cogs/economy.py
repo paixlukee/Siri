@@ -1,7 +1,5 @@
 import discord
 from discord.ext import commands
-from PIL import Image, ImageDraw, ImageFont, ImageColor, ImageOps, ImageFilter
-from io import BytesIO
 
 import datetime
 import requests
@@ -13,13 +11,8 @@ from random import choice, randint
 
 import aiohttp
 import asyncio
-import sys
-import subprocess
 import json
 import os
-
-
-os.chdir(r'C:\\Users\\Luke Jeffries\\Lady Tohru\\cogs')
 
 class Economy:
     def __init__(self, bot):
