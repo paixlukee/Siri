@@ -21,14 +21,20 @@ class AFK:
             reason = 'No Reason'
         else:
             pass
-        await self.afk_on(user=ctx.message.author.id, reason=reason)
-        await self.bot.say("<:idle:483080613687984131> I have successfully set you as **AFK**!")
+        try:
+            await self.afk_on(user=ctx.message.author.id, reason=reason)
+            await self.bot.say("<:idle:483080613687984131> I have successfully set you as **AFK**!")
+        except Exception as e:
+            await self.bot.say(f"```py\n{e}```")
       
     @afk.command(pass_context=True, aliases=['disable'])
     async def off(self, ctx):
         """Turn AFK Off (AFK SUB)"""
-        await self.afk_off(user=ctx.message.author.id)
-        await self.bot.say(f"<:online:313956277808005120> Welcome back, **{ctx.message.author}**!")
+        try:
+            await self.afk_off(user=ctx.message.author.id)
+            await self.bot.say(f"<:online:313956277808005120> Welcome back, **{ctx.message.author}**!")
+        except Exception as e:
+            await self.bot.say(f"```py\n{e}```")
         
         
     async def afk_on(self, user=None, reason=None):
