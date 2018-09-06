@@ -135,7 +135,7 @@ class Utility:
 
             #RAM = self.process.memory_full_info().rss  /  1024 ** 2
 
-            stat = discord.Embed(color=0x36393E, description=f"**Siri. by lukee#0420**\n\n\n> **Python**... `3.6`\n> **Ubuntu**... `18.04`\n> **Servers**... `{str(len(self.bot.servers))}`\n> **Messages Received**... `{str(len(self.bot.messages))}\n> **RAM Usage**... `??MB`")
+            stat = discord.Embed(color=0x36393E, description=f"**Siri. by lukee#0420**\n\n\n> **Python**... `3.6`\n> **Ubuntu**... `18.04`\n> **Servers**... `{str(len(self.bot.servers))}`\n> **Messages Received**... `{str(len(self.bot.messages))}`\n> **RAM Usage**... `??MB`")
 
 
             await self.bot.say(embed=stat)
