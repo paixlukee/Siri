@@ -19,7 +19,6 @@ from .utils import checks
 class Utility:
     def __init__(self, bot):
         self.bot = bot
-        self.process = psutil.Process(os.getpid())
 
 
     async def add_money(self, user=None, count=None):
