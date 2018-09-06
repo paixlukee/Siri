@@ -943,12 +943,6 @@ class Utility:
 
             roles = [x.id for x in server.role_hierarchy]
 
-            #emoji_name = [x.name for x in self.bot.get_all_emojis]
-
-            #emoji_id = [x.id for x in self.bot.get_all_emojis]
-
-            #emojis = "<:" + emoji_name + ":" + emoji_id + ">"
-
             roles = '>, <@&'.join(roles)
             roles = roles.replace("@everyone", "")
             e = roles[:-13]
