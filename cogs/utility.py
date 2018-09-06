@@ -13,7 +13,7 @@ from random import choice as rnd
 import aiohttp
 import asyncio
 import json
-from .utils import checks, money
+from .utils import checks
 
 
 class Utility:
