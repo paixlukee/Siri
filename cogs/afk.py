@@ -12,7 +12,7 @@ class AFK:
     async def afk(self, ctx):
         """Set as AFK so users will know to stop bothering you."""
         if ctx.invoked_subcommand is None:
-            await self.bot.say("`Incorrect Usage`\n```siri afk on|enable [reason]``` or ```siri afk off|disable```)
+            await self.bot.say("`Incorrect Usage`\n```siri afk on|enable [reason]``` or ```siri afk off|disable```")
         
     @afk.command(pass_context=True, aliases=['enable'])
     async def on(self, ctx, *, reason=None):
