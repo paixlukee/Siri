@@ -1,8 +1,6 @@
 import discord
 from discord.ext import commands
 
-import dbl
-
 import time
 from discord.ext.commands import errors, converter
 
