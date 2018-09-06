@@ -41,8 +41,10 @@ class AFK:
         with open('assets//afk_members.json', 'r') as f:
             users = json.load(f)
          
-        if user in users:
+        try:
             users[user] = {}
+            users[user]['AFK'] = True
+            users[user]['reason'] = reason
         else:
             users[user]['AFK'] = True
             users[user]['reason'] = reason
