@@ -45,7 +45,7 @@ class AFK:
             users[user] = {}
             users[user]['AFK'] = True
             users[user]['reason'] = reason
-        else:
+        except:
             users[user]['AFK'] = True
             users[user]['reason'] = reason
         
