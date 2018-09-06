@@ -38,27 +38,26 @@ class AFK:
         
         
     async def afk_on(self, user=None, reason=None):
-        with open(r'assets\afk_members.json', 'r') as f:
+        with open('assets//afk_members.json', 'r') as f:
             users = json.load(f)
             
         users[user]['AFK'] = True
         users[user]['reason'] = reason
         
-        with open(r'assets\afk_members.json', 'w') as f:
+        with open('assets//afk_members.json', 'r') as f:
             json.dump(users, f)
      
     async def afk_off(self, user=None):
-        with open(r'assets\afk_members.json', 'r') as f:
+        with open('assets//afk_members.json', 'r') as f:
             users = json.load(f)
             
         users[user]['AFK'] = False
         users[user]['reason'] = 'None'
         
-        with open(r'assets\afk_members.json', 'w') as f:
+        with open('assets\\afk_members.json', 'w') as f:
             json.dump(users, f)
         
-        
-       
+              
         
 def setup(bot):
   bot.add_cog(AFK(bot))
