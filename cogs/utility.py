@@ -780,6 +780,14 @@ class Utility:
                 embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, users))
                 embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
                 await self.bot.say(embed=embed)
+            elif code == 'server.channels':
+                for sc in ctx.message.server.channels:
+                    list = {}
+                    list.append(sc.name)
+                    embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, list))
+                    embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
+                    await self.bot.say(embed=embed)
+                    
             else:
                 
 
