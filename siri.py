@@ -17,9 +17,16 @@ import sys
 import json
 
 
+async def run_cmd(self, cmd: str) -> str:
+     process =\
+     await asyncio.create_subprocess_shell(cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+     results = await process.communicate()
+     return "".join(x.decode("utf-8") for x in results)
+
+
 ###
 ###
-extension = ['cogs.utility', 'cogs.help', 'cogs.music', 'cogs.economy']
+extension = ['cogs.utility', 'cogs.help', 'cogs.crypto', 'cogs.economy']
 
 prefixes = ['hey siri ', 'siri ', 'Siri ', 'Hey Siri ', 'siri, '] 
 
