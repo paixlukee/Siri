@@ -133,7 +133,9 @@ class Utility:
 
             author = ctx.message.author
 
-            stat = discord.Embed(color=0x36393E, description="\n\n**Siri. Discord Bot.**\n\n\n**Python**... `3.6`\n**Servers**... `{}`\n**Messages Received**... `{}`\n**Voice Clients**... `{}`\n**Prv Channels In**... `{}`".format(str(len(self.bot.servers)), str(len(self.bot.messages)), str(len(self.bot.voice_clients)), str(len(self.bot.private_channels))))
+            RAM = self.process.memory_full_info().rss  /  1024 ** 2
+
+            stat = discord.Embed(color=0x36393E, description=f"\n\n**Siri. by lukee#0420**\n\n\n> **Python**... `3.6`\n> **Ubuntu**... `18.04`\n> **Servers**... `{str(len(self.bot.servers))}`\n> **Messages Received**... `{str(len(self.bot.messages))}\n> **RAM Usage**... `{RAM:.2f}MB`")
 
 
             await self.bot.say(embed=stat)
