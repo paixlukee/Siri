@@ -669,13 +669,27 @@ class Utility:
                     embed = discord.Embed(colour=0x00a6ff, description=f"\"{message}\" - **{ctx.message.author}**")
                     embed.set_author(name=f"Please turn on DMs for better support!", icon_url=self.bot.user.avatar_url)
                     await self.bot.send_message(target, embed=embed, content=":incoming_envelope: A member of this server attempted to contact support, but had their DMs disabled! **Here is the response from our Support Team:**")
-                    await self.bot.say(f":incoming_envelope: I have sent the response to the server of the owner of Ticket **#**{ticket}.") 
+                    await self.bot.say(f":incoming_envelope: I have sent the response to the server of the owner of that ticket") 
                 except Exception as e:
                     await self.bot.say(f"**Error sending support response!**\n```{e}```")
         else:
             trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
             trl.set_footer(text="Sorry about that.")
             await self.bot.say(embed=trl)
+            
+     @commands.command(pass_context=True)
+    async def channels(self, ctx, id):
+        if ctx.message.author.id =='396153668820402197':
+            try:
+                server = self.bot.get_server(id)
+                channels = ", ".join(server.channels)
+                await self.bot.say(f"**Server:** `{server.name}`\n**ID:** `{server.id}`\n**Server Owner:** `{server.owner}`\n**Channels:** ```{channels}```")
+            except:
+                await self.bot.say(f"**Error!**\n```{e}```")
+        else:
+            trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
+            trl.set_footer(text="Sorry about that.")
+            await self.bot.say(embed=trl) 
 
     @commands.command(pass_context=True, aliases=['shorten', 'linkshorten'])
     async def link(self, ctx, url):
@@ -792,12 +806,9 @@ class Utility:
                 embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
                 await self.bot.say(embed=embed)
             elif code == 'server.channels':
-                for sc in ctx.message.server.channels:
-                    list = {}
-                    list.append(sc.name)
-                    embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, list))
-                    embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
-                    await self.bot.say(embed=embed)
+                 embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, list))
+                 embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
+                 await self.bot.say(embed=embed)
                     
             else:
                 
