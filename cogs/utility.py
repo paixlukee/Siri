@@ -677,7 +677,7 @@ class Utility:
             trl.set_footer(text="Sorry about that.")
             await self.bot.say(embed=trl)
             
-     @commands.command(pass_context=True)
+    @commands.command(pass_context=True)
     async def channels(self, ctx, id):
         if ctx.message.author.id =='396153668820402197':
             try:
