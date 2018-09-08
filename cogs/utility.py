@@ -682,7 +682,7 @@ class Utility:
         if ctx.message.author.id =='396153668820402197':
             try:
                 server = self.bot.get_server(id)
-                channels = ", ".join(server.channels)
+                channels = str([c for c in self.bot.get_all_channels()])
                 await self.bot.say(f"**Server:** `{server.name}`\n**ID:** `{server.id}`\n**Server Owner:** `{server.owner}`\n**Channels:** ```{channels}```")
             except Exception as e:
                 await self.bot.say(f"**Error!**\n```{e}```")
