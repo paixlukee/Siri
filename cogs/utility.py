@@ -684,7 +684,7 @@ class Utility:
                 server = self.bot.get_server(id)
                 channels = ", ".join(server.channels)
                 await self.bot.say(f"**Server:** `{server.name}`\n**ID:** `{server.id}`\n**Server Owner:** `{server.owner}`\n**Channels:** ```{channels}```")
-            except:
+            except Exception as e:
                 await self.bot.say(f"**Error!**\n```{e}```")
         else:
             trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
