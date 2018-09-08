@@ -656,11 +656,22 @@ class Utility:
     @commands.command(pass_context=True, aliases="resp")
     async def respond(self, ctx, ticket, id, *, message):
         if ctx.message.author.id =='396153668820402197':
-            target = discord.utils.get(self.bot.get_all_members(), id=id)
-            embed = discord.Embed(colour=0x00a6ff, description=f"\"{message}\"")
-            embed.set_author(name=f"In response to ticket #{ticket}..", icon_url=self.bot.user.avatar_url)
-            await self.bot.send_message(target, embed=embed)
-            await self.bot.say(f":incoming_envelope: I have sent the response to the owner of Ticket **#**{ticket}.")
+            try:
+                target = discord.utils.get(self.bot.get_all_members(), id=id)
+                embed = discord.Embed(colour=0x00a6ff, description=f"\"{message}\" - **{ctx.message.author}**")
+                embed.set_author(name=f"In response to ticket #{ticket}..", icon_url=self.bot.user.avatar_url)
+                await self.bot.send_message(target, embed=embed)
+                await self.bot.say(f":incoming_envelope: I have sent the response to the owner of Ticket **#**{ticket}.")
+            except:
+                try:
+                    server = self.bot.get_server(id)
+                    target = discord.utils.get(server.channels, name=ticket)
+                    embed = discord.Embed(colour=0x00a6ff, description=f"\"{message}\" - **{ctx.message.author}**")
+                    embed.set_author(name=f"Please turn on DMs for better support!", icon_url=self.bot.user.avatar_url)
+                    await self.bot.send_message(target, embed=embed, content=":incoming_envelope: A member of this server attempted to contact support, but had their DMs disabled! **Here is the response from our Support Team:**")
+                    await self.bot.say(f":incoming_envelope: I have sent the response to the server of the owner of Ticket **#**{ticket}.") 
+                except Exception as e:
+                    await self.bot.say(f"**Error sending support response!**\n```{e}```")
         else:
             trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
             trl.set_footer(text="Sorry about that.")
