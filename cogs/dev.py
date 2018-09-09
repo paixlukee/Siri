@@ -156,7 +156,7 @@ class Developer:
             await self.bot.say(e)
             return
         except Exception as e:
-            await await self.bot.say('{}: {!s}'.format(type(e).__name__, e))
+            await self.bot.say('{}: {!s}'.format(type(e).__name__, e))
             return
 
         if asyncio.iscoroutine(result):
