@@ -88,7 +88,7 @@ class Developer:
                 await self.bot.say(embed=embed)
 
             else:
-                if len(result) > 1500:
+                if str(len(result)) > 1500:
                     await self.bot.send_message(ctx.message.channel, ":weary::ok_hand: The output is too long to send to chat. Here is **a** file..")
                     await self.bot.send_file(ctx.message.channel, 'assets\\hentai.txt', filename=f'click-for-hentai.txt')
                     return
