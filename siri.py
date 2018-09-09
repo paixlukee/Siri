@@ -178,7 +178,7 @@ async def pull(ctx):
     if ctx.message.author.id =='396153668820402197':
         shell = await run_cmd('git pull Siri --no-commit --no-edit --ff-only master')
         await run_cmd('git fetch --all')
-        embed = discord.Embed(colour=0x0000ff, description=f"```{shell}```")
+        embed = discord.Embed(colour=0x0000ff, description=f"```css\n{shell}```")
         embed.set_author(name="Pulled from git..", icon_url="https://avatars0.githubusercontent.com/u/9919?s=280&v=4")
         msg = await bot.say(embed=embed)
     else:
@@ -189,11 +189,11 @@ async def pull(ctx):
 @bot.command(pass_context=True, hidden=True)
 async def shell(ctx, *, code):
     if ctx.message.author.id =='396153668820402197':
-        embed = discord.Embed(colour=0x000fff, description=f"```Connecting to shell..```")
+        embed = discord.Embed(colour=0x000fff, description=f"```css\nConnecting to shell..```")
         embed.set_author(name="Please Wait.", icon_url=bot.user.avatar_url)
         msg = await bot.say(embed=embed)
         shell = await run_cmd(code)
-        embed = discord.Embed(colour=0x000fff, description=f"```{shell}```")
+        embed = discord.Embed(colour=0x000fff, description=f"```css\n{shell}```")
         embed.set_author(name="Shell", icon_url=bot.user.avatar_url)
         await bot.delete_message(msg)
         await bot.say( embed=embed)
