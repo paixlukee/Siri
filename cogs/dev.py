@@ -137,9 +137,9 @@ class Developer:
         env = {
             'bot': ctx.bot,
             'ctx': ctx,
-            'channel': ctx.channel,
-            'author': ctx.author,
-            'guild': ctx.guild,
+            'channel': ctx.message.channel,
+            'author': ctx.message.author,
+            'guild': ctx.message.server,
             'message': ctx.message,
             'discord': discord,
             'commands': commands,
