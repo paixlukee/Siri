@@ -272,10 +272,6 @@ class Utility:
                 await self.bot.delete_message(msg)
                 await self.bot.say(f"I couldn't find anything..")
 
-    @commands.command(pass_context=True)
-    async def test(self, ctx):
-        await self.bot.say("This is just a better test.")
-
     @commands.command(pass_context=True, hidden=True)
     @checks.admin_or_permissions(manage_server=True)
     async def uwu(self, ctx, c:int, *, message):
@@ -651,46 +647,7 @@ class Utility:
         except:
             pass
         await self.bot.say(embed=embed)
-
-
-    @commands.command(pass_context=True, aliases="resp")
-    async def respond(self, ctx, ticket, id, *, message):
-        if ctx.message.author.id =='396153668820402197':
-            try:
-                target = discord.utils.get(self.bot.get_all_members(), id=id)
-                embed = discord.Embed(colour=0x00a6ff, description=f"\"{message}\" - **{ctx.message.author}**")
-                embed.set_author(name=f"In response to ticket #{ticket}..", icon_url=self.bot.user.avatar_url)
-                await self.bot.send_message(target, embed=embed)
-                await self.bot.say(f":incoming_envelope: I have sent the response to the owner of Ticket **#**{ticket}.")
-            except:
-                try:
-                    server = self.bot.get_server(id)
-                    target = discord.utils.get(server.channels, name=ticket)
-                    embed = discord.Embed(colour=0x00a6ff, description=f"\"{message}\" - **{ctx.message.author}**")
-                    embed.set_author(name=f"Please turn on DMs for better support!", icon_url=self.bot.user.avatar_url)
-                    await self.bot.send_message(target, embed=embed, content=":incoming_envelope: A member of this server attempted to contact support, but had their DMs disabled! **Here is the response from our Support Team:**")
-                    await self.bot.say(f":incoming_envelope: I have sent the response to the server of the owner of that ticket") 
-                except Exception as e:
-                    await self.bot.say(f"**Error sending support response!**\n```{e}```")
-        else:
-            trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
-            trl.set_footer(text="Sorry about that.")
-            await self.bot.say(embed=trl)
-            
-    @commands.command(pass_context=True)
-    async def channels(self, ctx, id):
-        if ctx.message.author.id =='396153668820402197':
-            try:
-                server = self.bot.get_server(id)
-                channels = str([c for c in self.bot.get_all_channels()])
-                await self.bot.say(f"**Server:** `{server.name}`\n**ID:** `{server.id}`\n**Server Owner:** `{server.owner}`\n**Channels:** ```{channels}```")
-            except Exception as e:
-                await self.bot.say(f"**Error!**\n```{e}```")
-        else:
-            trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
-            trl.set_footer(text="Sorry about that.")
-            await self.bot.say(embed=trl) 
-
+          
     @commands.command(pass_context=True, aliases=['shorten', 'linkshorten'])
     async def link(self, ctx, url):
         """- Shorten a link"""
@@ -769,94 +726,6 @@ class Utility:
     async def support(self, ctx):
         await self.bot.say("__**Support**__:\nTo submit a ticket, do `siri ticket <message>`..\nTo join a support server, click here: https://discord.gg/2RSErBu")
 
-
-    @commands.command(pass_context=True, aliases=['eval', 'exec', 'ev', 'ex'], hidden=True)
-    async def debug(self, ctx, *, code):
-        if ctx.message.author.id =='396153668820402197':
-
-            if code == 'bot.http.token':
-                embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\nyou thought wrong.. slut```".format(code))
-                embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
-                await self.bot.say(embed=embed)
-            elif code == 'bot.logout()':
-                prm = '{object Promise}'
-                embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, prm))
-                embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
-                await self.bot.say(embed=embed)
-                await self.bot.logout()
-            elif code == 'bot.lcount':
-                users = len(set(self.bot.get_all_members()))
-                channels = len([c for c in self.bot.get_all_channels()])
-                servers = str(len(self.bot.servers))
-                prm = {"servers": servers, "channels": channels, "users": users}
-                embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, prm))
-                embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
-                await self.bot.say(embed=embed)
-            elif code == 'print(bot.servers)':
-                embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n:-```".format(code))
-                embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
-                await self.bot.say(embed=embed)
-                for e in self.bot.servers:
-                    #users = len(set(self.bot.get_all_members()))
-                    print(f"{e.name} [{e.id}] ({len(e.members)}),")
-            elif code == 'cogs.economy.json':#yes my eval sux so i have to do it like this fuck off
-                with open('assets\\economy.json', 'r') as f:
-                    users = json.load(f)
-                embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, users))
-                embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
-                await self.bot.say(embed=embed)
-            elif code == 'server.channels':
-                 embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, list))
-                 embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
-                 await self.bot.say(embed=embed)
-                    
-            else:
-                
-
-
-                author = ctx.message.author
-                channel = ctx.message.channel
-
-                code = code.strip('` ')
-                result = None
-
-                global_vars = globals().copy()
-                global_vars['bot'] = self.bot
-                global_vars['ctx'] = ctx
-                global_vars['message'] = ctx.message
-                global_vars['author'] = ctx.message.author
-                global_vars['channel'] = ctx.message.channel
-                global_vars['server'] = ctx.message.server
-
-                try:
-                    result = eval(code, global_vars, locals())
-                except Exception as e:
-                    embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}: {}```".format(code, type(e).__name__, str(e), lang="py"))
-                    embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
-                    #await self.bot.say(('{}: {}'.format(type(e).__name__, str(e), lang="py")))
-                    await self.bot.say(embed=embed)
-                    return#enumerate(
-
-                for page, i in result:
-
-                    if i != 0 and i % 1 == 0:
-                        b = open("khaki-eval.txt","w")
-                        b.write("\n{}".format(page, lang="py"))
-                        b.close()
-
-                        await self.bot.send_message(ctx.message.channel, "The output is too long to send to chat. Here is the file..")
-                        await self.bot.send_file(ctx.message.channel, 'assets\\eval.txt', filename=f'siri-eval.txt')
-                        return
-                    else:
-                        embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, page, lang="py"))
-                        embed.set_footer(text="Code Evaluation | {} ".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
-                        #await self.bot.say(('{}: {}'.format(type(e).__name__, str(e), lang="py")))
-                        await self.bot.say(embed=embed)
-                        return
-        else:
-            trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
-
-            await self.bot.say(embed=trl)
 
     @commands.command(pass_context=True, aliases=['color'])
     async def colour(self, ctx, col = None):
@@ -963,23 +832,15 @@ class Utility:
         else:
 
             message = ctx.message
-
             author = ctx.message.author
-
             server = ctx.message.server
-
             roles = list(author.roles)
             permissions = list(author.server_permissions)
-
             roles = [x.id for x in server.role_hierarchy]
-
             roles = '>, <@&'.join(roles)
             roles = roles.replace("@everyone", "")
             e = roles[:-13]
             ea = e.replace("@deleted-role", "@everyone")
-
-            #el = ' '.join(emojis)
-
             rl = discord.Embed(colour=0x00e1e1)
             rl.set_author(name="Server Info", icon_url=server.icon_url)
             rl.set_thumbnail(url=server.icon_url)
@@ -987,86 +848,43 @@ class Utility:
             rl.add_field(name="ID:", value=server.id)
             rl.add_field(name="Region:", value=server.region)
             rl.add_field(name="Emojis:", value=f"**{str(len(server.emojis))}**")
-
             rl.add_field(name="Roles:", value=f"<@&{ea[:-10]} (**{str(len(server.roles))}**)")
-
-
             rl.add_field(name='Server Owner:', value=server.owner.mention)
             rl.add_field(name='Server Created:', value=server.created_at.__format__('%A, %B %d, %Y'))
             rl.add_field(name="Members:", value=server.member_count)
             rl.add_field(name="Channels:", value=str(len(server.channels)))
             rl.add_field(name="Verification:", value=server.verification_level)
-
-
             await self.bot.say(embed=rl)
 
-
-
-
     @commands.command(pass_context=True, aliases=['userinformation'])
-    async def userinfo(self, ctx, user: discord.User= None):
+    async def userinfo(self, ctx, member: discord.User= None):
         """- Information about a member"""
         if ctx.message.author.bot: return
         try:
             await self.add_money(user=ctx.message.author.id, count=1)
         except:
             pass
-
-        if user is None:
-
-            message = ctx.message
-
-            author = ctx.message.author
-
-            server = ctx.message.server
-
-            roles = list(author.roles)
-            permissions = list(author.server_permissions)
-
-            await self.bot.add_reaction(message, '🔍')
-
-            rl = discord.Embed(colour=author.colour)
-            rl.set_author(name="User Info", icon_url=author.avatar_url)
-            rl.set_thumbnail(url=author.avatar_url)
-            rl.add_field(name="Username:", value='{}'.format(author), inline=False)
-            rl.add_field(name="Nickname:", value=author.nick)
-            rl.add_field(name="Status:", value=author.status)
-            rl.add_field(name="Playing:", value=author.game)
-
-            rl.add_field(name="Roles:", value=author.top_role.name + " **(" + str(len(author.roles)) + ")**")
-
-
-            rl.add_field(name='Joined Server:', value=author.joined_at.__format__('%A, %B %d, %Y'))
-            rl.add_field(name='Account Created:', value=author.created_at.__format__('%A, %B %d, %Y'))
-            rl.add_field(name="User ID:", value=author.id)
-
-
-            await self.bot.say(embed=rl)
-
+        
+        if member is None:
+            user = ctx.message.author
         else:
+            user = member
 
-            message = ctx.message
-
-            server = ctx.message.server
-
-            await self.bot.add_reaction(message, '🔍')
-
-            trl = discord.Embed(colour=user.colour)
-            trl.set_author(name="User Info", icon_url=user.avatar_url)
-            trl.set_thumbnail(url=user.avatar_url)
-            trl.add_field(name="Username:", value='{}'.format(user), inline=False)
-            trl.add_field(name="Nickname:", value=user.nick)
-            trl.add_field(name="Status:", value=user.status)
-            trl.add_field(name="Playing:", value=user.game)
-            trl.add_field(name="Roles:", value=user.top_role.name + " **(" + str(len(user.roles)) + ")**")
-
-
-            trl.add_field(name='Joined Server:', value=user.joined_at.__format__('%A, %B %d, %Y'))
-            trl.add_field(name='Account Created:', value=user.created_at.__format__('%A, %B %d, %Y'))
-            trl.add_field(name="User ID:", value=user.id)
-
-
-            await self.bot.say(embed=trl)
+        message = ctx.message
+        server = ctx.message.server
+        await self.bot.add_reaction(message, '🔍')
+        trl = discord.Embed(colour=user.colour)
+        trl.set_author(name="User Info", icon_url=user.avatar_url)
+        trl.set_thumbnail(url=user.avatar_url)
+        trl.add_field(name="Username:", value='{}'.format(user), inline=False)
+        trl.add_field(name="Nickname:", value=user.nick)
+        trl.add_field(name="Status:", value=user.status)
+        trl.add_field(name="Playing:", value=user.game)
+        trl.add_field(name="Roles:", value=user.top_role.name + " **(" + str(len(user.roles)) + ")**")
+        trl.add_field(name='Joined Server:', value=user.joined_at.__format__('%A, %B %d, %Y'))
+        trl.add_field(name='Account Created:', value=user.created_at.__format__('%A, %B %d, %Y'))
+        trl.add_field(name="User ID:", value=user.id)
+        await self.bot.say(embed=trl)
 
 
 def setup(bot):
