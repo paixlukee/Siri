@@ -133,46 +133,68 @@ class Developer:
 
             await self.bot.say(embed=trl)
             
-    @commands.command(pass_context=True)
-    async def fakeval(self, ctx, *, code):
-        env = {
-            'bot': ctx.bot,
-            'ctx': ctx,
-            'channel': ctx.message.channel,
-            'author': ctx.message.author,
-            'guild': ctx.message.server,
-            'message': ctx.message,
-            'discord': discord,
-            'commands': commands,
-            'requests': requests,
-            'os': os,
-            '_': self._last_result
-        }
-
+    @commands.command(pass_context=True, aliases=['debug', 'ev'])
+    async def eval(self, ctx, *, code):
+        """thanksss skuwww"""
         try:
-            result = eval(code, env)
-        except SyntaxError as e:
-            await self.bot.say(e)
-            return
-        except Exception as e:
-            await self.bot.say('{}: {!s}'.format(type(e).__name__, e))
-            return
+            env = {
+                'bot': ctx.bot,
+                'ctx': ctx,
+                'channel': ctx.message.channel,
+                'author': ctx.message.author,
+                'guild': ctx.message.server,
+                'message': ctx.message,
+                'discord': discord,
+                'commands': commands,
+                'requests': requests,
+                'os': os,
+                '_': self._last_result
+            }
 
-        if asyncio.iscoroutine(result):
-            result = await result
+            try:
+                result = eval(code, env)
+            except SyntaxError as e:
+                embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}: {}```".format(code, result, lang="py"))
+                embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
+                await self.bot.say(embed=embed)
+                return
+            except Exception as e:
+                embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}: {}```".format(code, result, lang="py"))
+                embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
+                await self.bot.say(embed=embed)
+                return
 
-        self._last_result = result
-        if code == "bot.http.token":
-            await self.bot.say("...")
+            if asyncio.iscoroutine(result):
+                result = await result
 
-        else:
-            if len(result) > 1500:
-                await self.bot.say("cant rn..")
+            self._last_result = result
+            if code == "bot.http.token":
+                embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\nyou thought wrong.. slut```".format(code))
+                embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
+                await self.bot.say(embed=embed)
+
             else:
-                try:
-                    await self.bot.say(result)
-                except Exception as e:
-                    await self.bot.say(f"`{e}`")
+                if len(result) > 1500:
+                    await self.bot.send_message(ctx.message.channel, ":weary::ok_hand: The output is too long to send to chat. Here is **a** file..")
+                    await self.bot.send_file(ctx.message.channel, 'assets\\hentai.txt', filename=f'click-for-hentai.txt')
+                    return
+                else:
+                    try:
+                        embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}: {}```".format(code, result, lang="py"))
+                        embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
+                        await self.bot.say(embed=embed)
+                        return
+                    except Exception as e:
+                        embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}: {}```".format(code, result, lang="py"))
+                        embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
+                        await self.bot.say(embed=embed)
+                        return
+                    
+        except Exception as e:
+            embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}: {}```".format(code, result, lang="py"))
+            embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
+            await self.bot.say(embed=embed)
+            return
             
 
             
