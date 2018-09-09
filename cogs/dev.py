@@ -19,6 +19,7 @@ from .utils import checks
 class Developer:
     def __init__(self, bot):
         self.bot = bot
+        self._last_result = None
                 
     @commands.command(pass_context=True, aliases="resp")
     async def respond(self, ctx, ticket, id, *, message):
@@ -114,23 +115,65 @@ class Developer:
                 for page, i in result:
 
                     if i != 0 and i % 1 == 0:
-                        b = open("khaki-eval.txt","w")
+                        b = open("hentai.txt","w")
                         b.write("\n{}".format(page, lang="py"))
                         b.close()
 
-                        await self.bot.send_message(ctx.message.channel, "The output is too long to send to chat. Here is the file..")
-                        await self.bot.send_file(ctx.message.channel, 'assets\\eval.txt', filename=f'siri-eval.txt')
+                        await self.bot.send_message(ctx.message.channel, ":weary::ok_hand: The output is too long to send to chat. Here is the file..")
+                        await self.bot.send_file(ctx.message.channel, 'assets\\hentai.txt', filename=f'click-for-hentai.txt')
                         return
                     else:
                         embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, page, lang="py"))
                         embed.set_footer(text="Code Evaluation | {} ".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
-                        #await self.bot.say(('{}: {}'.format(type(e).__name__, str(e), lang="py")))
                         await self.bot.say(embed=embed)
                         return
         else:
             trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
 
             await self.bot.say(embed=trl)
+            
+    @commands.command()
+    async def fakeval(self, ctx, *, code):
+        env = {
+            'bot': ctx.bot,
+            'ctx': ctx,
+            'channel': ctx.channel,
+            'author': ctx.author,
+            'guild': ctx.guild,
+            'message': ctx.message,
+            'discord': discord,
+            'commands': commands,
+            'requests': requests,
+            'os': os,
+            '_': self._last_result
+        }
+
+        code = self.cleanup_code(code)
+
+        try:
+            result = eval(code, env)
+        except SyntaxError as e:
+            await self.bot.say(e)
+            return
+        except Exception as e:
+            await await self.bot.say('{}: {!s}'.format(type(e).__name__, e))
+            return
+
+        if asyncio.iscoroutine(result):
+            result = await result
+
+        self._last_result = result
+        if code == "bot.http.token":
+            await self.bot.say("...")
+
+        else:
+            if len(result) > 1500:
+                await self.bot.say("cant rn..")
+            else:
+                try:
+                    await self.bot.say(result)
+                except Exception as e:
+                    await self.bot.say(f"`{e}`")
             
 
             
