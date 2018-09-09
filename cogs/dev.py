@@ -132,7 +132,7 @@ class Developer:
 
             await self.bot.say(embed=trl)
             
-    @commands.command()
+    @commands.command(pass_context=True)
     async def fakeval(self, ctx, *, code):
         env = {
             'bot': ctx.bot,
