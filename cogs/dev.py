@@ -149,8 +149,6 @@ class Developer:
             '_': self._last_result
         }
 
-        code = self.cleanup_code(code)
-
         try:
             result = eval(code, env)
         except SyntaxError as e:
