@@ -90,8 +90,9 @@ class Developer:
 
                 else:
                     if len(result) > 1500:
-                        await self.bot.send_message(ctx.message.channel, ":weary::ok_hand: The output is too long to send to chat. Here is **a** file..")
-                        await self.bot.send_file(ctx.message.channel, 'assets\\hentai.txt', filename=f'click-for-hentai.txt')
+                        r = requests.post(f"https://hastebin.com/documents",
+                        data=result.encode('utf-8')).json()
+                        await self.bot.send_message(ctx.message.channel, ":weary::ok_hand: The output is too long to send to chat. Here is a hastebin file for ya.. :point_right: https://hastebin.com/" + r['key'])
                         return
                     else:
                         try:
