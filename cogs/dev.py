@@ -58,6 +58,7 @@ class Developer:
                 'guild': ctx.message.server,
                 'message': ctx.message,
                 'discord': discord,
+                'random': random,
                 'commands': commands,
                 'requests': requests,
                 'os': os,
