@@ -93,18 +93,18 @@ class Developer:
                     return
                 else:
                     try:
-                        embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}: {}```".format(code, result, lang="py"))
+                        embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}: {}```".format(code, result))
                         embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
                         await self.bot.say(embed=embed)
                         return
                     except Exception as e:
-                        embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}: {}```".format(code, e, lang="py"))
+                        embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}: {}```".format(code, e))
                         embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
                         await self.bot.say(embed=embed)
                         return
                     
         except Exception as e:
-            embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}: {}```".format(code, e, lang="py"))
+            embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}: {}```".format(code, e))
             embed.set_footer(text="Code Evaluation | {}".format(ctx.message.timestamp.__format__('%A %H:%m')), icon_url=self.bot.user.avatar_url)
             await self.bot.say(embed=embed)
             return
