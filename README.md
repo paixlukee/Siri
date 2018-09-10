@@ -8,5 +8,8 @@ seriously my code is very messy and
 
 * You should put the token to `config.py`
 ```python
-token = 'token here'
+	token = 'token here'
 ```
+
+> I didn't update some commands.
+> iWeeti
