@@ -12,4 +12,4 @@ seriously my code is very messy and
 ```
 
 > I didn't update some commands.
-> iWeeti
+> -iWeeti
