@@ -18,7 +18,7 @@ import json
 
 import config
 
-extension = ['cogs.utility', 'cogs.help', 'cogs.crypto', 'cogs.economy']
+extension = ['cogs.utility', 'cogs.help', 'cogs.crypto', 'cogs.economy', 'cogs.dev', 'cogs.afk']
 
 class Siri(commands.AutoShardedBot):
     def __init__(self):
@@ -45,7 +45,6 @@ class Siri(commands.AutoShardedBot):
         users = len(set(self.get_all_members()))
         sayings = [f'{users} users smile', f'{str(len(self.guilds))} guilds', 'What can I help you with?']
         while True:
-            # await self.change_presence(game=discord.Game(name=, type=3))
             game = discord.Activity(name=f'{rnd(sayings)} | siri help', type=discord.ActivityType.watching)
             await self.change_presence(status=discord.Status.online, activity=game)
             await asyncio.sleep(30)
@@ -62,49 +61,34 @@ class Siri(commands.AutoShardedBot):
         try:
             await log.send(embed=embed)
         except:
-            pass #this is just to ignore the error message luke :P
+            print('\n\nfailed to send message to 478821892309123091 (#logs)')
 
     async def on_guild_join(self, guild):
         log = self.get_channel(478821892309123091)
+        server = guild
         embed = discord.Embed(description=f":tada: **Yay!** Siri has joined `{guild.name}`! Siri is now in `{str(len(self.guilds))}` guilds!")
         await log.senf(embed=embed)
-        target = discord.utils.get(guild.channels, name="bot")
-        target2 = discord.utils.get(guild.channels, name="bots")
-        target3 = discord.utils.get(guild.channels, name="bot-commands")
-        target4 = discord.utils.get(guild.channels, name="bot-spam")
-        target5 = discord.utils.get(guild.channels, name="testing")
-        target6 = discord.utils.get(guild.channels, name="testing-1")
-        target7 = discord.utils.get(guild.channels, name="general")
-        target8 = discord.utils.get(guild.channels, name="shitposts")
-        target9 = discord.utils.get(self.get_all_members(), id=guild.owner.id)
+        targets = [
+            discord.utils.get(server.channels, name="bot"),
+            discord.utils.get(server.channels, name="bots"),
+            discord.utils.get(server.channels, name="bot-commands"),
+            discord.utils.get(server.channels, name="bot-spam"),
+            discord.utils.get(server.channels, name="bot-channel"),
+            discord.utils.get(server.channels, name="testing"),
+            discord.utils.get(server.channels, name="testing-1"),
+            discord.utils.get(server.channels, name="general"),
+            discord.utils.get(server.channels, name="shitposts"),
+            discord.utils.get(bot.get_all_members(), id=server.owner.id)
+            ]
         embed = discord.Embed(colour=0x0000ff, title="👋 Hello!", description="Hello! I am DiscordSiri.\n\n> **For help, do** `siri help`\n> **For support, do** `siri ticket <message>`\n> **Want even more support? Join my guild:** https://discord.gg/2RSErBu\n> **To chat with me, ping me!**\n> **To create a profile and start earning §, do** `siri bank create`\n\n> **Other prefixes:** `hey siri`  `siri,`")
         embed.set_image(url="https://image.ibb.co/mJY82z/siribanner.png")
         embed.set_footer(text="self created by lukee#0420", icon_url=self.user.avatar_url)
-        try:
-            await target.send(embed=embed)
-        except:
+        for x in targets:
             try:
-                await target2.send(embed=embed)
+                await x.send(embed=embed)
             except:
-                try:
-                    await target3.send(embed=embed)
-                except:
-                    try:
-                        await target4.send(embed=embed)
-                    except:
-                        try:
-                            await target5.send(embed=embed)
-                        except:
-                            try:
-                                await target6.send(embed=embed)
-                            except:
-                                try:
-                                    await target7.send(embed=embed)
-                                except:
-                                    try:
-                                        await target8.send(embed=embed)
-                                    except:
-                                        await target9.send(embed=embed)
+                continue
+            break
 
     async def on_guild_remove(self, guild):
         log = self.get_channel(478821892309123091)
