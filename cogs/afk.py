@@ -7,14 +7,13 @@ class AFK:
     def __init__(self, bot):
         self.bot = bot
         
-        
-    @commands.group(pass_context=True, aliases=['away'])
+    @commands.group(aliases=['away'])
     async def afk(self, ctx):
         """Set as AFK so users will know to stop bothering you."""
         if ctx.invoked_subcommand is None:
-            await self.bot.say("`Incorrect Usage`\n```siri afk on|enable [reason]``` or ```siri afk off|disable```")
+            await ctx.send("`Incorrect Usage`\n```siri afk on|enable [reason]``` or ```siri afk off|disable```")
         
-    @afk.command(pass_context=True, aliases=['enable'])
+    @afk.command(aliases=['enable'])
     async def on(self, ctx, *, reason=None):
         """Turn AFK On (AFK SUB)"""
         if reason is None:
@@ -23,18 +22,18 @@ class AFK:
             pass
         try:
             await self.afk_on(user=ctx.message.author.id, reason=reason)
-            await self.bot.say("<:idle:483080613687984131> I have successfully set you as **AFK**!")
+            await ctx.send("<:idle:483080613687984131> I have successfully set you as **AFK**!")
         except Exception as e:
-            await self.bot.say(f"```py\n{e}```")
+            await ctx.send(f"```py\n{e}```")
       
-    @afk.command(pass_context=True, aliases=['disable'])
+    @afk.command(aliases=['disable'])
     async def off(self, ctx):
         """Turn AFK Off (AFK SUB)"""
         try:
             await self.afk_off(user=ctx.message.author.id)
-            await self.bot.say(f"<:online:313956277808005120> Welcome back, **{ctx.message.author}**!")
+            await ctx.send(f"<:online:313956277808005120> Welcome back, **{ctx.message.author}**!")
         except Exception as e:
-            await self.bot.say(f"```py\n{e}```")
+            await ctx.send(f"```py\n{e}```")
         
         
     async def afk_on(self, user=None, reason=None):
