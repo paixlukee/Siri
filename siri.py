@@ -22,8 +22,7 @@ extension = ['cogs.utility', 'cogs.help', 'cogs.crypto', 'cogs.economy', 'cogs.d
 
 class Siri(commands.AutoShardedBot):
     def __init__(self):
-        prefixes = ['hey siri ', 'siri ', 'Siri ', 'Hey Siri ', 'siri, '] 
-        super().__init__(command_prefix=prefixes)
+        super().__init__(command_prefix=config.prefixes)
         self.remove_command("help")
         self.add_command(self.shutdown)
         self.add_command(self.cl)
