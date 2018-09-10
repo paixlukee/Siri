@@ -19,7 +19,7 @@ class Economy:
         self.bot = bot
         self.s = '§'
 
-    @commands.command(pass_context=True, aliases=['setcolor'])
+    @commands.command(aliases=['setcolor'])
     async def setcolour(self, ctx, colour):
         """Sets Profile Colour
 
@@ -34,45 +34,45 @@ class Economy:
         - White
 
         """
-        with open('assets//economy.json', 'r') as f:
+        with open('assets/economy.json', 'r') as f:
             users = json.load(f)
 
         if colour is None:
-            await self.bot.say("`Incorrect Usage`\n```siri setcolour <colour-name>```")
+            await ctx.send("`Incorrect Usage`\n```siri setcolour <colour-name>```")
 
-        elif ctx.message.author.id in users:
+        elif str(ctx.author.id) in users:
             
             if colour == 'pink' or colour == 'Pink':
-                await self.set_col(users, user=ctx.message.author.id, colour=0xff93f4)
-                await self.bot.say("Set.")
+                await self.set_col(users, user=str(ctx.author.id), colour=0xff93f4)
+                await ctx.send("Set.")
             elif colour == 'blue' or colour == 'Blue':
-                await self.set_col(users, user=ctx.message.author.id, colour=0x0000ff)
-                await self.bot.say("Set.")
+                await self.set_col(users, user=str(ctx.author.id), colour=0x0000ff)
+                await ctx.send("Set.")
             elif colour == 'green' or colour == 'Green':
-                await self.set_col(users, user=ctx.message.author.id, colour=0x00ff00)
-                await self.bot.say("Set.")
+                await self.set_col(users, user=str(ctx.author.id), colour=0x00ff00)
+                await ctx.send("Set.")
             elif colour == 'red' or colour == 'Red':
-                await self.set_col(users, user=ctx.message.author.id, colour=0xff0000)
-                await self.bot.say("Set.")
+                await self.set_col(users, user=str(ctx.author.id), colour=0xff0000)
+                await ctx.send("Set.")
             elif colour == 'violet' or colour == 'Violet':
-                await self.set_col(users, user=ctx.message.author.id, colour=0xa341f4)
-                await self.bot.say("Set.")
+                await self.set_col(users, user=str(ctx.author.id), colour=0xa341f4)
+                await ctx.send("Set.")
             elif colour == 'orange' or colour == 'Orange':
-                await self.set_col(users, user=ctx.message.author.id, colour=0xff9d00)
-                await self.bot.say("Set.")
+                await self.set_col(users, user=str(ctx.author.id), colour=0xff9d00)
+                await ctx.send("Set.")
             elif colour == 'yellow' or colour == 'Yellow':
-                await self.set_col(users, user=ctx.message.author.id, colour=0xffff00)
-                await self.bot.say("Set.")
+                await self.set_col(users, user=str(ctx.author.id), colour=0xffff00)
+                await ctx.send("Set.")
             elif colour == 'white' or colour == 'White':
-                await self.set_col(users, user=ctx.message.author.id, colour=0xffffff)
-                await self.bot.say("Set.")
+                await self.set_col(users, user=str(ctx.author.id), colour=0xffffff)
+                await ctx.send("Set.")
             else:
-                await self.bot.say("That isn't a valid colour! View the colour list with `siri help cmd setcolour`\n```If you would like to suggest a colour, send a ticket ('siri ticket <message>') with the colour name and hex.```")
+                await ctx.send("That isn't a valid colour! View the colour list with `siri help cmd setcolour`\n```If you would like to suggest a colour, send a ticket ('siri ticket <message>') with the colour name and hex.```")
             
             with open('assets/economy.json', 'w') as f:
                 json.dump(users, f)
         else:
-            await self.bot.say("You don't have a bank account, create one with `siri bank create`!")
+            await ctx.send("You don't have a bank account, create one with `siri bank create`!")
 
     @commands.command(pass_context=True)
     async def description(self, ctx, *, message):
@@ -81,20 +81,20 @@ class Economy:
             users = json.load(f)
 
         if message is None:
-            await self.bot.say("`Incorrect Usage`\n```siri description <description>```")
+            await ctx.send("`Incorrect Usage`\n```siri description <description>```")
 
         elif len(message) > 400:
-            await self.bot.say("Description cannot be longer than 400 characters!")
+            await ctx.send("Description cannot be longer than 400 characters!")
 
-        elif ctx.message.author.id in users:
-            await self.bot.say("Set.")
-            await self.set_desc(users, user=ctx.message.author.id, description=message)
-            with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'w') as f:
+        elif str(ctx.author.id) in users:
+            await ctx.send("Set.")
+            await self.set_desc(users, user=str(ctx.author.id), description=message)
+            with open('assets\\economy.json', 'w') as f:
                 json.dump(users, f)
         else:
-            await self.bot.say("You don't have a bank account, create one with `siri bank create`!")
+            await ctx.send("You don't have a bank account, create one with `siri bank create`!")
 
-    @commands.command(pass_context=True, aliases=['birthday'])
+    @commands.command(aliases=['birthday'])
     async def bday(self, ctx, day=None, month=None, year=None):
         """Sets Profile Birthday"""
         with open('assets\\economy.json', 'r') as f:
@@ -104,19 +104,19 @@ class Economy:
         except:
             pass
         if day is None:
-            await self.bot.say("`Incorrect Usage`\n```siri birthday DD-MM-YYYY```") 
+            await ctx.send("`Incorrect Usage`\n```siri birthday DD-MM-YYYY```") 
         elif len(date) < 3:
-            await self.bot.say("`Incorrect Format`\n```DD-MM-YYYY```")           
-        elif ctx.message.author.id in users:
-            await self.bot.say("Set.")
+            await ctx.send("`Incorrect Format`\n```DD-MM-YYYY```")           
+        elif str(ctx.author.id) in users:
+            await ctx.send("Set.")
             bday = date
-            await self.set_bday(users, user=ctx.message.author.id, date=bday)
-            with open('C:\\Users\\Luke Jeffries\\Siri\\cogs\\economy.json', 'w') as f:
+            await self.set_bday(users, user=str(ctx.author.id), date=bday)
+            with open('assets\\economy.json', 'w') as f:
                 json.dump(users, f)
         else:
-            await self.bot.say("You don't have a bank account, create one with `siri bank create`!")
+            await ctx.send("You don't have a bank account, create one with `siri bank create`!")
 
-    @commands.command(pass_context=True, aliases=['market', 'shop'])
+    @commands.command(aliases=['market', 'shop'])
     async def store(self, ctx):
         """Buy an item from the Apple Store"""
         embed = discord.Embed(colour=0xa341f4, title="Welcome to the Apple Store!", description="Items:")
@@ -124,76 +124,76 @@ class Economy:
         embed.add_field(name=f"[2] 📱 iPhone ({self.s}300)", value=f"Is that an iPhone 4? The best phone ever tbh")
         embed.add_field(name=f"[3] 🏠 House ({self.s}2000)", value=f"Wait.. since when can you buy homes at the Apple Store?")
         embed.set_footer(text="To buy an item, do 'siri buy <item>' or 'siri buy <item-number>'")
-        embed.set_thumbnail(url="https://c.slashgear.com/wp-content/uploads/2016/06/apple-store-800x420.jpg")
-        await self.bot.say(embed=embed)
+        # embed.set_thumbnail(url="https:/c.slashgear.com/wp-content/uploads/2016/06/apple-store-800x420.jpg")
+        await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
     async def eat(self, ctx):
         """Eat an apple"""
-        with open('assets//economy.json', 'r') as f:
+        with open('assets/economy.json', 'r') as f:
             users = json.load(f)
-        if ctx.message.author.id in users:
-            if users[ctx.message.author.id]['apple'] > 0:
+        if str(ctx.author.id) in users:
+            if users[str(ctx.author.id)]['apple'] > 0:
                 responses = ['Yum.', 'Mmm.', 'Tasty?', 'Mm. Sounds good!']
-                await self.bot.say(f"You ate :apple:`1`! | {random.choice(responses)}") 
-                await self.apple(users, user=ctx.message.author.id, count=-1)
+                await ctx.send(f"You ate :apple:`1`! | {random.choice(responses)}") 
+                await self.apple(users, user=str(ctx.author.id), count=-1)
             else:
-                await self.bot.say("You don't have any apples!")
+                await ctx.send("You don't have any apples!")
         else:
-            await self.bot.say("You don't have a bank account, create one with `siri bank create`!")
+            await ctx.send("You don't have a bank account, create one with `siri bank create`!")
         
 
     @commands.command(pass_context=True)
     async def buy(self, ctx, item = None):
         """Buy an item ('siri store' to see the items)"""
-        with open('assets//economy.json', 'r') as f:
+        with open('assets/economy.json', 'r') as f:
             users = json.load(f)
-        msg = await self.bot.say("Processing..")
-        if not ctx.message.author.id in users:
-            await self.bot.say("You don't have a bank account, create one with `siri bank create`!")
+        msg = await ctx.send("Processing..")
+        if not str(ctx.author.id) in users:
+            await ctx.send("You don't have a bank account, create one with `siri bank create`!")
         elif item is None:
-            await self.bot.say("`Incorrect Usage`\n```siri buy <item>```")
-            await self.bot.delete_message(msg)
+            await ctx.send("`Incorrect Usage`\n```siri buy <item>```")
+            await msg.delete()
         elif item == 'apple' or item == 'Apple' or item == '1': #2
-            if users[ctx.message.author.id]['money'] < 2:
-                await self.bot.say("You don't have enough to buy this item!")
-                await self.bot.delete_message(msg)
+            if users[str(ctx.author.id)]['money'] < 2:
+                await ctx.send("You don't have enough to buy this item!")
+                await msg.delete()
             else:
-                await self.take_money(users, user=ctx.message.author.id, count=2)
-                await self.apple(users, user=ctx.message.author.id, count=1)
-                await self.bot.delete_message(msg)
-                await self.bot.say("You have successfully bought :apple:`1` from the Apple Store!")
+                await self.take_money(users, user=str(ctx.author.id), count=2)
+                await self.apple(users, user=str(ctx.author.id), count=1)
+                await msg.delete()
+                await ctx.send("You have successfully bought :apple:`1` from the Apple Store!")
         elif item == 'iphone' or item == 'iPhone' or item == 'Iphone' or item == 'IPhone' or item == '2': #300
             chance = random.randint(1, 25)
             chance_b = random.randint(1, 25)
-            if users[ctx.message.author.id]['money'] < 300:
-                await self.bot.say("You don't have enough to buy this item!")
-                await self.bot.delete_message(msg)
+            if users[str(ctx.author.id)]['money'] < 300:
+                await ctx.send("You don't have enough to buy this item!")
+                await msg.delete()
             elif chance == chance_b:
-                await self.take_money(users, user=ctx.message.author.id, count=300)
-                await self.bot.delete_message(msg)
-                await self.bot.say(f"**BOGO!** You have won :iphone:`2` for the price of one!")
-                await self.iphone(users, user=ctx.message.author.id, count=2)
+                await self.take_money(users, user=str(ctx.author.id), count=300)
+                await msg.delete()
+                await ctx.send(f"**BOGO!** You have won :iphone:`2` for the price of one!")
+                await self.iphone(users, user=str(ctx.author.id), count=2)
             else:
-                await self.take_money(users, user=ctx.message.author.id, count=300)
-                await self.bot.delete_message(msg)
-                await self.bot.say("You have successfully bought :iphone:`1` from the Apple Store!")
-                await self.iphone(users, user=ctx.message.author.id, count=1)
+                await self.take_money(users, user=str(ctx.author.id), count=300)
+                await msg.delete()
+                await ctx.send("You have successfully bought :iphone:`1` from the Apple Store!")
+                await self.iphone(users, user=str(ctx.author.id), count=1)
         elif item == 'house' or item == 'House' or item == '3': #2,000
-            await self.bot.delete_message(msg)
-            if users[ctx.message.author.id]['money'] < 2000:
-                await self.bot.say("You don't have enough to buy this item!")
+            await msg.delete()
+            if users[str(ctx.author.id)]['money'] < 2000:
+                await ctx.send("You don't have enough to buy this item!")
             else:
-                await self.take_money(users, user=ctx.message.author.id, count=2000)
-                await self.bot.say("You have successfully bought :house:`1` from the Apple Store!")
-                await self.house(users, user=ctx.message.author.id, count=1)
+                await self.take_money(users, user=str(ctx.author.id), count=2000)
+                await ctx.send("You have successfully bought :house:`1` from the Apple Store!")
+                await self.house(users, user=str(ctx.author.id), count=1)
         else:
-            await self.bot.say("I couldn't find that item.. Do `siri shop` to see what we have..")
+            await ctx.send("I couldn't find that item.. Do `siri shop` to see what we have..")
 
-    @commands.command(pass_context=True, aliases=['Profile'])
+    @commands.command(aliases=['Profile'])
     async def profile(self, ctx, user: discord.User=None):
         """Get user profile"""
-        with open('assets//economy.json', 'r') as f:
+        with open('assets/economy.json', 'r') as f:
             users = json.load(f)
 
         if user is None:
@@ -206,13 +206,13 @@ class Economy:
                 try:
                     member = "<@" + user + ">"
                 except:
-                    await self.bot.say("There was an error! I-I tried everything..!")
+                    await ctx.send("There was an error! I-I tried everything..!")
 
-        if member.id in users:
-            bal = users[member.id]['money']
-            description = users[member.id]['description']
-            bday = users[member.id]['birthday']
-            colour = users[member.id]['colour']
+        if str(member.id) in users:
+            bal = users[str(member.id)]['money']
+            description = users[str(member.id)]['description']
+            bday = users[str(member.id)]['birthday']
+            colour = users[str(member.id)]['colour']
             embed = discord.Embed(colour=colour, title=f"{member.name} #{member.discriminator}", description=f'**"**{description}**"**')
             if bday == 'BNS':
                 embed.add_field(name="Birthday..", value="BIRTHDAY NOT SET: `siri birthday DD-MM-YYYY`")
@@ -241,162 +241,162 @@ class Economy:
 
             embed.add_field(name="Balance..", value=f"**{self.s}**{bal}")
             #embed.add_field(name="Experience..", value=f"{points}**XP**")
-            embed.add_field(name="Inventory..", value=f":apple:**{users[member.id]['apple']}**:iphone:**{users[member.id]['iphone']}**:house:**{users[member.id]['house']}**")
-            embed.set_footer(text="CONTACTS", icon_url="https://cdn1.iconfinder.com/data/icons/style-2-stock/807/Contacts-01.png")
+            embed.add_field(name="Inventory..", value=f":apple:**{users[str(member.id)]['apple']}**:iphone:**{users[str(member.id)]['iphone']}**:house:**{users[str(member.id)]['house']}**")
+            # embed.set_footer(text="CONTACTS", icon_url="https:/cdn1.iconfinder.com/data/icons/style-2-stock/807/Contacts-01.png")
             embed.set_thumbnail(url=member.avatar_url)
-            await self.bot.say(embed=embed)
+            await ctx.send(embed=embed)
         else:
-            await self.bot.say(f"{member.mention} doesn't have a bank account, create one with `siri bank create`!")
+            await ctx.send(f"{member.mention} doesn't have a bank account, create one with `siri bank create`!")
 
 
     @commands.command(pass_context=True)
     async def give(self, ctx, count:int, user: discord.User=None):
         """Give your money to another user"""
-        with open('assets//economy.json', 'r') as f:
+        with open('assets/economy.json', 'r') as f:
             users = json.load(f)
 
         #b = ''.join(count)
 
         if ctx.message.author == user:
-            await self.bot.say("Giving money to yourself..?")
+            await ctx.send("Giving money to yourself..?")
 
         elif count < 0:
-            await self.bot.say(f"You can't give under **{self.s}**1!")
+            await ctx.send(f"You can't give under **{self.s}**1!")
 
-        elif users[ctx.message.author.id]['money'] < count:
-            await self.bot.say(f"You don't have **{self.s}**{count}!")
+        elif users[str(ctx.author.id)]['money'] < count:
+            await ctx.send(f"You don't have **{self.s}**{count}!")
 
         elif not user.id in users:
-            await self.bot.say(f"{user.mention} doesn't have a bank account!")
+            await ctx.send(f"{user.mention} doesn't have a bank account!")
         elif count is None:
-            await self.bot.say("`Incorrect Usage`\n```siri give <@user> <count>```")
+            await ctx.send("`Incorrect Usage`\n```siri give <@user> <count>```")
 
-        elif ctx.message.author.id in users:
+        elif str(ctx.author.id) in users:
             #try:
             await self.add_money(users, user=user.id, count=count)
-            await self.take_money(users, user=ctx.message.author.id, count=count)
+            await self.take_money(users, user=str(ctx.author.id), count=count)
             embed = discord.Embed(colour=0xeeeeff, description=f"{ctx.message.author.mention} has given {user.mention} **{self.s}**{count}!")
-            await self.bot.say(embed=embed)
+            await ctx.send(embed=embed)
 
-            with open('assets//economy.json', 'w') as f:
+            with open('assets/economy.json', 'w') as f:
                 json.dump(users, f)
             #except:
-                #await self.bot.say("")
+                #await ctx.send("")
         else:
-            await self.bot.say("You don't have a bank account, create one with `siri bank create`!") 
+            await ctx.send("You don't have a bank account, create one with `siri bank create`!") 
 
 
     @commands.command(pass_context=True)
     @commands.cooldown(1, 86400, commands.BucketType.user)
     async def daily(self, ctx):
         """Get your daily §15"""
-        with open('assets//economy.json', 'r') as f:
+        with open('assets/economy.json', 'r') as f:
             users = json.load(f)
 
-        if ctx.message.author.id in users:
-            await self.add_money(users, user=ctx.message.author.id, count=15)
+        if str(ctx.author.id) in users:
+            await self.add_money(users, user=str(ctx.author.id), count=15)
             embed = discord.Embed(colour=0xeeeeff, description=f"For being a good sport all day, I have added **{self.s}**15 to your bank account! You can get more in **24**hrs!")
-            embed.set_footer(text=f"Balance: {self.s}{users[ctx.message.author.id]['money']}")
-            await self.bot.say(embed=embed)
+            embed.set_footer(text=f"Balance: {self.s}{users[str(ctx.author.id)]['money']}")
+            await ctx.send(embed=embed)
 
-            with open('assets//economy.json', 'w') as f:
+            with open('assets/economy.json', 'w') as f:
                 json.dump(users, f)
         else:
-            await self.bot.say("You don't have a bank account, create one with `siri bank create`!") 
+            await ctx.send("You don't have a bank account, create one with `siri bank create`!") 
 
-    @commands.command(pass_context=True, aliases=['bal'])
+    @commands.command(aliases=['bal'])
     async def balance(self, ctx, user:discord.User=None):
         """Check your balance"""
-        with open('assets//economy.json', 'r') as f:
+        with open('assets/economy.json', 'r') as f:
             users = json.load(f)
 
         if user is None:
 
-            if ctx.message.author.id in users:
-                embed = discord.Embed(colour=0x0e0eff, description=f"You have **{self.s}**{users[ctx.message.author.id]['money']} left in your bank account.")
-                await self.bot.say(embed=embed)
+            if str(ctx.author.id) in users:
+                embed = discord.Embed(colour=0x0e0eff, description=f"You have **{self.s}**{users[str(ctx.author.id)]['money']} left in your bank account.")
+                await ctx.send(embed=embed)
             else:
-                await self.bot.say("You don't have a bank account, create one with `siri bank create`!")  
+                await ctx.send("You don't have a bank account, create one with `siri bank create`!")  
         else:
             if user.id in users:
                 embed = discord.Embed(colour=0x0e0eff, description=f"**{user.name}** has **{self.s}**{users[user.id]['money']} left.")
-                await self.bot.say(embed=embed)
+                await ctx.send(embed=embed)
             else:
-                await self.bot.say(f"{user.mention} doesn't have a bank account!") 
+                await ctx.send(f"{user.mention} doesn't have a bank account!") 
 
 
     @commands.group(pass_context=True)
     async def bank(self, ctx):
         if ctx.invoked_subcommand is None:
-            with open('assets//economy.json', 'r') as f:
+            with open('assets/economy.json', 'r') as f:
                 users = json.load(f)
 
-            if ctx.message.author.id in users:
-                await self.bot.say("Check your balance with `siri balance`!")
+            if str(ctx.author.id) in users:
+                await ctx.send("Check your balance with `siri balance`!")
             else:
-                await self.bot.say("You don't have a bank account, create one with `siri bank create`!")
+                await ctx.send("You don't have a bank account, create one with `siri bank create`!")
 
 
-    @bank.command(pass_context=True, name="create")
+    @bank.command(name="create")
     async def _create(self, ctx):
         """Create an account"""
-        msg = await self.bot.say("Please wait..")
-        with open('assets//economy.json', 'r') as f:
+        msg = await ctx.send("Please wait..")
+        with open('assets/economy.json', 'r') as f:
             users = json.load(f)
 
-        if ctx.message.author.id in users:
-            await self.bot.delete_message(msg)
-            await self.bot.say("You already have an account!")
+        if str(ctx.author.id) in users:
+            await msg.delete()
+            await ctx.send("You already have an account!")
         else:
 
-            await self.update_data(users, ctx.message.author.id)
-            await self.add_money(users, user=ctx.message.author.id, count=20)
+            await self.update_data(users, str(ctx.author.id))
+            await self.add_money(users, user=str(ctx.author.id), count=20)
 
-            with open('assets//economy.json', 'w') as f:
+            with open('assets/economy.json', 'w') as f:
                 json.dump(users, f)
 
-            await self.bot.delete_message(msg)
-            await self.bot.say(f"**Hooray!** I have successfully created a bank account for you! **P.S.** I gave you **{self.s}**20 as a welcome gift!")
+            await msg.delete()
+            await ctx.send(f"**Hooray!** I have successfully created a bank account for you! **P.S.** I gave you **{self.s}**20 as a welcome gift!")
 
-    @bank.command(pass_context=True, name="fcreate")
+    @bank.command(name="fcreate")
     async def _fcreate(self, ctx, user: discord.User):
         """Create an account"""
-        msg = await self.bot.say("Please wait..")
-        with open('assets//economy.jsonn', 'r') as f:
+        msg = await ctx.send("Please wait..")
+        with open('assets/economy.jsonn', 'r') as f:
             users = json.load(f)
-        if ctx.message.author.id =='396153668820402197':
+        if str(ctx.author.id) =='396153668820402197':
 
             await self.update_data(users, user.id)
             await self.add_money(users, user=user.id, count=20)
 
-            with open('assets//economy.json', 'w') as f:
+            with open('assets/economy.json', 'w') as f:
                 json.dump(users, f)
 
-            await self.bot.delete_message(msg)
-            await self.bot.say(f"I have force-created an account for {user.mention}! (Also added **{self.s}**20 LOL)")
+            await msg.delete()
+            await ctx.send(f"I have force-created an account for {user.mention}! (Also added **{self.s}**20 LOL)")
         else:
             trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
             trl.set_footer(text="Sorry about that.")
-            await self.bot.say(embed=trl)
+            await ctx.send(embed=trl)
 
 
     @commands.command(pass_context=True)
     async def mtransfer(self, ctx, count:int, user: discord.User=None):
-        with open('assets//economy.json', 'r') as f:
+        with open('assets/economy.json', 'r') as f:
             users = json.load(f)
-        if ctx.message.author.id =='396153668820402197':
-            await self.bot.say(":ok_hand: Done.")
+        if str(ctx.author.id) =='396153668820402197':
+            await ctx.send(":ok_hand: Done.")
             try:
                 await self.add_money(users, user=user.id, count=count)
 
-                with open('assets//economy.json', 'w') as f:
+                with open('assets/economy.json', 'w') as f:
                     json.dump(users, f)   
             except Exception as e:
-                await self.bot.say("```e```")         
+                await ctx.send("```e```")         
         else:
             trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
             trl.set_footer(text="Sorry about that.")
-            await self.bot.say(embed=trl)
+            await ctx.send(embed=trl)
 
 
     async def update_data(self, users, user):
@@ -411,17 +411,17 @@ class Economy:
 
     async def apple(self, users, user=None, count=None):
         users[user]['apple'] += count
-        with open('assets//economy.json', 'w') as f:
+        with open('assets/economy.json', 'w') as f:
                 json.dump(users, f)
 
     async def iphone(self, users, user=None, count=None):
         users[user]['iphone'] += count
-        with open('assets//economy.json', 'w') as f:
+        with open('assets/economy.json', 'w') as f:
                 json.dump(users, f)
 
     async def house(self, users, user=None, count=None):
         users[user]['house'] += count
-        with open('assets//economy.json', 'w') as f:
+        with open('assets/economy.json', 'w') as f:
                 json.dump(users, f)
 
     async def set_desc(self, users, user=None, description=None):

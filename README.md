@@ -5,3 +5,8 @@ really bad code go away
 
 
 seriously my code is very messy and 
+
+* You should put the token to `config.py`
+```python
+token = 'token here'
+```

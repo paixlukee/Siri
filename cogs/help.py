@@ -10,7 +10,7 @@ class Help:
         self.bot = bot
 
 
-    @commands.command(pass_context=True, name="help", aliases=['cmds'])
+    @commands.command(name="help", aliases=['cmds'])
     async def _help(self, ctx, l:str = None, cmd:str = None):
         """This Command."""
         if ctx.message.author.bot: return
@@ -19,11 +19,11 @@ class Help:
             embed.add_field(name="Current Modules..", value="`help`  `utility`  `crypto`  `bot`  `economy`")
             embed.set_footer(text="Siri | NOT affiliated with Apple", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
             embed.set_image(url="http://media.idownloadblog.com/wp-content/uploads/2016/06/iOS-10-Siri-waveform-image-001.png")
-            await self.bot.say(embed=embed)
+            await ctx.send(embed=embed)
 
         elif l == "Command" or l == "command" or l == "cmd":
             if not cmd:
-                await self.bot.say("<:WrongMark:473277055107334144> Please include the command name.")
+                await ctx.send("<:WrongMark:473277055107334144> Please include the command name.")
             else:
                 try:
                     _cmd = self.bot.get_command(cmd)
@@ -36,9 +36,9 @@ class Help:
                     else:
                         embed2 = discord.Embed(description=f"> **Command:** `{cmd}`\n\n```siri {_cmd} <{help}>\n\n{h2}```")
                     embed2.set_author(name="Siri", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
-                    await self.bot.say(embed=embed2)
+                    await ctx.send(embed=embed2)
                 except:
-                    await self.bot.say(f"<:WrongMark:473277055107334144> No command called \"{cmd}\" found.")
+                    await ctx.send(f"<:WrongMark:473277055107334144> No command called \"{cmd}\" found.")
 
         elif l == "Module" or l == "module" or l == "mdl":
 
@@ -63,13 +63,13 @@ class Help:
                 name = "Economy"
                 d = "Economy Commands"
             else:
-                return await self.bot.say(f"<:WrongMark:473277055107334144> No module called \"{cmd}\" found.")
+                return await ctx.send(f"<:WrongMark:473277055107334144> No module called \"{cmd}\" found.")
 
             try:
                 md = " ".join(modules)
                 embed3 = discord.Embed(description=f"> **Module:** `{name}`\n> **Description:** `{d}`\n> **Commands:** {md}")
                 embed3.set_author(name="Siri", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
-                await self.bot.say(embed=embed3)
+                await ctx.send(embed=embed3)
             except:
                 pass
         else:

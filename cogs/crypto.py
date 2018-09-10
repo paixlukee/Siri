@@ -9,7 +9,7 @@ class Crypto:
         self.bot = bot
         
         
-    @commands.command(pass_context=True, aliases=['btc'])
+    @commands.command(aliases=['btc'])
     async def bitcoin(self, ctx):
         """Get BTC Stats"""
         try:
@@ -22,9 +22,9 @@ class Crypto:
         embed.add_field(name="1 Bitcoin equals..", value=f"**$**{r['last']}\n**€**{e['last']}")
         embed.add_field(name="BTC High..", value=f"**$**{r['high']}\n**€**{e['high']}")
         embed.set_thumbnail(url="https://static.vecteezy.com/system/resources/previews/000/205/146/non_2x/vector-bitcoin-symbol-on-orange-background.jpg")
-        await self.bot.say(embed=embed)
+        await ctx.send(embed=embed)
 
-    @commands.command(pass_context=True, aliases=['xrp'])
+    @commands.command(aliases=['xrp'])
     async def ripple(self, ctx):
         """Get XRP Stats"""
         try:
@@ -37,9 +37,9 @@ class Crypto:
         embed.add_field(name="1 Ripple equals..", value=f"**$**{r['last']}\n**€**{e['last']}")
         embed.add_field(name="XRP High..", value=f"**$**{r['high']}\n**€**{e['high']}")
         embed.set_thumbnail(url="https://www.cryptocoinsnieuws.nl/wp-content/uploads/2018/01/ripple-xrp.png")
-        await self.bot.say(embed=embed)
+        await ctx.send(embed=embed)
 
-    @commands.command(pass_context=True, aliases=['ltc'])
+    @commands.command(aliases=['ltc'])
     async def litecoin(self, ctx):
         """Get LTC Stats"""
         try:
@@ -52,9 +52,9 @@ class Crypto:
         embed.add_field(name="1 Litecoin equals..", value=f"**$**{r['last']}\n**€**{e['last']}")
         embed.add_field(name="LTC High..", value=f"**$**{r['high']}\n**€**{e['high']}")
         embed.set_thumbnail(url="https://a1finance.cz/wp-content/uploads/2017/08/Official_Litecoin_Logo.jpg")
-        await self.bot.say(embed=embed)
+        await ctx.send(embed=embed)
         
-    @commands.command(pass_context=True, aliases=['eth'])
+    @commands.command(aliases=['eth'])
     async def ethereum(self, ctx):
         """Get ETH Stats"""
         try:
@@ -67,7 +67,7 @@ class Crypto:
         embed.add_field(name="1 Ethereum equals..", value=f"**$**{r['last']}\n**€**{e['last']}")
         embed.add_field(name="ETH High..", value=f"**$**{r['high']}\n**€**{e['high']}")
         embed.set_thumbnail(url="https://cryptorunner.com/wp-content/uploads/2017/10/ethereum-symbol.png")
-        await self.bot.say(embed=embed)
+        await ctx.send(embed=embed)
         
         
 def setup(bot):
