@@ -71,7 +71,7 @@ class Utility:
 
             resp = r.json()
             response = resp['result']['fulfillment']['messages'][0]['speech']
-            await ctx.send(message.channel, f"**{message.author.name}**, {response}")
+            await message.channel.send(f"**{message.author.name}**, {response}")
 
 
     @commands.command(name='wikipedia', aliases=['wiki', 'w'])
