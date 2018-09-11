@@ -18,10 +18,9 @@ import json
 
 import config
 
-extension = ['cogs.utility', 'cogs.help', 'cogs.crypto', 'cogs.economy', 'cogs.dev', 'cogs.afk']
-
 class Siri(commands.AutoShardedBot):
     def __init__(self):
+        self.ext = ['cogs.utility', 'cogs.help', 'cogs.crypto', 'cogs.economy', 'cogs.dev', 'cogs.afk']
         super().__init__(command_prefix=config.prefixes)
         self.remove_command("help")
         self.add_command(self.shutdown)
@@ -185,10 +184,16 @@ class Siri(commands.AutoShardedBot):
     @commands.is_owner()
     async def load(self, ctx, extension):
         try:
-            self.load_extension("cogs.{}".format(extension))
-            embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog loaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
-            await ctx.send(embed=embed)
-            print('\n\nCOG LOAD\n--[Cog loaded, {}.py]--\n\n'.format(extension))
+            if extension == 'all':
+                self.load_extension("cogs.{}".format(self.ext))
+                embed = discord.Embed(title="<:CheckMark:473276943341453312> Cogs loaded:", color=0x5bff69, description="**Cog:** `ALL COGS`")
+                await ctx.send(embed=embed)
+                print('\n\nCOG LOAD\n--[Cog loaded, {}.py]--\n\n'.format(extension))
+            else:
+                self.load_extension("cogs.{}".format(extension))
+                embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog loaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
+                await ctx.send(embed=embed)
+                print('\n\nCOG LOAD\n--[Cog loaded, {}.py]--\n\n'.format(extension))
         except Exception as error:
             print('\n\nEXTEN./COG ERROR: {} was not loaded due to an error: \n-- [{}] --\n\n'.format(extension, error))
             embed = discord.Embed(title="<:WrongMark:473277055107334144> Error loading cog:", color=0xff775b, description="**Cog:** `cogs\{}.py`\n**Errors:**\n```{}```".format(extension, error))
