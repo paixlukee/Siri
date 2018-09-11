@@ -222,9 +222,10 @@ class Siri(commands.AutoShardedBot):
             trl.set_footer(text="Sorry About That.")
             await ctx.send(embed=trl)
         elif isinstance(error, commands.BadArgument):
+            trl = discord.Embed(title=("<:WrongMark:473277055107334144> There was an error!") , colour=0xff775b, description=f"```py\n{error}```")
             await ctx.send(error)
         else:
-            await ctx.send(error)
+            pass
 
     async def on_message(self, message):
         if message.author.bot: return
