@@ -231,4 +231,4 @@ class Siri(commands.AutoShardedBot):
         await self.process_commands(message)
 
     def run(self):
-        bot.run(config.token, reconnect=True)
+        self.bot.run(config.token, reconnect=True)
