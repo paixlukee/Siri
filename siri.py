@@ -145,7 +145,7 @@ class Siri(commands.AutoShardedBot):
     async def restart(self, ctx):
         await ctx.send("I'll see you in a bit!")
         await self.logout()
-        subprocess.call([sys.executable, r"siri.py"])
+        subprocess.call([sys.executable, r"launcher.py"])
             
             
     @commands.command(hidden=True)
@@ -227,10 +227,13 @@ class Siri(commands.AutoShardedBot):
             trl.set_footer(text="Sorry About That.")
             await ctx.send(embed=trl)
         elif isinstance(error, commands.BadArgument):
-            trl = discord.Embed(title=("<:WrongMark:473277055107334144> There was an error!") , colour=0xff775b, description=f"```py\n{error}```")
-            await ctx.send(error)
+            embed = discord.Embed(title=("<:WrongMark:473277055107334144> There was an error!") , colour=0xff775b, description=f"```py\n{error}```")
+            await ctx.send(embed=embed)
+        elif isinstance(error, commands.SyntaxError):
+            embed = discord.Embed(title=("<:WrongMark:473277055107334144> There was an error!") , colour=0xff775b, description=f"```py\n{error}```")
+            await ctx.send(embed=embed)
         else:
-            pass
+            print(error)
 
     async def on_message(self, message):
         if message.author.bot: return
