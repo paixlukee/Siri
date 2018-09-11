@@ -24,6 +24,7 @@ class Developer:
         self._last_result = None
                 
     @commands.command(aliases=["resp"])
+    @commands.is_owner()
     async def respond(self, ctx, ticket, id, *, message):
         try:
             target = discord.utils.get(self.bot.get_all_members(), id=id)
@@ -43,6 +44,7 @@ class Developer:
                 await ctx.send(f"**Error sending support response!**\n```{e}```")
             
     @commands.command(aliases=['debug', 'ev'])
+    @commands.is_owner()
     async def eval(self, ctx, *, code):
         """thanksss skuwww"""
         try:
