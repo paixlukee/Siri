@@ -66,7 +66,7 @@ class Siri(commands.AutoShardedBot):
         log = self.get_channel(478821892309123091)
         server = guild
         embed = discord.Embed(description=f":tada: **Yay!** Siri has joined `{guild.name}`! Siri is now in `{str(len(self.guilds))}` guilds!")
-        await log.senf(embed=embed)
+        await log.send(embed=embed)
         targets = [
             discord.utils.get(server.channels, name="bot"),
             discord.utils.get(server.channels, name="bots"),
