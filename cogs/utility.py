@@ -10,7 +10,7 @@ import random
 from discord.ext.commands import errors, converter
 from random import choice as rnd
 
-import re #this is for the color regex
+import re
 
 import aiohttp
 import asyncio
@@ -676,8 +676,8 @@ class Utility:
                     await ctx.send(f"Brr. Take a jacket!.. up to **{resp['main']['temp_max']}°F**!")
                 await ctx.send(embed=embed)
 
-    @commands.command(aliases=['servers'])
-    async def guilds(self, ctx):
+    @commands.command(aliases=['guilds'])
+    async def servers(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://discordbots.org/api/bots/481337766379126784") as r:
                 r = await r.json()
@@ -689,11 +689,11 @@ class Utility:
         channels = len(channels)
         emojis = len(self.bot.emojis)
         commands = len(self.bot.all_commands)
-        text = f"I am in **{str(len(self.bot.guilds))} guilds**!\n"\
+        text = f"I am in **{str(len(self.bot.guilds))} servers**!\n"\
         f"I can see **{channels} channels**!\n"\
         f"I am with **{users} users**!\n"\
         f"I can use **{emojis} emojis**!\n"\
-        f'I have **{commands}** commands.\n'\
+        f'I have **{commands} commands**!\n'\
         f"I have **{r['points']} DBL votes**!\n\n"\
         "[DBL](https://discordbots.org/bot/481337766379126784) |"\
         " [Vote](https://discordbots.org/bot/481337766379126784/vote) |"\
