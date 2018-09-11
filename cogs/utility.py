@@ -52,7 +52,6 @@ class Utility:
 
     async def on_message(self, message):
         if message.content.startswith('<@481337766379126784> '):
-            await ctx.trigger_typing()
             fmsg = message.content
             msg = fmsg.replace("<@481337766379126784> ", "")
             r = requests.post("https://api.dialogflow.com/v1/query?v=20150910",
