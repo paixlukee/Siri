@@ -1,4 +1,5 @@
 from siri import Siri
+import config
 import asyncio
 
 def run_bot():
