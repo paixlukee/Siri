@@ -877,8 +877,8 @@ class Utility:
 
             await ctx.send(embed=trl)
 
-    @commands.command(aliases=['guildinformation'])
-    async def guildinfo(self, ctx):
+    @commands.command(aliases=['serverinformation'])
+    async def serverinfo(self, ctx):
         """- Information about this guild."""
         try:
             await self.add_money(user=ctx.message.author.id, count=1)
