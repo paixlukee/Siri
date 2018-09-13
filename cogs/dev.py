@@ -117,6 +117,7 @@ class Developer:
         
         
     @commands.command(pass_context=True, aliases=['fp', 'forcepost'])
+    @commands.is_owner()
     async def post(self, ctx, e = None):
         if e is not None:
             try:
