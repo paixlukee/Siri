@@ -117,17 +117,17 @@ class Developer:
         
         
     @commands.command(pass_context=True, aliases=['fp', 'forcepost'])
-    async def post(self, ctx):
-        if ctx.message.author.id =='396153668820402197':
+    async def post(self, ctx, e = None):
+        if e is not None:
             try:
                 headers = {'Authorization': fight_me}
-                data = {'server_count': len(self.bot.servers)}
+                data = {'server_count': len(self.bot.guilds)}
                 api_url = 'https://discordbots.org/api/bots/' + str(self.bot.user.id) + '/stats'
                 p = requests.post(api_url, data=data, headers=headers).json()
                 chan = self.bot.get_channel("478821892309123091")
                 msg = await ctx.send("<a:loading:473279565670907914> **Posting** server count..")
                 await asyncio.sleep(5)
-                await msg.edit(f"<:CheckMark:473276943341453312> Server count **posted**!\n```json\n{p}```")
+                await msg.edit(f"<:CheckMark:473276943341453312> Server count **posted**! (`{p}`)")
                 embed = discord.Embed(colour=0x008AE2, title="<a:dblheartbeat:393548388664082444> Update!", description="Server Count successfully posted to DBL! (**{}** Servers)".format(len(self.bot.servers)))
                 embed.set_footer(text="Force-Posted")
                 await chan.send(embed=embed)
@@ -136,6 +136,8 @@ class Developer:
                 fmt = '```py\n{}: {}\n```'
                 embed = discord.Embed(title="<:WrongMark:473277055107334144> **An error occurred while processing your request**", color=0xff0000, description=fmt.format(type(e).__name__, e))
                 await ctx.send(embed=embed)
+    else:
+        await ctx.send("no bitch")
             
 
             
