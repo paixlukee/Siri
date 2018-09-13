@@ -166,7 +166,7 @@ class Siri(commands.AutoShardedBot):
         shell = await self.run_cmd(code)
         embed = discord.Embed(colour=0x000fff, description=f"```css\n{shell}```")
         embed.set_author(name="Shell", icon_url=self.user.avatar_url)
-        await self.delete_message(msg)
+        await msg.delete()
         await ctx.send( embed=embed)
 
 
