@@ -662,7 +662,7 @@ class Utility:
                 i = c.replace("A", "a").replace("B", "b").replace("C", "c").replace("D", "d").replace("E", "e").replace("F", "f").replace("G", "g").replace("H", "h").replace("I", "i").replace("J", "j").replace("K", "k").replace("L", "l").replace("M", "m").replace("N", "n").replace("O", "o").replace("P", "p").replace("Q", "q").replace("R", "r").replace("S", "s").replace("T", "t").replace("U", "u").replace("V", "v").replace("W", "w").replace("X", "x").replace("Y", "y").replace("Z", "z")
                 flag = f"http://fotw.fivestarflags.com/images/{i[:-1]}/{i}.gif"
                 icon = "http://openweathermap.org/img/w/" + resp['weather'][0]['icon'] + ".png"
-                embed = discord.Embed(description=f"{resp['weather'][0]['description']}")
+                embed = discord.Embed(description=f"{resp['weather'][0]['description']}", colour=0x37749c)
                 embed.set_author(name=f"{resp['name']}, {resp['sys']['country']}", icon_url=icon)
                 embed.add_field(name="Temperature", value=f"{resp['main']['temp']}°F")
                 embed.add_field(name="Weather", value=resp['weather'][0]['main'])
