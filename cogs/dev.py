@@ -137,8 +137,8 @@ class Developer:
                 fmt = '```py\n{}: {}\n```'
                 embed = discord.Embed(title="<:WrongMark:473277055107334144> **An error occurred while processing your request**", color=0xff0000, description=fmt.format(type(e).__name__, e))
                 await ctx.send(embed=embed)
-    else:
-        await ctx.send("no bitch")
+        else:
+            await ctx.send("no bitch")
             
 
             
