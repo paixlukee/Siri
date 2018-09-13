@@ -656,7 +656,7 @@ class Utility:
             async with session.get(f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=Imperial") as get:
                 resp = await get.json()
                 if get.status == 404:
-                    return await ctx.send('Couldn\'t find that place.')
+                    return await ctx.send("I couldn't find that place! Did you spell it correctly?")
                 w = resp['main']['temp']
                 c = resp['sys']['country']
                 i = c.replace("A", "a").replace("B", "b").replace("C", "c").replace("D", "d").replace("E", "e").replace("F", "f").replace("G", "g").replace("H", "h").replace("I", "i").replace("J", "j").replace("K", "k").replace("L", "l").replace("M", "m").replace("N", "n").replace("O", "o").replace("P", "p").replace("Q", "q").replace("R", "r").replace("S", "s").replace("T", "t").replace("U", "u").replace("V", "v").replace("W", "w").replace("X", "x").replace("Y", "y").replace("Z", "z")
@@ -670,7 +670,7 @@ class Utility:
                 embed.add_field(name="Wind Speed", value=f"{resp['wind']['speed']}mph")
                 embed.set_thumbnail(url=flag)
                 if w > 56:
-                    await ctx.send(f"It's nice outside.. up to **{resp['main']['temp_max']}°F**!")
+                    await ctx.send(f":flag_{i}: It's nice in **{resp['name']}**!.. up to **{resp['main']['temp_max']}°F**!")
                 else:
                     await ctx.send(f"Brr. Take a jacket!.. up to **{resp['main']['temp_max']}°F**!")
                 await ctx.send(embed=embed)
