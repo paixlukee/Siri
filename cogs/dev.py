@@ -61,7 +61,7 @@ class Developer:
         else:
             pass
         try:
-            await bot.user.edit(house=house)
+            await self.bot.user.edit(house=house)
             embed = discord.Embed(colour=0x00ff00, title="👌 Done!", description=f"I have set my house to `{house}`!")
             await ctx.send(embed=embed)
         except Exception as e:
@@ -72,7 +72,7 @@ class Developer:
     @set.command(pass_context=True)
     async def username(self, ctx, *, newName):
         try:
-            await bot.user.edit(username=newName)
+            await self.bot.user.edit(username=newName)
             embed = discord.Embed(title="👌 Done!", description=f"I have changed my username!")
             await ctx.send(embed=embed)
         except Exception as e:
@@ -82,7 +82,7 @@ class Developer:
     async def av(self, ctx, url:str):
         try:
             r = requests.get(url)
-            await bot.user.edit(avatar=r.content)
+            await self.bot.user.edit(avatar=r.content)
             embed = discord.Embed(title="👌 Done!", description=f"I have changed my avatar!")
             embed.set_thumbnail(url=self.bot.user.avatar_url)
             await ctx.send(embed=embed)
