@@ -52,7 +52,7 @@ class Developer:
         if status == 'brilliance' or status == 'Brilliance':
             st = discord.HypeSquadHouse.brilliance
         elif status == 'balance' or status == 'Balance':
-            st = discord.HypeSquadHouse.
+            st = discord.HypeSquadHouse.balance
         elif status == 'bravery' or status == 'Bravery':
             st = discord.HypeSquadHouse.bravery
         else:
