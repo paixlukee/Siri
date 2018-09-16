@@ -61,7 +61,7 @@ class Developer:
         else:
             pass
         try:
-            await self.bot.user.edit(house=house)
+            await self.bot.user.edit(house=st)
             embed = discord.Embed(colour=0x00ff00, title="👌 Done!", description=f"I have set my house to `{house}`!")
             await ctx.send(embed=embed)
         except Exception as e:
