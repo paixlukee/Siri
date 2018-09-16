@@ -48,18 +48,18 @@ class Developer:
             
     @commands.command(pass_context=True)
     @commands.is_owner()
-    async def house(self, ctx, status):
-        if status == 'brilliance' or status == 'Brilliance':
+    async def house(self, ctx, house):
+        if house == 'brilliance' or house == 'Brilliance':
             st = discord.HypeSquadHouse.brilliance
-        elif status == 'balance' or status == 'Balance':
+        elif house == 'balance' or house == 'Balance':
             st = discord.HypeSquadHouse.balance
-        elif status == 'bravery' or status == 'Bravery':
+        elif house == 'bravery' or house == 'Bravery':
             st = discord.HypeSquadHouse.bravery
         else:
             pass
         try:
-            await self.bot.edit_profile(house=)
-            embed = discord.Embed(colour=0x00ff00, title="👌 Done!", description=f"I have set my house to `{status}`!")
+            await self.bot.edit_profile(house=house)
+            embed = discord.Embed(colour=0x00ff00, title="👌 Done!", description=f"I have set my house to `{house}`!")
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)
