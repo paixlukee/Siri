@@ -23,8 +23,12 @@ class Developer:
         self.bot = bot
         self._last_result = None
         
-    @commands.command(pass_context=True)
+    @commands.group(pass_context=True)
     @commands.is_owner()
+    async def set(self, ctx):
+        pass
+        
+    @set.command(pass_context=True)
     async def status(self, ctx, status):
         if status == 'online' or status == 'Online':
             st = discord.Status.online
@@ -46,8 +50,7 @@ class Developer:
         except:
             await ctx.send("That's not a valid status! Statuses: `online`, `dnd`, `idle`, and `invisible`")
             
-    @commands.command(pass_context=True)
-    @commands.is_owner()
+    @set.command(pass_context=True)
     async def house(self, ctx, house):
         if house == 'brilliance' or house == 'Brilliance':
             st = discord.HypeSquadHouse.brilliance
@@ -66,8 +69,7 @@ class Developer:
         except:
             await ctx.send("That's not a valid house! Houses: `brilliance`(best), `bravery`, and `balance`")
 
-    @commands.command(pass_context=True)
-    @commands.is_owner()
+    @set.command(pass_context=True)
     async def username(self, ctx, *, newName):
         try:
             await self.bot.edit_profile(username=newName)
@@ -76,8 +78,7 @@ class Developer:
         except Exception as e:
             await ctx.send(f"Error!\n```py\n{e}```")
 
-    @commands.command(pass_context=True)
-    @commands.is_owner()
+    @set.command(pass_context=True)
     async def avatar(self, ctx, url:str):
         try:
             r = requests.get(url)
