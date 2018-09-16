@@ -22,6 +22,71 @@ class Developer:
     def __init__(self, bot):
         self.bot = bot
         self._last_result = None
+        
+    @commands.command(pass_context=True)
+    @commands.is_owner()
+    async def status(self, ctx, status):
+        if status == 'online' or status == 'Online':
+            st = discord.Status.online
+        elif status == 'dnd' or status == 'DND' or status == 'donotdisturb':
+            st = discord.Status.dnd
+        elif status == 'idle' or status == 'Idle':
+            st = discord.Status.idle
+        elif status == 'invisible' or status == 'Invisible':
+            st = discord.Status.invisible
+        else:
+            pass
+
+        try:
+            await self.bot.change_presence(status=st)
+            embed = discord.Embed(colour=0x00ff00, title="👌 Done!", description=f"I have set my status to `{status}`!")
+            await ctx.send(embed=embed)
+        except Exception as e:
+            await ctx.send(e)
+        except:
+            await ctx.send("That's not a valid status! Statuses: `online`, `dnd`, `idle`, and `invisible`")
+            
+    @commands.command(pass_context=True)
+    @commands.is_owner()
+    async def house(self, ctx, status):
+        if status == 'brilliance' or status == 'Brilliance':
+            st = discord.HypeSquadHouse.brilliance
+        elif status == 'balance' or status == 'Balance':
+            st = discord.HypeSquadHouse.
+        elif status == 'bravery' or status == 'Bravery':
+            st = discord.HypeSquadHouse.bravery
+        else:
+            pass
+        try:
+            await self.bot.edit_profile(house=)
+            embed = discord.Embed(colour=0x00ff00, title="👌 Done!", description=f"I have set my house to `{status}`!")
+            await ctx.send(embed=embed)
+        except Exception as e:
+            await ctx.send(e)
+        except:
+            await ctx.send("That's not a valid house! Houses: `brilliance`(best), `bravery`, and `balance`")
+
+    @commands.command(pass_context=True)
+    @commands.is_owner()
+    async def username(self, ctx, *, newName):
+        try:
+            await self.bot.edit_profile(username=newName)
+            embed = discord.Embed(title="👌 Done!", description=f"I have changed my username!")
+            await ctx.send(embed=embed)
+        except Exception as e:
+            await ctx.send(f"Error!\n```py\n{e}```")
+
+    @commands.command(pass_context=True)
+    @commands.is_owner()
+    async def avatar(self, ctx, url:str):
+        try:
+            r = requests.get(url)
+            await self.bot.edit_profile(avatar=r.content)
+            embed = discord.Embed(title="👌 Done!", description=f"I have changed my avatar!")
+            embed.set_thumbnail(url=self.bot.user.avatar_url)
+            await ctx.send(embed=embed)
+        except Exception as e:
+            await ctx.send(f"JPEG & PNG Only!\n```py\n{e}```")
                 
     @commands.command(aliases=["resp"])
     @commands.is_owner()
