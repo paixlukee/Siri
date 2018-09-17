@@ -890,25 +890,22 @@ class Utility:
         guild = ctx.message.guild
         roles = list(author.roles)
         permissions = list(author.guild_permissions)
-        # roles = [x.id for x in guild.role_hierarchy] #I was not sure how to make this work in rewrite
-        # roles = '>, <@&'.join(roles)                 #so i left it like this
-        # roles = roles.replace("@everyone", "")
-        # e = roles[:-1]
-        # ea = e.replace("@deleted-role", "@everyone")
+        roles = [x.id for x in guild.role_hierarchy]
+        roles = '>, <@&'.join(roles)     
+        ea = roles[:-1]
         rl = discord.Embed(colour=discord.Color(0x00e1e1))
-        rl.set_author(name="Guild Info", icon_url=guild.icon_url)
+        rl.set_author(name="Server Info", icon_url=guild.icon_url)
         rl.set_thumbnail(url=guild.icon_url)
         rl.add_field(name="Name:", value='{}'.format(guild), inline=False)
         rl.add_field(name="ID:", value=guild.id)
         rl.add_field(name="Region:", value=guild.region)
         rl.add_field(name="Emojis:", value=f"**{str(len(guild.emojis))}**")
-        # rl.add_field(name="Roles:", value=f"<@&{ea[:-10]} (**{str(len(guild.roles))}**)")
+        rl.add_field(name="Roles:", value=f"<@&{ea[:-10]} (**{str(len(guild.roles))}**)")
         rl.add_field(name='Guild Owner:', value=guild.owner.mention)
         rl.add_field(name="Members:", value=guild.member_count)
         rl.add_field(name="Channels:", value=str(len(guild.channels)))
         rl.add_field(name="Verification:", value=guild.verification_level)
-        rl.set_footer(text='Created')
-        rl.timestamp = ctx.guild.created_at
+        rl.add_field(name='Server Created:', value=guild.created_at.__format__('%A, %B %d, %Y'))
         await ctx.send(embed=rl)
 
     @commands.command(aliases=['userinformation'])
