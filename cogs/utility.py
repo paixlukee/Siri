@@ -890,9 +890,11 @@ class Utility:
         guild = ctx.message.guild
         roles = list(author.roles)
         permissions = list(author.guild_permissions)
-        for x in guild.role_hierarchy:
-            roles = '>, <@&'.join(str(roles))     
-            ea = roles[:-1]
+        roles = []
+        for guild in self.bot.guilds:
+            for role in guild.role_hierarchy:
+                roles.append(role)
+                '>, <@&'.join(str(roles))
         rl = discord.Embed(colour=discord.Color(0x00e1e1))
         rl.set_author(name="Server Info", icon_url=guild.icon_url)
         rl.set_thumbnail(url=guild.icon_url)
