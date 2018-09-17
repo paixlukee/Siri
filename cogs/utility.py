@@ -892,9 +892,9 @@ class Utility:
         permissions = list(author.guild_permissions)
         roles = []
         for guild in self.bot.guilds:
-            for role in guild.role_hierarchy:
-                roles.append(role)
-                ea = '>, <@&'.join(str(roles))
+            x.id for role in guild.role_hierarchy:
+                roles.append(x.id)
+                ea = '>, <@&'.join(str(x.id))
         rl = discord.Embed(colour=discord.Color(0x00e1e1))
         rl.set_author(name="Server Info", icon_url=guild.icon_url)
         rl.set_thumbnail(url=guild.icon_url)
