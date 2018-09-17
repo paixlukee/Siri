@@ -890,11 +890,11 @@ class Utility:
         guild = ctx.message.guild
         roles = list(author.roles)
         permissions = list(author.guild_permissions)
-        roles = []
-        for guild in self.bot.guilds:
-            x.id for role in guild.role_hierarchy:
-                roles.append(x.id)
-                ea = '>, <@&'.join(str(x.id))
+        #roles = []
+        #for guild in self.bot.guilds:
+            #x.id for role in guild.role_hierarchy:
+                #roles.append(x.id)
+                #ea = '>, <@&'.join(str(x.id))
         rl = discord.Embed(colour=discord.Color(0x00e1e1))
         rl.set_author(name="Server Info", icon_url=guild.icon_url)
         rl.set_thumbnail(url=guild.icon_url)
@@ -902,7 +902,7 @@ class Utility:
         rl.add_field(name="ID:", value=guild.id)
         rl.add_field(name="Region:", value=guild.region)
         rl.add_field(name="Emojis:", value=f"**{str(len(guild.emojis))}**")
-        rl.add_field(name="Roles:", value=f"<@&{ea[:-80]} (**{str(len(guild.roles))}**)")
+        rl.add_field(name="Roles:", value=f"**{str(len(guild.roles))}**")
         rl.add_field(name='Guild Owner:', value=guild.owner.mention)
         rl.add_field(name="Members:", value=guild.member_count)
         rl.add_field(name="Channels:", value=str(len(guild.channels)))
