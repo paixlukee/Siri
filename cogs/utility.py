@@ -877,7 +877,7 @@ class Utility:
 
             await ctx.send(embed=trl)
 
-    @commands.command(aliases=['serverinformation'])
+    @commands.command(aliases=['serverinformation', 'guildinfo'])
     async def serverinfo(self, ctx):
         """- Information about this guild."""
         try:
@@ -900,7 +900,7 @@ class Utility:
         rl.add_field(name="ID:", value=guild.id)
         rl.add_field(name="Region:", value=guild.region)
         rl.add_field(name="Emojis:", value=f"**{str(len(guild.emojis))}**")
-        rl.add_field(name="Roles:", value=f"<@&{ea[:-10]} (**{str(len(guild.roles))}**)")
+        rl.add_field(name="Roles:", value=f"<@&{ea[:-80]} (**{str(len(guild.roles))}**)")
         rl.add_field(name='Guild Owner:', value=guild.owner.mention)
         rl.add_field(name="Members:", value=guild.member_count)
         rl.add_field(name="Channels:", value=str(len(guild.channels)))
