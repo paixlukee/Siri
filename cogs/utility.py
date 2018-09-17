@@ -906,6 +906,7 @@ class Utility:
         rl.add_field(name="Channels:", value=str(len(guild.channels)))
         rl.add_field(name="Verification:", value=guild.verification_level)
         rl.add_field(name='Server Created:', value=guild.created_at.__format__('%A, %B %d, %Y'))
+        print(f"<@&{ea[:-80]} (**{str(len(guild.roles))}**)")
         await ctx.send(embed=rl)
 
     @commands.command(aliases=['userinformation'])
