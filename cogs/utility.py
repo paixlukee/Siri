@@ -894,7 +894,7 @@ class Utility:
         for guild in self.bot.guilds:
             for role in guild.role_hierarchy:
                 roles.append(role)
-                '>, <@&'.join(str(roles))
+                ea = '>, <@&'.join(str(roles))
         rl = discord.Embed(colour=discord.Color(0x00e1e1))
         rl.set_author(name="Server Info", icon_url=guild.icon_url)
         rl.set_thumbnail(url=guild.icon_url)
