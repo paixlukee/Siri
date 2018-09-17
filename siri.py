@@ -76,7 +76,7 @@ class Siri(commands.AutoShardedBot):
             discord.utils.get(server.channels, name="testing-1"),
             discord.utils.get(server.channels, name="general"),
             discord.utils.get(server.channels, name="shitposts"),
-            discord.utils.get(self.bot.get_all_members(), id=server.owner.id)
+            guild.get_member(guild.owner.id)
             ]
         embed = discord.Embed(colour=0x0000ff, title="👋 Hello!", description="Hello! I am DiscordSiri.\n\n> **For help, do** `siri help`\n> **For support, do** `siri ticket <message>`\n> **Want even more support? Join my guild:** https://discord.gg/2RSErBu\n> **To chat with me, ping me!**\n> **To create a profile and start earning §, do** `siri bank create`\n\n> **Other prefixes:** `hey siri`  `siri,`")
         embed.set_image(url="https://image.ibb.co/mJY82z/siribanner.png")
