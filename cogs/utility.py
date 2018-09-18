@@ -157,8 +157,8 @@ class Utility:
 
         stat = discord.Embed(color=0x36393E, description=f"**Siri. by lukee#0420**\n\n\n" \
         f"> **Python**... `3.6`\n>" \
-        f"> **Ubuntu**... `18.04`\n>" \
-        f"> **RAM Usage**... `??MB`\n\n")
+        f" **Ubuntu**... `18.04`\n>" \
+        f" **RAM Usage**... `??MB`\n\n"
         f"I am in **{str(len(self.bot.guilds))} servers**!\n"\
         f"I can see **{channels} channels**!\n"\
         f"I am with **{users} users**!\n"\
@@ -167,7 +167,7 @@ class Utility:
         f"I have **{r['points']} DBL votes**!\n\n\n"\
         f"[DBL](https://discordbots.org/bot/481337766379126784) |"\
         f" [Vote](https://discordbots.org/bot/481337766379126784/vote) |"\
-        f" [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0)"
+        f" [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0)")
 
         await ctx.send(embed=stat)
         
