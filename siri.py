@@ -194,12 +194,12 @@ class Siri(commands.AutoShardedBot):
         if message.author.bot: return
         await self.process_commands(message)
         
-if __name__ == '__main__':
-    for extension in extension:
-        try:
-            self.load_extension(extension)
-        except Exception as error:
-            print('\n\nEXTEN./COG ERROR: {} was not loaded due to an error: \n-- [{}] --\n\n'.format(extension, error))
+    if __name__ == '__main__':
+        for extension in extension:
+            try:
+                self.load_extension(extension)
+            except Exception as error:
+                print('\n\nEXTEN./COG ERROR: {} was not loaded due to an error: \n-- [{}] --\n\n'.format(extension, error))
 
     def run(self):
         super().run(config.token, reconnect=True)
