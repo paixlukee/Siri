@@ -131,36 +131,14 @@ class Utility:
             await msg.delete()
             await ctx.send("<:WrongMark:473277055107334144> I could not find anything with that query..")
 
-    @commands.command(aliases=['info', 'botinfo'])
+    @commands.command(aliases=['info', 'botinfo', 'status'])
     async def stats(self, ctx):
         """- Information about myself."""
         try:
             await self.add_money(user=ctx.message.author.id, count=1)
         except:
             pass
-
-        author = ctx.message.author
-
-        #RAM = self.process.memory_full_info().rss  /  1024 ** 2
-
-        stat = discord.Embed(color=0x36393E, description=f"**Siri. by lukee#0420**\n\n\n>" \
-            f" **Python**... `3.6`\n>" \
-            f" **Ubuntu**... `18.04`\n>" \
-            f" **RAM Usage**... `??MB`\n\n")
-            f"I am in **{str(len(self.bot.guilds))} servers**!\n"\
-            f"I can see **{channels} channels**!\n"\
-            f"I am with **{users} users**!\n"\
-            f"I can use **{emojis} emojis**!\n"\
-            f'I have **{commands} commands**!\n'\
-            f"I have **{r['points']} DBL votes**!\n\n\n"\
-            f"[DBL](https://discordbots.org/bot/481337766379126784) |"\
-            f" [Vote](https://discordbots.org/bot/481337766379126784/vote) |"\
-            f" [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0)"
-
-        await ctx.send(embed=stat)
         
-    @commands.command(aliases=['guilds'])
-    async def servers(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://discordbots.org/api/bots/481337766379126784") as r:
                 r = await r.json()
@@ -172,21 +150,27 @@ class Utility:
         channels = len(channels)
         emojis = len(self.bot.emojis)
         commands = len(self.bot.all_commands)
-        text = f"I am in **{str(len(self.bot.guilds))} servers**!\n"\
+
+        author = ctx.message.author
+
+        #RAM = self.process.memory_full_info().rss  /  1024 ** 2
+
+        stat = discord.Embed(color=0x36393E, description=f"**Siri. by lukee#0420**\n\n\n" \
+        f"> **Python**... `3.6`\n>" \
+        f"> **Ubuntu**... `18.04`\n>" \
+        f"> **RAM Usage**... `??MB`\n\n")
+        f"I am in **{str(len(self.bot.guilds))} servers**!\n"\
         f"I can see **{channels} channels**!\n"\
         f"I am with **{users} users**!\n"\
         f"I can use **{emojis} emojis**!\n"\
         f'I have **{commands} commands**!\n'\
-        f"I have **{r['points']} DBL votes**!\n\n"\
-        "[DBL](https://discordbots.org/bot/481337766379126784) |"\
-        " [Vote](https://discordbots.org/bot/481337766379126784/vote) |"\
-        " [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0)"
-        embed = discord.Embed(description=text)
-        try:
-            await self.add_money(user=ctx.message.author.id, count=1)
-        except:
-            pass
-        await ctx.send(embed=embed)
+        f"I have **{r['points']} DBL votes**!\n\n\n"\
+        f"[DBL](https://discordbots.org/bot/481337766379126784) |"\
+        f" [Vote](https://discordbots.org/bot/481337766379126784/vote) |"\
+        f" [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0)"
+
+        await ctx.send(embed=stat)
+        
 
     @commands.command()
     @commands.cooldown(1, 900, commands.BucketType.user)
