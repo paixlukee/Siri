@@ -11,6 +11,7 @@ from discord.ext.commands import errors, converter
 from random import choice as rnd
 
 import re
+import psutil
 
 import aiohttp
 import asyncio
@@ -21,6 +22,7 @@ from .utils import checks
 class Colour:
     def __init__(self, _hex):
         self._hex = _hex
+        self.process = psutil.Process(os.getpid())
 
     @property
     def hex(self):
@@ -153,12 +155,12 @@ class Utility:
 
         author = ctx.message.author
 
-        #RAM = self.process.memory_full_info().rss  /  1024 ** 2
+        ram = self.process.memory_full_info().rss / 1024**2
 
         stat = discord.Embed(color=0x36393E, description=f"**Siri. by lukee#0420**\n\n\n" \
         f"> **Python**... `3.6`\n>" \
         f" **Ubuntu**... `18.04`\n>" \
-        f" **RAM Usage**... `??MB`\n\n"
+        f" **RAM Usage**... `{ramUsage:.2f}MB`\n\n"
         f"I am in **{str(len(self.bot.guilds))} servers**!\n"\
         f"I can see **{channels} channels**!\n"\
         f"I am with **{users} users**!\n"\
