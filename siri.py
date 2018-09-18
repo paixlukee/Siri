@@ -24,7 +24,6 @@ class Siri(commands.AutoShardedBot):
         super().__init__(command_prefix=config.prefixes)
         self.remove_command("help")
         self.add_command(self.shutdown)
-        self.add_command(self.cl)
         self.add_command(self.restart)
         self.add_command(self.pull)
         self.add_command(self.shell)
