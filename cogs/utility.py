@@ -2,8 +2,7 @@ import discord
 from discord.ext import commands
 
 from datetime import datetime
-import requests
-import os
+import request
 
 import time
 from random import choice, randint
@@ -18,6 +17,8 @@ import aiohttp
 import asyncio
 import json
 from .utils import checks
+
+import os
 
 
 class Colour:
