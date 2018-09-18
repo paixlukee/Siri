@@ -144,19 +144,18 @@ class Utility:
         #RAM = self.process.memory_full_info().rss  /  1024 ** 2
 
         stat = discord.Embed(color=0x36393E, description=f"**Siri. by lukee#0420**\n\n\n>" \
-            " **Python**... `3.6`\n>" \
-            " **Ubuntu**... `18.04`\n>" \
-            # " **Messages Received**... `{str(len(self.bot.messages))}`\n>"\ I don't know what this is sorry :P
-            " **RAM Usage**... `??MB`\n\n")
+            f" **Python**... `3.6`\n>" \
+            f" **Ubuntu**... `18.04`\n>" \
+            f" **RAM Usage**... `??MB`\n\n")
             f"I am in **{str(len(self.bot.guilds))} servers**!\n"\
             f"I can see **{channels} channels**!\n"\
             f"I am with **{users} users**!\n"\
             f"I can use **{emojis} emojis**!\n"\
             f'I have **{commands} commands**!\n'\
             f"I have **{r['points']} DBL votes**!\n\n\n"\
-            "[DBL](https://discordbots.org/bot/481337766379126784) |"\
-            " [Vote](https://discordbots.org/bot/481337766379126784/vote) |"\
-            " [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0)"
+            f"[DBL](https://discordbots.org/bot/481337766379126784) |"\
+            f" [Vote](https://discordbots.org/bot/481337766379126784/vote) |"\
+            f" [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0)"
 
         await ctx.send(embed=stat)
         
