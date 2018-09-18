@@ -43,7 +43,7 @@ class Help:
         elif l == "Module" or l == "module" or l == "mdl":
 
             if cmd == "Utility" or cmd == "utility":
-                modules = ["`article`", "`avatar`", "`chatbot`", "`colour`", "`define`","`discordstatus`", "`hastebin`","`IMDb`","`langdetect`", "`map`", "`news`","`shorten`", "`search`","`serverinfo`", "`userinfo`","`strawpoll`","`ticket`", "`translate`", "`weather`", "`wikipedia`"]
+                modules = ["`article`", "`avatar`", "`chatbot`", "`colour`", "`define`","`discordstatus`", "`hastebin`","`IMDb`","`langdetect`", "`map`", "`news`","`shorten`", "`search`","`serverinfo`", "`userinfo`","`strawpoll`","`translate`", "`weather`", "`wikipedia`"]
                 name = "Utility"
                 d = "Utility Commands"
             elif cmd == "Help" or cmd == "help":
@@ -55,7 +55,7 @@ class Help:
                 name = "Crypto"
                 d = "Get current crypto stats"
             elif cmd == "Bot" or cmd == "bot":
-                modules = ["`servers`", "`stats`", "`support`", "`ping`"]
+                modules = ["`ticket`", "`stats`", "`support`", "`ping`"]
                 name = "Bot"
                 d = "Bot info/stats"
             elif cmd == "Economy" or cmd == "economy":
