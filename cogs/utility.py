@@ -22,7 +22,6 @@ from .utils import checks
 class Colour:
     def __init__(self, _hex):
         self._hex = _hex
-        self.process = psutil.Process(os.getpid())
 
     @property
     def hex(self):
@@ -36,6 +35,7 @@ class Colour:
 class Utility:
     def __init__(self, bot):
         self.bot = bot
+        self.process = psutil.Process(os.getpid())
 
 
     async def add_money(self, user=None, count=None):
