@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 from datetime import datetime
-import request
+import requests
 
 import time
 from random import choice, randint
@@ -36,7 +36,6 @@ class Colour:
 
 class Utility:
     def __init__(self, bot):
-        os = os
         self.bot = bot
         self.process = psutil.Process(os.getpid())
 
