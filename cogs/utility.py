@@ -162,7 +162,7 @@ class Utility:
         stat = discord.Embed(color=0x36393E, description=f"**Siri. by lukee#0420**\n\n\n" \
         f"> **Python**... `3.6`\n>" \
         f" **Ubuntu**... `18.04`\n>" \
-        f" **RAM Usage**... `{ramUsage:.2f}MB`\n\n"
+        f" **RAM Usage**... `{ram:.2f}MB`\n\n"
         f"I am in **{str(len(self.bot.guilds))} servers**!\n"\
         f"I can see **{channels} channels**!\n"\
         f"I am with **{users} users**!\n"\
