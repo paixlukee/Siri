@@ -18,9 +18,10 @@ import json
 
 import config
 
+extensions = ['cogs.utility', 'cogs.help', 'cogs.crypto', 'cogs.economy', 'cogs.dev', 'cogs.afk']
+
 class Siri(commands.AutoShardedBot):
     def __init__(self):
-        self.ext = ['cogs.utility', 'cogs.help', 'cogs.crypto', 'cogs.economy', 'cogs.dev', 'cogs.afk']
         super().__init__(command_prefix=config.prefixes)
         self.remove_command("help")
         self.add_command(self.shutdown)
