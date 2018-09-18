@@ -159,7 +159,7 @@ class Utility:
 
         ram = self.process.memory_full_info().rss / 1024**2
 
-        stat = discord.Embed(color=0x36393E, description=f"**Siri. by lukee#0420**\n\n\n" \
+        stat = discord.Embed(color=0x37749c, description=f"**Siri. by lukee#0420**\n\n\n" \
         f"> **Python**... `3.6`\n>" \
         f" **Ubuntu**... `18.04`\n>" \
         f" **RAM Usage**... `{ram:.2f}MB`\n\n"
@@ -172,7 +172,7 @@ class Utility:
         f"[DBL](https://discordbots.org/bot/481337766379126784) |"\
         f" [Vote](https://discordbots.org/bot/481337766379126784/vote) |"\
         f" [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0)")
-
+        stat.set_thumbnail(url="https://image.ibb.co/f2mAHK/Logo_Makr_4_Jau_Yh.png")
         await ctx.send(embed=stat)
         
 
