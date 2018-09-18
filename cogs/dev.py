@@ -193,14 +193,14 @@ class Developer:
         letters2 = ['q', 'Q', 'p', 'P', 'o', 'v', 'V', 'z', 'e', 'E', 'I', 'L', 't', 'T', 'r', 'R', 'j', 'J', 'O']
         randc = f'{a}{rnd(letters)}{b}{rnd(letters2)}{c}'
         try:
-            c = self.get_channel('478833607126024192')
+            c = self.bot.get_channel('478833607126024192')
             if option == 'other' or option == 'o':
                 #try:
                 embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n* {message}```")
                 embed.set_image(url=link)
                 #except:
                     #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n* {message}```")
-                await c.send( embed=embed)
+                await c.send(embed=embed)
                 await ctx.send(":ok_hand: Done.")
             elif option == 'add' or option == 'a':
                 #try:
@@ -208,7 +208,7 @@ class Developer:
                 embed.set_image(url=link)
                 #except:
                     #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n+ {message}```")
-                await c.send( embed=embed)
+                await c.send(embed=embed)
                 await ctx.send(":ok_hand: Done.")
             elif option == 'remove' or option == 'r':
                 #try:
@@ -216,7 +216,7 @@ class Developer:
                 embed.set_image(url=link)
                 #except:
                     #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n- {message}```")
-                await c.send( embed=embed)
+                await c.send(embed=embed)
                 await ctx.send(":ok_hand: Done.")
             else:
                 await ctx.send("That isn't an option.")
