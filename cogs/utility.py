@@ -108,7 +108,7 @@ class Utility:
         payload['explaintext'] = '1'
         conn = aiohttp.TCPConnector(verify_ssl=False)
         session = aiohttp.ClientSession(connector=conn)
-        async with session.get(url, params=payload, headers={'user-agent': 'Siri v1'}) as r:
+        async with session.get(url, params=payload, headers={'user-agent': 'Siri v2'}) as r:
             result = await r.json()
         session.close()
         if '-1' not in result['query']['pages']:
@@ -146,7 +146,7 @@ class Utility:
         stat = discord.Embed(color=0x36393E, description=f"**Siri. by lukee#0420**\n\n\n>" \
             " **Python**... `3.6`\n>" \
             " **Ubuntu**... `18.04`\n>" \
-            " **Guilds**... `{str(len(self.bot.guilds))}`\n>" \
+            f" **Guilds**... `{str(len(self.bot.guilds))}`\n>" \
             # " **Messages Received**... `{str(len(self.bot.messages))}`\n>"\ I don't know what this is sorry :P
             " **RAM Usage**... `??MB`")
 
@@ -927,17 +927,16 @@ class Utility:
         guild = ctx.message.guild
         await message.add_reaction('🔍')
         trl = discord.Embed(colour=user.colour)
-        trl.set_author(name="User Info", icon_url=user.avatar_url)
+        trl.set_author(name=user, icon_url=user.avatar_url)
         trl.set_thumbnail(url=user.avatar_url)
-        trl.add_field(name="Username:", value='{}'.format(user), inline=False)
+        #trl.add_field(name="Username:", value='{}'.format(user), inline=False)
         trl.add_field(name="Nickname:", value=user.nick)
         trl.add_field(name="Status:", value=user.status)
         trl.add_field(name="Playing:", value=user.activity)
         trl.add_field(name="Roles:", value=user.top_role.name + " **(" + str(len(user.roles)) + ")**")
         trl.add_field(name='Account Created:', value=user.created_at.__format__('%A, %B %d, %Y'))
+        trl.add_field(name='Joined Server:', value=user.joined_at.__format__('%A, %B %d, %Y'))
         trl.add_field(name="User ID:", value=user.id)
-        trl.set_footer(text='Joined')
-        trl.timestamp = member.joined_at
         await ctx.send(embed=trl)
 
 
