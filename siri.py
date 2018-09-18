@@ -93,47 +93,6 @@ class Siri(commands.AutoShardedBot):
         embed = discord.Embed(description=f":thumbsdown: **Aw!** Siri has been kicked from `{guild.name}`.. Siri is now in `{str(len(self.guilds))}` guilds.")
         await log.send(embed=embed)
 
-    @commands.command(hidden=True, aliases=['changelog'])
-    async def cl(self, ctx, option, link, *, message):
-        a = random.randint(1, 9)
-        b = random.randint(1, 9)
-        c = random.randint(1, 9)
-        letters = ['a', 'A', 'b', 'B', 'C', 'd', 'n', 'x', 'Y', 'y', 's', 'S', 'i', 'k', 'K', 'g', 'G', 'm', 'c']
-        letters2 = ['q', 'Q', 'p', 'P', 'o', 'v', 'V', 'z', 'e', 'E', 'I', 'L', 't', 'T', 'r', 'R', 'j', 'J', 'O']
-        randc = f'{a}{rnd(letters)}{b}{rnd(letters2)}{c}'
-        if ctx.message.author.id =='396153668820402197':
-            c = self.get_channel('478833607126024192')
-            if option == 'other' or option == 'o':
-                #try:
-                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n* {message}```")
-                embed.set_image(url=link)
-                #except:
-                    #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n* {message}```")
-                await c.send( embed=embed)
-                await ctx.send(":ok_hand: Done.")
-            elif option == 'add' or option == 'a':
-                #try:
-                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n+ {message}```")
-                embed.set_image(url=link)
-                #except:
-                    #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n+ {message}```")
-                await c.send( embed=embed)
-                await ctx.send(":ok_hand: Done.")
-            elif option == 'remove' or option == 'r':
-                #try:
-                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n- {message}```")
-                embed.set_image(url=link)
-                #except:
-                    #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n- {message}```")
-                await c.send( embed=embed)
-                await ctx.send(":ok_hand: Done.")
-            else:
-                await ctx.send("That isn't an option.")
-        else:
-            trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
-            trl.set_footer(text="Sorry about that.")
-            await ctx.send(embed=trl)
-
     @commands.command(hidden=True)
     @commands.is_owner()
     async def shutdown(self, ctx):
@@ -235,6 +194,14 @@ class Siri(commands.AutoShardedBot):
     async def on_message(self, message):
         if message.author.bot: return
         await self.process_commands(message)
+        
+if __name__ == '__main__':
+    for extension in extension:
+        try:
+            self.load_extension(extension)
+        except Exception as error:
+            print('\n\nEXTEN./COG ERROR: {} was not loaded due to an error: \n-- [{}] --\n\n'.format(extension, error))
 
     def run(self):
         super().run(config.token, reconnect=True)
+       
