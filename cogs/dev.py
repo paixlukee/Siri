@@ -182,6 +182,49 @@ class Developer:
             return
         
         
+        
+    @commands.command(hidden=True, aliases=['cl'])
+    @commands.is_owner()
+    async def changelog(self, ctx, option, link, *, message):
+        a = random.randint(1, 9)
+        b = random.randint(1, 9)
+        c = random.randint(1, 9)
+        letters = ['a', 'A', 'b', 'B', 'C', 'd', 'n', 'x', 'Y', 'y', 's', 'S', 'i', 'k', 'K', 'g', 'G', 'm', 'c']
+        letters2 = ['q', 'Q', 'p', 'P', 'o', 'v', 'V', 'z', 'e', 'E', 'I', 'L', 't', 'T', 'r', 'R', 'j', 'J', 'O']
+        randc = f'{a}{rnd(letters)}{b}{rnd(letters2)}{c}'
+        try:
+            c = self.get_channel('478833607126024192')
+            if option == 'other' or option == 'o':
+                #try:
+                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n* {message}```")
+                embed.set_image(url=link)
+                #except:
+                    #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n* {message}```")
+                await c.send( embed=embed)
+                await ctx.send(":ok_hand: Done.")
+            elif option == 'add' or option == 'a':
+                #try:
+                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n+ {message}```")
+                embed.set_image(url=link)
+                #except:
+                    #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n+ {message}```")
+                await c.send( embed=embed)
+                await ctx.send(":ok_hand: Done.")
+            elif option == 'remove' or option == 'r':
+                #try:
+                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n- {message}```")
+                embed.set_image(url=link)
+                #except:
+                    #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n- {message}```")
+                await c.send( embed=embed)
+                await ctx.send(":ok_hand: Done.")
+            else:
+                await ctx.send("That isn't an option.")
+        except Exception as e:
+            trl = discord.Embed(title="Error!", colour=0xff775b, description=f"```py\n{e}```")
+            await ctx.send(embed=trl)
+        
+        
     @commands.command(pass_context=True, aliases=['fp', 'forcepost'])
     @commands.is_owner()
     async def post(self, ctx, e = None):
