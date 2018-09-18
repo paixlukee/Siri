@@ -146,11 +146,48 @@ class Utility:
         stat = discord.Embed(color=0x36393E, description=f"**Siri. by lukee#0420**\n\n\n>" \
             " **Python**... `3.6`\n>" \
             " **Ubuntu**... `18.04`\n>" \
-            f" **Guilds**... `{str(len(self.bot.guilds))}`\n>" \
             # " **Messages Received**... `{str(len(self.bot.messages))}`\n>"\ I don't know what this is sorry :P
-            " **RAM Usage**... `??MB`")
+            " **RAM Usage**... `??MB`\n\n")
+            f"I am in **{str(len(self.bot.guilds))} servers**!\n"\
+            f"I can see **{channels} channels**!\n"\
+            f"I am with **{users} users**!\n"\
+            f"I can use **{emojis} emojis**!\n"\
+            f'I have **{commands} commands**!\n'\
+            f"I have **{r['points']} DBL votes**!\n\n\n"\
+            "[DBL](https://discordbots.org/bot/481337766379126784) |"\
+            " [Vote](https://discordbots.org/bot/481337766379126784/vote) |"\
+            " [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0)"
 
         await ctx.send(embed=stat)
+        
+    @commands.command(aliases=['guilds'])
+    async def servers(self, ctx):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://discordbots.org/api/bots/481337766379126784") as r:
+                r = await r.json()
+        users = len(set(self.bot.get_all_members()))
+        channels = []
+        for guild in self.bot.guilds:
+            for channel in guild.channels:
+                channels.append(channel)
+        channels = len(channels)
+        emojis = len(self.bot.emojis)
+        commands = len(self.bot.all_commands)
+        text = f"I am in **{str(len(self.bot.guilds))} servers**!\n"\
+        f"I can see **{channels} channels**!\n"\
+        f"I am with **{users} users**!\n"\
+        f"I can use **{emojis} emojis**!\n"\
+        f'I have **{commands} commands**!\n'\
+        f"I have **{r['points']} DBL votes**!\n\n"\
+        "[DBL](https://discordbots.org/bot/481337766379126784) |"\
+        " [Vote](https://discordbots.org/bot/481337766379126784/vote) |"\
+        " [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0)"
+        embed = discord.Embed(description=text)
+        try:
+            await self.add_money(user=ctx.message.author.id, count=1)
+        except:
+            pass
+        await ctx.send(embed=embed)
 
     @commands.command()
     @commands.cooldown(1, 900, commands.BucketType.user)
@@ -674,35 +711,6 @@ class Utility:
                 else:
                     await ctx.send(f"Brr. Take a jacket!.. up to **{resp['main']['temp_max']}°F**!")
                 await ctx.send(embed=embed)
-
-    @commands.command(aliases=['guilds'])
-    async def servers(self, ctx):
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get("https://discordbots.org/api/bots/481337766379126784") as r:
-                r = await r.json()
-        users = len(set(self.bot.get_all_members()))
-        channels = []
-        for guild in self.bot.guilds:
-            for channel in guild.channels:
-                channels.append(channel)
-        channels = len(channels)
-        emojis = len(self.bot.emojis)
-        commands = len(self.bot.all_commands)
-        text = f"I am in **{str(len(self.bot.guilds))} servers**!\n"\
-        f"I can see **{channels} channels**!\n"\
-        f"I am with **{users} users**!\n"\
-        f"I can use **{emojis} emojis**!\n"\
-        f'I have **{commands} commands**!\n'\
-        f"I have **{r['points']} DBL votes**!\n\n"\
-        "[DBL](https://discordbots.org/bot/481337766379126784) |"\
-        " [Vote](https://discordbots.org/bot/481337766379126784/vote) |"\
-        " [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0)"
-        embed = discord.Embed(description=text)
-        try:
-            await self.add_money(user=ctx.message.author.id, count=1)
-        except:
-            pass
-        await ctx.send(embed=embed)
           
     @commands.command(aliases=['shorten', 'linkshorten'])
     async def link(self, ctx, url):
