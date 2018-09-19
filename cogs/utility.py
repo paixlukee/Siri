@@ -642,7 +642,7 @@ class Utility:
         try:
            #embed = discord.Embed()
            #embed.set_image(url="")
-           ctx.send(r)
+           await ctx.send(r)
         except Exception as e:
             await ctx.send("I couldn't find anything!")
 
