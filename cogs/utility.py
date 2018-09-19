@@ -18,7 +18,7 @@ import asyncio
 import json
 from .utils import checks
 
-from google_images_search import GoogleImagesSearch
+from Google-Images-Search import GoogleImagesSearch
 
 import os
 
