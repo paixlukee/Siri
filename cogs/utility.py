@@ -18,6 +18,8 @@ import asyncio
 import json
 from .utils import checks
 
+from google_images_search import GoogleImagesSearch
+
 import os
 
 
@@ -577,8 +579,7 @@ class Utility:
             f"*{description}*\n{emoji2} **API**\n "\
             f"*{ind}*\n\n**Next Maintenance:**{maint}\n\n"\
             f"**Unresolved Incidents:**{inc}")
-        embed.set_thumbnail(
-            url="https://yt3.ggpht.com/a-/ACSszfHkcq8jw1JefOzyp7pui7vBjA66h5cFwbtC-g=s900-mo-c-c0xffffffff-rj-k-no")
+        embed.set_thumbnail(url="https://yt3.ggpht.com/a-/ACSszfHkcq8jw1JefOzyp7pui7vBjA66h5cFwbtC-g=s900-mo-c-c0xffffffff-rj-k-no")
         await msg.edit(embed=embed)
 
     @commands.command(aliases=['poll'])
@@ -623,6 +624,28 @@ class Utility:
             await ctx.send(embed=embed)
         except:
             await ctx.send("There was an error processing your image.")
+                                
+    @commands.command(aliases=['imagesearch', 'img'])
+    async def image(self, ctx, *, query): 
+        """Get an image from Google Images"""
+        _search = GoogleImagesSearch('__your_dev_api_key__', '__your_project_cx__')
+        _params = {
+            'q': {query},
+            'num': 1-50,
+            'safe': 'high',
+            'searchType': 'image',
+        }
+        r = _search.search(search_params=_params)
+        try:
+            await self.add_money(user=ctx.message.author.id, count=1)
+        except:
+            pass
+        try:
+           #embed = discord.Embed()
+           #embed.set_image(url="")
+           ctx.send(r)
+        except Exception as e:
+            await ctx.send("I couldn't find anything!")
 
     @commands.command()
     async def translate(self, ctx, lang_code, *, message):
