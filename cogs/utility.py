@@ -17,8 +17,7 @@ import aiohttp
 import asyncio
 import json
 from .utils import checks
-
-from Google-Images-Search import GoogleImagesSearch
+import Google_Images_Search
 
 import os
 
