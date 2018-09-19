@@ -17,7 +17,7 @@ import aiohttp
 import asyncio
 import json
 from .utils import checks
-#import Google_Images_Search
+pip install Google-Images-Search
 
 import os
 
