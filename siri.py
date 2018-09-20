@@ -189,6 +189,8 @@ class Siri(commands.AutoShardedBot):
         elif isinstance(error, commands.BadArgument):
             embed = discord.Embed(title=("<:WrongMark:473277055107334144> There was an error!") , colour=0xff775b, description=f"```py\n{error}```")
             await ctx.send(embed=embed)
+        else:
+            traceback.print_exc()
 
     async def on_message(self, message):
         if message.author.bot: return
