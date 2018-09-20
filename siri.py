@@ -5,6 +5,7 @@ import datetime
 
 import time
 import subprocess
+import traceback
 from discord.ext.commands import errors, converter
 import requests
 import random
@@ -188,8 +189,6 @@ class Siri(commands.AutoShardedBot):
         elif isinstance(error, commands.BadArgument):
             embed = discord.Embed(title=("<:WrongMark:473277055107334144> There was an error!") , colour=0xff775b, description=f"```py\n{error}```")
             await ctx.send(embed=embed)
-        else:
-            print(error)
 
     async def on_message(self, message):
         if message.author.bot: return
