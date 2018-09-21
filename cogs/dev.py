@@ -100,11 +100,11 @@ class Developer:
             await ctx.send(f":incoming_envelope: I have sent the response to the owner of Ticket **#**{ticket}.")
         except:
             try:
-                guild = self.bot.get_guild(id)
+                guild = self.bot.get_guild(int(id))
                 target = discord.utils.get(guild.channels, name=ticket)
                 embed = discord.Embed(colour=0x00a6ff, description=f"\"{message}\" - **{ctx.message.author}**")
                 embed.set_author(name=f"Please turn on DMs for better support!", icon_url=self.bot.user.avatar_url)
-                await target.send(embed=embed, content=":incoming_envelope: A member of this guild attempted to contact support, but had their DMs disabled! **Here is the response from our Support Team:**")
+                await target.send(embed=embed, content=":incoming_envelope: A member of this server attempted to contact support, but had their DMs disabled! **Here is the response from our Support Team:**")
                 await ctx.send(f":incoming_envelope: I have sent the response to the guild of the owner of that ticket") 
             except Exception as e:
                 await ctx.send(f"**Error sending support response!**\n```{e}```")
