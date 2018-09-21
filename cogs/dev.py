@@ -155,7 +155,7 @@ class Developer:
                 await ctx.send(embed=embed)
 
             else:
-                if len(result) > 1500:
+                if len(str(result)) > 1500:
                     r = requests.post(f"https://hastebin.com/documents",
                     data=result.encode('utf-8')).json()
                     await ctx.send(":weary::ok_hand: The output is too long to send to chat. Here is a hastebin file for ya.. :point_right: https://hastebin.com/" + r['key'])
