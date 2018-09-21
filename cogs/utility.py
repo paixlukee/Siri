@@ -82,8 +82,10 @@ class Utility:
     @commands.command(name='wikipedia', aliases=['wiki', 'w'])
     async def _wikipedia(self, ctx, *, q: str = None):
         """Search Information on Wikipedia"""
-        if not ctx.channel.is_nsfw():
-            return await ctx.send('You can use this in only nsfw channels.')
+        if q is None:
+            await self.bot.say("Include the query with the command!")
+        elif q == 'penis' or q == 'Penis' or q == 'orgy' or q == 'Orgy' or q == 'vagina' or q == 'Vagina' or q == 'Breast' or q == 'breast' or q == 'Nipple' or q == 'nipple' or q == 'Porn' or q == 'porn' or q == 'adult videos' or q == 'XXX':
+            await self.bot.say(f":warning: **Caution!** That is NSFW!") #lmao i hope u like this
         try:
             await self.add_money(user=ctx.message.author.id, count=1)
         except:
