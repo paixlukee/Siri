@@ -93,7 +93,7 @@ class Developer:
     @commands.is_owner()
     async def respond(self, ctx, ticket, id, *, message):
         try:
-            target = discord.utils.get(self.bot.get_all_members(), id=id)
+            await bot.get_user(int(id))
             embed = discord.Embed(colour=0x00a6ff, description=f"\"{message}\" - **{ctx.message.author}**")
             embed.set_author(name=f"In response to ticket #{ticket}..", icon_url=self.bot.user.avatar_url)
             await target.send(embed=embed)
