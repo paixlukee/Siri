@@ -15,6 +15,8 @@ url_rx = re.compile('https?:\/\/(?:www\.)?.+')
 class Music:
     def __init__(self, bot):
         self.bot = bot
+        self.ttrue = '<:greentick:492800272834494474>'
+        self.tfals = '<:redtick:492800273211850767>'
         self.colour = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
         if not hasattr(bot, 'lavalink'):
             #stuffs here
@@ -48,18 +50,19 @@ class Music:
 
         if not player.is_connected:
             if not ctx.author.voice or not ctx.author.voice.channel:
-                return await ctx.send('Please join a voice channel first.')
+                return await ctx.send(f"{self.tfals} Please join a voice channel first.")
 
             permissions = ctx.author.voice.channel.permissions_for(ctx.me)
 
             if not permissions.connect or not permissions.speak:
-                return await ctx.send("I am unable to connect to your voice channel! Do I have the correct permissions?")
+                return await ctx.send(f"{self.tfals} I am unable to connect to your voice channel! Do I have the correct permissions?")
 
             player.store('channel', ctx.channel.id)
             await player.connect(ctx.author.voice.channel.id)
+            
         else:
             if not ctx.author.voice or not ctx.author.voice.channel or player.connected_channel.id != ctx.author.voice.channel.id:
-                return await ctx.send(f"You aren't in my voice channel, #**{ctx.me.voice.channel}**")
+                return await ctx.send(f"{self.tfals} You aren't in my voice channel, #**{ctx.me.voice.channel}**")
 
         query = query.strip('<>')
 
@@ -69,7 +72,7 @@ class Music:
         results = await self.bot.lavalink.get_tracks(query)
 
         if not results or not results['tracks']:
-            return await ctx.send('There was nothing found for that song.')
+            return await ctx.send(f"{self.tfals} There was nothing found for that song.")
 
         trl = discord.Embed(colour=rnd(self.colour))
 
@@ -81,14 +84,14 @@ class Music:
 
 
             t = results['tracks'][0]
-            trl.description = f"Playlist, **{results['playlistInfo']['name']}** enqueued. ({len(tracks)} tracks)"
+            trl.description = f"{self.ttrue} Playlist, **{results['playlistInfo']['name']}** enqueued. ({len(tracks)} tracks)"
             trl.set_footer(text=f"Siri Music | Requested by {ctx.author.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
             await ctx.send(embed=trl)
             player.add(requester=ctx.author.id, track=t)
         else:
             t = results['tracks'][0]
-            trl.description = f"[{t['info']['title']}]({t['info']['uri']}) enqueued."
-            #trl.set_thumbnail(url=player.thumbnail)
+            trl.description = f"{self.ttrue} [{t['info']['title']}]({t['info']['uri']}) enqueued."
+            trl.set_thumbnail(url=player.current.thumbnail)
             trl.set_footer(text=f"Siri Music | Requested by {ctx.author.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
             await ctx.send(embed=trl)
             player.add(requester=ctx.author.id, track=t)
@@ -102,9 +105,9 @@ class Music:
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
         if not player.is_playing:
-            return await ctx.send("I am not playing anything.")
+            return await ctx.send(f"{self.tfals} I am not playing anything.")
 
-        await ctx.send("Track **Skipped**.")
+        await ctx.send(f"{self.ttrue} Track **Skipped**.")
         await player.skip()
 
     @commands.command(aliases=['clear'])
@@ -113,7 +116,7 @@ class Music:
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
         if not player.is_playing:
-            return await ctx.send("I am not playing anything.")
+            return await ctx.send(f"{self.tfals} I am not playing anything.")
 
         player.queue.clear()
         await player.stop()
@@ -181,25 +184,28 @@ class Music:
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
         if not player.is_playing:
-            return await ctx.send("I'm not playing anything!")
+            return await ctx.send(f"{self.tfals} I'm not playing anything!")
 
         if player.paused:
             await player.set_pause(False)
-            await ctx.send('Track **Resumed**')
+            await ctx.send(f"{self.ttrue} Track **Resumed**")
         else:
             await player.set_pause(True)
-            await ctx.send('Track **Paused**')
+            await ctx.send(f"{self.ttrue} Track **Paused**")
 
     @commands.command(aliases=['vol'])
     async def volume(self, ctx, volume: int=None):
         """Check the volume, or set the volume"""
         player = self.bot.lavalink.players.get(ctx.guild.id)
+        
+        if not player.is_playing:
+            return await ctx.send(f"{self.tfals} I'm not playing anything!")
 
         if not volume:
             return await ctx.send(f'**Volume**: **{player.volume}**%')
 
         await player.set_volume(volume)
-        await ctx.send(f'Volume set to **{player.volume}**%')
+        await ctx.send(f"{self.ttrue} Volume set to **{player.volume}**%")
 
     @commands.command()
     async def shuffle(self, ctx):
@@ -207,11 +213,11 @@ class Music:
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
         if not player.is_playing:
-            return await ctx.send('There is nothing playing!')
+            return await ctx.send(f"{self.tfals} I'm not playing anything!")
 
         player.shuffle = not player.shuffle
 
-        await ctx.send('I have **' + ('enabled' if player.shuffle else 'disabled') + '** shuffle.')
+        await ctx.send(f"{self.ttrue} I have **' + ('enabled' if player.shuffle else 'disabled') + '** shuffle.")
 
 
     @commands.command(aliases=['rm', 'pop'])
@@ -220,15 +226,15 @@ class Music:
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
         if not player.queue:
-            return await ctx.send("There is nothing queued.")
+            return await ctx.send(f"{self.tfals} There is nothing queued!")
 
         if count > len(player.queue) or count < 1:
-            return await ctx.send("Please choose a number that's actually in the queue.")
+            return await ctx.send(f"{self.ttrue} Please choose a number that's in the queue!")
 
         count -= 1
         removed = player.queue.pop(count)
 
-        embed = discord.Embed(colour=rnd(self.colour), description=f"[{removed.title}]({removed.uri}) has been removed from the queue.")
+        embed = discord.Embed(colour=rnd(self.colour), description=f"{self.ttrue} [{removed.title}]({removed.uri}) has been removed from the queue.")
 
         await ctx.send(embed=embed)
 
@@ -236,15 +242,13 @@ class Music:
     async def msearch(self, ctx, *, query):
         """Search for a track"""
 
-        queryw = query
-
         if not query.startswith('ytsearch:') and not query.startswith('scsearch:'):
             query = 'ytsearch:' + query
 
         results = await self.bot.lavalink.get_tracks(query)
 
         if not results or not results['tracks']:
-            return await ctx.send("I couldn't find anything!")
+            return await ctx.send(f"{self.tfals} I couldn't find anything!")
 
         tracks = results['tracks'][:10]
 
@@ -252,7 +256,7 @@ class Music:
         for i, t in enumerate(tracks, start=0):
             data += f'**{i + 1}:** [{t["info"]["title"]}]({t["info"]["uri"]})\n'
 
-        embed = discord.Embed(title=f"**Query:** {queryw}", colour=rnd(self.colour), description=f"{data}\n\nRespond with the number that you want to play. To cancel, send **cancel**.")
+        embed = discord.Embed(title=f"**Query:** {query}", colour=rnd(self.colour), description=f"{data}\n\nRespond with the number that you want to play. To cancel, send **cancel**.")
         embed.set_footer(text=f'Requested by {ctx.message.author}')
         embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed)
@@ -327,14 +331,14 @@ class Music:
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
         if not player.is_connected:
-            return await ctx.send('Not connected.')
+            return await ctx.send(f"{self.tfals} I'm not in a voice channel!")
 
         if not ctx.author.voice or (player.is_connected and ctx.author.voice.channel.id != int(player.channel_id)):
-            return await ctx.send('You\'re not in my voicechannel!')
+            return await ctx.send(f"{self.tfals} You're not in #**{ctx.me.voice.channel}**!")
 
         player.queue.clear()
         await player.disconnect()
-        await ctx.send('I have **disconnected**.')
+        await ctx.send(f"{self.ttrue} I have **disconnected**.")
 
 
 def setup(bot):
