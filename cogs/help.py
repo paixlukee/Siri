@@ -62,8 +62,12 @@ class Help:
                 modules = ["`balance`", "`bank create`", "`birthday`", "`buy`","`daily`", "`description`", "`eat`","`give`", "`profile`", "`setcolour`", "`shop`"]
                 name = "Economy"
                 d = "Economy Commands"
+            elif cmd == "Music" or cmd == "music":
+                modules = ["`play`", "`queue`", "`np`", "`shuffle`", "`stop`", "`volume`", "`pause`", "`resume`", "`leave`", "`msearch`", "`remove`"]
+                name = "Music"
+                d = "Music Commands"
             else:
-                return await ctx.send(f"<:WrongMark:473277055107334144> No module called \"{cmd}\" found.")
+                return await ctx.send(f"<:WrongMark:473277055107334144> No module named \"{cmd}\" found.")
 
             try:
                 md = " ".join(modules)
