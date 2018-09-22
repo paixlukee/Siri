@@ -225,7 +225,7 @@ class Music:
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['find', 'f'])
-    async def search(self, ctx, *, query):
+    async def msearch(self, ctx, *, query):
 
         queryw = query
 
