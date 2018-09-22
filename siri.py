@@ -186,9 +186,11 @@ class Siri(commands.AutoShardedBot):
             trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
             trl.set_footer(text="Sorry About That.")
             await ctx.send(embed=trl)
-        if isinstance(error, commands.BadArgument):
+        elif isinstance(error, commands.BadArgument):
             embed = discord.Embed(title=("<:WrongMark:473277055107334144> There was an error!") , colour=0xff775b, description=f"```py\n{error}```")
             await ctx.send(embed=embed)
+        else:
+            print(type(error).__name__, error)
 
     async def on_message(self, message):
         if message.author.bot: return
