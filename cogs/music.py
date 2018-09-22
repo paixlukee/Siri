@@ -157,13 +157,12 @@ class Music:
 
         shuf = 'ON' if player.shuffle else 'OFF'
 
-        if player.current.stream:
-            dur = 'LIVE'
-        else:
-            dur = lavalink.Utils.format_time(track.duration)
-
         
         for i, track in enumerate(player.queue[start:end], start=start):
+            if player.current.stream:
+                dur = 'LIVE'
+            else:
+                dur = lavalink.Utils.format_time(track.duration)
             qlist += f'**{i + 1}:** [{track.title}]({track.uri}) `{dur}`\n'
 
         embed = discord.Embed(title=f"Queue ({q})", colour=rnd(self.colour), description=f"**Now:** [{player.current.title}]({player.current.uri}) `{n_dur}`\n{qlist}")
