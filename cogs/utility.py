@@ -173,8 +173,8 @@ class Utility:
         f'I have **{commands} commands**!\n'\
         f"I have **{r['points']} DBL votes**!\n\n\n"\
         f"[DBL](https://discordbots.org/bot/481337766379126784) |"\
-        f" [Vote](https://discordbots.org/bot/481337766379126784/vote) |"\
-        f" [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0)")
+        f" [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0) |")
+        f" [Support](https://discord.gg/CjRP2Mc)")
         stat.set_thumbnail(url="https://image.ibb.co/f2mAHK/Logo_Makr_4_Jau_Yh.png")
         stat.set_footer(text="Special Thanks to iWeeti#8031 & Skullbite#5245 for making Siri possible :^) | Siri v2")
         await ctx.send(embed=stat)
@@ -201,7 +201,7 @@ class Utility:
             author = ctx.message.author
             guild = ctx.message.guild
 
-            channel = self.bot.get_channel(481352533676392469)
+            channel = self.bot.get_channel(493331059459489802)
 
             stat = discord.Embed(color = discord.Color(0xcd87ff))
             stat.set_author(name=guild, icon_url=guild.icon_url)
@@ -800,7 +800,7 @@ class Utility:
 
     @commands.command()
     async def support(self, ctx):
-        await ctx.send("__**Support**__:\nTo submit a ticket, do `siri ticket <message>`..\nTo join a support guild, click here: https://discord.gg/2RSErBu")
+        await ctx.send("__**Support**__:\nTo submit a ticket, do `siri ticket <message>`..\nTo join a support guild, click here: https://discord.gg/CjRP2Mc")
 
 
     @commands.command(aliases=['color'])
