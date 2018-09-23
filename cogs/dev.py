@@ -134,7 +134,7 @@ class Developer:
                 'commands': commands,
                 'requests': requests,
                 'os': os,
-                'player': self.bot.lavalink.players.get(ctx.guild.id)
+                'player': self.bot.lavalink.players.get(ctx.guild.id),
                 '_': self._last_result
             }
 
