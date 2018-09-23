@@ -99,7 +99,7 @@ class Developer:
             await target.send(embed=embed)
             await ctx.send(f":incoming_envelope: I have sent the response to the owner of Ticket **#**{ticket}.")
         except Exception as e:
-            await ctx.send(f"**Error sending support response!**\n```{e}```")
+            await ctx.send(f"U: **Error sending support response!**\n```{e}```")
                 
                 
     @commands.command(aliases=["respc"])
