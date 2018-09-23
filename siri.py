@@ -49,12 +49,6 @@ class Siri(commands.AutoShardedBot):
             await asyncio.sleep(30)
 
     async def on_ready(self):
-        if __name__ == '__main__':
-            for extension in extension:
-                try:
-                    self.load_extension(extension)
-                except Exception as error:
-                    print('\n\nEXTEN./COG ERROR: {} was not loaded due to an error: \n-- [{}] --\n\n'.format(extension, error))
         log = self.get_channel(493330793599598592)
         print('\n\n------')
         print('Logged in as:\n')
@@ -151,10 +145,15 @@ class Siri(commands.AutoShardedBot):
     async def load(self, ctx, extension):
         try:
             if extension == 'all':
-                self.load_extension("cogs.{}".format(self.ext))
-                embed = discord.Embed(title="<:CheckMark:473276943341453312> Cogs loaded:", color=0x5bff69, description="**Cog:** `ALL COGS`")
-                await ctx.send(embed=embed)
-                print('\n\nCOG LOAD\n--[Cog loaded, {}.py]--\n\n'.format(extension))
+                for extension in extension:
+                    try:
+                        self.load_extension(extension)
+                        embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog loaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
+                        await ctx.send(embed=embed)    
+                    except Exception as error:
+                        embed = discord.Embed(title="<:WrongMark:473277055107334144> Error loading cog:", color=0xff775b, description="**Cog:** `cogs\{}.py`\n**Errors:**\n```{}```".format(extension, error))
+                        await ctx.send(embed=embed)
+                        print('\n\nEXTEN./COG ERROR: {} was not loaded due to an error: \n-- [{}] --\n\n'.format(extension, error))
             else:
                 self.load_extension("cogs.{}".format(extension))
                 embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog loaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
