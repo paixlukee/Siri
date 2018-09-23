@@ -145,7 +145,7 @@ class Siri(commands.AutoShardedBot):
     async def load(self, ctx, extension):
         try:
             if extension == 'all':
-                for extension in extension:
+                for extension in extensions:
                     try:
                         self.load_extension(extension)
                         embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog loaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
