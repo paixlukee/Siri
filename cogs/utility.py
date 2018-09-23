@@ -173,7 +173,7 @@ class Utility:
         f'I have **{commands} commands**!\n'\
         f"I have **{r['points']} DBL votes**!\n\n\n"\
         f"[DBL](https://discordbots.org/bot/481337766379126784) |"\
-        f" [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0) |")
+        f" [Invite](https://discordapp.com/api/oauth2/authorize?client_id=481337766379126784&scope=bot&permissions=0) |")\
         f" [Support](https://discord.gg/CjRP2Mc)")
         stat.set_thumbnail(url="https://image.ibb.co/f2mAHK/Logo_Makr_4_Jau_Yh.png")
         stat.set_footer(text="Special Thanks to iWeeti#8031 & Skullbite#5245 for making Siri possible :^) | Siri v2")
