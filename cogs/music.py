@@ -218,7 +218,7 @@ class Music:
 
         player.shuffle = not player.shuffle
 
-        await ctx.send(f"{self.ttrue} I have **' + ('enabled' if player.shuffle else 'disabled') + '** shuffle.")
+        await ctx.send(f"{self.ttrue} I have **{('enabled' if player.shuffle else 'disabled')}** shuffle.")
 
 
     @commands.command(aliases=['rm', 'pop'])
