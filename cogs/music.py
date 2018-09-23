@@ -32,6 +32,7 @@ class Music:
                     embed = discord.Embed(colour=rnd(self.colour), title='Now Playing..', description=f"[{event.track.title}]({event.track.uri})")
                     embed.add_field(name="Duration", value=f"`[{dur}]`")
                     embed.set_thumbnail(url=event.track.thumbnail)
+                    trl.set_footer(text=f"Siri Music | Requested by {ctx.author.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
                     await c.send(embed=embed)
                     
         elif isinstance(event, lavalink.Events.QueueEndEvent):
@@ -85,14 +86,13 @@ class Music:
 
             t = results['tracks'][0]
             trl.description = f"{self.ttrue} Playlist, **{results['playlistInfo']['name']}** enqueued. ({len(tracks)} tracks)"
-            trl.set_footer(text=f"Siri Music | Requested by {ctx.author.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
+            #trl.set_footer(text=f"Siri Music | Requested by {ctx.author.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
             await ctx.send(embed=trl)
             player.add(requester=ctx.author.id, track=t)
         else:
             t = results['tracks'][0]
             trl.description = f"{self.ttrue} [{t['info']['title']}]({t['info']['uri']}) enqueued."
             #trl.set_thumbnail(url=player.current.thumbnail)
-            trl.set_footer(text=f"Siri Music | Requested by {ctx.author.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
             await ctx.send(embed=trl)
             player.add(requester=ctx.author.id, track=t)
 
