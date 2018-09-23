@@ -99,15 +99,22 @@ class Developer:
             await target.send(embed=embed)
             await ctx.send(f":incoming_envelope: I have sent the response to the owner of Ticket **#**{ticket}.")
         except Exception as e:
-            try:
-                guild = self.bot.get_guild(int(id))
-                target = discord.utils.get(guild.channels, name=ticket)
-                embed = discord.Embed(colour=0x00a6ff, description=f"\"{message}\" - **{ctx.message.author}**")
-                embed.set_author(name=f"Please turn on DMs for better support!", icon_url=self.bot.user.avatar_url)
-                await target.send(embed=embed, content=":incoming_envelope: A member of this server attempted to contact support, but had their DMs disabled! **Here is the response from our Support Team:**")
-                await ctx.send(f":incoming_envelope: I have sent the response to the guild of the owner of that ticket (`{e}`)") 
-            except Exception as e:
-                await ctx.send(f"**Error sending support response!**\n```{e}```")
+            await ctx.send(f"**Error sending support response!**\n```{e}```")
+                
+                
+    @commands.command(aliases=["respc"])
+    @commands.is_owner()
+    async def respondc(self, ctx, channel, id, *, message):
+        try:
+            ticket = channel
+            guild = self.bot.get_guild(int(id))
+            target = discord.utils.get(guild.channels, name=ticket)
+            embed = discord.Embed(colour=0x00a6ff, description=f"\"{message}\" - **{ctx.message.author}**")
+            embed.set_author(name=f"Please turn on DMs for better support!", icon_url=self.bot.user.avatar_url)
+            await target.send(embed=embed, content=":incoming_envelope: A member of this server attempted to contact support, but had their DMs disabled! **Here is the response from our Support Team:**")
+            await ctx.send(f":incoming_envelope: I have sent the response to the guild of the owner of that ticket (`{e}`)") 
+        except Exception as e:
+            await ctx.send(f"**Error sending support response!**\n```{e}```")
             
     @commands.command(aliases=['debug', 'ev'])
     @commands.is_owner()
