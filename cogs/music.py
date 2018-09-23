@@ -33,7 +33,7 @@ class Music:
                     embed = discord.Embed(colour=rnd(self.colour), title='Now Playing..', description=f"[{event.track.title}]({event.track.uri})")
                     embed.add_field(name="Duration", value=f"`[{dur}]`")
                     embed.set_thumbnail(url=event.track.thumbnail)
-                    trl.set_footer(text=f"Siri Music | Requested by {req.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
+                    embed.set_footer(text=f"Siri Music | Requested by {req.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
                     await c.send(embed=embed)
                     
         elif isinstance(event, lavalink.Events.QueueEndEvent):
