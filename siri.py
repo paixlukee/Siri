@@ -58,7 +58,6 @@ class Siri(commands.AutoShardedBot):
         print('\n------')
         print(f'[UPDATE] Logged in as: {self.user.name} ({str(self.user.id)})')
         print(f"[AWAITING] Run 'siri load all'")
-        print("------\n\n")
         self.loop.create_task(self.status_task())
         embed = discord.Embed(title='⚡ **Siri** is connected!', description=f"**Guilds**.. `{str(len(self.guilds))}`")
         try:
@@ -152,6 +151,8 @@ class Siri(commands.AutoShardedBot):
                 for extension in extensions:
                     try:
                         self.load_extension(extension)
+                        print(f'[DONE] Loaded all modules\n')
+                        print("------\n\n")
                         embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog loaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
                         await ctx.send(embed=embed)    
                     except Exception as error:
