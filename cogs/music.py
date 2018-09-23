@@ -91,7 +91,7 @@ class Music:
         else:
             t = results['tracks'][0]
             trl.description = f"{self.ttrue} [{t['info']['title']}]({t['info']['uri']}) enqueued."
-            trl.set_thumbnail(url=player.current.thumbnail)
+            #trl.set_thumbnail(url=player.current.thumbnail)
             trl.set_footer(text=f"Siri Music | Requested by {ctx.author.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
             await ctx.send(embed=trl)
             player.add(requester=ctx.author.id, track=t)
