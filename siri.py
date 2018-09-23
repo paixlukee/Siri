@@ -49,6 +49,12 @@ class Siri(commands.AutoShardedBot):
             await asyncio.sleep(30)
 
     async def on_ready(self):
+        if __name__ == '__main__':
+            for extension in extension:
+                try:
+                    self.load_extension(extension)
+                except Exception as error:
+                    print('\n\nEXTEN./COG ERROR: {} was not loaded due to an error: \n-- [{}] --\n\n'.format(extension, error))
         log = self.get_channel(493330793599598592)
         print('\n\n------')
         print('Logged in as:\n')
@@ -196,12 +202,6 @@ class Siri(commands.AutoShardedBot):
         if message.author.bot: return
         await self.process_commands(message)
         
-    if __name__ == '__main__':
-        for extension in extension:
-            try:
-                self.load_extension(extension)
-            except Exception as error:
-                print('\n\nEXTEN./COG ERROR: {} was not loaded due to an error: \n-- [{}] --\n\n'.format(extension, error))
 
     def run(self):
         super().run(config.token, reconnect=True)
