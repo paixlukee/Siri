@@ -52,7 +52,7 @@ class Siri(commands.AutoShardedBot):
         log = self.get_channel(493330793599598592)
         print(f' ____  _      _ \n'\
                 '/ ___|(_)_ __(_)\n'\
-                '\___ \| | '__| |\n'\
+                '\___ \| |  __| |\n'\
                 ' ___) | | |  | |\n'\
                 '|____/|_|_|  |_|\n')
         print('\n\n------')
