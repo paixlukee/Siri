@@ -49,21 +49,21 @@ class Siri(commands.AutoShardedBot):
             await asyncio.sleep(30)
 
     async def on_ready(self):
-        log = self.get_channel(478821892309123091)
+        log = self.get_channel(493330793599598592)
         print('\n\n------')
         print('Logged in as:\n')
         print(self.user.name)
         print(str(self.user.id))
         print('------\n\n')
         self.loop.create_task(self.status_task())
-        embed = discord.Embed(title='⚡ **Siri** is connected!', description=f"**guilds**.. `{str(len(self.guilds))}`")
+        embed = discord.Embed(title='⚡ **Siri** is connected!', description=f"**Guilds**.. `{str(len(self.guilds))}`")
         try:
             await log.send(embed=embed)
         except:
             print('\n\nfailed to send message to 478821892309123091 (#logs)')
 
     async def on_guild_join(self, guild):
-        log = self.get_channel(478821892309123091)
+        log = self.get_channel(493330793599598592)
         server = guild
         embed = discord.Embed(description=f":tada: **Yay!** Siri has joined `{guild.name}`! Siri is now in `{str(len(self.guilds))}` guilds!")
         await log.send(embed=embed)
@@ -90,7 +90,7 @@ class Siri(commands.AutoShardedBot):
             break
 
     async def on_guild_remove(self, guild):
-        log = self.get_channel(478821892309123091)
+        log = self.get_channel(493330793599598592)
         embed = discord.Embed(description=f":thumbsdown: **Aw!** Siri has been kicked from `{guild.name}`.. Siri is now in `{str(len(self.guilds))}` guilds.")
         await log.send(embed=embed)
 
