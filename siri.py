@@ -50,7 +50,11 @@ class Siri(commands.AutoShardedBot):
 
     async def on_ready(self):
         log = self.get_channel(493330793599598592)
-        print(f' ____  _      _ \n/ ___|(_)_ __(_)\n\___ \| | '__| |\n ___) | | |  | |\n|____/|_|_|  |_|\n')
+        print(f' ____  _      _ \n'\
+                '/ ___|(_)_ __(_)\n'\
+                '\___ \| | '__| |\n'\
+                ' ___) | | |  | |\n'\
+                '|____/|_|_|  |_|\n')
         print('\n\n------')
         print(f'[UPDATE] Logged in as: {self.user.name} ({str(self.user.id)})')
         print(f"[AWAITING] Run 'siri load all'")
