@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 
 from datetime import datetime
+import lavalink
 import requests
 import os
 
@@ -133,6 +134,7 @@ class Developer:
                 'commands': commands,
                 'requests': requests,
                 'os': os,
+                'player': self.bot.lavalink.players.get(ctx.guild.id)
                 '_': self._last_result
             }
 
