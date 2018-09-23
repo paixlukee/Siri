@@ -28,7 +28,7 @@ class Music:
             if c:
                 c = self.bot.get_channel(c)
                 if c:
-                    req = self.bot.get_user(int(ctx.author))
+                    req = self.bot.get_user(int(event.track.requester))
                     dur = lavalink.Utils.format_time(event.track.duration)
                     embed = discord.Embed(colour=rnd(self.colour), title='Now Playing..', description=f"[{event.track.title}]({event.track.uri})")
                     embed.add_field(name="Duration", value=f"`[{dur}]`")
