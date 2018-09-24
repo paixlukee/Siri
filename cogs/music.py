@@ -6,7 +6,7 @@ import requests
 import logging
 import math
 import re
-
+from lyricsmaster import LyricWiki, TorController
 from random import choice as rnd
 
 time_rx = re.compile('[0-9]+')
@@ -33,7 +33,7 @@ class Music:
                     embed = discord.Embed(colour=rnd(self.colour), title='Now Playing..', description=f"[{event.track.title}]({event.track.uri})")
                     embed.add_field(name="Duration", value=f"`[{dur}]`")
                     embed.set_thumbnail(url=event.track.thumbnail)
-                    embed.set_footer(text=f"Siri Music | Requested by {req.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
+                    embed.set_footer(text=f"Siri Music | Requested by {req.name}")
                     await c.send(embed=embed) 
                     
         elif isinstance(event, lavalink.Events.QueueEndEvent):
@@ -43,8 +43,16 @@ class Music:
                 if ch:
                     embed = discord.Embed(colour=rnd(self.colour), title="Queue has concluded!", description="The queue has **concluded**! Are you going to enqueue anything else?")
                     await ch.send(embed=embed)
-
-
+                    
+                    
+    @commands.command()
+    async def lyrics(self, ctx, *, query):
+        provider = Genius()
+        song = provider.get_lyrics(song=query)
+        embed = discord.Embed(colour=rnd(self.colour), title=f"Lyrics for {song.title}:", description=song.lyrics)
+        await ctx.send(embed=embed)
+                    
+                   
     @commands.command(aliases=['p'])
     async def play(self, ctx, *, query):
         """Play a track [url or query]"""
@@ -190,7 +198,7 @@ class Music:
                 dur = 'LIVE'
             else:
                 dur = lavalink.Utils.format_time(track.duration)
-            qlist += f'**{i + 1}:** [{track.title}]({track.uri}) `{dur}`\n'
+            qlist += f'**{i + 1}:** [{track.title}]({track.uri}) `{dur}` {emoji}\n'
 
         embed = discord.Embed(title=f"Queue ({q})", colour=rnd(self.colour), description=f"**Now:** [{player.current.title}]({player.current.uri}) `{n_dur}` {emoji}{qlist}")
         embed.set_footer(text=f"Page {page} of {pages} | Shuffle: {shuf}")
