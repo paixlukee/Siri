@@ -105,7 +105,6 @@ class Music:
         else:
             t = results['tracks'][0]
             trl.description = f"{self.ttrue} [{t['info']['title']}]({t['info']['uri']}) enqueued."
-            #trl.set_thumbnail(url=player.current.thumbnail)
             await ctx.send(embed=trl)
             player.add(requester=ctx.author.id, track=t)
 
@@ -155,8 +154,10 @@ class Music:
     @commands.command(aliases=['np', 'n', 'now'])
     async def nowplaying(self, ctx):
         """Get info on the current song"""
+        
         player = self.bot.lavalink.players.get(ctx.guild.id)
         song = "None"
+        req = self.bot.get_user(int(player.current.requester))
 
         if player.current:
             pos = lavalink.Utils.format_time(player.position)
@@ -169,6 +170,7 @@ class Music:
         embed.add_field(name="Duration", value=f"`[{pos} / {dur}]`")
         embed.add_field(name="Uploaded by", value=f"`{player.current.author}`")
         embed.add_field(name="Volume", value=f"`[{player.volume}]`")
+        embed.add_field(name="Requested by", value=f"`{req.name}`")
         embed.set_thumbnail(url=player.current.thumbnail)
         await ctx.send(embed=embed)
 
@@ -252,7 +254,7 @@ class Music:
                        
     @commands.command()
     async def repeat(self, ctx):
-        """Repeats the current song"""
+        """Repeats the queue"""
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
         if not player.is_playing:
@@ -313,7 +315,7 @@ class Music:
             await ctx.send("Aborted.")
         elif msg.content in numbers:
             query = t['info']['uri']
-            await ctx.send(t['info'])
+            #await ctx.send(t['info'])
                 
             player = self.bot.lavalink.players.get(ctx.guild.id)
 
