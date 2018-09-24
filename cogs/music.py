@@ -174,7 +174,7 @@ class Music:
         start = (page - 1) * items_per_page
         end = start + items_per_page
         
-        emoji = (':repeat:' if player.repeat else ' ')
+        emoji = '- :repeat: \n' if player.repeat else '\n'
 
         qlist = ''
 
@@ -192,7 +192,7 @@ class Music:
                 dur = lavalink.Utils.format_time(track.duration)
             qlist += f'**{i + 1}:** [{track.title}]({track.uri}) `{dur}`\n'
 
-        embed = discord.Embed(title=f"Queue ({q})", colour=rnd(self.colour), description=f"**Now:** [{player.current.title}]({player.current.uri}) `{n_dur}` {emoji}\n{qlist}")
+        embed = discord.Embed(title=f"Queue ({q})", colour=rnd(self.colour), description=f"**Now:** [{player.current.title}]({player.current.uri}) `{n_dur}` {emoji}{qlist}")
         embed.set_footer(text=f"Page {page} of {pages} | Shuffle: {shuf}")
         embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed)
