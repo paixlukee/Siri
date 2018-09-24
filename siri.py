@@ -148,7 +148,7 @@ class Siri(commands.AutoShardedBot):
     async def load(self, ctx, extension):
         try:
             if extension == 'all':
-                print(f'[UPDATE] Loaded all modules: {extensions}\n')
+                print(f'[UPDATE] Loaded all modules')
                 print("------\n\n")
                 for extension in extensions:
                     try:
