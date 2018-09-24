@@ -6,7 +6,7 @@ import requests
 import logging
 import math
 import re
-from lyricsmaster import LyricWiki, TorController
+from lyricsmaster import LyricWiki, Genius
 from random import choice as rnd
 
 time_rx = re.compile('[0-9]+')
