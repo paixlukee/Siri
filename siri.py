@@ -38,7 +38,7 @@ class Siri(commands.AutoShardedBot):
         if not self.is_ready() or after.author.bot:
             return
 
-        await self.bot.process_commands(after)#hi thanks
+        await self.process_commands(after)#hi thanks
 
     async def run_cmd(self, cmd: str) -> str:
          process =\
