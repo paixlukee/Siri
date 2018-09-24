@@ -148,11 +148,11 @@ class Siri(commands.AutoShardedBot):
     async def load(self, ctx, extension):
         try:
             if extension == 'all':
+                print(f'[UPDATE] Loaded all modules: {extensions}\n')
+                print("------\n\n")
                 for extension in extensions:
                     try:
                         self.load_extension(extension)
-                        print(f'[DONE] Loaded all modules\n')
-                        print("------\n\n")
                         embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog loaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
                         await ctx.send(embed=embed)    
                     except Exception as error:
