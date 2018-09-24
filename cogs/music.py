@@ -123,6 +123,22 @@ class Music:
         await player.stop()
         embed = discord.Embed(colour=rnd(self.colour), title="Queue has concluded!", description="The queue has **concluded**! Are you going to enqueue anything else?")
         await ctx.send(embed=embed)
+        
+
+    @commands.command(aliases=['leave'])
+    async def disconnect(self, ctx):
+        """Leave the current voice channel"""
+        player = self.bot.lavalink.players.get(ctx.guild.id)
+
+        if not player.is_connected:
+            return await ctx.send(f"{self.tfals} I'm not in a voice channel!")
+
+        if not ctx.author.voice or (player.is_connected and ctx.author.voice.channel.id != int(player.channel_id)):
+            return await ctx.send(f"{self.tfals} You're not in #**{ctx.me.voice.channel}**!")
+
+        player.queue.clear()
+        await player.disconnect()
+        await ctx.send(f"{self.ttrue} I have **disconnected**.")
 
     @commands.command(aliases=['np', 'n', 'now'])
     async def nowplaying(self, ctx):
@@ -157,6 +173,8 @@ class Music:
 
         start = (page - 1) * items_per_page
         end = start + items_per_page
+        
+        emoji = (':repeat:' if player.repeat else ' ')
 
         qlist = ''
 
@@ -174,7 +192,7 @@ class Music:
                 dur = lavalink.Utils.format_time(track.duration)
             qlist += f'**{i + 1}:** [{track.title}]({track.uri}) `{dur}`\n'
 
-        embed = discord.Embed(title=f"Queue ({q})", colour=rnd(self.colour), description=f"**Now:** [{player.current.title}]({player.current.uri}) `{n_dur}`\n{qlist}")
+        embed = discord.Embed(title=f"Queue ({q})", colour=rnd(self.colour), description=f"**Now:** [{player.current.title}]({player.current.uri}) `{n_dur}` {emoji}\n{qlist}")
         embed.set_footer(text=f"Page {page} of {pages} | Shuffle: {shuf}")
         embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed)
@@ -219,6 +237,18 @@ class Music:
         player.shuffle = not player.shuffle
 
         await ctx.send(f"{self.ttrue} I have **{('enabled' if player.shuffle else 'disabled')}** shuffle.")
+                       
+    @commands.command()
+    async def repeat(self, ctx):
+        """Repeats the current song"""
+        player = self.bot.lavalink.players.get(ctx.guild.id)
+
+        if not player.is_playing:
+            return await ctx.send(f"{self.tfals} I'm not playing anything!")
+
+        player.repeat = not player.repeat
+
+        await ctx.send(f"{self.ttrue} I have **{('enabled' if player.repeat else 'disabled')}** repeat.")
 
 
     @commands.command(aliases=['rm', 'pop'])
@@ -324,22 +354,6 @@ class Music:
 
         else:
             await ctx.send("Please respond with the number! `['cancel' to abort]`")
-
-
-    @commands.command(aliases=['leave'])
-    async def disconnect(self, ctx):
-        """Leave the current voice channel"""
-        player = self.bot.lavalink.players.get(ctx.guild.id)
-
-        if not player.is_connected:
-            return await ctx.send(f"{self.tfals} I'm not in a voice channel!")
-
-        if not ctx.author.voice or (player.is_connected and ctx.author.voice.channel.id != int(player.channel_id)):
-            return await ctx.send(f"{self.tfals} You're not in #**{ctx.me.voice.channel}**!")
-
-        player.queue.clear()
-        await player.disconnect()
-        await ctx.send(f"{self.ttrue} I have **disconnected**.")
 
 
 def setup(bot):
