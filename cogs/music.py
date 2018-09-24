@@ -6,8 +6,11 @@ import requests
 import logging
 import math
 import re
-from lyricsmaster import LyricWiki, Genius
 from random import choice as rnd
+try:
+    from lyricsmaster import *
+except:
+    print('die')
 
 time_rx = re.compile('[0-9]+')
 url_rx = re.compile('https?:\/\/(?:www\.)?.+')
@@ -35,6 +38,7 @@ class Music:
                     embed.set_thumbnail(url=event.track.thumbnail)
                     embed.set_footer(text=f"Siri Music | Requested by {req.name}")
                     await c.send(embed=embed) 
+            
                     
         elif isinstance(event, lavalink.Events.QueueEndEvent):
             ch = event.player.fetch('channel')
