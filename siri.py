@@ -33,6 +33,12 @@ class Siri(commands.AutoShardedBot):
         self.add_command(self.load)
         self.add_command(self.unload)
         self.add_command(self.reload)
+        
+    async def on_message_edit(self, before, after):
+        if not self.bot.is_ready() or after.author.bot or not permissions.can_send(after):
+            return
+
+        await self.bot.process_commands(after)#hi thanks
 
     async def run_cmd(self, cmd: str) -> str:
          process =\
