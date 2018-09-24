@@ -33,10 +33,12 @@ class Help:
                     h2 = h1.replace("<>", "")
                     if _cmd.help is None:
                         embed2 = discord.Embed(description=f"> **Command:** `{cmd}`\n\n```siri {_cmd} <{help}>\n\nNo Description yet.```") 
+                        embed2.set_author(name="Siri", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
+                        await ctx.send(embed=embed2)
                     else:
                         embed2 = discord.Embed(description=f"> **Command:** `{cmd}`\n\n```siri {_cmd} <{help}>\n\n{h2}```")
-                    embed2.set_author(name="Siri", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
-                    await ctx.send(embed=embed2)
+                        embed2.set_author(name="Siri", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
+                        await ctx.send(embed=embed2)
                 except:
                     await ctx.send(f"<:WrongMark:473277055107334144> No command called \"{cmd}\" found.")
 
@@ -63,7 +65,7 @@ class Help:
                 name = "Economy"
                 d = "Economy Commands"
             elif cmd == "Music" or cmd == "music":
-                modules = ["`play`", "`queue`", "`np`", "`shuffle`", "`stop`", "`volume`", "`pause`", "`resume`", "`leave`", "`msearch`", "`remove`"]
+                modules = ["`play`", "`queue`", "`np`", "`shuffle`", "`repeat`","`stop`", "`volume`", "`pause`", "`resume`", "`leave`", "`msearch`", "`remove`"]
                 name = "Music"
                 d = "Music Commands"
             else:
