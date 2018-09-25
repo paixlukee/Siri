@@ -129,9 +129,9 @@ class Music:
             self.votes.append(author.id)
             if len(self.votes) >= 3:
                 await ctx.send(f"{self.ttrue} Vote passed, **skipping** track...")
-                player.skip()
+                await player.skip()
             else:
-                await ctx.send(f"{self.ttrue} You have voted to **skip** the track, currently at [`{len(self.votes)}/3`] votes.")
+                await ctx.send(f"{self.ttrue} You have voted to **skip** the track, currently at `[{len(self.votes)}/3]` votes.")
         else:
             await ctx.send(f"{self.tfals} You can only vote to skip once.")
 
@@ -187,6 +187,7 @@ class Music:
         embed = discord.Embed(colour=rnd(self.colour), title='Now Playing', description=f"[{player.current.title}]({player.current.uri})")
         embed.add_field(name="Duration", value=f"`[{pos} / {dur}]`")
         embed.add_field(name="Uploaded by", value=f"`{player.current.author}`")
+        embed.add_field(name="Skip Requests", value=f"`[{len(self.votes)}/3]`")
         embed.add_field(name="Volume", value=f"`[{player.volume}]`")
         embed.add_field(name="Requested by", value=f"`{req.name}`")
         embed.set_thumbnail(url=player.current.thumbnail)
