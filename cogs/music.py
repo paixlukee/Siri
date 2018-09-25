@@ -123,14 +123,16 @@ class Music:
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
         if not player.is_playing:
-            return await ctx.send(f"{self.tfals} I am not playing anything.")        
+            return await ctx.send(f"{self.tfals} I am not playing anything.")   
+        elif not ctx.author.voice or not ctx.author.voice.channel or player.connected_channel.id != ctx.author.voice.channel.id:
+            return await ctx.send(f"{self.tfals} You aren't in my voice channel, #**{ctx.me.voice.channel}**")
         elif author.id == int(player.current.requester):
             await ctx.send(f"{self.ttrue} Track **Skipped**.")
             await player.skip()
         elif author.id not in self.votes:
             self.votes.append(author.id)
             if len(self.votes) >= 3:
-                await ctx.send(f"{self.ttrue} Vote passed, **skipping** track...")
+                await ctx.send(f"{self.ttrue} Vote passed, **Skipping** track...")
                 await player.skip()
                 await asyncio.sleep(1)
                 self.votes.clear()
@@ -146,6 +148,9 @@ class Music:
 
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I am not playing anything.")
+        
+        if not "DJ" in [x.name.upper() for x in ctx.author.roles]:
+            await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!")
         
         
         if player.repeat:
