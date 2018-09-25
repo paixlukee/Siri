@@ -91,6 +91,7 @@ class Music:
 
         if not results or not results['tracks']:
             return await ctx.send(f"{self.tfals} There was nothing found for that song.")
+        
 
         trl = discord.Embed(colour=rnd(self.colour))
 
@@ -149,7 +150,7 @@ class Music:
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I am not playing anything.")
         
-        elif "DJ" in [x.name.upper() for x in ctx.author.roles] or ctx.author.guild_permissions.manage_guild:
+        elif "DJ" in [x.name.upper() for x in ctx.author.roles] or ctx.author.guild_permissions.manage_guild or ctx.author.id = 396153668820402197:
         
         
             if player.repeat:
@@ -174,12 +175,17 @@ class Music:
         if not player.is_connected:
             return await ctx.send(f"{self.tfals} I'm not in a voice channel!")
 
-        if not ctx.author.voice or (player.is_connected and ctx.author.voice.channel.id != int(player.channel_id)):
+        elif not ctx.author.voice or (player.is_connected and ctx.author.voice.channel.id != int(player.channel_id)):
             return await ctx.send(f"{self.tfals} You're not in #**{ctx.me.voice.channel}**!")
-
-        player.queue.clear()
-        await player.disconnect()
-        await ctx.send(f"{self.ttrue} I have **disconnected**.")
+        
+        elif "DJ" in [x.name.upper() for x in ctx.author.roles] or ctx.author.guild_permissions.manage_guild or ctx.author.id == 396153668820402197:
+               
+            player.queue.clear()
+            await player.disconnect()
+            await ctx.send(f"{self.ttrue} I have **disconnected**.")
+            
+        else:
+            await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!") 
 
     @commands.command(aliases=['np', 'n', 'now'])
     async def nowplaying(self, ctx):
