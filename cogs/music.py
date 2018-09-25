@@ -32,6 +32,7 @@ class Music:
             if c:
                 c = self.bot.get_channel(c)
                 if c:
+                    self.votes.clear()
                     req = self.bot.get_user(int(event.track.requester))
                     dur = lavalink.Utils.format_time(event.track.duration)
                     embed = discord.Embed(colour=rnd(self.colour), title='Now Playing..', description=f"[{event.track.title}]({event.track.uri})")
@@ -117,6 +118,7 @@ class Music:
     @commands.command(aliases=['forceskip', 'fs'])
     async def skip(self, ctx):
         """Skip a song"""
+        members = ctx.author.voice_channel.voice_members
         author = ctx.message.author
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
@@ -131,7 +133,7 @@ class Music:
                 await ctx.send(f"{self.ttrue} Vote passed, **skipping** track...")
                 await player.skip()
                 await asyncio.sleep(1)
-                await self.votes.clear()
+                self.votes.clear()
             else:
                 await ctx.send(f"{self.ttrue} You have voted to **skip** the track, currently at `[{len(self.votes)}/3]` votes.")
         else:
@@ -151,6 +153,7 @@ class Music:
         if player.shuffle:
             player.shuffle = not player.shuffle
         player.queue.clear()
+        self.votes.clear()
         await player.stop()
         embed = discord.Embed(colour=rnd(self.colour), title="Queue has concluded!", description="The queue has **concluded**! Are you going to enqueue anything else?")
         await ctx.send(embed=embed)
