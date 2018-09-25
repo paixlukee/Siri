@@ -145,17 +145,11 @@ class Music:
     async def stop(self, ctx):
         """Stop music and clear the queue"""
         player = self.bot.lavalink.players.get(ctx.guild.id)
-
+            
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I am not playing anything.")
         
-        elif not 'DJ' in [x.name.upper() for x in ctx.author.roles]:
-            await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!")
-        elif not ctx.author.guild_permissions.manage_guild:
-            await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!")    
-           # if not ctx.author.id == 396153668820402197:
-                # await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!")                
-        else:
+        elif "DJ" in [x.name.upper() for x in ctx.author.roles] or ctx.author.guild_permissions.manage_guild:
         
         
             if player.repeat:
@@ -167,6 +161,9 @@ class Music:
             await player.stop()
             embed = discord.Embed(colour=rnd(self.colour), title="Queue has concluded!", description="The queue has **concluded**! Are you going to enqueue anything else?")
             await ctx.send(embed=embed)
+            
+        else:
+            await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!")    
         
 
     @commands.command(aliases=['leave'])
