@@ -135,9 +135,6 @@ class Music:
         else:
             await ctx.send(f"{self.tfals} You can only vote to skip once.")
 
-        await ctx.send(f"{self.ttrue} Track **Skipped**.")
-        await player.skip()
-
     @commands.command(aliases=['clear'])
     async def stop(self, ctx):
         """Stop music and clear the queue"""
