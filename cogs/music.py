@@ -118,7 +118,7 @@ class Music:
     @commands.command(aliases=['forceskip', 'fs'])
     async def skip(self, ctx):
         """Skip a song"""
-        members = ctx.author.voice_channel.voice_members
+        #members = ctx.author.voice_channel.voice_members
         author = ctx.message.author
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
@@ -149,7 +149,7 @@ class Music:
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I am not playing anything.")
         
-        elif not ctx.author.guild_permissions.manage_server:
+        elif not ctx.author.guild_permissions.manage_guild:
             if not "DJ" in [x.name.upper() for x in ctx.author.roles]:
                 await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!")
            # if not ctx.author.id == 396153668820402197:
