@@ -41,10 +41,8 @@ class Music:
             
                     
         elif isinstance(event, lavalink.Events.QueueEndEvent):
-            if player.repeat:
-                player.repeat = not player.repeat
-            if player.shuffle:
-                player.shuffle = player.shuffle
+            if event.player.shuffle:
+                event.player.shuffle = not event.player.shuffle
             ch = event.player.fetch('channel')
             if ch:
                 ch = self.bot.get_channel(ch)
@@ -133,7 +131,12 @@ class Music:
 
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I am not playing anything.")
-
+        
+        
+        if player.repeat:
+            player.repeat = not player.repeat
+        if player.shuffle:
+            player.shuffle = not player.shuffle
         player.queue.clear()
         await player.stop()
         embed = discord.Embed(colour=rnd(self.colour), title="Queue has concluded!", description="The queue has **concluded**! Are you going to enqueue anything else?")
