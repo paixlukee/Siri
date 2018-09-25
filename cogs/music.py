@@ -149,8 +149,13 @@ class Music:
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I am not playing anything.")
         
-        if not "DJ" in [x.name.upper() for x in ctx.author.roles]:
-            await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!")
+        elif not ctx.author.guild_permissions.manage_server:
+            if not "DJ" in [x.name.upper() for x in ctx.author.roles]:
+                await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!")
+           # if not ctx.author.id == 396153668820402197:
+                # await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!")
+            else:
+                await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!")
         
         
         if player.repeat:
