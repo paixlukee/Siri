@@ -41,6 +41,10 @@ class Music:
             
                     
         elif isinstance(event, lavalink.Events.QueueEndEvent):
+            if player.repeat:
+                player.repeat = not player.repeat
+            if player.shuffle:
+                player.shuffle = player.shuffle
             ch = event.player.fetch('channel')
             if ch:
                 ch = self.bot.get_channel(ch)
