@@ -18,6 +18,7 @@ url_rx = re.compile('https?:\/\/(?:www\.)?.+')
 class Music:
     def __init__(self, bot):
         self.bot = bot
+        self.votes = []
         self.ttrue = '<:greentick:492800272834494474>'
         self.tfals = '<:redtick:492800273211850767>'
         self.colour = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
@@ -116,10 +117,23 @@ class Music:
     @commands.command(aliases=['forceskip', 'fs'])
     async def skip(self, ctx):
         """Skip a song"""
+        author = ctx.message.author
         player = self.bot.lavalink.players.get(ctx.guild.id)
 
         if not player.is_playing:
-            return await ctx.send(f"{self.tfals} I am not playing anything.")
+            return await ctx.send(f"{self.tfals} I am not playing anything.")        
+        elif author.id == int(event.track.requester):
+            await ctx.send(f"{self.ttrue} Track **Skipped**.")
+            await player.skip()
+        elif author.id not in self.votes:
+            self.votes.append(author.id)
+            if len(self.votes) >= 3:
+                await ctx.send(f"{self.ttrue} Vote passed, **skipping** track...")
+                player.skip()
+            else:
+                await ctx.send(f"{self.ttrue} You have voted to **skip** the track, currently at [`{}/3`] votes.".format(len(self.votes)))
+        else:
+            await ctx.send(f"{self.ttrue} You can only vote to skip once.")
 
         await ctx.send(f"{self.ttrue} Track **Skipped**.")
         await player.skip()
