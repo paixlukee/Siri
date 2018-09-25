@@ -156,17 +156,20 @@ class Music:
                 # await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!")
             else:
                 await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!")
+                
+                
+        else:
         
         
-        if player.repeat:
-            player.repeat = not player.repeat
-        if player.shuffle:
-            player.shuffle = not player.shuffle
-        player.queue.clear()
-        self.votes.clear()
-        await player.stop()
-        embed = discord.Embed(colour=rnd(self.colour), title="Queue has concluded!", description="The queue has **concluded**! Are you going to enqueue anything else?")
-        await ctx.send(embed=embed)
+            if player.repeat:
+                player.repeat = not player.repeat
+            if player.shuffle:
+                player.shuffle = not player.shuffle
+            player.queue.clear()
+            self.votes.clear()
+            await player.stop()
+            embed = discord.Embed(colour=rnd(self.colour), title="Queue has concluded!", description="The queue has **concluded**! Are you going to enqueue anything else?")
+            await ctx.send(embed=embed)
         
 
     @commands.command(aliases=['leave'])
