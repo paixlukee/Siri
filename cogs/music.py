@@ -129,6 +129,7 @@ class Music:
             self.votes.append(author.id)
             if len(self.votes) >= 3:
                 await ctx.send(f"{self.ttrue} Vote passed, **skipping** track...")
+                await self.votes.clear()
                 await player.skip()
             else:
                 await ctx.send(f"{self.ttrue} You have voted to **skip** the track, currently at `[{len(self.votes)}/3]` votes.")
