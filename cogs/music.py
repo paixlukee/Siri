@@ -122,7 +122,7 @@ class Music:
 
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I am not playing anything.")        
-        elif author.id == int(event.track.requester):
+        elif author.id == int(player.current.requester):
             await ctx.send(f"{self.ttrue} Track **Skipped**.")
             await player.skip()
         elif author.id not in self.votes:
@@ -131,9 +131,9 @@ class Music:
                 await ctx.send(f"{self.ttrue} Vote passed, **skipping** track...")
                 player.skip()
             else:
-                await ctx.send(f"{self.ttrue} You have voted to **skip** the track, currently at [`{}/3`] votes.".format(len(self.votes)))
+                await ctx.send(f"{self.ttrue} You have voted to **skip** the track, currently at [`{len(self.votes)}/3`] votes.")
         else:
-            await ctx.send(f"{self.ttrue} You can only vote to skip once.")
+            await ctx.send(f"{self.tfals} You can only vote to skip once.")
 
         await ctx.send(f"{self.ttrue} Track **Skipped**.")
         await player.skip()
