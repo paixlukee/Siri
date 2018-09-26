@@ -150,7 +150,7 @@ class Music:
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I am not playing anything.")
         
-        elif "DJ" in [x.name.upper() for x in ctx.author.roles] or ctx.author.guild_permissions.manage_guild or ctx.author.id = 396153668820402197:
+        elif "DJ" in [x.name.upper() for x in ctx.author.roles] or ctx.author.guild_permissions.manage_guild or ctx.author.id == 396153668820402197:
         
         
             if player.repeat:
