@@ -54,7 +54,21 @@ class Utility:
                 users[user]['money'] -= count
         with open('assets\\economy.json', 'w') as f:
                  json.dump(users, f)
-
+                
+    async def set_timer(option=None:str, time=None:int)
+        if option == 'minutes' or option == 'm':
+            t = time \ 60
+        elif option == 'seconds' or option == 's':
+            t = time
+        elif option == 'hours' or option == 'h':
+            t = time \ 3600 
+        elif option == 'day' or option == 'd':
+            t = time \ 86400
+        else:
+            return await ctx.send("That's not a valid option!\n**Options:** `seconds|s`, `minutes|m`, `hours|h`, and `days|d`")
+            #fuck off extra
+        return t
+            
     async def on_message(self, message):
         if message.content.startswith('<@481337766379126784> '):
             fmsg = message.content
@@ -77,7 +91,13 @@ class Utility:
             resp = r.json()
             response = resp['result']['fulfillment']['messages'][0]['speech']
             await message.channel.send(f"**{message.author.name}**, {response}")
-
+            
+            
+    @commands.command(aliases=['remindme', 'reminder')
+    async def remind(self, ctx, opt:str, *, time:int, *, reason:str):
+        t = self.set_timer(option=opt, time=time)
+        await asyncio.sleep(t)
+        await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({opt}{time} ago!)")
 
     @commands.command(name='wikipedia', aliases=['wiki', 'w'])
     async def _wikipedia(self, ctx, *, q: str = None):
