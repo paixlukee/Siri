@@ -58,12 +58,15 @@ class Utility:
     async def set_timer(self, option:str=None, time:int=None, ctx=None):
         if option == 'minutes' or option == 'm':
             t = time / 60
+            return await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({time}m ago!)")
         elif option == 'seconds' or option == 's':
-            t = time
+            return await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({time}s ago!)")
         elif option == 'hours' or option == 'h':
             t = time / 3600 
+            return await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({time}h ago!)")
         elif option == 'day' or option == 'd':
             t = time / 86400
+            return await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({time}d ago!)")
         else:
             return await ctx.send("That's not a valid option!\n**Options:** `seconds|s`, `minutes|m`, `hours|h`, and `days|d`")
             #fuck off extra
@@ -96,8 +99,9 @@ class Utility:
     @commands.command(aliases=['remindme', 'reminder'])
     async def remind(self, ctx, opt, time, *, reason):
         t = await self.set_timer(ctx=ctx, option=opt, time=int(time))
+        await ctx.send("<:greentick:492800272834494474> Reminder set!")
         await asyncio.sleep(t)
-        await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({time}{opt} ago!)")
+        
 
     @commands.command(name='wikipedia', aliases=['wiki', 'w'])
     async def _wikipedia(self, ctx, *, q: str = None):
