@@ -93,7 +93,7 @@ class Utility:
             await message.channel.send(f"**{message.author.name}**, {response}")
             
             
-    @commands.command(aliases=['remindme', 'reminder')
+    @commands.command(aliases=['remindme', 'reminder'])
     async def remind(self, ctx, opt:str, *, time:int, *, reason:str):
         t = self.set_timer(option=opt, time=time)
         await asyncio.sleep(t)
