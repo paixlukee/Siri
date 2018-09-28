@@ -55,7 +55,7 @@ class Utility:
         with open('assets\\economy.json', 'w') as f:
                  json.dump(users, f)
                 
-    async def set_timer(self, option:str=None, time:int=None, ctx=None):
+    async def set_timer(self, option:str=None, time:int=None, ctx=None, reason=None):
         if option == 'minutes' or option == 'm':
             t = time / 60
             return await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({time}m ago!)")
@@ -98,7 +98,7 @@ class Utility:
             
     @commands.command(aliases=['remindme', 'reminder'])
     async def remind(self, ctx, opt, time, *, reason):
-        t = await self.set_timer(ctx=ctx, option=opt, time=int(time))
+        t = await self.set_timer(ctx=ctx, option=opt, time=int(time), reason=reason)
         await ctx.send("<:greentick:492800272834494474> Reminder set!")
         await asyncio.sleep(t)
         
