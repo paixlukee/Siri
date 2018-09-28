@@ -72,6 +72,8 @@ class Utility:
         
         if time > 90500:
             return await ctx.send("That time is too long!")
+        else:
+            pass
             #fuck off extra
         return t
             
