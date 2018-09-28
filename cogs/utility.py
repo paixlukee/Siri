@@ -69,6 +69,9 @@ class Utility:
             return await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({time}d ago!)")
         else:
             return await ctx.send("That's not a valid option!\n**Options:** `seconds|s`, `minutes|m`, `hours|h`, and `days|d`")
+        
+        if time > 90500:
+            return await ctx.send("That time is too long!")
             #fuck off extra
         return t
             
