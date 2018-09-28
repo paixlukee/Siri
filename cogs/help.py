@@ -22,7 +22,7 @@ class Help:
             await ctx.send(embed=embed)
             
         elif cmd and not l:
-            await ctx.send(""<:WrongMark:473277055107334144> **Incorrect usage:** `siri help command <name>` or `siri help module <name>`")
+            await ctx.send("<:WrongMark:473277055107334144> **Incorrect usage:** `siri help command <name>` or `siri help module <name>`")
 
         elif l == "Command" or l == "command" or l == "cmd":
             if not cmd:
