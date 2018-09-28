@@ -55,7 +55,7 @@ class Utility:
         with open('assets\\economy.json', 'w') as f:
                  json.dump(users, f)
                 
-    async def set_timer(self, option:str=None, time:int=None, ctx=ctx):
+    async def set_timer(self, option:str=None, time:int=None, ctx=None):
         if option == 'minutes' or option == 'm':
             t = time / 60
         elif option == 'seconds' or option == 's':
