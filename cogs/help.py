@@ -20,10 +20,13 @@ class Help:
             embed.set_footer(text="Siri | NOT affiliated with Apple", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
             embed.set_image(url="http://media.idownloadblog.com/wp-content/uploads/2016/06/iOS-10-Siri-waveform-image-001.png")
             await ctx.send(embed=embed)
+            
+        elif cmd and not l:
+            await ctx.send(""<:WrongMark:473277055107334144> **Incorrect usage:** `siri help command <name>` or `siri help module <name>`")
 
         elif l == "Command" or l == "command" or l == "cmd":
             if not cmd:
-                await ctx.send("<:WrongMark:473277055107334144> Please include the command name.")
+                await ctx.send("<:WrongMark:473277055107334144> **Incorrect usage:** `siri help command <name>` or `siri help module <name>`")
             else:
                 try:
                     _cmd = self.bot.get_command(cmd)
