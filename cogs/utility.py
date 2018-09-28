@@ -110,7 +110,7 @@ class Utility:
     async def remind(self, ctx, opt, time, *, reason):
         await ctx.send("<:greentick:492800272834494474> Reminder set!")
         list = [f"**{time}** Seconds", reason]
-        self.rs.append(ctx.author.id + list)
+        self.rs.append(str(ctx.author.id) + list)
         await self.set_timer(ctx=ctx, option=opt, time=int(time), reason=reason)
         await ctx.send(self.rs)
         
