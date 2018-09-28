@@ -39,6 +39,7 @@ class Utility:
     def __init__(self, bot):
         self.bot = bot
         self.process = psutil.Process(os.getpid())
+        self.rs = []
 
 
     async def add_money(self, user=None, count=None):
@@ -108,7 +109,10 @@ class Utility:
     @commands.command(aliases=['remindme', 'reminder'])
     async def remind(self, ctx, opt, time, *, reason):
         await ctx.send("<:greentick:492800272834494474> Reminder set!")
+        list = [f"**{time}** Seconds", reason]
+        self.rs.append(ctx.author.id + list)
         await self.set_timer(ctx=ctx, option=opt, time=int(time), reason=reason)
+        await ctx.send(self.rs)
         
 
     @commands.command(name='wikipedia', aliases=['wiki', 'w'])
