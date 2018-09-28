@@ -95,7 +95,7 @@ class Utility:
             
     @commands.command(aliases=['remindme', 'reminder'])
     async def remind(self, ctx, opt, time, *, reason):
-        t = self.set_timer(option=opt, time=int(time))
+        t = await self.set_timer(option=opt, time=int(time))
         await asyncio.sleep(t)
         await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({opt}{time} ago!)")
 
