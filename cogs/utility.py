@@ -60,6 +60,7 @@ class Utility:
             t = time * 60
             return await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({time}m ago!)")
         elif option == 'seconds' or option == 's':
+            t = time
             return await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({time}s ago!)")
         elif option == 'hours' or option == 'h':
             t = time * 3600 
