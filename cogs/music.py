@@ -215,11 +215,18 @@ class Music:
     async def queue(self, ctx, page: int=1):
         """Fetch the queue"""
         player = self.bot.lavalink.players.get(ctx.guild.id)
+        shuf = 'ON' if player.shuffle else 'OFF'
+        n_dur = lavalink.Utils.format_time(player.current.duration)
 
-        if not player.queue:
+        if player.is_playing:
+            embed = discord.Embed(title=f"Queue ({q}):", colour=rnd(self.colour), description=f"**Now:** [{player.current.title}]({player.current.uri}) `{n_dur}`")
+            embed.set_footer(text=f"Page 1 of 1 | Shuffle: {shuf}")
+            embed.timestamp = datetime.datetime.utcnow()
+            await ctx.send(embed=embed) 
+        elif not player.queue:
             return await ctx.send("There's nothing left in the queue!")
 
-        items_per_page = 10
+        items_per_page = 11
         pages = math.ceil(len(player.queue) / items_per_page)
 
         start = (page - 1) * items_per_page
@@ -227,23 +234,18 @@ class Music:
         
         emoji = '- :repeat: \n' if player.repeat else '\n'
 
-        qlist = ''
-
-        n_dur = lavalink.Utils.format_time(player.current.duration)
+        qlist = ''       
 
         q = len(player.queue)
-
-        shuf = 'ON' if player.shuffle else 'OFF'
-
         
         for i, track in enumerate(player.queue[start:end], start=start):
             if player.current.stream:
                 dur = 'LIVE'
             else:
                 dur = lavalink.Utils.format_time(track.duration)
-            qlist += f'**{i + 1}:** [{track.title}]({track.uri}) `{dur}` {emoji}\n'
+            qlist += f'**{i + 1}:** [{track.title}]({track.uri}) `{dur}` {emoji}'
 
-        embed = discord.Embed(title=f"Queue ({q})", colour=rnd(self.colour), description=f"**Now:** [{player.current.title}]({player.current.uri}) `{n_dur}` {emoji}{qlist}")
+        embed = discord.Embed(title=f"Queue ({q}):", colour=rnd(self.colour), description=f"**Now:** [{player.current.title}]({player.current.uri}) `{n_dur}` {emoji}{qlist}")
         embed.set_footer(text=f"Page {page} of {pages} | Shuffle: {shuf}")
         embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed)
