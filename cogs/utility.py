@@ -57,13 +57,13 @@ class Utility:
                 
     async def set_timer(self, option:str=None, time:int=None):
         if option == 'minutes' or option == 'm':
-            t = time \ 60
+            t = time / 60
         elif option == 'seconds' or option == 's':
             t = time
         elif option == 'hours' or option == 'h':
-            t = time \ 3600 
+            t = time / 3600 
         elif option == 'day' or option == 'd':
-            t = time \ 86400
+            t = time / 86400
         else:
             return await ctx.send("That's not a valid option!\n**Options:** `seconds|s`, `minutes|m`, `hours|h`, and `days|d`")
             #fuck off extra
