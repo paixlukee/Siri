@@ -82,7 +82,7 @@ class Help:
             except:
                 pass
         else:
-            await ctx.send("<:WrongMark:473277055107334144> That's not a module!")
+            await ctx.send("<:WrongMark:473277055107334144> That's not an option! Options: `module|mdl`, `command|cmd`")
 
 def setup(bot):
     bot.add_cog(Help(bot))
