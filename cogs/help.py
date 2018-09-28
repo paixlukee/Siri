@@ -82,7 +82,7 @@ class Help:
             except:
                 pass
         else:
-            pass
+            await ctx.send("<:WrongMark:473277055107334144> That's not a module!")
 
 def setup(bot):
     bot.add_cog(Help(bot))
