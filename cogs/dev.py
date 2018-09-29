@@ -136,7 +136,7 @@ class Developer:
                 'requests': requests,
                 're': re,
                 'os': os,
-                'time_rx': re.compile('[0-9]+')
+                'time_rx': re.compile('[0-9]+'),
                 'player': self.bot.lavalink.players.get(ctx.guild.id),
                 '_': self._last_result
             }
