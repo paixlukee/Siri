@@ -39,6 +39,7 @@ class Developer:
         embed.add_field(name="From", value="Siri")
         embed.add_field(name="Subject", value=subject)
         embed.add_field(name="Content", value=content)
+        await ctx.send(embed=embed, content=":mailbox: Sent to **Luke J**!")
         
     @commands.group(pass_context=True)
     @commands.is_owner()
