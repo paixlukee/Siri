@@ -11,6 +11,7 @@ from random import choice, randint
 import random
 from discord.ext.commands import errors, converter
 from random import choice as rnd
+import re
 
 import aiohttp
 import asyncio
@@ -133,7 +134,9 @@ class Developer:
                 'random': random,
                 'commands': commands,
                 'requests': requests,
+                're': re
                 'os': os,
+                'time_rx': re.compile('[0-9]+')
                 'player': self.bot.lavalink.players.get(ctx.guild.id),
                 '_': self._last_result
             }
