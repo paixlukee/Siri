@@ -134,7 +134,7 @@ class Developer:
                 'random': random,
                 'commands': commands,
                 'requests': requests,
-                're': re
+                're': re,
                 'os': os,
                 'time_rx': re.compile('[0-9]+')
                 'player': self.bot.lavalink.players.get(ctx.guild.id),
