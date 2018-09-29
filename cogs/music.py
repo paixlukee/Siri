@@ -60,7 +60,7 @@ class Music:
         query.remove(artist)
         try:
             provider = Genius()
-            song = provider.get_lyrics(song=query, artist=artist)
+            song = provider.get_lyrics(query=query, artist=artist)
             embed = discord.Embed(colour=rnd(self.colour), title=f"Lyrics for {song.title}:", description=song.lyrics)
             await ctx.send(embed=embed)
         except Exception as e:
