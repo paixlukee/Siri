@@ -225,30 +225,32 @@ class Music:
             await ctx.send(embed=embed) 
         elif not player.queue:
             return await ctx.send("There's nothing left in the queue!")
-
-        items_per_page = 11
-        pages = math.ceil(len(player.queue) / items_per_page)
-
-        start = (page - 1) * items_per_page
-        end = start + items_per_page
         
-        emoji = '- :repeat: \n' if player.repeat else '\n'
+        else:
 
-        qlist = ''       
+            items_per_page = 11
+            pages = math.ceil(len(player.queue) / items_per_page)
 
-        q = len(player.queue)
-        
-        for i, track in enumerate(player.queue[start:end], start=start):
-            if player.current.stream:
-                dur = 'LIVE'
-            else:
-                dur = lavalink.Utils.format_time(track.duration)
-            qlist += f'**{i + 1}:** [{track.title}]({track.uri}) `{dur}` {emoji}'
+            start = (page - 1) * items_per_page
+            end = start + items_per_page
 
-        embed = discord.Embed(title=f"Queue ({q}):", colour=rnd(self.colour), description=f"**Now:** [{player.current.title}]({player.current.uri}) `{n_dur}` {emoji}{qlist}")
-        embed.set_footer(text=f"Page {page} of {pages} | Shuffle: {shuf}")
-        embed.timestamp = datetime.datetime.utcnow()
-        await ctx.send(embed=embed)
+            emoji = '- :repeat: \n' if player.repeat else '\n'
+
+            qlist = ''       
+
+            q = len(player.queue)
+
+            for i, track in enumerate(player.queue[start:end], start=start):
+                if player.current.stream:
+                    dur = 'LIVE'
+                else:
+                    dur = lavalink.Utils.format_time(track.duration)
+                qlist += f'**{i + 1}:** [{track.title}]({track.uri}) `{dur}` {emoji}'
+
+            embed = discord.Embed(title=f"Queue ({q}):", colour=rnd(self.colour), description=f"**Now:** [{player.current.title}]({player.current.uri}) `{n_dur}` {emoji}{qlist}")
+            embed.set_footer(text=f"Page {page} of {pages} | Shuffle: {shuf}")
+            embed.timestamp = datetime.datetime.utcnow()
+            await ctx.send(embed=embed)
 
     @commands.command(aliases=['resume'])
     async def pause(self, ctx):
