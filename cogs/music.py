@@ -54,14 +54,20 @@ class Music:
                     
                     
     @commands.command()
-    async def lyrics(self, ctx, *, query):
-        provider = Genius()
-        song = provider.get_lyrics(song=query)
-        embed = discord.Embed(colour=rnd(self.colour), title=f"Lyrics for {song.title}:", description=song.lyrics)
-        await ctx.send(embed=embed)
-                    
+    async def lyrics(self, ctx, *, artist, query):
+        query = question.split('-')
+        artist = split[0]
+        query.remove(artist)
+        try:
+            provider = Genius()
+            song = provider.get_lyrics(song=query, artist=artist)
+            embed = discord.Embed(colour=rnd(self.colour), title=f"Lyrics for {song.title}:", description=song.lyrics)
+            await ctx.send(embed=embed)
+        except Exception as e:
+            await ctx.send(f"Error! I couldn't find that song! Did you forget to seperate the artist & song title with a dash? Ex. `siri lyrics Lady Gaga - Poker Face`\n```{e}```")
+                               
                    
-    @commands.command(aliases=['p'])
+    @commands.command(aliases=['p', 'add', 'enqueue'])
     async def play(self, ctx, *, query):
         """Play a track [url or query]"""
         player = self.bot.lavalink.players.get(ctx.guild.id)
@@ -103,7 +109,7 @@ class Music:
 
 
             t = results['tracks'][0]
-            trl.description = f"{self.ttrue} Playlist, **{results['playlistInfo']['name']}** enqueued. ({len(tracks)} tracks)"
+            trl.description = f"{self.ttrue} **{results['playlistInfo']['name']}** enqueued. ({len(tracks)} tracks)"
             #trl.set_footer(text=f"Siri Music | Requested by {ctx.author.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
             await ctx.send(embed=trl)
             player.add(requester=ctx.author.id, track=t)
@@ -127,7 +133,7 @@ class Music:
             return await ctx.send(f"{self.tfals} I am not playing anything.")   
         elif not ctx.author.voice or not ctx.author.voice.channel or player.connected_channel.id != ctx.author.voice.channel.id:
             return await ctx.send(f"{self.tfals} You aren't in my voice channel, #**{ctx.me.voice.channel}**")
-        elif author.id == int(player.current.requester):
+        elif author.id == int(player.current.requester) or "DJ" in [x.name.upper() for x in ctx.author.roles] or ctx.author.guild_permissions.manage_guild:
             await ctx.send(f"{self.ttrue} Track **Skipped**.")
             await player.skip()
         elif author.id not in self.votes:
@@ -304,6 +310,11 @@ class Music:
         player.repeat = not player.repeat
 
         await ctx.send(f"{self.ttrue} I have **{('enabled' if player.repeat else 'disabled')}** repeat.")
+        
+        
+    @commands.command(aliases=['DJ'])
+    async def dj(self, ctx):
+        embed = discord.Embed(description="<a:load:460660678034980865> Creating role..")
 
 
     @commands.command(aliases=['rm', 'pop'])
@@ -315,7 +326,10 @@ class Music:
             return await ctx.send(f"{self.tfals} There is nothing queued!")
 
         if count > len(player.queue) or count < 1:
-            return await ctx.send(f"{self.ttrue} Please choose a number that's in the queue!")
+            return await ctx.send(f"{self.tfals} Please choose a number that's in the queue!")
+        
+        if not "DJ" in [x.name.upper() for x in ctx.author.roles] or ctx.author.guild_permissions.manage_guild or ctx.author.id == 396153668820402197:
+            return await ctx.send(f"{self.tfals} You must have the `DJ` role or `MANAGE_SERVER` permissions to use this command! Use `siri dj` to get the role.")
 
         count -= 1
         removed = player.queue.pop(count)
