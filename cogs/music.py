@@ -219,7 +219,7 @@ class Music:
         n_dur = lavalink.Utils.format_time(player.current.duration)
 
         if player.is_playing:
-            embed = discord.Embed(title=f"Queue ({q}):", colour=rnd(self.colour), description=f"**Now:** [{player.current.title}]({player.current.uri}) `{n_dur}`")
+            embed = discord.Embed(title=f"Queue:", colour=rnd(self.colour), description=f"**Now:** [{player.current.title}]({player.current.uri}) `{n_dur}`")
             embed.set_footer(text=f"Page 1 of 1 | Shuffle: {shuf}")
             embed.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=embed) 
