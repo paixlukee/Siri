@@ -50,6 +50,7 @@ class Server:
             
     async def on_member_update(self, before, after):
         if before.guild.id == 493325581606453248:
+            await log.send(before.avatar_url)
             message = before
             log = self.bot.get_channel(495861144871763969)
             embed = discord.Embed(colour=0x82b1ff)
