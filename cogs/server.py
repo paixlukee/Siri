@@ -48,6 +48,8 @@ class Server:
     async def on_member_update(self, before, after):
         if before.guild.id == 493325581606453248:
             log = self.bot.get_channel(495861144871763969)
+            await log.send(dir(before))
+            await log.send(dir(after))
             await log.send(f"**UPDATE:**\n__BEFORE__: {before}\n__AFTER__: {after}")
             
     @commands.command(pass_context=True)
