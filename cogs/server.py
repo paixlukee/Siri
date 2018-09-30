@@ -80,7 +80,7 @@ class Server:
                 embed.set_footer(text="Role Update", icon_url=message.guild.icon_url_as(format='png')) 
                 embed.timestamp = datetime.datetime.utcnow()                 
             else:
-                cnt = None
+                pass
                               
             await log.send(embed=embed, content=cnt)
             
