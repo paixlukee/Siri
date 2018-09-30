@@ -1,6 +1,6 @@
 import discord
 import asyncio
-from datetime import *
+import datetime
 from discord.ext import commands
 from random import choice as rnd
 
