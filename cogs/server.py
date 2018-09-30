@@ -45,6 +45,11 @@ class Server:
             embed.timestamp = datetime.datetime.utcnow()
             await log.send(embed=embed)
             
+    async def on_member_update(self, before, after):
+        if message.guild.id == 493325581606453248 and not message.author.id == 481337766379126784:
+            log = self.bot.get_channel(495861144871763969)
+            await log.send(f"**UPDATE:**\n__BEFORE__: {before}\n__AFTER__: {after}")
+            
     @commands.command(pass_context=True)
     async def kick(self, ctx, user: discord.Member= None, *, reason=None):
         author = ctx.message.author
