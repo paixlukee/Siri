@@ -74,6 +74,8 @@ class Server:
                 embed.add_field(name="After", value=", ".join([x.mention for x in after.roles]))
                 embed.set_footer(text="Role Update", icon_url=message.guild.icon_url_as(format='png')) 
                 embed.timestamp = datetime.datetime.utcnow()
+                
+            await ctx.send(embed=embed, content=content)
             
     @commands.command(pass_context=True)
     async def kick(self, ctx, user: discord.Member= None, *, reason=None):
