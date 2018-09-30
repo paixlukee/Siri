@@ -53,7 +53,7 @@ class Server:
             message = before
             log = self.bot.get_channel(495861144871763969)           
             embed = discord.Embed(colour=0x82b1ff)
-            elif not before.name == after.name:
+            if not before.name == after.name:
                 cnt = f":page_facing_up: **{before}** has changed their **username**:"
                 embed.add_field(name="Before", value=before)
                 embed.add_field(name="After", value=after)
