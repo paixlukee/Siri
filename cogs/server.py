@@ -10,7 +10,7 @@ class Server:
         if member.guild.id == 493325581606453248:
             log = self.bot.get_channel(495840490147807235)
             embed = discord.Embed(colour=0x42f46b, description=f"Welcome to **Siri Support**, {member.mention}! Please review the rules in <#493326871594008576>, for support, <#493331059459489802> is the channel for you, the <@&493327873982332938> is ready to help!")
-            embed.set_thumbnail(url=member.avatar_url_as('png'))
+            embed.set_thumbnail(url=member.avatar_url_as(format='png'))
             embed.set_footer(text="Member Join", icon_url=member.guild.icon_url)     
             await log.send(embed=embed)
             #
@@ -21,7 +21,7 @@ class Server:
             quotes = ['So long, farewell, auf Wiedersehen, goodbye. I leave and heave a sigh and say goodbye.', 'Hasta la vista, baby', 'Good luck, we\'re all counting on you', 'You have been my friend. That in itself is a tremendous thing.', 'Never say goodbye because goodbye means going away and going away means forgetting', 'I make it easier for people to leave by making them hate me a little.', 'Agh.. finally.']
             log = self.bot.get_channel(495840490147807235)
             embed = discord.Embed(colour=0xf44141, description=f"Goodbye, **{member}**! {rnd(quotes)}")
-            embed.set_thumbnail(url=member.avatar_url_as('png'))
+            embed.set_thumbnail(url=member.avatar_url_as(format='png'))
             embed.set_footer(text="Member Leave", icon_url=member.guild.icon_url)     
             await log.send(embed=embed)
             
