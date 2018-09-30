@@ -29,18 +29,18 @@ class Server:
             await log.send(embed=embed)
             
     async def on_message_edit(self, before, after):
-        if member.guild.id == 493325581606453248:
+        if before.guild.id == 493325581606453248:
             log = self.bot.get_channel(495861144871763969)
             embed = discord.Embed(colour=0xffff00, description=f":pencil: **Message Edited:**\n__Author:__{before.author.mention}\n__Channel:__ {before.channel.mention}\n__Before:__ {before.content}\n__After:__ {after.content}")
-            embed.set_footer(text="Message Edit", icon_url=member.guild.icon_url_as(format='png')) 
+            embed.set_footer(text="Message Edit", icon_url=before.guild.icon_url_as(format='png')) 
             embed.timestamp = datetime.datetime.utcnow()
             await log.send(embed=embed)
             
     async def on_message_delete(self, message):
-        if member.guild.id == 493325581606453248:
+        if message.guild.id == 493325581606453248:
             log = self.bot.get_channel(495861144871763969)
             embed = discord.Embed(colour=0xff0000, description=f":recycle: **Message Removed:**\n__Author:__{message.author.mention}\n__Channel:__ {message.channel.mention}\n__Content:__ {message.content}")
-            embed.set_footer(text="Message Delete", icon_url=member.guild.icon_url_as(format='png')) 
+            embed.set_footer(text="Message Delete", icon_url=message.guild.icon_url_as(format='png')) 
             embed.timestamp = datetime.datetime.utcnow()
             await log.send(embed=embed)
             
