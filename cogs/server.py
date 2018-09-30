@@ -50,6 +50,7 @@ class Server:
             
     async def on_member_update(self, before, after):
         if before.guild.id == 493325581606453248:
+            log = self.bot.get_channel(495861144871763969)
             embed = discord.Embed(colour=0x82b1ff)
             if before.avatar != after.avatar:
                 content = f":frame_photo: **{before}** has updated their **avatar**:"
@@ -75,7 +76,7 @@ class Server:
                 embed.set_footer(text="Role Update", icon_url=message.guild.icon_url_as(format='png')) 
                 embed.timestamp = datetime.datetime.utcnow()
                 
-            await ctx.send(embed=embed, content=content)
+            await log.send(embed=embed, content=content)
             
     @commands.command(pass_context=True)
     async def kick(self, ctx, user: discord.Member= None, *, reason=None):
