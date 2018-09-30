@@ -38,7 +38,7 @@ class Server:
             else:
                 await guild.kick(user, reason=f"\"{reason}\" - {author}")            
                 await ctx.send(f"<:greentick:492800272834494474> **{user.name}** has been **kicked** by **{author.name}**! **Reason:** `{reason}`")
-                await user.send(f":boot: You have been **kicked** from *{ctx.guild}**! **Reason:** `{reason}`")
+                await user.send(f":boot: You have been **kicked** from **{ctx.guild}**! **Reason:** `{reason}`")
         else:
             await ctx.send(f"<:redtick:492800273211850767> You're not a mod..")
 
