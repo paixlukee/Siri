@@ -71,7 +71,7 @@ class Server:
             if before.roles != after.roles:
                 content = f":ledger: **{before}** has got their **roles** updated:"
                 embed.add_field(name="Before", value=", ".join([x.mention for x in before.roles])
-                embed.add_field(name="After", value=", ".join([x.mention for x in after.roles]))
+                embed.add_field(name="After", value=", ".join([x.mention for x in after.roles])
                 embed.set_footer(text="Role Update", icon_url=message.guild.icon_url_as(format='png')) 
                 embed.timestamp = datetime.datetime.utcnow()
             
