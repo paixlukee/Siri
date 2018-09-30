@@ -32,25 +32,48 @@ class Server:
     async def on_message_edit(self, before, after):
         if before.guild.id == 493325581606453248 and not before.author.id == 481337766379126784:
             log = self.bot.get_channel(495861144871763969)
-            embed = discord.Embed(colour=0xffff00, description=f":pencil: **Message Edited:**\n__Author:__{before.author.mention}\n__Channel:__ {before.channel.mention}\n__Before:__ `{before.content}`\n__After:__ `{after.content}`")
+            embed = discord.Embed(colour=0xffff00)
+            embed.add_field(name="Before", value=before.content)
+            embed.add_field(name="After", value=after.content)
             embed.set_footer(text="Message Edit", icon_url=before.guild.icon_url_as(format='png')) 
             embed.timestamp = datetime.datetime.utcnow()
-            await log.send(embed=embed)
+            await log.send(embed=embed, content=f":pencil: **{before.author}** has **edited** a message in **#{before.channel}**:")
             
     async def on_message_delete(self, message):
         if message.guild.id == 493325581606453248 and not message.author.id == 481337766379126784:
             log = self.bot.get_channel(495861144871763969)
-            embed = discord.Embed(colour=0xff0000, description=f":wastebasket: **Message Removed:**\n__Author:__{message.author.mention}\n__Channel:__ {message.channel.mention}\n__Content:__ `{message.content}`")
+            embed = discord.Embed(colour=0xff0000)
+            embed.add_field(name="Content", value=message.content)
             embed.set_footer(text="Message Delete", icon_url=message.guild.icon_url_as(format='png')) 
             embed.timestamp = datetime.datetime.utcnow()
-            await log.send(embed=embed)
+            await log.send(embed=embed, content=f":wastebasket: **{message.author}** has **removed** a message in **#{message.channel}**:")
             
     async def on_member_update(self, before, after):
         if before.guild.id == 493325581606453248:
-            log = self.bot.get_channel(495861144871763969)
-            await log.send(dir(before))
-            await log.send(dir(after))
-            await log.send(f"**UPDATE:**\n__BEFORE__: {before}\n__AFTER__: {after}")
+            embed = discord.Embed(colour=0x82b1ff)
+            if before.avatar != after.avatar:
+                content = f":frame_photo: **{before}** has updated their **avatar**:"
+                embed.description = "I couldn't grab their avatar. (╯°□°）╯︵ ┻━┻")
+                embed.set_footer(text="Avatar Edit", icon_url=message.guild.icon_url_as(format='png')) 
+                embed.timestamp = datetime.datetime.utcnow() 
+            if before.name != after.name:
+                content = f":page_facing_up: **{before}** has changed their **username**:"
+                embed.add_field(name="Before", value=before)
+                embed.add_field(name="After", value=after)
+                embed.set_footer(text="Username Edit", icon_url=message.guild.icon_url_as(format='png')) 
+                embed.timestamp = datetime.datetime.utcnow()   
+            if before.nick != after.nick:
+                content = f":name_badge: **{before}** has changed their **nickname**:"
+                embed.add_field(name="Before", value=before.nick)
+                embed.add_field(name="After", value=after.nick)
+                embed.set_footer(text="Nickname Edit", icon_url=message.guild.icon_url_as(format='png')) 
+                embed.timestamp = datetime.datetime.utcnow()
+            if before.roles != after.roles:
+                content = f":ledger: **{before}** has got their **roles** updated:"
+                embed.add_field(name="Before", value=", ".join([x.mention for x in before.roles])
+                embed.add_field(name="After", value=", ".join([x.mention for x in after.roles]))
+                embed.set_footer(text="Role Update", icon_url=message.guild.icon_url_as(format='png')) 
+                embed.timestamp = datetime.datetime.utcnow()
             
     @commands.command(pass_context=True)
     async def kick(self, ctx, user: discord.Member= None, *, reason=None):
