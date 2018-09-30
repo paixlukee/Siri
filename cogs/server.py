@@ -52,17 +52,7 @@ class Server:
         if before.guild.id == 493325581606453248:
             message = before
             log = self.bot.get_channel(495861144871763969)           
-            await log.send(before.avatar_url)
             embed = discord.Embed(colour=0x82b1ff)
-            if not before.avatar == after.avatar:
-                cnt = f":frame_photo: **{before}** has updated their **avatar**:"
-                embed.description = "I couldn't grab their old avatar (╯°□°）╯︵ ┻━┻"
-                embed.add_field(name="But here's the new one:", value="\u200b")
-                embed.set_image(url=after.avatar_url_as(format='png'))
-                embed.set_thumbnail(url=before.avatar_url_as(format='png'))
-                embed.set_footer(text="Avatar Edit", icon_url=message.guild.icon_url_as(format='png')) 
-                embed.timestamp = datetime.datetime.utcnow() 
-                await log.send(embed=embed, content=cnt)
             elif not before.name == after.name:
                 cnt = f":page_facing_up: **{before}** has changed their **username**:"
                 embed.add_field(name="Before", value=before)
