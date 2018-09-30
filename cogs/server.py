@@ -86,11 +86,17 @@ class Server:
             if reason is None:
                 await guild.kick(user)
                 await ctx.send(f"<:greentick:492800272834494474> **{user.name}** has been **kicked** by **{author.name}**!")
-                await user.send(f":boot: You have been **kicked** from **{ctx.guild}**! **Reason:** *N/A*")
+                try:
+                    await user.send(f":boot: You have been **kicked** from **{ctx.guild}**! **Reason:** *N/A*")
+                except:
+                    pass
             else:
                 await guild.kick(user, reason=f"\"{reason}\" - {author}")            
                 await ctx.send(f"<:greentick:492800272834494474> **{user.name}** has been **kicked** by **{author.name}**! **Reason:** `{reason}`")
-                await user.send(f":boot: You have been **kicked** from **{ctx.guild}**! **Reason:** `{reason}`")
+                try:
+                    await user.send(f":boot: You have been **kicked** from **{ctx.guild}**! **Reason:** `{reason}`")
+                except:
+                    pass
         else:
             await ctx.send(f"<:redtick:492800273211850767> You're not a mod..")
 
@@ -100,12 +106,33 @@ class Server:
         guild = ctx.message.guild
         if author.guild_permissions.ban_members:
             if reason is None:
-                await user.send(f":hammer_pick: You have been **banned** from **{ctx.guild}**! **Reason:** *N/A*")
-                await guild.ban(user)
+                try:
+                    await user.send(f":hammer_pick: You have been **banned** from **{ctx.guild}**! **There was no reason set for your ban**")
+                except:
+                    pass
+                await guild.ban(user, reason=f"Ban by {ctx.author} [NO REASON]")
                 await ctx.send(f"<:greentick:492800272834494474> **{user.name}** has been **banned** by **{ctx.message.author.name}**!")
             else:
-                await user.send(f":hammer_pick: You have been **banned** from **{ctx.guild}**! **Reason:** `{reason}`")
-                await guild.ban(user, reason=f"\"{reason}\" - {ctx.author}")
+                try:
+                    await user.send(f":hammer_pick: You have been **banned** from **{ctx.guild}**! **Reason:** `{reason}`")
+                except:
+                    pass
+                await guild.ban(user, reason=f"\"{reason}\" - Ban by {ctx.author}")
+                await ctx.send(f"<:greentick:492800272834494474> **{user.name}** has been **banned** by **{ctx.message.author.name}**! **Reason:** `{reason}`")
+        else:
+            await ctx.send(f"<:redtick:492800273211850767> You're not a mod!")
+            
+    @commands.command(pass_context=True, aliases=['idban'])
+    async def hackban(self, ctx, uid:int, *, reason=None):
+        author = ctx.author
+        guild = ctx.guild
+        if author.guild_permissions.ban_members:
+            if not reason:
+                await self.bot.http.ban(user_id=uid, guild_id=guild.id, reason=f"[NO REASON] - ID-Ban by {ctx.author}")
+                await guild.ban(user, reason=f"[NO REASON] - ID-Ban by {ctx.author}")
+                await ctx.send(f"<:greentick:492800272834494474> **{user.name}** has been **banned** by **{ctx.message.author.name}**!")
+            else:
+                await self.bot.http.ban(user_id=uid, guild_id=guild.id, reason=f"\"{reason}\" - ID-Ban by {ctx.author}")
                 await ctx.send(f"<:greentick:492800272834494474> **{user.name}** has been **banned** by **{ctx.message.author.name}**! **Reason:** `{reason}`")
         else:
             await ctx.send(f"<:redtick:492800273211850767> You're not a mod!")
@@ -120,10 +147,16 @@ class Server:
             
             if amount is None:
                 await ctx.send(f"<:greentick:492800272834494474> **{user.name}** has been **muted** for **10 minutes**! (default time!)")
-                await user.send(f"You have been **muted** in **{ctx.guild}**! **Time:** `10 minutes (600 seconds)`")    
+                try:
+                    await user.send(f"You have been **muted** in **{ctx.guild}**! **Time:** `10 minutes (600 seconds)`")  
+                except:
+                    pass
                 await asyncio.sleep(600)
                 await user.remove_roles(role)
-                await user.send(f"You have been **unmuted** in **{ctx.guild}**!")
+                try:
+                    await user.send(f"You have been **unmuted** in **{ctx.guild}**!")
+                except:
+                    pass
             else:
                 seconds = amount * 60
                 await ctx.send(f"<:greentick:492800272834494474> **{user.name}** has been **muted** for **{amount} minute(s)**!")
@@ -131,7 +164,10 @@ class Server:
                 try:
                     await asyncio.sleep(seconds)
                     await user.remove_roles(role)
-                    await user.send(f"You have been **unmuted** in **{ctx.guild}**!")
+                    try:
+                        await user.send(f"You have been **unmuted** in **{ctx.guild}**!")
+                    except:
+                        pass
                 except Exception as e:
                     await ctx.send(e)
         else:
@@ -146,7 +182,10 @@ class Server:
                 role = discord.utils.get(ctx.guild.roles, name="Muted")
                 await ctx.send(f"<:greentick:492800272834494474> **{user.name}** has been unmuted!")
                 await user.remove_roles(role)
-                await user.send(f"You have been **unmuted** in **{ctx.guild}**!")
+                try:
+                    await user.send(f"You have been **unmuted** in **{ctx.guild}**!")
+                except:
+                    pass
             except:
                 await ctx.send(f"<:redtick:492800273211850767> **{user.name}** isn't muted!")
         else:
