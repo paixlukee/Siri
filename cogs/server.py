@@ -129,7 +129,6 @@ class Server:
         if author.guild_permissions.ban_members:
             if not reason:
                 await self.bot.http.ban(user_id=uid, guild_id=guild.id, reason=f"[NO REASON] - ID-Ban by {ctx.author}")
-                await guild.ban(user, reason=f"[NO REASON] - ID-Ban by {ctx.author}")
                 await ctx.send(f"<:greentick:492800272834494474> **Unknown User** has been **banned** by **{ctx.message.author.name}**!")
             else:
                 await self.bot.http.ban(user_id=uid, guild_id=guild.id, reason=f"\"{reason}\" - ID-Ban by {ctx.author}")
