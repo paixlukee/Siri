@@ -50,6 +50,7 @@ class Server:
             
     async def on_member_update(self, before, after):
         if before.guild.id == 493325581606453248:
+            message = before
             log = self.bot.get_channel(495861144871763969)
             embed = discord.Embed(colour=0x82b1ff)
             if not before.avatar == after.avatar:
@@ -74,7 +75,8 @@ class Server:
                 embed.add_field(name="Before", value=", ".join([x.mention for x in before.roles]))
                 embed.add_field(name="After", value=", ".join([x.mention for x in after.roles]))
                 embed.set_footer(text="Role Update", icon_url=message.guild.icon_url_as(format='png')) 
-                embed.timestamp = datetime.datetime.utcnow()              
+                embed.timestamp = datetime.datetime.utcnow()   
+                
                 
             await log.send(embed=embed, content=content)
             
