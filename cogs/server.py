@@ -53,7 +53,7 @@ class Server:
             embed = discord.Embed(colour=0x82b1ff)
             if before.avatar != after.avatar:
                 content = f":frame_photo: **{before}** has updated their **avatar**:"
-                embed.description = "I couldn't grab their avatar. (╯°□°）╯︵ ┻━┻")
+                embed.description = "I couldn't grab their avatar. (╯°□°）╯︵ ┻━┻"
                 embed.set_footer(text="Avatar Edit", icon_url=message.guild.icon_url_as(format='png')) 
                 embed.timestamp = datetime.datetime.utcnow() 
             if before.name != after.name:
