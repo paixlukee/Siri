@@ -54,7 +54,7 @@ class Server:
             log = self.bot.get_channel(495861144871763969)
             embed = discord.Embed(colour=0x82b1ff)
             if not before.avatar_url == after.avatar_url:
-                content = f":frame_photo: **{before}** has updated their **avatar**:"
+                cnt = f":frame_photo: **{before}** has updated their **avatar**:"
                 embed.description = "I couldn't grab their old avatar (╯°□°）╯︵ ┻━┻"
                 embed.add_field(name="But here's the new one:", value="\u200b")
                 embed.set_image(url=after.avatar_url)
@@ -62,26 +62,26 @@ class Server:
                 embed.set_footer(text="Avatar Edit", icon_url=message.guild.icon_url_as(format='png')) 
                 embed.timestamp = datetime.datetime.utcnow() 
             elif not before.name == after.name:
-                content = f":page_facing_up: **{before}** has changed their **username**:"
+                cnt = f":page_facing_up: **{before}** has changed their **username**:"
                 embed.add_field(name="Before", value=before)
                 embed.add_field(name="After", value=after)
                 embed.set_footer(text="Username Edit", icon_url=message.guild.icon_url_as(format='png')) 
                 embed.timestamp = datetime.datetime.utcnow()   
             elif not before.nick == after.nick:
-                content = f":name_badge: **{before}** has changed their **nickname**:"
+                cnt = f":name_badge: **{before}** has changed their **nickname**:"
                 embed.add_field(name="Before", value=before.nick)
                 embed.add_field(name="After", value=after.nick)
                 embed.set_footer(text="Nickname Edit", icon_url=message.guild.icon_url_as(format='png')) 
                 embed.timestamp = datetime.datetime.utcnow()
             elif not before.roles == after.roles:
-                content = f":ledger: **{before}** has got their **roles** updated:"
+                cnt = f":ledger: **{before}** has got their **roles** updated:"
                 embed.add_field(name="Before", value=", ".join([x.mention for x in before.roles]))
                 embed.add_field(name="After", value=", ".join([x.mention for x in after.roles]))
                 embed.set_footer(text="Role Update", icon_url=message.guild.icon_url_as(format='png')) 
                 embed.timestamp = datetime.datetime.utcnow()   
                 
                 
-            await log.send(embed=embed, content=content)
+            await log.send(embed=embed, content=cnt)
             
     @commands.command(pass_context=True)
     async def kick(self, ctx, user: discord.Member= None, *, reason=None):
