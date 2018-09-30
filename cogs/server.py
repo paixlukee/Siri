@@ -79,8 +79,8 @@ class Server:
                     await asyncio.sleep(seconds)
                     await user.remove_roles(role)
                     await user.send(f"You have been **unmuted** in **{ctx.guild}**!")
-                except:
-                    pass
+                except Exception as e:
+                    await ctx.send(e)
         else:
             await ctx.send(f"<:redtick:492800273211850767> You're not a mod..")
 
