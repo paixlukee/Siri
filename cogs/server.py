@@ -12,7 +12,8 @@ class Server:
             log = self.bot.get_channel(495840490147807235)
             embed = discord.Embed(colour=0x42f46b, description=f"Welcome to **Siri Support**, {member.mention}! Please review the rules in <#493326871594008576>, for support, <#493331059459489802> is the channel for you, the <@&493327873982332938> is ready to help!")
             embed.set_thumbnail(url=member.avatar_url_as(format='png'))
-            embed.set_footer(text="Member Join", icon_url=member.guild.icon_url)     
+            embed.set_footer(text="Member Join", icon_url=member.guild.icon_url)
+            embed.timestamp = datetime.datetime.utcnow()
             await log.send(embed=embed)
             #
             await member.send("Welcome to **Siri Support**, Please review the rules & info in <#493326871594008576>, for support, <#493331059459489802> is the channel for you, the Support Team is ready to help!")
@@ -23,7 +24,24 @@ class Server:
             log = self.bot.get_channel(495840490147807235)
             embed = discord.Embed(colour=0xf44141, description=f"Goodbye, **{member}**! {rnd(quotes)}")
             embed.set_thumbnail(url=member.avatar_url_as(format='png'))
-            embed.set_footer(text="Member Leave", icon_url=member.guild.icon_url)     
+            embed.set_footer(text="Member Leave", icon_url=member.guild.icon_url)
+            embed.timestamp = datetime.datetime.utcnow()
+            await log.send(embed=embed)
+            
+    async def on_message_edit(self, before, after):
+        if member.guild.id == 493325581606453248:
+            log = self.bot.get_channel(495861144871763969)
+            embed = discord.Embed(colour=0xffff00, description=f":pencil: **Message Edited:**\n__Author:__{before.author.mention}\n__Channel:__ {before.channel.mention}\n__Before:__ {before.content}\n__After:__ {after.content}")
+            embed.set_footer(text="Message Edit", icon_url=member.guild.icon_url_as(format='png')) 
+            embed.timestamp = datetime.datetime.utcnow()
+            await log.send(embed=embed)
+            
+    async def on_message_delete(self, message):
+        if member.guild.id == 493325581606453248:
+            log = self.bot.get_channel(495861144871763969)
+            embed = discord.Embed(colour=0xff0000, description=f":recycle: **Message Removed:**\n__Author:__{message.author.mention}\n__Channel:__ {message.channel.mention}\n__Content:__ {message.content}")
+            embed.set_footer(text="Message Delete", icon_url=member.guild.icon_url_as(format='png')) 
+            embed.timestamp = datetime.datetime.utcnow()
             await log.send(embed=embed)
             
     @commands.command(pass_context=True)
