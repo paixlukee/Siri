@@ -61,19 +61,19 @@ class Server:
                 embed.set_thumbnail(url=before.avatar_url)
                 embed.set_footer(text="Avatar Edit", icon_url=message.guild.icon_url_as(format='png')) 
                 embed.timestamp = datetime.datetime.utcnow() 
-            if not before.name == after.name:
+            elif not before.name == after.name:
                 cnt = f":page_facing_up: **{before}** has changed their **username**:"
                 embed.add_field(name="Before", value=before)
                 embed.add_field(name="After", value=after)
                 embed.set_footer(text="Username Edit", icon_url=message.guild.icon_url_as(format='png')) 
                 embed.timestamp = datetime.datetime.utcnow()   
-            if not before.nick == after.nick:
+            elif not before.nick == after.nick:
                 cnt = f":name_badge: **{before}** has changed their **nickname**:"
                 embed.add_field(name="Before", value=before.nick)
                 embed.add_field(name="After", value=after.nick)
                 embed.set_footer(text="Nickname Edit", icon_url=message.guild.icon_url_as(format='png')) 
                 embed.timestamp = datetime.datetime.utcnow()
-            if not before.roles == after.roles:
+            elif not before.roles == after.roles:
                 cnt = f":ledger: **{before}** has got their **roles** updated:"
                 embed.add_field(name="Before", value=", ".join([x.mention for x in before.roles]))
                 embed.add_field(name="After", value=", ".join([x.mention for x in after.roles]))
