@@ -68,12 +68,12 @@ class Music:
                 await ctx.send(embed=embed)
                 
         else:
+           q = query.replace(" ", "+")
+           r = requests.get(f"https://some-random-api.ml/lyrics?title={q}")
            if len(r['lyrics']) > 1750:
                lyrics = f"Seems like these lyrics are too long to display! Click [here]({r['links']['genius']}) to get them.\n\n*Powered by SomeRandomAPI*"
            else:
                lyrics = f"{r['lyrics']}\n\n*Powered by SomeRandomAPI*"
-           q = query.replace(" ", "+")
-           r = requests.get(f"https://some-random-api.ml/lyrics?title={q}")
            embed = discord.Embed(colour=rnd(self.colour), title=r['title'], description=lyrics, url=r['links']['genius'])
            embed.set_footer(name="Genius", icon_url="https://trashbox.ru/files/427612_ad428e/yp31wbgn.png")
            await ctx.send(embed=embed)
