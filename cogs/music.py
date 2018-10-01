@@ -7,10 +7,6 @@ import logging
 import math
 import re
 from random import choice as rnd
-try:
-    from lyricsmaster import *
-except:
-    print('die')
 
 time_rx = re.compile('[0-9]+')
 url_rx = re.compile('https?:\/\/(?:www\.)?.+')
@@ -54,18 +50,33 @@ class Music:
                     
                     
     @commands.command()
-    async def lyrics(self, ctx, *, artist, query):
-        query = question.split('-')
-        artist = split[0]
-        query.remove(artist)
-        try:
-            provider = Genius()
-            song = provider.get_lyrics(query, artist=artist)
-            embed = discord.Embed(colour=rnd(self.colour), title=f"Lyrics for {song.title}:", description=song.lyrics)
-            await ctx.send(embed=embed)
-        except Exception as e:
-            await ctx.send(f"Error! I couldn't find that song! Did you forget to seperate the artist & song title with a dash? Ex. `siri lyrics Lady Gaga - Poker Face`\n```{e}```")
-                               
+    async def lyrics(self, ctx, *, query=None):
+        if not query:
+            player = self.bot.lavalink.players.get(ctx.guild.id)
+            title = player.current.title
+            if not player.is_playing:
+                await ctx.send(f"{self.tfals} Nothing is playing, so I couldn't get any lyrics. To search for a song that isn't playing, use `siri lyrics <song-title>`.")
+            else:
+                q = title.replace(" ", "+")
+                r = requests.get(f"https://some-random-api.ml/lyrics?title={q}")
+                if len(r['lyrics']) > 1750:
+                    lyrics = f"Seems like these lyrics are too long to display! Click [here]({r['links']['genius']}) to get them.\n\n*Powered by SomeRandomAPI*"
+                else:
+                    lyrics = f"{r['lyrics']\n\n*Powered by SomeRandomAPI*"
+                embed = discord.Embed(colour=rnd(self.colour), title=r['title']", description=lyrics, url=r['links']['genius'])
+                embed.set_footer(name="Genius", icon_url="https://trashbox.ru/files/427612_ad428e/yp31wbgn.png")
+                await ctx.send(embed=embed)
+                
+        else:
+           if len(r['lyrics']) > 1750:
+               lyrics = f"Seems like these lyrics are too long to display! Click [here]({r['links']['genius']}) to get them.\n\n*Powered by SomeRandomAPI*"
+           else:
+               lyrics = f"{r['lyrics']\n\n*Powered by SomeRandomAPI*"
+           q = query.replace(" ", "+")
+           r = requests.get(f"https://some-random-api.ml/lyrics?title={q}")
+           embed = discord.Embed(colour=rnd(self.colour), title=r['title'], description=lyrics, url=r['links']['genius'])
+           embed.set_footer(name="Genius", icon_url="https://trashbox.ru/files/427612_ad428e/yp31wbgn.png")
+           await ctx.send(embed=embed)
                    
     @commands.command(aliases=['p', 'add', 'enqueue'])
     async def play(self, ctx, *, query):
