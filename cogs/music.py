@@ -19,7 +19,7 @@ class Music:
         self.tfals = '<:redtick:492800273211850767>'
         self.colour = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
         if not hasattr(bot, 'lavalink'):
-            # stuffs here
+            # stuffs here #
             self.bot.lavalink.register_hook(self.track_hook)
 
     async def track_hook(self, event):
