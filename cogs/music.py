@@ -52,14 +52,15 @@ class Music:
     @commands.command()
     async def lyrics(self, ctx, *, query=None):
         if not query:
-            player = self.bot.lavalink.players.get(ctx.guild.id)
-            title = player.current.title
+            player = self.bot.lavalink.players.get(ctx.guild.id)            
             if not player.is_playing:
                 await ctx.send(f"{self.tfals} Nothing is playing, so I couldn't get any lyrics. To search for a song that isn't playing, use `siri lyrics <song-title>`.")
             else:
+                title = player.current.title
                 q = title.replace(" ", "+")
                 r = requests.get(f"https://some-random-api.ml/lyrics?title={q}")
-                if len(r['lyrics']) > 1750:
+                s = str(r['lyrics'])
+                if len(s) > 1750:
                     lyrics = f"Seems like these lyrics are too long to display! Click [here]({r['links']['genius']}) to get them.\n\n*Powered by SomeRandomAPI*"
                 else:
                     lyrics = f"{r['lyrics']}\n\n*Powered by SomeRandomAPI*"
