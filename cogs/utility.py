@@ -110,6 +110,7 @@ class Utility:
             async with aiohttp.ClientSession(headers={'Accept': 'application/json'}) as session:
                 async with session.get(f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=Imperial") as get:
                     resp = await get.json()
+                    requests.get("f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=metric"").json()
                     if get.status == 404:
                         return await message.channel.send("I couldn't find that place! Did you spell it correctly?")
                     w = resp['main']['temp']
@@ -119,7 +120,7 @@ class Utility:
                     icon = "http://openweathermap.org/img/w/" + resp['weather'][0]['icon'] + ".png"
                     embed = discord.Embed(description=f"{resp['weather'][0]['description']}", colour=0x37749c)
                     embed.set_author(name=f"{resp['name']}, {resp['sys']['country']}", icon_url=icon)
-                    embed.add_field(name="Temperature", value=f"{resp['main']['temp']}°F")
+                    embed.add_field(name="Temperature", value=f"{resp['main']['temp']}°F | {r['main']['temp']}°C")
                     embed.add_field(name="Weather", value=resp['weather'][0]['main'])
                     embed.add_field(name="Humidity", value=f"{resp['main']['humidity']}%")
                     embed.add_field(name="Wind Speed", value=f"{resp['wind']['speed']}mph")
@@ -765,6 +766,7 @@ class Utility:
         async with aiohttp.ClientSession(headers={'Accept': 'application/json'}) as session:
             async with session.get(f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=Imperial") as get:
                 resp = await get.json()
+                requests.get("f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=metric"").json()
                 if get.status == 404:
                     return await ctx.send("I couldn't find that place! Did you spell it correctly?")
                 w = resp['main']['temp']
@@ -774,7 +776,7 @@ class Utility:
                 icon = "http://openweathermap.org/img/w/" + resp['weather'][0]['icon'] + ".png"
                 embed = discord.Embed(description=f"{resp['weather'][0]['description']}", colour=0x37749c)
                 embed.set_author(name=f"{resp['name']}, {resp['sys']['country']}", icon_url=icon)
-                embed.add_field(name="Temperature", value=f"{resp['main']['temp']}°F")
+                embed.add_field(name="Temperature", value=f"{resp['main']['temp']}°F | {r['main']['temp']}°C")
                 embed.add_field(name="Weather", value=resp['weather'][0]['main'])
                 embed.add_field(name="Humidity", value=f"{resp['main']['humidity']}%")
                 embed.add_field(name="Wind Speed", value=f"{resp['wind']['speed']}mph")
