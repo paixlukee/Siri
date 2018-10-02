@@ -105,6 +105,31 @@ class Utility:
             response = resp['result']['fulfillment']['messages'][0]['speech']
             await message.channel.send(f"**{message.author.name}**, {response}")
             
+        if message.content.startswith('hey siri, whats the weather in ') or message.content.startswith('hey siri, what\'s the weather in '):
+            location = message.content.replace("hey siri, whats the weather in ", "").replace("hey siri, what's the weather in ", "")
+            async with aiohttp.ClientSession(headers={'Accept': 'application/json'}) as session:
+                async with session.get(f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=Imperial") as get:
+                    resp = await get.json()
+                    if get.status == 404:
+                        return await message.channel.send("I couldn't find that place! Did you spell it correctly?")
+                    w = resp['main']['temp']
+                    c = resp['sys']['country']
+                    i = c.replace("A", "a").replace("B", "b").replace("C", "c").replace("D", "d").replace("E", "e").replace("F", "f").replace("G", "g").replace("H", "h").replace("I", "i").replace("J", "j").replace("K", "k").replace("L", "l").replace("M", "m").replace("N", "n").replace("O", "o").replace("P", "p").replace("Q", "q").replace("R", "r").replace("S", "s").replace("T", "t").replace("U", "u").replace("V", "v").replace("W", "w").replace("X", "x").replace("Y", "y").replace("Z", "z")
+                    flag = f"http://fotw.fivestarflags.com/images/{i[:-1]}/{i}.gif"
+                    icon = "http://openweathermap.org/img/w/" + resp['weather'][0]['icon'] + ".png"
+                    embed = discord.Embed(description=f"{resp['weather'][0]['description']}", colour=0x37749c)
+                    embed.set_author(name=f"{resp['name']}, {resp['sys']['country']}", icon_url=icon)
+                    embed.add_field(name="Temperature", value=f"{resp['main']['temp']}°F")
+                    embed.add_field(name="Weather", value=resp['weather'][0]['main'])
+                    embed.add_field(name="Humidity", value=f"{resp['main']['humidity']}%")
+                    embed.add_field(name="Wind Speed", value=f"{resp['wind']['speed']}mph")
+                    embed.set_thumbnail(url=flag)
+                    if w > 56:
+                        await message.channel.send(f":flag_{i}: It's nice in **{resp['name']}**!.. up to **{resp['main']['temp_max']}°F**!")
+                    else:
+                        await message.channel.send(f"Brr. Take a jacket!.. up to **{resp['main']['temp_max']}°F**!")
+                    await message.channel.send(embed=embed)
+            
             
     @commands.command(aliases=['remindme', 'reminder'])
     async def remind(self, ctx, opt, time, *, reason):
