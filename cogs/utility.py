@@ -106,8 +106,8 @@ class Utility:
             await message.channel.send(f"**{message.author.name}**, {response}")
             
         if message.content.lower().startswith('hey siri, whats the weather in ') or message.content.lower().startswith('hey siri, what\'s the weather in ') or message.content.lower().startswith('hey siri, what is the weather in '):
-            r =  requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=metric").json()
             location = message.content.lower().replace("hey siri, whats the weather in ", "").replace("hey siri, what's the weather in ", "").replace("?", "").replace("!", "").replace("hey siri, what is the weather in ", "")
+            r =  requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=metric").json()
             async with aiohttp.ClientSession(headers={'Accept': 'application/json'}) as session:
                 async with session.get(f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=Imperial") as get:
                     resp = await get.json()
@@ -758,8 +758,9 @@ class Utility:
     @commands.command()
     async def weather(self, ctx, *, cityname):
         """Weather in a specified location"""
-        r =  requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=metric").json()
+        #r =  requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=metric").json()
         location = cityname
+        r =  requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=metric").json()
         try:
             await self.add_money(user=ctx.message.author.id, count=1)
         except:
