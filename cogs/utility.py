@@ -83,7 +83,7 @@ class Utility:
             #fuck off extra
             
     async def on_message(self, message):
-        up = message.content.upper()
+        up = message.content.lower()
         if message.content.startswith('<@481337766379126784> '):
             fmsg = message.content
             msg = fmsg.replace("<@481337766379126784> ", "")
