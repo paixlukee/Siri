@@ -106,7 +106,7 @@ class Utility:
             await message.channel.send(f"**{message.author.name}**, {response}")
             
         if message.content.startswith('hey siri, whats the weather in ') or message.content.startswith('hey siri, what\'s the weather in '):
-            location = message.content.replace("hey siri, whats the weather in ", "").replace("hey siri, what's the weather in ", "")
+            location = message.content.replace("hey siri, whats the weather in ", "").replace("hey siri, what's the weather in ", "").replace("?", "")
             async with aiohttp.ClientSession(headers={'Accept': 'application/json'}) as session:
                 async with session.get(f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=Imperial") as get:
                     resp = await get.json()
