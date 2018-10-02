@@ -83,7 +83,6 @@ class Utility:
             #fuck off extra
             
     async def on_message(self, message):
-        up = message.content.lower()
         if message.content.startswith('<@481337766379126784> '):
             fmsg = message.content
             msg = fmsg.replace("<@481337766379126784> ", "")
@@ -106,8 +105,8 @@ class Utility:
             response = resp['result']['fulfillment']['messages'][0]['speech']
             await message.channel.send(f"**{message.author.name}**, {response}")
             
-        if up.startswith('hey siri, whats the weather in ') or up.startswith('hey siri, what\'s the weather in '):
-            location = message.content.replace("hey siri, whats the weather in ", "").replace("hey siri, what's the weather in ", "").replace("?", "")
+        if message.content.lower().startswith('hey siri, whats the weather in ') or message.content.lower().startswith('hey siri, what\'s the weather in '):
+            location = message.content.lower().replace("hey siri, whats the weather in ", "").replace("hey siri, what's the weather in ", "").replace("?", "")
             async with aiohttp.ClientSession(headers={'Accept': 'application/json'}) as session:
                 async with session.get(f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=Imperial") as get:
                     resp = await get.json()
