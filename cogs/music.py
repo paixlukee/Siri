@@ -51,35 +51,39 @@ class Music:
                     
     @commands.command()
     async def lyrics(self, ctx, *, query=None):
-        embed = discord.Embed(description="Fetching lyrics..")
-        msg = await ctx.send(embed=embed)
-        if not query:
-            player = self.bot.lavalink.players.get(ctx.guild.id)            
-            if not player.is_playing:
-                await ctx.send(f"{self.tfals} Nothing is playing, so I couldn't get any lyrics. To search for a song that isn't playing, use `siri lyrics <song-title>`.")
-            else:
-                title = player.current.title
-                q = title.replace(" ", "+")
-                r = requests.get(f"https://some-random-api.ml/lyrics?title={q}").json()
-                s = str(r['lyrics'])
-                if len(s) > 2040:
-                    lyrics = f"Seems like these lyrics are too long to display! Click [here]({r['links']['genius']}) to get them.\n\n*Powered by SomeRandomAPI*"
+        try:
+            embed = discord.Embed(description="Fetching lyrics..")
+            msg = await ctx.send(embed=embed)
+            if not query:
+                player = self.bot.lavalink.players.get(ctx.guild.id)
+                if not player.is_playing:
+                    await ctx.send(f"{self.tfals} Nothing is playing, so I couldn't get any lyrics. To search for a song that isn't playing, use `siri lyrics <song-title>`.")
                 else:
-                    lyrics = f"{r['lyrics']}\n\n*Powered by SomeRandomAPI*"
-                embed = discord.Embed(colour=0xffff00, title=r['title'], description=lyrics, url=r['links']['genius'])
-                embed.set_footer(text="Genius", icon_url="https://trashbox.ru/files/427612_ad428e/yp31wbgn.png")
-                await msg.edit(embed=embed)
-                
-        else:
-           q = query.replace(" ", "+")
-           r = requests.get(f"https://some-random-api.ml/lyrics?title={q}").json()
-           if len(r['lyrics']) > 2040:
-               lyrics = f"Seems like these lyrics are too long to display! Click [here]({r['links']['genius']}) to get them.\n\n*Powered by SomeRandomAPI*"
-           else:
-               lyrics = f"{r['lyrics']}\n\n*Powered by SomeRandomAPI*"
-           embed = discord.Embed(colour=0xffff00, title=r['title'], description=lyrics, url=r['links']['genius'])
-           embed.set_footer(text="Genius", icon_url="https://trashbox.ru/files/427612_ad428e/yp31wbgn.png")
-           await msg.edit(embed=embed)
+                    title = player.current.title
+                    q = title.replace(" ", "+")
+                    r = requests.get(f"https://some-random-api.ml/lyrics?title={q}").json()
+                    s = str(r['lyrics'])
+                    if len(s) > 2040:
+                        lyrics = f"Seems like these lyrics are too long to display! Click [here]({r['links']['genius']}) to get them.\n\n*Powered by SomeRandomAPI*"
+                    else:
+                        lyrics = f"{r['lyrics']}\n\n*Powered by SomeRandomAPI*"
+                    embed = discord.Embed(colour=0xffff00, title=r['title'], description=lyrics, url=r['links']['genius'])
+                    embed.set_footer(text="Genius", icon_url="https://trashbox.ru/files/427612_ad428e/yp31wbgn.png")
+                    await msg.edit(embed=embed)
+
+            else:
+               q = query.replace(" ", "+")
+               r = requests.get(f"https://some-random-api.ml/lyrics?title={q}").json()
+               if len(r['lyrics']) > 2040:
+                   lyrics = f"Seems like these lyrics are too long to display! Click [here]({r['links']['genius']}) to get them.\n\n*Powered by SomeRandomAPI*"
+               else:
+                   lyrics = f"{r['lyrics']}\n\n*Powered by SomeRandomAPI*"
+               embed = discord.Embed(colour=0xffff00, title=r['title'], description=lyrics, url=r['links']['genius'])
+               embed.set_footer(text="Genius", icon_url="https://trashbox.ru/files/427612_ad428e/yp31wbgn.png")
+               await msg.edit(embed=embed)
+        except:
+            embed = discord.Embed(description=f"{self.tfals} Nothing found for this track!")
+            await msg.edit(embed=embed)
                    
     @commands.command(aliases=['p', 'add', 'enqueue'])
     async def play(self, ctx, *, query):
@@ -207,13 +211,16 @@ class Music:
         else:
             await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!") 
 
-    @commands.command(aliases=['np', 'n', 'now'])
+    @commands.command(aliases=['np', 'now'])
     async def nowplaying(self, ctx):
         """Get info on the current song"""
-        
+
         player = self.bot.lavalink.players.get(ctx.guild.id)
         song = "None"
         req = self.bot.get_user(int(player.current.requester))
+
+        if not player.is_playing:
+            return await ctx.send(f"{self.tfals} I am not playing anything.")
 
         if player.current:
             pos = lavalink.Utils.format_time(player.position)
@@ -222,6 +229,10 @@ class Music:
             else:
                 dur = lavalink.Utils.format_time(player.current.duration)
         #bar = await self.bar(volume=player.volume)
+
+        def rcheck(reaction, user):
+            return user == ctx.message.author and str(reaction.emoji) in ['⏹','⏭', '📖']
+
         embed = discord.Embed(colour=rnd(self.colour), title='Now Playing', description=f"[{player.current.title}]({player.current.uri})")
         embed.add_field(name="Duration", value=f"`[{pos} / {dur}]`")
         embed.add_field(name="Uploaded by", value=f"`{player.current.author}`")
@@ -229,7 +240,69 @@ class Music:
         embed.add_field(name="Volume", value=f"`[{player.volume}]`")
         embed.add_field(name="Requested by", value=f"`{req.name}`")
         embed.set_thumbnail(url=player.current.thumbnail)
-        await ctx.send(embed=embed)
+        msg = await ctx.send(embed=embed)
+        book = await msg.add_reaction("📖")
+        stop = await msg.add_reaction("⏹")
+        skip = await msg.add_reaction("⏭")
+        await asyncio.sleep(0.5)
+        reaction, user = await self.bot.wait_for('reaction_add', timeout=60.0, check=rcheck)
+        if reaction.emoji == '⏹':
+            if "DJ" in [x.name.upper() for x in ctx.author.roles] or ctx.author.guild_permissions.manage_guild or ctx.author.id == 396153668820402197:
+
+
+                if player.repeat:
+                    player.repeat = not player.repeat
+                if player.shuffle:
+                    player.shuffle = not player.shuffle
+                player.queue.clear()
+                self.votes.clear()
+                await player.stop()
+                embed = discord.Embed(colour=rnd(self.colour), title="Queue has concluded!", description="The queue has **concluded**! Are you going to enqueue anything else?")
+                await ctx.send(embed=embed)
+
+            else:
+                await ctx.send("You need a role named `DJ` or `manage_server` permissions to use this command!")
+
+        elif reaction.emoji == '⏭':
+            author = ctx.message.author
+            if not player.is_playing:
+                return await ctx.send(f"{self.tfals} I am not playing anything.")
+            elif not ctx.author.voice or not ctx.author.voice.channel or player.connected_channel.id != ctx.author.voice.channel.id:
+                return await ctx.send(f"{self.tfals} You aren't in my voice channel, #**{ctx.me.voice.channel}**")
+            elif author.id == int(player.current.requester) or "DJ" in [x.name.upper() for x in ctx.author.roles] or ctx.author.guild_permissions.manage_guild:
+                await ctx.send(f"{self.ttrue} Track **Skipped**.")
+                await player.skip()
+            elif author.id not in self.votes:
+                self.votes.append(author.id)
+                if len(self.votes) >= 3:
+                    await ctx.send(f"{self.ttrue} Vote passed, **Skipping** track...")
+                    await player.skip()
+                    await asyncio.sleep(1)
+                    self.votes.clear()
+                else:
+                    await ctx.send(f"{self.ttrue} You have voted to **skip** the track, currently at `[{len(self.votes)}/3]` votes.")
+            else:
+                await ctx.send(f"{self.tfals} You can only vote to skip once.")
+        elif reaction.emoji == '📖':
+            try:
+                embed = discord.Embed(description="Fetching lyrics..")
+                msg = await ctx.send(embed=embed)
+                title = player.current.title
+                q = title.replace(" ", "+")
+                r = requests.get(f"https://some-random-api.ml/lyrics?title={q}").json()
+                s = str(r['lyrics'])
+                if len(s) > 2040:
+                    lyrics = f"Seems like these lyrics are too long to display! Click [here]({r['links']['genius']}) to get them.\n\n*Powered by SomeRandomAPI*"
+                else:
+                    lyrics = f"{r['lyrics']}\n\n*Powered by SomeRandomAPI*"
+                embed = discord.Embed(colour=0xffff00, title=r['title'], description=lyrics, url=r['links']['genius'])
+                embed.set_footer(text="Genius", icon_url="https://trashbox.ru/files/427612_ad428e/yp31wbgn.png")
+                await msg.edit(embed=embed)
+            except Exception as e:
+                embed = discord.Embed(description=f"{self.tfals} Nothing found for this track!")
+                await msg.edit(embed=embed)
+        else:
+            pass
 
     @commands.command(aliases=['q'])
     async def queue(self, ctx, page: int=1):
