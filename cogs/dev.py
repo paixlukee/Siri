@@ -150,6 +150,7 @@ class Developer:
                 'random': random,
                 'commands': commands,
                 'requests': requests,
+                'lavalink': lavalink
                 're': re,
                 'os': os,
                 'time_rx': re.compile('[0-9]+'),
