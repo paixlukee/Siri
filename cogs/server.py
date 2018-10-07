@@ -194,7 +194,7 @@ class Server:
     async def selfrole(self, ctx, opt, role: discord.Role):
         if ctx.guild.id == 493325581606453248:
             if opt == 'remove' or opt == 'r':
-                if role == 'updates':
+                if role.name == 'updates':
                     if not "UPDATES" in [x.name for x in ctx.author.roles]:
                         await ctx.send("<:redtick:492800273211850767> I can't remove a role that you don't have!")
                     else:
@@ -205,7 +205,7 @@ class Server:
                     await ctx.send(f"`{role}` isn't a self-role!")
 
             if opt == 'add' or opt == 'a':
-                if role == 'updates':
+                if role.name == 'updates':
                     await ctx.send(f"<:greentick:492800272834494474> Self-Role, **UPDATES**, has been successfully given to **{ctx.author}**!")
                     await ctx.author.add_roles(role)
                 else:
