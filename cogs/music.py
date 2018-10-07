@@ -6,6 +6,7 @@ import requests
 import logging
 import math
 import re
+import asyncio
 from random import choice as rnd
 
 time_rx = re.compile('[0-9]+')
