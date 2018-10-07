@@ -986,7 +986,7 @@ class Utility:
         rl.add_field(name="Name:", value='{}'.format(guild), inline=False)
         rl.add_field(name="ID:", value=guild.id)
         rl.add_field(name="Region:", value=guild.region)
-        rl.add_field(name="Emojis:", value=f"**{str(len(guild.emojis))}**")
+        rl.add_field(name="Emojis:", value=f"{" ".join(['<:' + x.name + ':' + str(x.id) + '>' for x in ctx.guild.emojis])} (**{str(len(guild.emojis))}**)")
         rl.add_field(name="Roles:", value=f"{e} (**{str(len(guild.roles))}**)")
         rl.add_field(name='Guild Owner:', value=guild.owner.mention)
         rl.add_field(name="Members:", value=guild.member_count)
