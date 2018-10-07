@@ -190,5 +190,28 @@ class Server:
         else:
             await ctx.send(f"<:redtick:492800273211850767> You're not a mod..")
             
+    @commands.command(pass_context=True, aliases=['sr'])
+    async def selfrole(self, ctx, opt, role: discord.Role):
+        if ctx.guild.id == 493325581606453248:
+            if opt == 'remove' or opt == 'r':
+                if role.lower() == 'updates':
+                    if not "UPDATES" in [x.name for x in ctx.author.roles]:
+                        await ctx.send("<:redtick:492800273211850767> I can't remove a role that you don't have!")
+                    else:
+                        await ctx.send(f"<:greentick:492800272834494474> Self-Role, **UPDATES**, has been successfully removed from **{ctx.author}**!")
+                        await ctx.author.remove_roles(role.upper())    
+                        
+                else:
+                    await ctx.send(f"`{role}` isn't a self-role!")
+
+            if opt == 'add' or opt == 'a':
+                if role.lower() == 'updates':
+                    await ctx.send(f"<:greentick:492800272834494474> Self-Role, **UPDATES**, has been successfully given to **{ctx.author}**!")
+                    await ctx.author.add_roles(role.upper())
+                else:
+                    await ctx.send(f"`{role}` isn't a self-role!")
+        else:
+            pass
+            
 def setup(bot):
   bot.add_cog(Server(bot))
