@@ -69,8 +69,8 @@ class Server:
                 await log.send(embed=embed, content=cnt)
             elif not before.roles == after.roles:
                 cnt = f":ledger: **{before}** has got their **roles** updated:"
-                embed.add_field(name="Before", value=", ".join([x.mention for x in before.roles]))
-                embed.add_field(name="After", value=", ".join([x.mention for x in after.roles]))
+                embed.add_field(name="Before", value=" ".join([x.mention for x in before.roles]))
+                embed.add_field(name="After", value=" ".join([x.mention for x in after.roles]))
                 embed.set_footer(text="Role Update", icon_url=message.guild.icon_url_as(format='png')) 
                 embed.timestamp = datetime.datetime.utcnow() 
                 await log.send(embed=embed, content=cnt)
@@ -195,7 +195,7 @@ class Server:
         if ctx.guild.id == 493325581606453248:
             if opt == 'remove' or opt == 'r':
                 if role.name == 'updates':
-                    if not "UPDATES" in [x.name for x in ctx.author.roles]:
+                    if not "updates" in [x.name for x in ctx.author.roles]:
                         await ctx.send("<:redtick:492800273211850767> I can't remove a role that you don't have!")
                     else:
                         await ctx.send(f"<:greentick:492800272834494474> Self-Role, **UPDATES**, has been successfully removed from **{ctx.author}**!")
