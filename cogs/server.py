@@ -18,7 +18,7 @@ class Server:
             await log.send(embed=embed)
             #
             await member.send("Welcome to **Siri Support**, Please review the rules & info in <#493326871594008576>, for support, <#493331059459489802> is the channel for you, the Support Team is ready to help!")
-         elif member.guild.id == 482922868410417163:
+        elif member.guild.id == 482922868410417163:
             log = self.bot.get_channel(482926662401654795)
             resp = ['derpy is qt', 'this server qt', 'am i qt boat?', 'mmlol', 'be good or bearcop', 'augu is best loli', 'sam good boye', 'FGHJKLKJHG', 'dm me qt', 'do u play osu i play osu r u good at osu i like osu i made osu skin my osu username is xosiri_qt123', 'ok cool idc bitch', 'are u interested in donating $5 to the Discord Bot Rights movement?', 'whats ur favourite anime i like spongebob', 'praise sam he giv good back rubs']
             await log.send(f"<a:welcomeglitch:498634744251285516> hi, **{member.name}**! {rnd(resp)}")  
@@ -31,7 +31,7 @@ class Server:
             embed.set_footer(text="Member Leave", icon_url=member.guild.icon_url)
             embed.timestamp = datetime.datetime.utcnow()
             await log.send(embed=embed)
-         elif member.guild.id == 482922868410417163:
+        elif member.guild.id == 482922868410417163:
             log = self.bot.get_channel(482926662401654795)
             resp = ['okay.. well. you\'re a nuisance anyways', 'i dont care what u have to say', 'finally u gone', 'u prob suck anyways', 'FGHJKLHGFDHG', 'ok cool idc bitchhhh', 'cu later hoe']
             await log.send(f"<:leave:498635244128305152> byebye, **{member.name}**! {rnd(resp)}")  
