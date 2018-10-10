@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-
+from dbipyt import dbipyt
 from datetime import datetime
 import lavalink
 import requests
@@ -151,6 +151,7 @@ class Developer:
                 'commands': commands,
                 'requests': requests,
                 'lavalink': lavalink,
+                'dbipyt': dbipyt,
                 're': re,
                 'os': os,
                 'time_rx': re.compile('[0-9]+'),
