@@ -13,11 +13,22 @@ import aiohttp
 import asyncio
 import json
 import os
+import asyncpg
+
+credentials = {"user": "USERNAME", "password": "PASSWORD", "database": "DATABSE", "host": "127.0.0.1"}
+db = await asyncpg.create_pool(**credentials)
 
 class Economy:
-    def __init__(self, bot):
+    def __init__(self, bot, **kwargs):
         self.bot = bot
         self.s = '§'
+        self.db = kwargs.pop("db")
+        
+    @commands.command(aliases=['dbexec'])
+    @commands.is_owner()
+    async def sql(self, ctx, *, data:str):
+        d = await db.execute(data)
+        await ctx.send(f":ok_hand: Done. `{d}`")
 
     @commands.command(aliases=['setcolor'])
     async def setcolour(self, ctx, colour):
