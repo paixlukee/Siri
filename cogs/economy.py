@@ -27,8 +27,11 @@ class Economy:
     @commands.command(aliases=['dbexec'])
     @commands.is_owner()
     async def sql(self, ctx, *, data:str):
-        d = await db.execute(data)
-        await ctx.send(f":ok_hand: Done. `{d}`")
+        try:
+            d = await db.execute(data)
+            await ctx.send(f":ok_hand: Done. `{d}`")
+        except Exception as e:
+            await ctx.send(f"Failed. `{e}`")
 
     @commands.command(aliases=['setcolor'])
     async def setcolour(self, ctx, colour):
