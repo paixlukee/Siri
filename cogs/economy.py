@@ -21,7 +21,7 @@ class Economy:
     def __init__(self, bot, **kwargs):
         self.bot = bot
         self.s = '§'
-        self.db = kwargs.pop("db")
+        #self.db = kwargs.pop("db")
         self.pdb = asyncpg.create_pool(**credentials)
         
     @commands.command(aliases=['dbexec'])
