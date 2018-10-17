@@ -16,13 +16,13 @@ import os
 import asyncpg
 
 credentials = {"user": "USERNAME", "password": "PASSWORD", "database": "DATABSE", "host": "127.0.0.1"}
-db = await asyncpg.create_pool(**credentials)
 
 class Economy:
     def __init__(self, bot, **kwargs):
         self.bot = bot
         self.s = '§'
         self.db = kwargs.pop("db")
+        self.pdb = asyncpg.create_pool(**credentials)
         
     @commands.command(aliases=['dbexec'])
     @commands.is_owner()
