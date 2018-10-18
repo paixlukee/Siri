@@ -252,7 +252,7 @@ class Economy:
             elif colour == 16777215:
                 embed.add_field(name="Colour..", value="<:white:485587580323233827>")
             else:
-                embed.add_field(name="Colour..", value=colour)
+                embed.add_field(name="Colour..", value=colour) # this ^^ format is really bad and i'll change it to a .replace() soon
 
             embed.add_field(name="Balance..", value=f"**{self.s}**{bal}")
             #embed.add_field(name="Experience..", value=f"{points}**XP**")
@@ -412,9 +412,16 @@ class Economy:
             trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
             trl.set_footer(text="Sorry about that.")
             await ctx.send(embed=trl)
+    
+    @commands.command()
+    async def tcreate(self, ctx):
+        await self.update_data(users, str(ctx.author.id))
+        await asyncio.sleep(0.5)
+        result = db.profiles.create_index([(ctx.author.id, pymongo.ASCENDING)], unique=True)
+        await ctx.send(result)
+        await ctx.send(sorted(list(db.profiles.index_information())))
 
-
-    async def update_data(self, users, user):
+    async def update_data(self, user):
         post = {
             user:{
             "money":0,
@@ -424,6 +431,8 @@ class Economy:
             "house":0,
             "description":"DESCRIPTION NOT SET: `siri description <description>`",
             "birthday":"BNS"}}
+        posts = db.posts
+        post_id = posts.insert_one(post).inserted_id
 
     async def apple(self, users, user=None, count=None):
         users[user]['apple'] += count
