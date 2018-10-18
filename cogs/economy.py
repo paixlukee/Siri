@@ -415,9 +415,10 @@ class Economy:
     
     @commands.command()
     async def tcreate(self, ctx):
-        await self.update_data(users, str(ctx.author.id))
+        await ctx.send("...")
+        await self.update_data(str(ctx.author.id))
         await asyncio.sleep(0.5)
-        result = db.profiles.create_index([(ctx.author.id, pymongo.ASCENDING)], unique=True)
+        result = db.profiles.create_index([(str(ctx.author.id), pymongo.ASCENDING)], unique=True)
         await ctx.send(result)
         await ctx.send(sorted(list(db.profiles.index_information())))
 
