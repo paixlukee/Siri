@@ -132,8 +132,9 @@ class Utility:
                     await message.channel.send(embed=embed)
             
     @commands.command()
-    async def meow(self, ctx)
+    async def meow(self, ctx):
         await ctx.send("hhi pls no")
+        
     @commands.command(aliases=['remindme', 'reminder'])
     async def remind(self, ctx, opt, time, *, reason):
         await ctx.send("<:greentick:492800272834494474> Reminder set!")
