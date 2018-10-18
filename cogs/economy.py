@@ -21,7 +21,7 @@ client = MongoClient('localhost', 27017)
 db = client['siridb']
 
 class Economy:
-    def __init__(self, bot, **kwargs):
+    def __init__(self, bot):
         self.bot = bot
         self.s = '§'
         
