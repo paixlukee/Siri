@@ -15,14 +15,15 @@ import json
 import os
 import asyncpg
 
-credentials = {"user": "USERNAME", "password": "PASSWORD", "database": "DATABSE", "host": "127.0.0.1"}
+from pymongo import MongoClient
+
+client = MongoClient('localhost', 27017)
+db = client['siridb']
 
 class Economy:
     def __init__(self, bot, **kwargs):
         self.bot = bot
         self.s = '§'
-        #self.db = kwargs.pop("db")
-        self.pdb = asyncpg.create_pool(**credentials)
         
     @commands.command(aliases=['dbexec'])
     @commands.is_owner()
@@ -414,14 +415,15 @@ class Economy:
 
 
     async def update_data(self, users, user):
-        users[user] = {}
-        users[user]['money'] = 0
-        users[user]['colour'] = 0
-        users[user]['apple'] = 0
-        users[user]['iphone'] = 0
-        users[user]['house'] = 0
-        users[user]['description'] = "DESCRIPTION NOT SET: `siri description <description>`"
-        users[user]['birthday'] = "BNS"
+        post = {
+            user:{
+            "money":0,
+            "colour":0,
+            "apple":0,
+            "iphone":0,
+            "house":0,
+            "description":"DESCRIPTION NOT SET: `siri description <description>`",
+            "birthday":"BNS"}}
 
     async def apple(self, users, user=None, count=None):
         users[user]['apple'] += count
