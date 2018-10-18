@@ -134,6 +134,8 @@ class Utility:
     @commands.command()
     async def meow(self, ctx):
         await ctx.send("hhi pls no")
+        r = requests.get("http://aws.random.cat/meow")
+        await ctx.send(filename="ihatelife.png", fp=r['file'])
         
     @commands.command(aliases=['remindme', 'reminder'])
     async def remind(self, ctx, opt, time, *, reason):
