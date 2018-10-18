@@ -134,7 +134,7 @@ class Utility:
     @commands.command()
     async def meow(self, ctx):
         await ctx.send("hhi pls no")
-        r = requests.get("http://aws.random.cat/meow")
+        r = requests.get("http://aws.random.cat/meow").json()
         await ctx.send(r['file'])
         
     @commands.command(aliases=['remindme', 'reminder'])
