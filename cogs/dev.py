@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from dbipyt import dbipyt
 from datetime import datetime
 import lavalink
 import requests
@@ -24,22 +23,6 @@ class Developer:
     def __init__(self, bot):
         self.bot = bot
         self._last_result = None
-        
-    @commands.command()
-    async def email(self, ctx, to, subject, *, content):
-        r = requests.post(
-        "https://api.mailgun.net/v3/sandboxd50559c8904b4e4c880a191a5a3658a5.mailgun.org/messages",
-        auth=("api", "a66a57368fcd56103f64af8bc9307e55-b0aac6d0-51737e92"),
-        data={"from": "Siri <postmaster@sandboxd50559c8904b4e4c880a191a5a3658a5.mailgun.org>",
-              "to": f"Luke Jeffries <itslukejeffries@gmail.com>",
-              "subject": subject,
-              "text": content})
-        embed = discord.Embed()
-        embed.add_field(name="To", value="Luke J")
-        embed.add_field(name="From", value="Siri")
-        embed.add_field(name="Subject", value=subject)
-        embed.add_field(name="Content", value=content)
-        await ctx.send(embed=embed, content=":mailbox: Sent to **Luke J**!")
         
     @commands.group(pass_context=True)
     @commands.is_owner()
@@ -151,7 +134,6 @@ class Developer:
                 'commands': commands,
                 'requests': requests,
                 'lavalink': lavalink,
-                'dbipyt': dbipyt,
                 're': re,
                 'os': os,
                 'time_rx': re.compile('[0-9]+'),
