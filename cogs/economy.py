@@ -209,8 +209,8 @@ class Economy:
     @commands.command(aliases=['Profile'])
     async def profile(self, ctx, user: discord.User=None):
         """Get user profile"""
-        u = db.posts.find_one()
-        u = u[str(ctx.author.id)]
+        a = db.posts.find_one()
+        u = a[str(ctx.author.id)]
 
         if user is None:
             member = ctx.message.author
@@ -224,7 +224,7 @@ class Economy:
                 except:
                     await ctx.send("There was an error! I-I tried everything..!")
 
-        if str(member.id) in users:
+        if str(member.id) in a:
             bal = u['money']
             description = u['description']
             bday = u['birthday']
