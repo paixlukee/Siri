@@ -409,14 +409,14 @@ class Economy:
     async def update_data(self, user):
         post = {
             user:{
-            "money":0,
+            "money":25,
             "colour":0,
             "apple":0,
             "iphone":0,
             "house":0,
             "description":"DESCRIPTION NOT SET: `siri description <description>`",
             "birthday":"BNS"}}
-        post_id = db.posts.insert_one(post).inserted_id
+        post_id = db.posts.insert_many(post).inserted_id
 
     async def apple(self, users, user=None, count=None):
         users[user]['apple'] += count
