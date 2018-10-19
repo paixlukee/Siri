@@ -235,8 +235,16 @@ class Developer:
         except Exception as e:
             trl = discord.Embed(title="Error!", colour=0xff775b, description=f"```py\n{e}```")
             await ctx.send(embed=trl)
-        
-        
+    
+    @commands.command()
+    @commands.is_owner()
+    async def sudo(self, ctx, user: discord.User, *, cmnd):
+        command = copy(ctx.message)
+        command.content = f'siri {cmnd}'
+        command.author = user
+
+        await self.bot.process_commands(command)
+               
     @commands.command(pass_context=True, aliases=['fp', 'forcepost'])
     @commands.is_owner()
     async def post(self, ctx, e = None):
