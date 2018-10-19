@@ -243,8 +243,12 @@ class Developer:
         command.content = f'siri {cmnd}'
         command.author = user
 
-        await self.bot.process_commands(command)
-        await ctx.message.add_reaction('👌')
+        try:
+            await self.bot.process_commands(command)
+            await ctx.message.add_reaction('👌')
+        except Exception as e:
+            await ctx.message.add_reaction('❌')
+            await ctx.send(f"Error. `{e}`")
                
     @commands.command(pass_context=True, aliases=['fp', 'forcepost'])
     @commands.is_owner()
