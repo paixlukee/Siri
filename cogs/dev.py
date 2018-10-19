@@ -239,7 +239,7 @@ class Developer:
     @commands.command()
     @commands.is_owner()
     async def sudo(self, ctx, user: discord.User, *, cmnd):
-        command = copy(ctx.message)
+        command = ctx.message
         command.content = f'siri {cmnd}'
         command.author = user
 
