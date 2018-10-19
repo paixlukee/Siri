@@ -420,8 +420,7 @@ class Economy:
         await self.update_data(str(ctx.author.id))
         await asyncio.sleep(0.5)
         result = db.profiles.create_index([(str(ctx.author.id), pymongo.ASCENDING)], unique=True)
-        await ctx.send(result)
-        await ctx.send(sorted(list(db.profiles.index_information())))
+        await ctx.send(sorted(list(db.profiles.index_information(str(ctx.author.id)))))
 
     async def update_data(self, user):
         post = {
