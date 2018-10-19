@@ -17,7 +17,7 @@ import asyncpg
 
 from pymongo import MongoClient
 
-client = MongoClient('172.23.0.0', 16)
+client = MongoClient('mongodb://siri:dontsteal7@ds135993.mlab.com:35993/siri')
 db = client['siridb']
 
 class Economy:
