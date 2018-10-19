@@ -394,6 +394,8 @@ class Economy:
         list = ''
         for i, user in enumerate(users):
             list += f'**{i + 1}**: `{user}`'
+        embed = discord.Embed(colour=0xfefeff, description=list)
+        await ctx.send(embed=embed)
     
     @commands.command()
     async def tcreate(self, ctx):
