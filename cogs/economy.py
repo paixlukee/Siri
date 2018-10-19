@@ -393,7 +393,7 @@ class Economy:
         users = db.posts.find_one()
         list = ''
         for i, user in enumerate(users):
-            list += f'**{i + 1}**: `{user}`'
+            list += f'**{i + 1}**: `{user}`\n'
         embed = discord.Embed(colour=0xfefeff, description=list)
         await ctx.send(embed=embed)
     
@@ -402,7 +402,6 @@ class Economy:
         await ctx.send("...")
         await self.update_data(str(ctx.author.id))
         await asyncio.sleep(0.5)
-        await ctx.send("_/('.')\/('.')\_")
         result = db.profiles.create_index([(str(ctx.author.id), pymongo.ASCENDING)], unique=True)
         b = db.posts.find_one()
         await ctx.send(b[str(ctx.author.id)])
@@ -444,7 +443,8 @@ class Economy:
         users[user]['colour'] = colour
 
     async def add_money(self, users, user=None, count=None):
-        users[user]['money'] += count
+        post = {user: {"money":count}}
+        post_id = db.posts.insert_one(post).inserted_id
 
     async def take_money(self, users, user=None, count=None):
         users[user]['money'] -= count
