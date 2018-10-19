@@ -16,6 +16,7 @@ import os
 import asyncpg
 
 from pymongo import MongoClient
+import pymongo
 
 client = MongoClient('mongodb://siri:dontsteal7@ds135993.mlab.com:35993/siri')
 db = client['siri']
