@@ -209,8 +209,8 @@ class Economy:
     @commands.command(aliases=['Profile'])
     async def profile(self, ctx, user: discord.User=None):
         """Get user profile"""
-        with open('assets/economy.json', 'r') as f:
-            users = json.load(f)
+        u = db.posts.find_one()
+        u = u[str(ctx.author.id)]
 
         if user is None:
             member = ctx.message.author
@@ -225,10 +225,10 @@ class Economy:
                     await ctx.send("There was an error! I-I tried everything..!")
 
         if str(member.id) in users:
-            bal = users[str(member.id)]['money']
-            description = users[str(member.id)]['description']
-            bday = users[str(member.id)]['birthday']
-            colour = users[str(member.id)]['colour']
+            bal = u['money']
+            description = u['description']
+            bday = u['birthday']
+            colour = u['colour']
             embed = discord.Embed(colour=colour, title=f"{member.name} #{member.discriminator}", description=f'**"**{description}**"**')
             if bday == 'BNS':
                 embed.add_field(name="Birthday..", value="BIRTHDAY NOT SET: `siri birthday DD-MM-YYYY`")
@@ -257,7 +257,7 @@ class Economy:
 
             embed.add_field(name="Balance..", value=f"**{self.s}**{bal}")
             #embed.add_field(name="Experience..", value=f"{points}**XP**")
-            embed.add_field(name="Inventory..", value=f":apple:**{users[str(member.id)]['apple']}**:iphone:**{users[str(member.id)]['iphone']}**:house:**{users[str(member.id)]['house']}**")
+            embed.add_field(name="Inventory..", value=f":apple:**{u['apple']}**:iphone:**{u['iphone']}**:house:**{u['house']}**")
             # embed.set_footer(text="CONTACTS", icon_url="https:/cdn1.iconfinder.com/data/icons/style-2-stock/807/Contacts-01.png")
             embed.set_thumbnail(url=member.avatar_url)
             await ctx.send(embed=embed)
