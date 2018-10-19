@@ -442,11 +442,11 @@ class Economy:
     async def set_col(self, users, user=None, colour=None):
         users[user]['colour'] = colour
 
-    async def add_money(self, users, user=None, count=None):
+    async def add_money(self, users, user, count):
         post = {user: {"money":count}}
         post_id = db.posts.insert_one(post).inserted_id
 
-    async def take_money(self, users, user=None, count=None):
+    async def take_money(self, users, user, count):
         users[user]['money'] -= count
 
 def setup(bot):
