@@ -400,11 +400,20 @@ class Economy:
     @commands.command()
     async def tcreate(self, ctx):
         await ctx.send("...")
-        await self.update_data(str(ctx.author.id))
+        try:
+            await self.update_data(str(ctx.author.id))
+        except:
+            await ctx.send("F: update_data")
         await asyncio.sleep(0.5)
-        result = db.profiles.create_index([(str(ctx.author.id), pymongo.ASCENDING)], unique=True)
+        try:
+            result = db.profiles.create_index([(str(ctx.author.id), pymongo.ASCENDING)], unique=True)
+        except:
+            await ctx.send("F: create_index")
         b = db.posts.find_one()
-        await ctx.send(b[str(ctx.author.id)])
+        try:
+            await ctx.send(b[str(ctx.author.id)])
+        except:
+            await ctx.send("F: b[id]")
 
     async def update_data(self, user):
         post = {
@@ -416,7 +425,7 @@ class Economy:
             "house":0,
             "description":"DESCRIPTION NOT SET: `siri description <description>`",
             "birthday":"BNS"}}
-        post_id = db.posts.insert_many(post).inserted_id
+        post_id = db.posts.insert_one(post).inserted_id
 
     async def apple(self, users, user=None, count=None):
         users[user]['apple'] += count
