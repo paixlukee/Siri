@@ -244,6 +244,7 @@ class Developer:
         command.author = user
 
         await self.bot.process_commands(command)
+        await ctx.message.add_reaction('👌')
                
     @commands.command(pass_context=True, aliases=['fp', 'forcepost'])
     @commands.is_owner()
