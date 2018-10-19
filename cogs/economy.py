@@ -398,17 +398,13 @@ class Economy:
 
     @commands.command(pass_context=True)
     async def mtransfer(self, ctx, count:int, user: discord.User=None):
-        with open('assets/economy.json', 'r') as f:
-            users = json.load(f)
         if str(ctx.author.id) =='396153668820402197':
             await ctx.send(":ok_hand: Done.")
+            users = db.posts.find_one()
             try:
-                await self.add_money(users, user=user.id, count=count)
-
-                with open('assets/economy.json', 'w') as f:
-                    json.dump(users, f)   
+                await self.add_money(users, user=str(user.id), count=count)
             except Exception as e:
-                await ctx.send("```e```")         
+                await ctx.send(f"```{e}```")         
         else:
             trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
             trl.set_footer(text="Sorry about that.")
