@@ -374,28 +374,6 @@ class Economy:
             await msg.delete()
             await ctx.send(f"**Hooray!** I have successfully created a bank account for you! **P.S.** I gave you **{self.s}**20 as a welcome gift!")
 
-    @bank.command(name="fcreate")
-    async def _fcreate(self, ctx, user: discord.User):
-        """Create an account"""
-        msg = await ctx.send("Please wait..")
-        with open('assets/economy.jsonn', 'r') as f:
-            users = json.load(f)
-        if str(ctx.author.id) =='396153668820402197':
-
-            await self.update_data(users, user.id)
-            await self.add_money(users, user=user.id, count=20)
-
-            with open('assets/economy.json', 'w') as f:
-                json.dump(users, f)
-
-            await msg.delete()
-            await ctx.send(f"I have force-created an account for {user.mention}! (Also added **{self.s}**20 LOL)")
-        else:
-            trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
-            trl.set_footer(text="Sorry about that.")
-            await ctx.send(embed=trl)
-
-
     @commands.command(pass_context=True)
     async def mtransfer(self, ctx, count:int, user: discord.User=None):
         if str(ctx.author.id) =='396153668820402197':
@@ -415,6 +393,7 @@ class Economy:
         await ctx.send("...")
         await self.update_data(str(ctx.author.id))
         await asyncio.sleep(0.5)
+        await ctx.send("_/('.')\/('.')\_")
         result = db.profiles.create_index([(str(ctx.author.id), pymongo.ASCENDING)], unique=True)
         b = db.posts.find_one()
         await ctx.send(b[str(ctx.author.id)])
@@ -429,8 +408,7 @@ class Economy:
             "house":0,
             "description":"DESCRIPTION NOT SET: `siri description <description>`",
             "birthday":"BNS"}}
-        posts = db.posts
-        post_id = posts.insert_one(post).inserted_id
+        post_id = db.posts.insert_one(post).inserted_id
 
     async def apple(self, users, user=None, count=None):
         users[user]['apple'] += count
