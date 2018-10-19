@@ -387,6 +387,13 @@ class Economy:
             trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
             trl.set_footer(text="Sorry about that.")
             await ctx.send(embed=trl)
+            
+    @commands.command()
+    async def users(self, ctx):
+        users = db.posts.find_one()
+        list = ''
+        for i, user in enumerate(users):
+            list += f'**{i + 1}**: `{user}`'
     
     @commands.command()
     async def tcreate(self, ctx):
