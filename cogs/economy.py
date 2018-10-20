@@ -202,9 +202,14 @@ class Economy:
     async def profile(self, ctx, user: discord.User=None):
         """Get user profile"""
         #a = db.posts.find_one()
+        profiles = []
         a = db.posts.find({"user": {"id": str(ctx.author.id)}}).sort(str(ctx.author.id))
         u = a[str(ctx.author.id)]
-
+        for post in db.posts.find({"user": {"id": str(ctx.author.id)}}).sort(str(ctx.author.id)):
+            profiles.append(post[str(ctx.author.id)])
+            
+        u = profiles[1]
+            
         if user is None:
             member = ctx.message.author
 
