@@ -201,7 +201,8 @@ class Economy:
     @commands.command(aliases=['Profile'])
     async def profile(self, ctx, user: discord.User=None):
         """Get user profile"""
-        a = db.posts.find_one()
+        #a = db.posts.find_one()
+        a = db.posts.find({"user": {"id": str(ctx.author.id)}}).sort(str(ctx.author.id))
         u = a[str(ctx.author.id)]
 
         if user is None:
@@ -214,7 +215,7 @@ class Economy:
                 try:
                     member = "<@" + user + ">"
                 except:
-                    await ctx.send("There was an error! I-I tried everything..!")
+                    await ctx.send("There was an error!")
 
         if str(member.id) in a:
             bal = u['money']
@@ -349,22 +350,16 @@ class Economy:
     async def _create(self, ctx):
         """Create an account"""
         msg = await ctx.send("Please wait..")
-        with open('assets/economy.json', 'r') as f:
-            users = json.load(f)
-
-        if str(ctx.author.id) in users:
+        user = db.posts.find({"user": {"id": str(ctx.author.id)}}).sort(str(ctx.author.id))
+        if str(ctx.author.id) in user:
             await msg.delete()
             await ctx.send("You already have an account!")
         else:
 
-            await self.update_data(users, str(ctx.author.id))
-            await self.add_money(users, user=str(ctx.author.id), count=20)
-
-            with open('assets/economy.json', 'w') as f:
-                json.dump(users, f)
+            await self.update_data(str(ctx.author.id))
 
             await msg.delete()
-            await ctx.send(f"**Hooray!** I have successfully created a bank account for you! **P.S.** I gave you **{self.s}**20 as a welcome gift!")
+            await ctx.send(f"**Hooray!** I have successfully created a bank account for you! I have also gave you **{self.s}**20 as a welcome gift!")
 
     @commands.command(pass_context=True)
     async def mtransfer(self, ctx, count:int, user: discord.User=None):
