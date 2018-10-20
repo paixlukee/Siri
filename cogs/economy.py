@@ -417,7 +417,7 @@ class Economy:
             "house":0,
             "description":"DESCRIPTION NOT SET: `siri description <description>`",
             "birthday":"BNS"}}
-        post_id = db.posts.insert_one(post).inserted_id
+        post_id = db.posts.insert_many(post).inserted_id
 
     async def apple(self, users, user=None, count=None):
         users[user]['apple'] += count
