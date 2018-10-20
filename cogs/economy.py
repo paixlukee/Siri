@@ -402,7 +402,7 @@ class Economy:
         except Exception as e:
             await ctx.send(f"F: create_index `{e}`")
         b = db.posts.find_one()
-        for post in db.posts.find().sort(str(ctx.author.id)):
+        for post in db.posts.find({"user": {"id": str(ctx.author.id)}}).sort(str(ctx.author.id)):
             await ctx.send(post)
         await ctx.send(b)
         try:
@@ -413,6 +413,7 @@ class Economy:
     async def update_data(self, user):
         post = {
             user:{
+            "id": user,
             "money":25,
             "colour":0,
             "apple":0,
