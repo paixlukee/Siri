@@ -404,7 +404,7 @@ class Economy:
         b = db.posts.find_one()
         #for post in db.posts.find({"user": {"id": str(ctx.author.id)}}).sort(str(ctx.author.id)):
             #await ctx.send(post)
-        await ctx.send(b + ' FIND_ONE')
+        await ctx.send(str(b) + ' FIND_ONE')
         try:
             await ctx.send(b[str(ctx.author.id)])
         except Exception as e:
