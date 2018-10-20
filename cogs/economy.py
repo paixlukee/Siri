@@ -401,7 +401,7 @@ class Economy:
             result = db.profiles.create_index([(str(ctx.author.id), pymongo.ASCENDING)], unique=True)
         except Exception as e:
             await ctx.send(f"F: create_index `{e}`")
-        b = db.posts.find_one()
+        b = db.posts.find_one({"user": {"id": str(ctx.author.id)}}).sort(str(ctx.author.id))
         for post in db.posts.find({"user": {"id": str(ctx.author.id)}}).sort(str(ctx.author.id)):
             await ctx.send(post)
         await ctx.send(str(b) + ' FIND_ONE')
