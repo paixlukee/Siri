@@ -402,6 +402,8 @@ class Economy:
         except Exception as e:
             await ctx.send(f"F: create_index `{e}`")
         b = db.posts.find_one()
+        b = db.posts.find()
+        await ctx.send(b)
         try:
             await ctx.send(b[str(ctx.author.id)])
         except Exception as e:
