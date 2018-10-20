@@ -398,7 +398,7 @@ class Economy:
             await ctx.send(f"F: update_data `{e}`")
         await asyncio.sleep(0.5)
         try:
-            result = db.profiles.create_index([(str(ctx.author.id), pymongo.ASCENDING)], unique=True)
+            result = db.profiles.create_index([(str(ctx.author.id), pymongo.ASCENDING)])
         except Exception as e:
             await ctx.send(f"F: create_index `{e}`")
         b = db.posts.find_one()
