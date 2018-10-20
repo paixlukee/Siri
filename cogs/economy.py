@@ -394,18 +394,18 @@ class Economy:
         await ctx.send("...")
         try:
             await self.update_data(str(ctx.author.id))
-        except:
-            await ctx.send("F: update_data")
+        except Exception as e:
+            await ctx.send(f"F: update_data `{e}`")
         await asyncio.sleep(0.5)
         try:
             result = db.profiles.create_index([(str(ctx.author.id), pymongo.ASCENDING)], unique=True)
-        except:
-            await ctx.send("F: create_index")
+        except Exception as e:
+            await ctx.send(f"F: create_index `{e}`")
         b = db.posts.find_one()
         try:
             await ctx.send(b[str(ctx.author.id)])
-        except:
-            await ctx.send("F: b[id]")
+        except Exception as e:
+            await ctx.send(f"F: b[id] `{e}`")
 
     async def update_data(self, user):
         post = {
@@ -417,7 +417,7 @@ class Economy:
             "house":0,
             "description":"DESCRIPTION NOT SET: `siri description <description>`",
             "birthday":"BNS"}}
-        post_id = db.posts.insert_many(post).inserted_id
+        post_id = db.posts.insert_one(post).inserted_id
 
     async def apple(self, users, user=None, count=None):
         users[user]['apple'] += count
