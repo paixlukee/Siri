@@ -25,15 +25,7 @@ class Economy:
     def __init__(self, bot):
         self.bot = bot
         self.s = '§'
-        
-    @commands.command(aliases=['dbexec'])
-    @commands.is_owner()
-    async def sql(self, ctx, *, data:str):
-        try:
-            d = await db.execute(data)
-            await ctx.send(f":ok_hand: Done. `{d}`")
-        except Exception as e:
-            await ctx.send(f"Failed. `{e}`")
+     
 
     @commands.command(aliases=['setcolor'])
     async def setcolour(self, ctx, colour):
@@ -425,7 +417,7 @@ class Economy:
             "house":0,
             "description":"DESCRIPTION NOT SET: `siri description <description>`",
             "birthday":"BNS"}}
-        post_id = db.posts.insert_one(post).inserted_id
+        post_id = db.posts.insert_many(post).inserted_id
 
     async def apple(self, users, user=None, count=None):
         users[user]['apple'] += count
