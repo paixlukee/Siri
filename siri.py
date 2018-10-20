@@ -198,12 +198,22 @@ class Siri(commands.AutoShardedBot):
             await ctx.send(embed=embed)
 
     async def on_command_error(self, ctx, error):
+        colours = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
         if isinstance(error, commands.NotOwner):
             trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
             trl.set_footer(text="Sorry About That.")
             await ctx.send(embed=trl)
         elif isinstance(error, commands.BadArgument):
             embed = discord.Embed(title=("<:WrongMark:473277055107334144> There was an error!") , colour=0xff775b, description=f"```py\n{error}```")
+            await ctx.send(embed=embed)
+                if isinstance(error, commands.CommandOnCooldown):
+            minutes, seconds = divmod(error.retry_after, 60)
+            hours, minutes = divmod(minutes, 60)
+            if hours >= 1:
+                hours = f"{round(hours)}h"
+            else:
+                hours = ""
+            embed = discord.Embed(colour=rnd(self.colours), description=f":alarm_clock: **You are on cooldown!** Please wait **{hours} {round(minutes)}m {round(seconds)}s**.")
             await ctx.send(embed=embed)
         else:
             print(f"[{type(error).__name__.upper()}]: {error}")
