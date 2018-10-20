@@ -120,11 +120,14 @@ class Siri(commands.AutoShardedBot):
     @commands.command(hidden=True)
     @commands.is_owner()
     async def pull(self, ctx):
+        msg = await ctx.send("Pulling..")
         shell = await self.run_cmd('git pull Siri --no-commit --no-edit --ff-only master')
         await self.run_cmd('git fetch --all')
-        embed = discord.Embed(colour=0x0000ff, description=f"```css\n{shell}```")
+        shell = str(shell)
+        embed = discord.Embed(colour=0x0000ff, description=f"```css\n{shell.replace("https://github.com/paixlukee/Siri", "Github"}```")
         embed.set_author(name="Pulled from git..", icon_url="https://avatars0.githubusercontent.com/u/9919?s=280&v=4")
-        msg = await ctx.send(embed=embed)
+        await msg.delete()
+        await ctx.send(embed=embed)
 
     @commands.command(hidden=True)
     @commands.is_owner()
@@ -136,7 +139,7 @@ class Siri(commands.AutoShardedBot):
         embed = discord.Embed(colour=0x000fff, description=f"```css\n{shell}```")
         embed.set_author(name="Shell", icon_url=self.user.avatar_url)
         await msg.delete()
-        await ctx.send( embed=embed)
+        await ctx.send(embed=embed)
 
 
     @commands.command(pass_context=True)
