@@ -86,6 +86,11 @@ class Utility:
         if message.content.startswith('<@481337766379126784> '):
             fmsg = message.content
             msg = fmsg.replace("<@481337766379126784> ", "")
+            if msg == '':
+                print(f"[PING]: I have been pinged in #{message.channel} by {message.author}")
+                embed = discord.Embed(description=":wave: **How can I help you?**\nFor help, do `siri help`. For support, do `siri support`.", colour=0xf0f0ff)
+                await message.channel.send(embed=embed)
+                
             r = requests.post("https://api.dialogflow.com/v1/query?v=20150910",
                     data = json.dumps({
                             "contexts": [
@@ -130,10 +135,6 @@ class Utility:
                     else:
                         await message.channel.send(f"Brr. Take a jacket!.. up to **{resp['main']['temp_max']}°F**!")
                     await message.channel.send(embed=embed)
-            if message.content.endswith('<@481337766379126784>') or message.content.endswith('@Siri 🎃#5386') or message.content.endswith('@Siri 🎃'):
-                print(f"[PING]: I have been pinged in #{message.channel} by {message.author}")
-                embed = discord.Embed(description=":wave: **How can I help you?**\nFor help, do `siri help`. For support, do `siri support`.", colour=0xf0f0ff)
-                await message.channel.send(embed=embed)
             
     @commands.command()
     async def meow(self, ctx):
