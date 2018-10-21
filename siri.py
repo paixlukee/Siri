@@ -217,7 +217,7 @@ class Siri(commands.AutoShardedBot):
                 hours = f"{round(hours)}h"
             else:
                 hours = ""
-            embed = discord.Embed(colour=rnd(self.colours), description=f":alarm_clock: **You are on cooldown!** Please wait **{hours} {round(minutes)}m {round(seconds)}s**.")
+            embed = discord.Embed(colour=rnd(colours), description=f":alarm_clock: **You are on cooldown!** Please wait **{hours} {round(minutes)}m {round(seconds)}s**.")
             await ctx.send(embed=embed)
         else:
             print(f"[{type(error).__name__.upper()}]: {error}")
