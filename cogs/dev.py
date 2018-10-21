@@ -134,6 +134,7 @@ class Developer:
                 'commands': commands,
                 'requests': requests,
                 'lavalink': lavalink,
+                'mets no longer friend :cry:':True,
                 're': re,
                 'os': os,
                 'time_rx': re.compile('[0-9]+'),
