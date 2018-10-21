@@ -130,7 +130,7 @@ class Utility:
                     else:
                         await message.channel.send(f"Brr. Take a jacket!.. up to **{resp['main']['temp_max']}°F**!")
                     await message.channel.send(embed=embed)
-            if message.content == '<@481337766379126784>':
+            if message.content == '<@481337766379126784>' or message.content == '<@481337766379126784> ':
                 embed = discord.Embed(description=":wave: **How can I help you?**\nFor help, do `siri help`. For support, do `siri support`.", colour=0xf0f0ff)
                 await message.channel.send(embed=embed)
             
@@ -146,13 +146,9 @@ class Utility:
         """Search Information on Wikipedia"""
         restricted = ['penis', 'hentai', 'hentai loli', 'orgy', 'vagina', 'breast', 'nipple', 'porn', 'adult videos', 'xxx']
         if q is None:
-            await self.bot.say("Include the query with the command!")
+            await ctx.send("Include the query with the command!")
         elif q.lower() in restricted:
-            await self.bot.say(f":warning: **Caution!** That is NSFW!") #lmao i hope u like this
-        try:
-            await self.add_money(user=ctx.message.author.id, count=1)
-        except:
-            pass 
+            await ctx.send(f":warning: **Caution!** That is NSFW!") #lmao i hope u like this
 
         embed = discord.Embed(description="<a:loading:473279565670907914> Searching..")
         msg = await ctx.send(embed=embed)
