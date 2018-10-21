@@ -318,6 +318,7 @@ class Utility:
         await ctx.send(f"**{ctx.message.author.name}**, {response}")
 
     @commands.command(aliases=['lookup', 'websearch'])
+    @commands.cooldown(1, 4, commands.BucketType.user)
     async def search(self, ctx, *, query = None):
         embed = discord.Embed(description="<a:loading:473279565670907914> Searching..")
         msg = await ctx.send(embed=embed)
