@@ -137,16 +137,8 @@ class Utility:
         r = requests.get("http://aws.random.cat/meow").json()
         await ctx.send(r['file'])
         
-    @commands.command(aliases=['remindme', 'reminder'])
-    async def remind(self, ctx, opt, time, *, reason):
-        await ctx.send("<:greentick:492800272834494474> Reminder set!")
-        list = [f"**{time}** Seconds", reason]
-        self.rs.append(str(ctx.author.id) + list)
-        await self.set_timer(ctx=ctx, option=opt, time=int(time), reason=reason)
-        await ctx.send(self.rs)
-        
-
     @commands.command(name='wikipedia', aliases=['wiki', 'w'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def _wikipedia(self, ctx, *, q: str = None):
         """Search Information on Wikipedia"""
         if q is None:
@@ -206,6 +198,7 @@ class Utility:
             await ctx.send("<:WrongMark:473277055107334144> I could not find anything with that query..")
 
     @commands.command(aliases=['info', 'botinfo', 'status'])
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def stats(self, ctx):
         """- Information about myself."""
         try:
@@ -393,6 +386,7 @@ class Utility:
             await ctx.send(message)
 
     @commands.command(aliases=['IMDb'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def imdb(self, ctx, *, title= None):
         """Search a movie/series on IMDb"""
         try:
@@ -465,7 +459,8 @@ class Utility:
                 await ctx.send(f"I couldn't find that movie or series..")
 
     @commands.command(aliases=['today'])
-    async def news(self, ctx):#03d8e32c7dd349e3b9efe0338e08e890
+    @commands.cooldown(1, 3, commands.BucketType.user)
+    async def news(self, ctx):#steal my token lol
         """Get a popular story from the News"""
         try:
             await self.add_money(user=ctx.message.author.id, count=1)
@@ -478,7 +473,7 @@ class Utility:
             pa = re['publishedAt']
             publishedat = pa.replace("T", " ").replace("Z", " ").replace("-", "/").replace("{'", "").replace("'}", "")
             embed = discord.Embed(title=re['title'], description=re['description'], url=re['url'])
-            embed.add_field(name="Published at..", value=publishedat[:-4]) # these brakcets annoyed me so I removed them
+            embed.add_field(name="Published at..", value=publishedat[:-4])
             embed.set_thumbnail(url=re['urlToImage'])
             embed.set_footer(text=f"© {re['source']['name']} & NewsAPI")
 
@@ -487,7 +482,8 @@ class Utility:
             await ctx.send("There was an issue getting the news article.. Check back in a few hours.")
 
     @commands.command()
-    async def article(self, ctx, *, query = None):#03d8e32c7dd349e3b9efe0338e08e890
+    @commands.cooldown(1, 3, commands.BucketType.user)
+    async def article(self, ctx, *, query = None):
         """Search for an article in the News"""
         try:
             await self.add_money(user=ctx.message.author.id, count=1)
@@ -514,7 +510,8 @@ class Utility:
                 await ctx.send("I couldn't find any article that matched your query..")
 
     @commands.command(aliases=['dict', 'dictionary'])
-    async def define(self, ctx, *, word):#CRED: 6cd11931 #KEY: a6d815d3a40f53811de4aad036361e5a
+    @commands.cooldown(1, 3, commands.BucketType.user)
+    async def define(self, ctx, *, word):
         """Define a word"""
         await ctx.trigger_typing()
         try:
@@ -557,6 +554,7 @@ class Utility:
                 return "https://hastebin.com/{}".format(post['key'])
 
     @commands.command()
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def hastebin(self, ctx, *, message):
         """Send your text to a haste bin
 
@@ -581,6 +579,7 @@ class Utility:
     
 
     @commands.command(aliases=['dstatus'])
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def discordstatus(self, ctx):
         """Get Discord Status"""
         try:
@@ -652,6 +651,7 @@ class Utility:
         await msg.edit(embed=embed)
 
     @commands.command(aliases=['poll'])
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def strawpoll(self, ctx, *, question, options= None):
         """Creates a strawpoll. Separate with ', '"""
         try:
@@ -680,7 +680,8 @@ class Utility:
                 await ctx.send(embed=embed)
 
     @commands.command(aliases=['mapimage'])
-    async def map(self, ctx, *, location):#app_id=HKvIwMJ55iDxTJdHr03l&app_code=CZiIfYufln4tXB4UU9mbZA
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def map(self, ctx, *, location):
         """Get a custom map image"""
         try:
             await self.add_money(user=ctx.message.author.id, count=1)
@@ -694,29 +695,8 @@ class Utility:
         except:
             await ctx.send("There was an error processing your image.")
                                 
-    @commands.command(aliases=['imagesearch', 'img'])
-    async def image(self, ctx, *, query): 
-        """Get an image from Google Images"""
-        _search = GoogleImagesSearch('__your_dev_api_key__', '__your_project_cx__')
-        _params = {
-            'q': {query},
-            'num': 1-50,
-            'safe': 'high',
-            'searchType': 'image',
-        }
-        r = _search.search(search_params=_params)
-        try:
-            await self.add_money(user=ctx.message.author.id, count=1)
-        except:
-            pass
-        try:
-           #embed = discord.Embed()
-           #embed.set_image(url="")
-           await ctx.send(r)
-        except Exception as e:
-            await ctx.send("I couldn't find anything!")
-
     @commands.command()
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def translate(self, ctx, lang_code, *, message):
         """Translate some text"""
         try:
@@ -761,6 +741,7 @@ class Utility:
                     await ctx.send(embed=embed)
 
     @commands.command()
+    @commands.cooldown(1, 8, commands.BucketType.user)
     async def weather(self, ctx, *, cityname):
         """Weather in a specified location"""
         #r =  requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={location}&APPID=f8f21ceb5e624851c948c33ffbe43f1d&units=metric").json()
@@ -794,6 +775,7 @@ class Utility:
                 await ctx.send(embed=embed)
           
     @commands.command(aliases=['shorten', 'linkshorten'])
+    @commands.cooldown(1, 8, commands.BucketType.user)
     async def link(self, ctx, url):
         """- Shorten a link"""
         await ctx.trigger_typing()
@@ -868,11 +850,12 @@ class Utility:
 
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def support(self, ctx):
         await ctx.send("__**Support**__:\nTo submit a ticket, do `siri ticket <message>`..\nTo join a support guild, click here: https://discord.gg/CjRP2Mc")
 
-
     @commands.command(aliases=['color'])
+    @commands.cooldown(1, 4, commands.BucketType.user)
     async def colour(self, ctx, col = None):
         """- Get info about a colour."""
 
@@ -944,6 +927,7 @@ class Utility:
 
 
     @commands.command(aliases=['pfp'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def avatar(self, ctx, user: discord.Member= None):
         """- Get a member's avatar"""
         author = ctx.message.author
@@ -955,18 +939,19 @@ class Utility:
 
         if user is None:
 
-            trl = discord.Embed(title=("{}'s avatar:".format(author)) , colour=author.colour, description="[Link]({})".format(author.avatar_url))
+            trl = discord.Embed(title=("{}'s avatar:".format(author)) , colour=author.colour, description="[Link]({})".format(author.avatar_url_as(format='png')))
             trl.set_image(url=author.avatar_url)
 
             await ctx.send(embed=trl)
         else:
 
-            trl = discord.Embed(title=("{}'s avatar:".format(user)) , colour=user.colour, description="[Link]({})".format(user.avatar_url))
+            trl = discord.Embed(title=("{}'s avatar:".format(user)) , colour=user.colour, description="[Link]({})".format(user.avatar_url_as(format='png')))
             trl.set_image(url=user.avatar_url)
 
             await ctx.send(embed=trl)
 
     @commands.command(aliases=['serverinformation', 'guildinfo'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def serverinfo(self, ctx):
         """- Information about this guild."""
         try:
@@ -1002,6 +987,7 @@ class Utility:
         await ctx.send(embed=rl)
 
     @commands.command(aliases=['userinformation'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def userinfo(self, ctx, member: discord.Member= None):
         """- Information about a member"""
         try:
