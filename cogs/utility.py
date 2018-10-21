@@ -130,7 +130,7 @@ class Utility:
                     else:
                         await message.channel.send(f"Brr. Take a jacket!.. up to **{resp['main']['temp_max']}°F**!")
                     await message.channel.send(embed=embed)
-            if message.content.endswith('<@481337766379126784>'):
+            if message.content.endswith('<@481337766379126784>') or message.content.endswith('@Siri 🎃#5386'):
                 print(f"[PING]: I have been pinged in #{message.channel} by {message.author}")
                 embed = discord.Embed(description=":wave: **How can I help you?**\nFor help, do `siri help`. For support, do `siri support`.", colour=0xf0f0ff)
                 await message.channel.send(embed=embed)
