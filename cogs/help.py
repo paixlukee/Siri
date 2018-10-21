@@ -11,6 +11,7 @@ class Help:
 
 
     @commands.command(name="help", aliases=['cmds'])
+    @commands.cooldown(1, 1, commands.BucketType.user)
     async def _help(self, ctx, l:str = None, cmd:str = None):
         """This Command."""
         if ctx.message.author.bot: return
