@@ -130,6 +130,9 @@ class Utility:
                     else:
                         await message.channel.send(f"Brr. Take a jacket!.. up to **{resp['main']['temp_max']}°F**!")
                     await message.channel.send(embed=embed)
+            if message.content == '<@481337766379126784>':
+                embed = discord.Embed(description=":wave: **How can I help you?**\nFor help, do `siri help`. For support, do `siri support`.", colour=0xf0f0ff)
+                await message.channel.send(embed=embed)
             
     @commands.command()
     async def meow(self, ctx):
@@ -141,9 +144,10 @@ class Utility:
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def _wikipedia(self, ctx, *, q: str = None):
         """Search Information on Wikipedia"""
+        restricted = ['penis', 'hentai', 'hentai loli', 'orgy', 'vagina', 'breast', 'nipple', 'porn', 'adult videos', 'xxx']
         if q is None:
             await self.bot.say("Include the query with the command!")
-        elif q == 'penis' or q == 'Penis' or q == 'orgy' or q == 'Orgy' or q == 'vagina' or q == 'Vagina' or q == 'Breast' or q == 'breast' or q == 'Nipple' or q == 'nipple' or q == 'Porn' or q == 'porn' or q == 'adult videos' or q == 'XXX':
+        elif q.lower() in restricted:
             await self.bot.say(f":warning: **Caution!** That is NSFW!") #lmao i hope u like this
         try:
             await self.add_money(user=ctx.message.author.id, count=1)
@@ -341,10 +345,11 @@ class Utility:
             await self.add_money(user=ctx.message.author.id, count=1)
         except:
             pass
+        restricted = ['penis', 'hentai', 'hentai loli', 'orgy', 'vagina', 'breast', 'nipple', 'porn', 'adult videos', 'xxx', 'sex', 'cock', 'ass', 'loli hentai', 'cunt', 'porn videos', 'gay porn', 'loli porn', 'lolicon']
         if query is None:
             await msg.delete()
-            await ctx.send("`Incorrect Usage`\n```siri search <search-query>```")
-        elif query == 'porn' or query == 'Porn' or query == 'orgy' or query == 'Orgy' or query == 'gay porn' or query == 'penis' or query == 'Penis' or query == 'gay' or query == 'Gay' or query == 'ass' or query == 'Ass' or query == 'tits' or query == 'Tits' or query == 'Boobs' or query == 'boobs' or query == 'Lesbian' or query == 'lesbian' or query == 'cock' or query == 'Cock' or query == 'hentai' or query == 'Hentai' or query == 'Sex' or query == 'sex':
+            await ctx.send("`Incorrect Usage`\n```siri search <search-query>```")        
+        elif query.lower() in restricted:
             await msg.delete()
             await ctx.send("I couldn't find anything..")
 
