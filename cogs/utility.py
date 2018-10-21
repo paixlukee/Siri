@@ -90,25 +90,26 @@ class Utility:
                 print(f"[PING]: I have been pinged in #{message.channel} by {message.author}")
                 embed = discord.Embed(description=":wave: **How can I help you?**\nFor help, do `siri help`. For support, do `siri support`.", colour=0xf0f0ff)
                 await message.channel.send(embed=embed)
+            else:
                 
-            r = requests.post("https://api.dialogflow.com/v1/query?v=20150910",
-                    data = json.dumps({
-                            "contexts": [
-                            "shop"
-                            ],
-                            "lang": "en",
-                            "query": msg,
-                            "sessionId": "12345",
-                            "timezone": "America/New_York"
-                          }),
-                    headers={
-                        "Content-type": "application/json"
-                        ,"Authorization" : "Bearer 1663b12fcc24462e9711d9801be96485"
-                    })
+                r = requests.post("https://api.dialogflow.com/v1/query?v=20150910",
+                        data = json.dumps({
+                                "contexts": [
+                                "shop"
+                                ],
+                                "lang": "en",
+                                "query": msg,
+                                "sessionId": "12345",
+                                "timezone": "America/New_York"
+                              }),
+                        headers={
+                            "Content-type": "application/json"
+                            ,"Authorization" : "Bearer 1663b12fcc24462e9711d9801be96485"
+                        })
 
-            resp = r.json()
-            response = resp['result']['fulfillment']['messages'][0]['speech']
-            await message.channel.send(f"**{message.author.name}**, {response}")
+                resp = r.json()
+                response = resp['result']['fulfillment']['messages'][0]['speech']
+                await message.channel.send(f"**{message.author.name}**, {response}")
             
         if message.content.lower().startswith('hey siri, whats the weather in ') or message.content.lower().startswith('hey siri, what\'s the weather in ') or message.content.lower().startswith('hey siri, what is the weather in '):
             location = message.content.lower().replace("hey siri, whats the weather in ", "").replace("hey siri, what's the weather in ", "").replace("?", "").replace("!", "").replace("hey siri, what is the weather in ", "")
