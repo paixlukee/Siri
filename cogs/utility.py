@@ -1004,12 +1004,13 @@ class Utility:
             user = ctx.message.author
         else:
             user = member
-
+        
+        semoji = str(ctx.author.status).replace("online", "<:online:491575367908458506>").replace("idle", "<:idle:483080613687984131>").replace("dnd", "<:dnd:478843647282905088>").replace("offline", "<:offline:504755272036909066>").replace("streaming", "<:streaming:504755299329245194>")
         message = ctx.message
         guild = ctx.message.guild
         await message.add_reaction('🔍')
-        trl = discord.Embed(colour=user.colour)
-        trl.set_author(name=user, icon_url=user.avatar_url)
+        trl = discord.Embed(colour=user.colour, description=f"{semoji} **{ctx.author.name}**{ctx.author.discriminator}")
+        #trl.set_author(name=user, icon_url=user.avatar_url)
         trl.set_thumbnail(url=user.avatar_url)
         #trl.add_field(name="Username:", value='{}'.format(user), inline=False)
         trl.add_field(name="Nickname:", value=user.nick)
