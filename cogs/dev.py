@@ -239,18 +239,23 @@ class Developer:
     
     @commands.group()
     @commands.is_owner()
-    async def sudo(self, ctx, user: discord.User, *, cmnd):
+    async def sudo(self, ctx):
         if ctx.invoked_subcommand is None:
-            command = ctx.message
-            command.content = f'siri {cmnd}'
-            command.author = user
+            await ctx.message.add_reaction('❌')
+            
+    @sudo.command(name="-u")
+    @commands.is_owner()
+    async def usudo(self, ctx, user: discord.User, *, cmnd):
+        command = ctx.message
+        command.content = f'siri {cmnd}'
+        command.author = user
 
-            try:
-                await self.bot.process_commands(command)
-                await ctx.message.add_reaction('👌')
-            except Exception as e:
-                await ctx.message.add_reaction('❌')
-                await ctx.send(f"Error. `{e}`")
+        try:
+            await self.bot.process_commands(command)
+            await ctx.message.add_reaction('👌')
+        except Exception as e:
+            await ctx.message.add_reaction('❌')
+            await ctx.send(f"Error. `{e}`")
             
     @sudo.command(name="-ch")
     @commands.is_owner()
