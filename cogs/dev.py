@@ -260,17 +260,11 @@ class Developer:
     @sudo.command(name="-ch")
     @commands.is_owner()
     async def csudo(self, ctx, cid, *, cmnd: str):
+        await ctx.message.add_reaction('👌')
         _id = cid.replace("<#", "").replace(">", "")
         command = ctx.message
         command.content = f'siri {cmnd}'
         command.channel = self.bot.get_channel(int(_id))
-
-        try:
-            await self.bot.process_commands(command)
-            await ctx.message.add_reaction('👌')
-        except Exception as e:
-            await ctx.message.add_reaction('❌')
-            await ctx.send(f"Error. `{e}`")
                
     @commands.command(pass_context=True, aliases=['fp', 'forcepost'])
     @commands.is_owner()
