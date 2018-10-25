@@ -243,19 +243,19 @@ class Developer:
         if ctx.invoked_subcommand is None:
             await ctx.message.add_reaction('❌')
             
+        try:
+            await ctx.message.add_reaction('👌')
+        except Exception as e:
+            await ctx.message.add_reaction('❌')
+            await ctx.send(f"Error. `{e}`")
+            
     @sudo.command(name="-u")
     @commands.is_owner()
     async def usudo(self, ctx, user: discord.User, *, cmnd):
         command = ctx.message
         command.content = f'siri {cmnd}'
         command.author = user
-
-        try:
-            await self.bot.process_commands(command)
-            await ctx.message.add_reaction('👌')
-        except Exception as e:
-            await ctx.message.add_reaction('❌')
-            await ctx.send(f"Error. `{e}`")
+        await self.bot.process_commands(command)
             
     @sudo.command(name="-ch")
     @commands.is_owner()
@@ -265,6 +265,7 @@ class Developer:
         command = ctx.message
         command.content = f'siri {cmnd}'
         command.channel = self.bot.get_channel(int(_id))
+        await self.bot.process_commands(command)
                
     @commands.command(pass_context=True, aliases=['fp', 'forcepost'])
     @commands.is_owner()
