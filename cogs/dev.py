@@ -237,12 +237,28 @@ class Developer:
             trl = discord.Embed(title="Error!", colour=0xff775b, description=f"```py\n{e}```")
             await ctx.send(embed=trl)
     
-    @commands.command()
+    @commands.group()
     @commands.is_owner()
     async def sudo(self, ctx, user: discord.User, *, cmnd):
+        if ctx.invoked_subcommand is None:
+            command = ctx.message
+            command.content = f'siri {cmnd}'
+            command.author = user
+
+            try:
+                await self.bot.process_commands(command)
+                await ctx.message.add_reaction('👌')
+            except Exception as e:
+                await ctx.message.add_reaction('❌')
+                await ctx.send(f"Error. `{e}`")
+            
+    @sudo.command(name="-ch")
+    @commands.is_owner()
+    async def csudo(self, ctx, cid, *, cmnd: str):
+        _id = cid.replace("<#", "").replace(">", "")
         command = ctx.message
         command.content = f'siri {cmnd}'
-        command.author = user
+        command.channel = self.bot.get_channel(int(_id))
 
         try:
             await self.bot.process_commands(command)
