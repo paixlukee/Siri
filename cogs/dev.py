@@ -243,11 +243,13 @@ class Developer:
         if ctx.invoked_subcommand is None:
             await ctx.message.add_reaction('❌')
             
-        try:
-            await ctx.message.add_reaction('👌')
-        except Exception as e:
-            await ctx.message.add_reaction('❌')
-            await ctx.send(f"Error. `{e}`")
+        else:
+            
+            try:
+                await ctx.message.add_reaction('👌')
+            except Exception as e:
+                await ctx.message.add_reaction('❌')
+                await ctx.send(f"Error. `{e}`")
             
     @sudo.command(name="-u")
     @commands.is_owner()
@@ -260,7 +262,6 @@ class Developer:
     @sudo.command(name="-ch")
     @commands.is_owner()
     async def csudo(self, ctx, cid, *, cmnd: str):
-        await ctx.message.add_reaction('👌')
         _id = cid.replace("<#", "").replace(">", "")
         command = ctx.message
         command.content = f'siri {cmnd}'
