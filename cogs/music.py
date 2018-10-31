@@ -19,11 +19,20 @@ class Music:
         self.ttrue = '<:greentick:492800272834494474>'
         self.tfals = '<:redtick:492800273211850767>'
         self.colour = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
-        if not hasattr(bot, 'lavalink'):
-            # stuffs here
-            self.bot.lavalink.register_hook(self.track_hook)
+        if not hasattr(bot, 'lavalink') or not bot.lavalink:
+            lavalink.Client(bot=bot, loop=self.bot.loop, log_level=logging.WARNING)
+            # {}
+            self.bot.lavalink.register_hook(self._track_hook)
 
-    async def track_hook(self, event):
+    def __unload(self):
+        self.bot.loop.create_task(self.bot.lavalink.players.safe_clear())
+        self.bot.lavalink.unregister_hook(self._track_hook)
+        self.bot.lavalink.destroy()
+        self.bot.lavalink = None
+
+    async def _track_hook(self, event):
+        if not hasattr(event, 'player'):
+            return
         if isinstance(event, lavalink.Events.TrackStartEvent):
             c = event.player.fetch('channel')
             if c:
@@ -56,7 +65,7 @@ class Music:
             embed = discord.Embed(description="Fetching lyrics..")
             msg = await ctx.send(embed=embed)
             if not query:
-                player = self.bot.lavalink.players.get(ctx.guild.id)
+                player = await self.bot.lavalink.get_player(ctx.guild.id)
                 if not player.is_playing:
                     await ctx.send(f"{self.tfals} Nothing is playing, so I couldn't get any lyrics. To search for a song that isn't playing, use `siri lyrics <song-title>`.")
                 else:
@@ -86,11 +95,12 @@ class Music:
             embed = discord.Embed(description=f"{self.tfals} Nothing found for this track!")
             await msg.edit(embed=embed)
 
+
     @commands.command(aliases=['p', 'add', 'enqueue'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def play(self, ctx, *, query):
         """Play a track [url or query]"""
-        player = self.bot.lavalink.players.get(ctx.guild.id)
+        player = await self.bot.lavalink.get_player(ctx.guild.id)
 
         if not player.is_connected:
             if not ctx.author.voice or not ctx.author.voice.channel:
@@ -120,42 +130,36 @@ class Music:
         except Exception as e:
             tracks = 1
 
-        if not results or not results['tracks']:
+        if not results or (isinstance(results, dict) and not results['tracks']):
             return await ctx.send(f"{self.tfals} There was nothing found for that song.")
 
         if tracks > 100:
-            await ctx.send(f"{self.tfals} Playlists cannot exceed **100** tracks! Become a donor to add more.")
+            await ctx.send(f"{self.tfals} Playlists cannot exceed **100** tracks! Become a patron to add more.")
         else:
             trl = discord.Embed(colour=rnd(self.colour))
 
-
-            if results['loadType'] == "PLAYLIST_LOADED":
-                tracks = results['tracks']
-
-                for track in tracks:
-                    player.add(requester=ctx.author.id, track=track)
-
-
-                t = results['tracks'][0]
+        if isinstance(results, dict):
+            t = results['tracks'][0]
+            if results['loadType'] == 'PLAYLIST_LOADED':
                 trl.description = f"{self.ttrue} **{results['playlistInfo']['name']}** enqueued. ({len(tracks)} tracks)"
-                #trl.set_footer(text=f"Siri Music | Requested by {ctx.author.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
                 await ctx.send(embed=trl)
-                player.add(requester=ctx.author.id, track=t)
+                for track in t:
+                    player.add(requester=ctx.author.id, track=track)
             else:
-                t = results['tracks'][0]
                 trl.description = f"{self.ttrue} [{t['info']['title']}]({t['info']['uri']}) enqueued."
                 await ctx.send(embed=trl)
                 player.add(requester=ctx.author.id, track=t)
 
-            if not player.is_playing:
-                await player.play()
+
+        if not player.is_playing:
+            await player.play()
 
     @commands.command(aliases=['forceskip', 'fs'])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def skip(self, ctx):
         """Skip a song"""
         author = ctx.message.author
-        player = self.bot.lavalink.players.get(ctx.guild.id)
+        player = await self.bot.lavalink.get_player(ctx.guild.id)
 
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I am not playing anything.")
@@ -176,10 +180,73 @@ class Music:
         else:
             await ctx.send(f"{self.tfals} You can only vote to skip once.")
 
+
+    @commands.command(aliases=['pv', 'last'])
+    async def previous(self, ctx):
+        """Plays the previous song."""
+        player = await self.bot.lavalink.get_player(ctx.guild.id)
+
+        try:
+            await player.play_previous()
+            await ctx.send(f"{self.ttrue} Done.")
+        except lavalink.NoPreviousTrack:
+            await ctx.send(f"{self.tfals} No previous song!")
+
+    @commands.command(aliases=['bass'])
+    async def bassboost(self, ctx, level=None):
+        """
+        Set bassboost level.
+        0 - OFF
+        1 - LOW
+        2 - MEDIUM
+        3 - HIGH
+        """
+        gains = None
+
+        player = await self.bot.lavalink.get_player(ctx.guild.id)
+
+        levels = {
+                '0': [(0, 0), (1, 0)],
+                '1': [(0, 0.25), (1, 0.15)],
+                '2': [(0, 0.50), (1, 0.25)],
+                '3': [(0, 0.75), (1, 0.50)]
+                }
+
+        _levels = ['0', '1', '2', '3']
+
+        if not level in _levels:
+            await ctx.send(f"{self.tfals} Invalid level! View `siri help cmd bassboost` to view valid levels.")
+        elif not level:
+            await ctx.send(f"{self.tfals} You haven't specified a level! View `siri help cmd bassboost` to view valid levels.")
+        #elif not "DJ" in [x.name.upper() for x in ctx.author.roles] or ctx.author.guild_permissions.manage_guild or not ctx.author.id == 396153668820402197:
+            #await ctx.send(f"{self.tfals} You need a role named `DJ` or `manage_server` permissions to use this command!")
+        else:
+            if not level == '0':
+                cl = level
+                msg = await ctx.send(f"You are about to set bassboost to **Level {level}**! Are you sure you want to do this? :warning:")
+
+                def check(reaction, user):
+                    return user == ctx.message.author and str(reaction.emoji) in ['✅','❌']
+                await msg.add_reaction("✅")
+                await msg.add_reaction("❌")
+                await asyncio.sleep(0.5)
+                reaction, user = await self.bot.wait_for('reaction_add', timeout=20.0, check=check)
+                if reaction.emoji == '❌':
+                    await ctx.send("I won't set bassboot, then.")
+                if reaction.emoji == '✅':
+                    for lvl in levels.keys():
+                        if lvl.startswith(level):
+                            gains = levels[lvl]
+                            break
+                    await player.set_gains(*gains)
+                    await ctx.send(f"{self.ttrue} Bassboost set to **Level {cl}**! Do `siri bassboost 0` to turn it off.")
+            else:
+                await ctx.send(f"{self.ttrue} Bassboost off.")
+
     @commands.command(aliases=['clear'])
     async def stop(self, ctx):
         """Stop music and clear the queue"""
-        player = self.bot.lavalink.players.get(ctx.guild.id)
+        player = await self.bot.lavalink.get_player(ctx.guild.id)
 
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I am not playing anything.")
@@ -204,7 +271,7 @@ class Music:
     @commands.command(aliases=['leave'])
     async def disconnect(self, ctx):
         """Leave the current voice channel"""
-        player = self.bot.lavalink.players.get(ctx.guild.id)
+        player = await self.bot.lavalink.get_player(ctx.guild.id)
 
         if not player.is_connected:
             return await ctx.send(f"{self.tfals} I'm not in a voice channel!")
@@ -225,7 +292,7 @@ class Music:
     async def nowplaying(self, ctx):
         """Get info on the current song"""
 
-        player = self.bot.lavalink.players.get(ctx.guild.id)
+        player = await self.bot.lavalink.get_player(ctx.guild.id)
         song = "None"
         req = self.bot.get_user(int(player.current.requester))
 
@@ -317,7 +384,7 @@ class Music:
     @commands.command(aliases=['q'])
     async def queue(self, ctx, page: int=1):
         """Fetch the queue"""
-        player = self.bot.lavalink.players.get(ctx.guild.id)
+        player = await self.bot.lavalink.get_player(ctx.guild.id)
         shuf = 'ON' if player.shuffle else 'OFF'
         n_dur = lavalink.Utils.format_time(player.current.duration)
 
@@ -358,7 +425,7 @@ class Music:
     @commands.command(aliases=['resume'])
     async def pause(self, ctx):
         """Pause|Resume Music"""
-        player = self.bot.lavalink.players.get(ctx.guild.id)
+        player = await self.bot.lavalink.get_player(ctx.guild.id)
 
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I'm not playing anything!")
@@ -373,7 +440,7 @@ class Music:
     @commands.command(aliases=['vol'])
     async def volume(self, ctx, volume: int=None):
         """Check the volume, or set the volume"""
-        player = self.bot.lavalink.players.get(ctx.guild.id)
+        player = await self.bot.lavalink.get_player(ctx.guild.id)
 
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I'm not playing anything!")
@@ -387,7 +454,7 @@ class Music:
     @commands.command()
     async def shuffle(self, ctx):
         """Shuffle the queue"""
-        player = self.bot.lavalink.players.get(ctx.guild.id)
+        player = await self.bot.lavalink.get_player(ctx.guild.id)
 
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I'm not playing anything!")
@@ -399,7 +466,7 @@ class Music:
     @commands.command()
     async def repeat(self, ctx):
         """Repeats the queue"""
-        player = self.bot.lavalink.players.get(ctx.guild.id)
+        player = await self.bot.lavalink.get_player(ctx.guild.id)
 
         if not player.is_playing:
             return await ctx.send(f"{self.tfals} I'm not playing anything!")
@@ -411,7 +478,7 @@ class Music:
     @commands.command(aliases=['rm', 'pop'])
     async def remove(self, ctx, count: int):
         """Remove/pop a song from the queue"""
-        player = self.bot.lavalink.players.get(ctx.guild.id)
+        player = await self.bot.lavalink.get_player(ctx.guild.id)
 
         if not player.queue:
             return await ctx.send(f"{self.tfals} There is nothing queued!")
@@ -419,7 +486,7 @@ class Music:
         if count > len(player.queue) or count < 1:
             return await ctx.send(f"{self.tfals} Please choose a number that's in the queue!")
 
-        if not "DJ" in [x.name.upper() for x in ctx.author.roles] or ctx.author.guild_permissions.manage_guild or ctx.author.id == 396153668820402197:
+        if not "DJ" in [x.name.upper() for x in ctx.author.roles] or ctx.author.guild_permissions.manage_guild or not ctx.author.id == 396153668820402197:
             return await ctx.send(f"{self.tfals} You must have the `DJ` role or `MANAGE_SERVER` permissions to use this command! Use `siri dj` to get the role.")
 
         count -= 1
@@ -462,7 +529,7 @@ class Music:
         elif int(msg.content) <= int(msg.content) + 1:
             query = results['tracks'][int(msg.content) - 1]['info']['uri']
 
-            player = self.bot.lavalink.players.get(ctx.guild.id)
+            player = await self.bot.lavalink.get_player(ctx.guild.id)
 
             if not player.is_connected:
                 if not ctx.author.voice or not ctx.author.voice.channel:
@@ -490,18 +557,17 @@ class Music:
             trl = discord.Embed(colour=rnd(self.colour))
 
             if results['loadType'] == "PLAYLIST_LOADED":
-                tracks = results['tracks']
+                tracks = results['tracks'][0]
 
                 for track in tracks:
                     player.add(requester=ctx.author.id, track=track)
 
-                trl.title = "Playlist added to queue!"
-                trl.description = f"{results['playlistInfo']['name']} - {len(tracks)} tracks!"
+                trl.description = f"{self.ttrue} **{results['playlistInfo']['name']}** enqueued. ({len(tracks)} tracks)"
                 await ctx.send(embed=trl)
             else:
                 t = results['tracks'][0]
-                trl.description = f"[{t['info']['title']}]({t['info']['uri']}) enqueued."
-                trl.set_footer(text=f"Siri Music | Requested by {ctx.author.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
+                trl.description = f"{self.ttrue} [{t['info']['title']}]({t['info']['uri']}) enqueued."
+                #trl.set_footer(text=f"Siri Music | Requested by {ctx.author.name}", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
                 await ctx.send(embed=trl)
                 player.add(requester=ctx.author.id, track=t)
 
