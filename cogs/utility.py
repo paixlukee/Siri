@@ -160,9 +160,8 @@ class Utility:
             elif not ctx.me.guild_permissions.manage_roles:
                 await ctx.send("I need `manage_roles` permissions to create the `DJ` role!")
             else:
-                msg = await ctx.send("Creating the `DJ` role..")
                 await ctx.guild.create_role(name="DJ", reason=f"Role has been created by {ctx.author}", colour=discord.Colour.from_rgb(168, 255, 255))
-                await msg.edit("The `DJ` role has been created! See `siri help command dj` on how to give it to someone.")
+                await ctx.send("The `DJ` role has been created! See `siri help command dj` on how to give it to someone.")
         else:
             uroles = [x.name.upper() for x in user.roles]
             if "DJ" in uroles:
