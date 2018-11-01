@@ -155,7 +155,7 @@ class Utility:
         if not ctx.author.guild_permissions.manage_roles:
             await ctx.send("You do not have the `manage_roles` permisson!")
         elif not user:
-            if "DJ" in groles:
+            if "DJ" in [x.name.upper() for x in ctx.guild.roles]:
                 await ctx.send("The `DJ` role has already been created! Use `siri DJ <@user>` to give it to someone.")
             elif not ctx.me.guild_permissions.manage_roles:
                 await ctx.send("I need `manage_roles` permissions to create the `DJ` role!")
