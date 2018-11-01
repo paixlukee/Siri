@@ -153,12 +153,12 @@ class Utility:
         siri DJ <@mention> - Gives a DJ Role
         """
         groles = [x.name.upper() for x in ctx.guild.roles]
-        if ctx.author.guild_permissions.manage_roles:
+        if not ctx.author.guild_permissions.manage_roles:
             await ctx.send("You do not have the `manage_roles` permisson!")
         elif not user:
             if "DJ" in groles:
                 await ctx.send("The `DJ` role has already been created! Use `siri DJ <@user>` to give it to someone.")
-            elif ctx.me.guild_permissions.manage_roles:
+            elif not ctx.me.guild_permissions.manage_roles:
                 await ctx.send("I need `manage_roles` permissions to create the `DJ` role!")
             else:
                 msg = await ctx.send("Creating the `DJ` role..")
@@ -169,7 +169,7 @@ class Utility:
             if "DJ" in uroles:
                 await user.remove_roles(uroles[1], reason=f"Role has been removed by {ctx.author}")
                 await ctx.send(f"The `DJ` role has been removed from **{user}**.")
-            elif ctx.me.guild_permissions.manage_roles:
+            elif not ctx.me.guild_permissions.manage_roles:
                 await ctx.send("I need `manage_roles` permissions to give the `DJ` role to someone!")
             else:
                 await user.add_roles(groles[1], reason=f"Role has been given by {ctx.author}")
