@@ -152,7 +152,6 @@ class Utility:
         siri DJ - Creates a DJ Role (If not already created.)
         siri DJ <@mention> - Gives a DJ Role
         """
-        groles = [for x in ctx.guild.roles if x.name.upper() == 'DJ']
         if not ctx.author.guild_permissions.manage_roles:
             await ctx.send("You do not have the `manage_roles` permisson!")
         elif not user:
@@ -167,12 +166,12 @@ class Utility:
         else:
             uroles = [x.name.upper() for x in user.roles]
             if "DJ" in uroles:
-                await user.remove_roles(uroles[1], reason=f"Role has been removed by {ctx.author}")
+                await user.remove_roles(discord.utils.get(ctx.guild.roles, name="DJ"), reason=f"Role has been removed by {ctx.author}")
                 await ctx.send(f"The `DJ` role has been removed from **{user}**.")
             elif not ctx.me.guild_permissions.manage_roles:
                 await ctx.send("I need `manage_roles` permissions to give the `DJ` role to someone!")
             else:
-                await user.add_roles(groles[1], reason=f"Role has been given by {ctx.author}")
+                await user.add_roles(discord.utils.get(ctx.guild.roles, name="DJ"), reason=f"Role has been given by {ctx.author}")
                 await ctx.send(f"The `DJ` role has been given to **{user}**.")           
         
     @commands.command(name='wikipedia', aliases=['wiki', 'w'])
