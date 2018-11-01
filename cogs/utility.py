@@ -152,7 +152,7 @@ class Utility:
         siri DJ - Creates a DJ Role (If not already created.)
         siri DJ <@mention> - Gives a DJ Role
         """
-        groles = [x.id for x in ctx.guild.roles]
+        groles = [for x in ctx.guild.roles if x.name.upper() == 'DJ']
         if not ctx.author.guild_permissions.manage_roles:
             await ctx.send("You do not have the `manage_roles` permisson!")
         elif not user:
