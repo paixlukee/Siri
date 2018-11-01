@@ -161,7 +161,7 @@ class Utility:
                 await ctx.send("I need `manage_roles` permissions to create the `DJ` role!")
             else:
                 msg = await ctx.send("Creating the `DJ` role..")
-                await ctx.guild.create_role("DJ", colour=0xa8ffff, reason=f"Role has been created by {ctx.author}")
+                await ctx.guild.create_role(name="DJ", reason=f"Role has been created by {ctx.author}", colour=0xa8ffff)
                 await msg.edit("The `DJ` role has been created! See `siri help command dj` on how to give it to someone.")
         else:
             uroles = [x.name.upper() for x in user.roles]
