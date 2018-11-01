@@ -152,7 +152,7 @@ class Utility:
         siri DJ - Creates a DJ Role (If not already created.)
         siri DJ <@mention> - Gives a DJ Role
         """
-        groles = [x.name.upper() for x in ctx.guild.roles]
+        groles = [x.id for x in ctx.guild.roles]
         if not ctx.author.guild_permissions.manage_roles:
             await ctx.send("You do not have the `manage_roles` permisson!")
         elif not user:
@@ -179,7 +179,7 @@ class Utility:
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def _wikipedia(self, ctx, *, q: str = None):
         """Search Information on Wikipedia"""
-        restricted = ['penis', 'hentai', 'hentai loli', 'orgy', 'vagina', 'breast', 'nipple', 'porn', 'adult videos', 'xxx']
+        restricted = ['penis', 'hentai', 'hentai loli', 'orgy', 'vagina', 'breast', 'nipple', 'porn', 'adult videos', 'xxx', 'sex', 'ass']
         if q is None:
             await ctx.send("Include the query with the command!")
         elif q.lower() in restricted:
