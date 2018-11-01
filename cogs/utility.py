@@ -143,6 +143,38 @@ class Utility:
         r = requests.get("http://aws.random.cat/meow").json()
         await ctx.send(r['file'])
         
+    @commands.command(aliases=["DJ"])
+    async def dj(self, ctx, user: discord.Member=None):
+        """
+        Gives or Creates a DJ Role.
+        **Requires manage_roles perms
+        _____________
+        siri DJ - Creates a DJ Role (If not already created.)
+        siri DJ <@mention> - Gives a DJ Role
+        """
+        groles = [x.name.upper() for x in ctx.guild.roles]
+        if ctx.author.guild_permissions.manage_roles:
+            await ctx.send("You do not have the `manage_roles` permisson!")
+        elif not user:
+            if "DJ" in groles:
+                await ctx.send("The `DJ` role has already been created! Use `siri DJ <@user>` to give it to someone.")
+            elif ctx.me.guild_permissions.manage_roles:
+                await ctx.send("I need `manage_roles` permissions to create the `DJ` role!")
+            else:
+                msg = await ctx.send("Creating the `DJ` role..")
+                await ctx.guild.create_role("DJ", colour=0xa8ffff, reason=f"Role has been created by {ctx.author}")
+                await msg.edit("The `DJ` role has been created! See `siri help command dj` on how to give it to someone.")
+        else:
+            uroles = [x.name.upper() for x in user.roles]
+            if "DJ" in uroles:
+                await user.remove_roles(uroles[1], reason=f"Role has been removed by {ctx.author}")
+                await ctx.send(f"The `DJ` role has been removed from **{user}**.")
+            elif ctx.me.guild_permissions.manage_roles:
+                await ctx.send("I need `manage_roles` permissions to give the `DJ` role to someone!")
+            else:
+                await user.add_roles(groles[1], reason=f"Role has been given by {ctx.author}")
+                await ctx.send(f"The `DJ` role has been given to **{user}**.")           
+        
     @commands.command(name='wikipedia', aliases=['wiki', 'w'])
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def _wikipedia(self, ctx, *, q: str = None):
