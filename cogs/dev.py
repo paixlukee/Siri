@@ -185,7 +185,7 @@ class Developer:
                         embed.timestamp = datetime.datetime.utcnow()
                         await ctx.send(embed=embed)
                         return
-         except Exception as e:
+        except Exception as e:
             embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, e))
             embed.set_footer(text="Code Evaluation", icon_url=self.bot.user.avatar_url)
             embed.timestamp = datetime.datetime.utcnow()
