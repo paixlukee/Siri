@@ -169,41 +169,9 @@ class Developer:
 
             else:
                 if len(str(result)) > 1500:
-                    r = requests.post(f"https://hastebin.com/documents",
-                    data=result.encode('utf-8')).json()
-                    await ctx.send(":weary::ok_hand: The output is too long to send to chat. Here is a hastebin file for ya.. :point_right: https://hastebin.com/" + r['key'])
-                    return
-                else:
                     try:
-                        embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, result))
-                        embed.set_footer(text="Code Evaluation", icon_url=self.bot.user.avatar_url)
-                        embed.timestamp = datetime.datetime.utcnow()
-                        await ctx.send(embed=embed)
-                        return
-                    except Exception as e:
-                        embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, e))
-                        embed.set_footer(text="Code Evaluation", icon_url=self.bot.user.avatar_url)
-                        embed.timestamp = datetime.datetime.utcnow()
-                        await ctx.send(embed=embed)
-                        return
-
-        except Exception as e:
-            embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, e))
-            embed.set_footer(text="Code Evaluation", icon_url=self.bot.user.avatar_url)
-            embed.timestamp = datetime.datetime.utcnow()
-            await ctx.send(embed=embed)
-            return
-        
-        
-        
-    @commands.command(hidden=True, aliases=['cl'])
-    @commands.is_owner()
-    async def changelog(self, ctx, option, link, *, message):
-        a = random.randint(1, 9)
-        b = random.randint(1, 9)
-        c = random.randint(1, 9)
-        letters = ['a', 'A', 'b', 'B', 'C', 'd', 'n', 'x', 'Y', 'y', 's', 'S', 'i', 'k', 'K', 'g', 'G', 'm', 'c']
-        letters2 = ['q', 'Q', 'p', 'P', 'o', 'v', 'V', 'z', 'e', 'E', 'I', 'L', 't', 'T', 'r', 'R', 'j', 'J', 'O']
+                        r = requests.post(f"https://hastebin.com/documents",
+                        data=str(result)
         randc = f'{a}{rnd(letters)}{b}{rnd(letters2)}{c}'
         try:
             c = self.bot.get_channel('478833607126024192')
