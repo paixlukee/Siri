@@ -169,9 +169,10 @@ class Developer:
 
             else:
                 if len(str(result)) > 1500:
-                    try:
-                        r = requests.post(f"https://hastebin.com/documents",
-                        data=str(result)
+                    r = requests.post(f"https://hastebin.com/documents",
+                    data=str(result).encode('utf-8')).json()
+                    return await ctx.send(":weary::ok_hand: The output is too long to send to chat. Here is a hastebin file for ya.. :point_right: https://hastebin.com/" + r['key'])
+                    
         randc = f'{a}{rnd(letters)}{b}{rnd(letters2)}{c}'
         try:
             c = self.bot.get_channel('478833607126024192')
