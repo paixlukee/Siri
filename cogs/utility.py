@@ -413,12 +413,17 @@ class Utility:
                 await ctx.send(f"I couldn't find anything..")
 
 
-    #RATELIMITS!!!!!!!!
+    # megu ratelimits lmfao
     @commands.command(hidden=True)
+    @commands.cooldown(1, 55, commands.BucketType.user)
     @checks.admin_or_permissions(manage_guild=True)
     async def uwu(self, ctx, c:int, *, message):
-        for e in range(c):
-            await ctx.send(message)
+        if c > 10:
+            await ctx.send("Cannot surpass 10! *this is a hidden command for a reason you sick fuck*")
+        else:
+            await ctx.message.add_reaction('👌')
+            for e in range(c):
+                await ctx.send(message)
 
     @commands.command(aliases=['IMDb'])
     @commands.cooldown(1, 3, commands.BucketType.user)
