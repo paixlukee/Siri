@@ -126,8 +126,8 @@ class Music:
         results = await self.bot.lavalink.get_tracks(query)
 
         try:
-            tracks = len(results['tracks'][0])
-        except Exception as e:
+            tracks = len(results['tracks'])
+        except:
             tracks = 1
 
         if not results or (isinstance(results, dict) and not results['tracks']):
