@@ -139,7 +139,7 @@ class Music:
             trl = discord.Embed(colour=rnd(self.colour))
 
         if isinstance(results, dict):
-            t = results['tracks'][0]
+            t = results['tracks']
             if results['loadType'] == 'PLAYLIST_LOADED':
                 trl.description = f"{self.ttrue} **{results['playlistInfo']['name']}** enqueued. ({tracks} tracks)"
                 await ctx.send(embed=trl)
