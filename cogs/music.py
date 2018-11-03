@@ -130,7 +130,7 @@ class Music:
         except:
             tracks = 1
 
-        if not results or (isinstance(results, dict) and not results['tracks']):
+        if not results or (isinstance(results, dict) and not results['tracks'][0]):
             return await ctx.send(f"{self.tfals} There was nothing found for that song.")
 
         if tracks > 100:
