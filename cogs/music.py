@@ -141,7 +141,7 @@ class Music:
         if isinstance(results, dict):
             t = results['tracks'][0]
             if results['loadType'] == 'PLAYLIST_LOADED':
-                trl.description = f"{self.ttrue} **{results['playlistInfo']['name']}** enqueued. ({len(tracks)} tracks)"
+                trl.description = f"{self.ttrue} **{results['playlistInfo']['name']}** enqueued. ({tracks} tracks)"
                 await ctx.send(embed=trl)
                 for track in t:
                     player.add(requester=ctx.author.id, track=track)
