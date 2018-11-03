@@ -130,7 +130,7 @@ class Music:
         except:
             tracks = 1
 
-        if not results or (isinstance(results, dict) and not results['tracks'][0]):
+        if not results or (isinstance(results, dict) and not results['tracks']):
             return await ctx.send(f"{self.tfals} There was nothing found for that song.")
 
         if tracks > 100:
@@ -557,12 +557,12 @@ class Music:
             trl = discord.Embed(colour=rnd(self.colour))
 
             if results['loadType'] == "PLAYLIST_LOADED":
-                tracks = results['tracks'][0]
+                tracks = results['tracks']
 
                 for track in tracks:
                     player.add(requester=ctx.author.id, track=track)
 
-                trl.description = f"{self.ttrue} **{results['playlistInfo']['name']}** enqueued. ({len(tracks)} tracks)"
+                trl.description = f"{self.ttrue} **{results['playlistInfo']['name']}** enqueued. ({tracks} tracks)"
                 await ctx.send(embed=trl)
             else:
                 t = results['tracks'][0]
