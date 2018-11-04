@@ -236,7 +236,7 @@ class Server:
             data = {
                     "name": description, 
                     "desc": f'**Command/Topic:** {topic}\n**Description:** {description}\n**Submitted by:** {ctx.author} ({ctx.author.id})\n\nThis bug is **{str(option).upper()}**.',
-                    "idList": 'User-Submitted Bugs',
+                    "idList": '5bde5b1cb1304b380ff9d72e',
                     "pos": 'top'
             }
             r = requests.get(f"https://api.trello.com/1/cards/xg637BcY?key={config.trello_key}&token={config.trello_token}", data=data)
