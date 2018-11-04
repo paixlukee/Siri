@@ -225,21 +225,18 @@ class Server:
     async def reportbug(self, ctx, *, topic, option=None, description=None):
         """Bug Report Command (Siri Support Server Only)"""
         if ctx.guild.id == 493325581606453248:
-            await ctx.send(topic)
             args = topic.split('|')
-            await ctx.send(args)
             topic = args[0]
             option = args[1]
             description = args[2]  
-            await ctx.send(topic+option+description)
             if not description:
                 await ctx.send(f"<:redtick:492800273211850767> {ctx.author.mention}, Incorrect Arguments. **Usage:** `siri bugreport <topic> <option> <description>` *Do not include < or > in your report.*", delete_after=10)
             
             data = {
-                    name: description, 
-                    desc: f'**Command/Topic:** {topic}\n**Description:** {description}\n**Submitted by:** {ctx.author} ({ctx.author.id})\n\nThis bug is **{str(option).upper()}**.',
-                    idList: 'User-Submitted Bugs',
-                    pos: 'top'
+                    "name": description, 
+                    "desc": f'**Command/Topic:** {topic}\n**Description:** {description}\n**Submitted by:** {ctx.author} ({ctx.author.id})\n\nThis bug is **{str(option).upper()}**.',
+                    "idList": 'User-Submitted Bugs',
+                    "pos": 'top'
             }
             r = requests.get(f"https://api.trello.com/1/cards/xg637BcY?key={config.key}&token={config.token}", data=data)
             trello_link = None
