@@ -225,7 +225,6 @@ class Server:
     @commands.command(aliases=['rb'])
     async def reportbug(self, ctx, *, topic, option=None, description=None):
         """Bug Report Command (Siri Support Server Only)"""
-        if ctx.guild.id == 493325581606453248:
             args = topic.split('|')
             topic = args[0]
             option = args[1]
@@ -239,14 +238,12 @@ class Server:
                     "idList": '5bde5b1cb1304b380ff9d72e',
                     "pos": 'top'
             }
-            r = requests.post(f"https://api.trello.com/1/lists/5bde5b1cb1304b380ff9d72e/cards?key={config.trello_key}&token={config.trello_token}", data=data)
-            r = r.json()
-            await ctx.send(r)
-            trello_link = r[0]['url']
+            r = requests.post(f"https://api.trello.com/1/cards?key={config.trello_key}&token={config.trello_token}", data=data).json()
+            trello_link = r['url']
             
             await ctx.message.delete()
             msg = await ctx.send(f"<:greentick:492800272834494474> {ctx.author.mention}, your report has been sent! Check it out in <#508462645163065362> or on {trello_link}. I have also sent a transcipt to your DMs.", delete_after=10)
-            
+             
             embed = discord.Embed(colour=0x00f0ff, description="Bug Report Transcript")
             embed.add_field(name="Topic/Command:", value=str(topic).capitalize())
             embed.add_field(name="Option:", value=str(option).capitalize())
