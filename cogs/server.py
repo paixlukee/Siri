@@ -11,10 +11,9 @@ class Server:
         self.bot = bot
         
     async def on_message(self, message):
-        if message.channel.id == 494480470839525378:
-            if not message.content.upper().startswith('siri reportbug ') or not message.content.upper().startswith('siri bugreport '):
-                await message.delete()
-        
+        if message.channel.id == 494480470839525378 and not ctx.author.id == 481337766379126784:
+            await message.delete()
+            
     async def on_member_join(self, member):
         if member.guild.id == 493325581606453248:
             log = self.bot.get_channel(495840490147807235)
