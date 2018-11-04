@@ -12,6 +12,7 @@ class Server:
         
     async def on_message(self, message):
         if message.channel.id == 494480470839525378 and not message.author.id == 481337766379126784:
+            await asyncio.sleep(0.5)
             await message.delete()
             
     async def on_member_join(self, member):
