@@ -10,6 +10,10 @@ class Server:
     def __init__(self, bot):
         self.bot = bot
         
+    async def on_message(self, message):
+        if message.channel.id == 494480470839525378:
+            await message.delete()
+        
     async def on_member_join(self, member):
         if member.guild.id == 493325581606453248:
             log = self.bot.get_channel(495840490147807235)
@@ -242,7 +246,6 @@ class Server:
             r = requests.post(f"https://api.trello.com/1/cards?key={config.trello_key}&token={config.trello_token}", data=data).json()
             trello_link = r['url']
             
-            await ctx.message.delete()
             msg = await ctx.send(f"<:greentick:492800272834494474> {ctx.author.mention}, your report has been sent! Check it out in <#508462645163065362> or on {trello_link}. I have also sent a transcipt to your DMs.", delete_after=10)
              
             embed = discord.Embed(colour=0x00f0ff, description="Bug Report Transcript")
