@@ -231,13 +231,16 @@ class Server:
     async def reportbug(self, ctx, *, topic, option=None, description=None):
         """Bug Report Command (Siri Support Server Only)"""
         if ctx.channel.id == 494480470839525378:
+            await ctx.message.delete()
+            
             args = topic.split('|')
             topic = args[0]
             option = args[1]
             description = args[2]  
             if not description:
                 await ctx.send(f"<:redtick:492800273211850767> {ctx.author.mention}, Incorrect Arguments. **Usage:** `siri bugreport <topic> <option> <description>` *Do not include < or > in your report.*", delete_after=10)
-            
+            if str(option).lower() not in ['major', 'minor']:
+                await ctx.send(f"<:redtick:492800273211850767> {ctx.author.mention}, Incorrect Arguments. Option must be either `Major` or `Minor`. Ex. `siri reportbug Help | Minor | description here`", delete_after=10)
             data = {
                     "name": description, 
                     "desc": f'This is a user-submitted card.\n\n**Command/Topic:** {str(topic).capitalize()}\n\n**Description:** {description}\n\n**Submitted by:** {ctx.author} ({ctx.author.id})\n\n\nThis bug is **{str(option).upper()}**.',
@@ -246,9 +249,7 @@ class Server:
             }
             r = requests.post(f"https://api.trello.com/1/cards?key={config.trello_key}&token={config.trello_token}", data=data).json()
             trello_link = r['url']
-            
-            await ctx.message.delete()
-            
+                        
             msg = await ctx.send(f"<:greentick:492800272834494474> {ctx.author.mention}, your report has been sent! Check it out in <#508462645163065362> or on {trello_link}. I have also sent a transcipt to your DMs.", delete_after=10)
              
             embed = discord.Embed(colour=0x00f0ff, description="Bug Report Transcript")
@@ -258,9 +259,9 @@ class Server:
             embed.add_field(name="Link:", value=trello_link)
             embed.set_footer(text="Thank you for submitting a bug!")
             await ctx.author.send(embed=embed)
-                                       
-                             
+                                                                    
         else:
             pass
+        
 def setup(bot):
   bot.add_cog(Server(bot))
