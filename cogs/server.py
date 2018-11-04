@@ -234,7 +234,7 @@ class Server:
             
             data = {
                     name: description, 
-                    desc: f"**Command/Topic:** {topic}\n**Description:** {description}\n**Submitted by:** {ctx.author} ({ctx.author.id})\n\nThis bug is **{{str(option).upper()}**.',
+                    desc: f"**Command/Topic:** {topic}\n**Description:** {description}\n**Submitted by:** {ctx.author} ({ctx.author.id})\n\nThis bug is **{str(option).upper()}**.',
                     idList: 'User-Submitted Bugs',
                     pos: 'top'
             }
