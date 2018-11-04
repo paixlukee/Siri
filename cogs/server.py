@@ -238,7 +238,7 @@ class Server:
             description = args[2]  
             if not description:
                 await ctx.send(f"<:redtick:492800273211850767> {ctx.author.mention}, Incorrect Arguments. **Usage:** `siri bugreport <topic> <option> <description>` *Do not include < or > in your report.*", delete_after=10)
-            if str(option).lower() not in ['major', 'minor']:
+            if str(option).lower() not in ['major', 'minor', ' minor ', ' major ', 'minor ', 'major ', ' minor', ' major']:
                 await ctx.send(f"<:redtick:492800273211850767> {ctx.author.mention}, Incorrect Arguments. Option must be either `Major` or `Minor`. Ex. `siri reportbug Help | Minor | description here`", delete_after=10)
             else:
                 data = {
