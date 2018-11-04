@@ -12,8 +12,8 @@ class Server:
         
     async def on_message(self, message):
         if message.channel.id == 494480470839525378:
-            await asyncio.sleep(0.5)
-            await message.delete()
+            if not message.content.upper().startswith('siri reportbug ') or not message.content.upper().startswith('siri bugreport '):
+                await message.delete()
         
     async def on_member_join(self, member):
         if member.guild.id == 493325581606453248:
@@ -227,7 +227,7 @@ class Server:
         else:
             pass
         
-    @commands.command(aliases=['rb', 'bugreport'])
+    @commands.command(aliases=['bugreport'])
     async def reportbug(self, ctx, *, topic, option=None, description=None):
         """Bug Report Command (Siri Support Server Only)"""
         if ctx.channel.id == 494480470839525378:
@@ -246,6 +246,8 @@ class Server:
             }
             r = requests.post(f"https://api.trello.com/1/cards?key={config.trello_key}&token={config.trello_token}", data=data).json()
             trello_link = r['url']
+            
+            await ctx.message.delete()
             
             msg = await ctx.send(f"<:greentick:492800272834494474> {ctx.author.mention}, your report has been sent! Check it out in <#508462645163065362> or on {trello_link}. I have also sent a transcipt to your DMs.", delete_after=10)
              
