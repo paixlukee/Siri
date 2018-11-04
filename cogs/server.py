@@ -3,6 +3,7 @@ import asyncio
 import datetime
 from discord.ext import commands
 from random import choice as rnd
+import config
 
 class Server:
     def __init__(self, bot):
@@ -225,13 +226,19 @@ class Server:
         """Bug Report Command (Siri Support Server Only)"""
         if ctx.guild.id == 493325581606453248:
             args = question.split('|')
-            topic = None
-            option = None
-            description = None
-            
+            topic = args[0]
+            option = args[1]
+            description = args[2]            
             if not description:
-                await ctx.send(f"<:redtick:492800273211850767> Incorrect Arguments. Example")
+                await ctx.send(f"<:redtick:492800273211850767> {ctx.author.mention}, Incorrect Arguments. **Usage:** `siri bugreport <topic> <option> <description>` *Do not include < or > in your report.*", delete_after=10)
             
+            data = {
+                    name: topic, 
+                    desc: f"**Command/Topic:** \n**Description:** the bot works fine thank you very much\n**Submitted by:** lukee#0420 (3249876545678907654)\n\nThis bug is **Major**.',
+                    idList: myList,
+                    pos: 'top'
+            }
+            r = requests.get(f"https://api.trello.com/1/cards/xg637BcY?key={config.key}&token={config.token}")
             trello_link = None
             
             await ctx.message.delete()
