@@ -239,12 +239,12 @@ class Server:
                     "idList": '5bde5b1cb1304b380ff9d72e',
                     "pos": 'top'
             }
-            r = requests.get(f"https://api.trello.com/1/cards/xg637BcY?key={config.trello_key}&token={config.trello_token}", data=data)
-            await ctx.send(r.json())
-            trello_link = None
+            r = requests.get(f"https://api.trello.com/1/lists/5bde5b1cb1304b380ff9d72e/cards?key={config.trello_key}&token={config.trello_token}", data=data).json()            
+            await ctx.send(r)
+            trello_link = r[0]['url']
             
             await ctx.message.delete()
-            msg = await ctx.send(f"<:greentick:492800272834494474> {ctx.author.mention}, your report has been sent! Check it out in <#508462645163065362>. I have also sent a transcipt to your DMs.", delete_after=10)
+            msg = await ctx.send(f"<:greentick:492800272834494474> {ctx.author.mention}, your report has been sent! Check it out in <#508462645163065362> or on {trello_link}. I have also sent a transcipt to your DMs.", delete_after=10)
             
             embed = discord.Embed(colour=0x00f0ff, description="Bug Report Transcript")
             embed.add_field(name="Topic/Command:", value=str(topic).capitalize())
