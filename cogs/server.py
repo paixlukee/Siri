@@ -222,10 +222,10 @@ class Server:
             pass
         
     @commands.command(aliases=['rb'])
-    async def reportbug(self, ctx, topic, option, description=None):
+    async def reportbug(self, ctx, *, topic, option, description=None):
         """Bug Report Command (Siri Support Server Only)"""
         if ctx.guild.id == 493325581606453248:
-            args = question.split('|')
+            args = topic.split('|')
             topic = args[0]
             option = args[1]
             description = args[2]            
