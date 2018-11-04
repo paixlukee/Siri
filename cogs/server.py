@@ -222,13 +222,16 @@ class Server:
             pass
         
     @commands.command(aliases=['rb'])
-    async def reportbug(self, ctx, *, topic, option, description=None):
+    async def reportbug(self, ctx, *, topic, option=None, description=None):
         """Bug Report Command (Siri Support Server Only)"""
         if ctx.guild.id == 493325581606453248:
+            await ctx.send(topic)
             args = topic.split('|')
+            await ctx.send(args)
             topic = args[0]
             option = args[1]
-            description = args[2]            
+            description = args[2]  
+            await ctx.send(topic+option+description)
             if not description:
                 await ctx.send(f"<:redtick:492800273211850767> {ctx.author.mention}, Incorrect Arguments. **Usage:** `siri bugreport <topic> <option> <description>` *Do not include < or > in your report.*", delete_after=10)
             
