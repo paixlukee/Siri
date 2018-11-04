@@ -233,25 +233,24 @@ class Server:
                 await ctx.send(f"<:redtick:492800273211850767> {ctx.author.mention}, Incorrect Arguments. **Usage:** `siri bugreport <topic> <option> <description>` *Do not include < or > in your report.*", delete_after=10)
             
             data = {
-                    name: topic, 
-                    desc: f"**Command/Topic:** \n**Description:** the bot works fine thank you very much\n**Submitted by:** lukee#0420 (3249876545678907654)\n\nThis bug is **Major**.',
-                    idList: myList,
+                    name: description, 
+                    desc: f"**Command/Topic:** {topic}\n**Description:** {description}\n**Submitted by:** {ctx.author} ({ctx.author.id})\n\nThis bug is **{{str(option).upper()}**.',
+                    idList: 'User-Submitted Bugs',
                     pos: 'top'
             }
-            r = requests.get(f"https://api.trello.com/1/cards/xg637BcY?key={config.key}&token={config.token}")
+            r = requests.get(f"https://api.trello.com/1/cards/xg637BcY?key={config.key}&token={config.token}", data=data)
             trello_link = None
             
             await ctx.message.delete()
-            msg = await ctx.send(f"<:greentick:492800272834494474> {ctx.author.mention}, your report has been sent! Check it out in <#508462645163065362> or on {trello_link}. I have also sent a transcipt to your DMs.", delete_after=10)
+            msg = await ctx.send(f"<:greentick:492800272834494474> {ctx.author.mention}, your report has been sent! Check it out in <#508462645163065362>. I have also sent a transcipt to your DMs.", delete_after=10)
             
             embed = discord.Embed(colour=0x00f0ff, description="Bug Report Transcript")
             embed.add_field(name="Topic/Command:", value=str(topic).capitalize())
             embed.add_field(name="Option:", value=str(option).capitalize())
             embed.add_field(name="Description:", value=description)
             embed.set_footer(text="Thank you for submitting a bug!")
-            await ctx.send(embed=embed)
-            
-                             
+            await ctx.author.send(embed=embed)
+                                       
                              
         else:
             pass
