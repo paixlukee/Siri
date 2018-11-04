@@ -239,7 +239,7 @@ class Server:
                     "idList": '5bde5b1cb1304b380ff9d72e',
                     "pos": 'top'
             }
-            r = requests.get(f"https://api.trello.com/1/lists/5bde5b1cb1304b380ff9d72e/cards?key={config.trello_key}&token={config.trello_token}", data=data).json()            
+            r = requests.post(f"https://api.trello.com/1/lists/5bde5b1cb1304b380ff9d72e/cards?key={config.trello_key}&token={config.trello_token}", data=data).json()            
             await ctx.send(r)
             trello_link = r[0]['url']
             
