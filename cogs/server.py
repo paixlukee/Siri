@@ -197,7 +197,7 @@ class Server:
         else:
             await ctx.send(f"<:redtick:492800273211850767> You're not a mod..")
             
-    @commands.command(pass_context=True, aliases=['sr'])
+    @commands.command(aliases=['sr'])
     async def selfrole(self, ctx, opt, role: discord.Role):
         if ctx.guild.id == 493325581606453248:
             if opt == 'remove' or opt == 'r':
@@ -219,6 +219,34 @@ class Server:
                     await ctx.send(f"`{role}` isn't a self-role!")
         else:
             pass
+        
+    @commands.command(aliases=['rb'])
+    async def reportbug(self, ctx, topic, option, description=None):
+        """Bug Report Command (Siri Support Server Only)"""
+        if ctx.guild.id == 493325581606453248:
+            args = question.split('|')
+            topic = None
+            option = None
+            description = None
             
+            if not description:
+                await ctx.send(f"<:redtick:492800273211850767> Incorrect Arguments. Example")
+            
+            trello_link = None
+            
+            await ctx.message.delete()
+            msg = await ctx.send(f"<:greentick:492800272834494474> {ctx.author.mention}, your report has been sent! Check it out in <#508462645163065362> or on {trello_link}. I have also sent a transcipt to your DMs.", delete_after=10)
+            
+            embed = discord.Embed(colour=0x00f0ff, description="Bug Report Transcript")
+            embed.add_field(name="Topic/Command:", value=str(topic).capitalize())
+            embed.add_field(name="Option:", value=str(option).capitalize())
+            embed.add_field(name="Description:", value=description)
+            embed.set_footer(text="Thank you for submitting a bug!")
+            await ctx.send(embed=embed)
+            
+                             
+                             
+        else:
+            pass
 def setup(bot):
   bot.add_cog(Server(bot))
