@@ -239,7 +239,8 @@ class Server:
                     "idList": 'User-Submitted Bugs',
                     "pos": 'top'
             }
-            r = requests.get(f"https://api.trello.com/1/cards/xg637BcY?key={config.key}&token={config.token}", data=data)
+            r = requests.get(f"https://api.trello.com/1/cards/xg637BcY?key={config.trello_key}&token={config.trello_token}", data=data)
+            await ctx.send(r.json())
             trello_link = None
             
             await ctx.message.delete()
