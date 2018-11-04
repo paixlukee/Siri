@@ -222,7 +222,7 @@ class Server:
         else:
             pass
         
-    @commands.command(aliases=['rb'])
+    @commands.command(aliases=['rb', 'bugreport'])
     async def reportbug(self, ctx, *, topic, option=None, description=None):
         """Bug Report Command (Siri Support Server Only)"""
         if ctx.channel.id == 494480470839525378:
@@ -235,7 +235,7 @@ class Server:
             
             data = {
                     "name": description, 
-                    "desc": f'**Command/Topic:** {topic}\n**Description:** {description}\n**Submitted by:** {ctx.author} ({ctx.author.id})\n\nThis bug is **{str(option).upper()}**.',
+                    "desc": f'This is a user-submitted card.\n\n**Command/Topic:** {str(topic).capitalize()}\n\n**Description:** {description}\n\n**Submitted by:** {ctx.author} ({ctx.author.id})\n\n\nThis bug is **{str(option).upper()}**.',
                     "idList": '5bde5b1cb1304b380ff9d72e',
                     "pos": 'top'
             }
@@ -249,6 +249,7 @@ class Server:
             embed.add_field(name="Topic/Command:", value=str(topic).capitalize())
             embed.add_field(name="Option:", value=str(option).capitalize())
             embed.add_field(name="Description:", value=description)
+            embed.add_field(name="Link:", value=trello_link)
             embed.set_footer(text="Thank you for submitting a bug!")
             await ctx.author.send(embed=embed)
                                        
