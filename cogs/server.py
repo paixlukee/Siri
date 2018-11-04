@@ -225,6 +225,7 @@ class Server:
     @commands.command(aliases=['rb'])
     async def reportbug(self, ctx, *, topic, option=None, description=None):
         """Bug Report Command (Siri Support Server Only)"""
+        if ctx.channel.id == 494480470839525378:
             args = topic.split('|')
             topic = args[0]
             option = args[1]
