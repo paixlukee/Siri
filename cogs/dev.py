@@ -150,11 +150,11 @@ class Developer:
             try:
                 result = eval(code, env)
             except SyntaxError as e:
-                embed=discord.Embed(colour=0xff0000, description=f"�� **INPUT**:\n```py\n{code}```\n�� **OUTPUT**:\n```py\n{e}```")
+                embed=discord.Embed(colour=0xff0000, description=f":inbox_tray: **INPUT**:\n```py\n{code}```\n:outbox_tray: **OUTPUT**:\n```py\n{e}```")
                 embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
                 return await ctx.send(embed=embed)
             except Exception as e:
-                embed=discord.Embed(colour=0xff0000, description=f"�� **INPUT**:\n```py\n{code}```\n�� **OUTPUT**:\n```py\n{e}```")
+                embed=discord.Embed(colour=0xff0000, description=f":inbox_tray: **INPUT**:\n```py\n{code}```\n:outbox_tray: **OUTPUT**:\n```py\n{e}```")
                 embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
                 return await ctx.send(embed=embed)
 
@@ -163,7 +163,7 @@ class Developer:
 
             self._last_result = result
             if code == "bot.http.token":
-                embed=discord.Embed(colour=rnd(self.colours), description=f"�� **INPUT**:\n```py\n{code}```\n�� **OUTPUT**:\n```py\n{result}```")
+                embed=discord.Embed(colour=rnd(self.colours), description=f":inbox_tray: **INPUT**:\n```py\n{code}```\n:outbox_tray: **OUTPUT**:\n```py\n{result}```")
                 embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
                 return await ctx.send(embed=embed)
 
@@ -174,15 +174,15 @@ class Developer:
                     return await ctx.send(":weary::ok_hand: The output is too long to send to chat. Here is a hastebin file for ya.. :point_right: https://hastebin.com/" + r['key'])                    
                 else:
                     try:
-                        embed=discord.Embed(colour=rnd(self.colours), description=f"�� **INPUT**:\n```py\n{code}```\n�� **OUTPUT**:\n```py\n{result}```")
+                        embed=discord.Embed(colour=rnd(self.colours), description=f":inbox_tray: **INPUT**:\n```py\n{code}```\n:outbox_tray: **OUTPUT**:\n```py\n{result}```")
                         embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
                         return await ctx.send(embed=embed)
                     except Exception as e:
-                        embed=discord.Embed(colour=0xff0000, description=f"�� **INPUT**:\n```py\n{code}```\n�� **OUTPUT**:\n```py\n{e}```")
+                        embed=discord.Embed(colour=0xff0000, description=f":inbox_tray: **INPUT**:\n```py\n{code}```\n:outbox_tray: **OUTPUT**:\n```py\n{e}```")
                         embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
                         return await ctx.send(embed=embed)
         except Exception as e:
-            embed=discord.Embed(colour=0xff0000, description=f"�� **INPUT**:\n```py\n{code}```\n�� **OUTPUT**:\n```py\n{e}```")
+            embed=discord.Embed(colour=0xff0000, description=f":inbox_tray: **INPUT**:\n```py\n{code}```\n:outbox_tray: **OUTPUT**:\n```py\n{e}```")
             embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
             return await ctx.send(embed=embed)
         
