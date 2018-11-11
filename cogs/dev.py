@@ -126,7 +126,8 @@ class Developer:
     @commands.is_owner()
     async def eval(self, ctx, *, code):
         # thanksss skuwww
-        code = code.replace('“', '"').replace('”', '"')
+        o_code = code
+        code = code.replace('“', '"').replace('”', '"').replace("-s", "").replace("-silent", "")
         try:
             env = {
                 'bot': ctx.bot,
@@ -168,7 +169,7 @@ class Developer:
                 embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
                 return await ctx.send(embed=embed)
             
-            elif code.endswith(" -silent") or code.endswith(" -s"):
+            elif o_code.endswith(" -silent") or o_code.endswith(" -s"):
                 pass
             
             else:
