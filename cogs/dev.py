@@ -23,6 +23,7 @@ class Developer:
     def __init__(self, bot):
         self.bot = bot
         self._last_result = None
+        self.colours = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
         
     @commands.group(pass_context=True)
     @commands.is_owner()
@@ -117,6 +118,10 @@ class Developer:
         except Exception as e:
             await ctx.send(f"**Error sending support response!**\n```{e}```")
             
+    @command.command()
+    async def players(self, ctx):
+        embed = discord.Embed(colour=rnd(self.colour))
+            
     @commands.command(aliases=['debug', 'ev'])
     @commands.is_owner()
     async def eval(self, ctx, *, code):
@@ -134,9 +139,9 @@ class Developer:
                 'commands': commands,
                 'requests': requests,
                 'lavalink': lavalink,
-                'mets no longer friend :cry:':True,
                 're': re,
                 'os': os,
+                'rnd': rnd,
                 'time_rx': re.compile('[0-9]+'),
                 'player': await self.bot.lavalink.get_player(ctx.guild.id),
                 '_': self._last_result
@@ -145,27 +150,22 @@ class Developer:
             try:
                 result = eval(code, env)
             except SyntaxError as e:
-                embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, e))
-                embed.set_footer(text="Code Evaluation", icon_url=self.bot.user.avatar_url)
-                embed.timestamp = datetime.datetime.utcnow()
-                await ctx.send(embed=embed)
-                return
+                embed=discord.Embed(colour=0xff0000, description=f"�� **INPUT**:\n```py\n{code}```\n�� **OUTPUT**:\n```py\n{e}```")
+                embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
+                return await ctx.send(embed=embed)
             except Exception as e:
-                embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, e))
-                embed.set_footer(text="Code Evaluation", icon_url=self.bot.user.avatar_url)
-                embed.timestamp = datetime.datetime.utcnow()
-                await ctx.send(embed=embed)
-                return
+                embed=discord.Embed(colour=0xff0000, description=f"�� **INPUT**:\n```py\n{code}```\n�� **OUTPUT**:\n```py\n{e}```")
+                embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
+                return await ctx.send(embed=embed)
 
             if asyncio.iscoroutine(result):
                 result = await result
 
             self._last_result = result
             if code == "bot.http.token":
-                embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\nyou thought wrong.. slut```".format(code))
-                embed.set_footer(text="Code Evaluation", icon_url=self.bot.user.avatar_url)
-                embed.timestamp = datetime.datetime.utcnow()
-                await ctx.send(embed=embed)
+                embed=discord.Embed(colour=rnd(self.colours), description=f"�� **INPUT**:\n```py\n{code}```\n�� **OUTPUT**:\n```py\n{result}```")
+                embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
+                return await ctx.send(embed=embed)
 
             else:
                 if len(str(result)) > 1500:
@@ -174,23 +174,17 @@ class Developer:
                     return await ctx.send(":weary::ok_hand: The output is too long to send to chat. Here is a hastebin file for ya.. :point_right: https://hastebin.com/" + r['key'])                    
                 else:
                     try:
-                        embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, result))
-                        embed.set_footer(text="Code Evaluation", icon_url=self.bot.user.avatar_url)
-                        embed.timestamp = datetime.datetime.utcnow()
-                        await ctx.send(embed=embed)
-                        return
+                        embed=discord.Embed(colour=rnd(self.colours), description=f"�� **INPUT**:\n```py\n{code}```\n�� **OUTPUT**:\n```py\n{result}```")
+                        embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
+                        return await ctx.send(embed=embed)
                     except Exception as e:
-                        embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}```".format(code, e))
-                        embed.set_footer(text="Code Evaluation", icon_url=self.bot.user.avatar_url)
-                        embed.timestamp = datetime.datetime.utcnow()
-                        await ctx.send(embed=embed)
-                        return
+                        embed=discord.Embed(colour=0xff0000, description=f"�� **INPUT**:\n```py\n{code}```\n�� **OUTPUT**:\n```py\n{e}```")
+                        embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
+                        return await ctx.send(embed=embed)
         except Exception as e:
-            embed = discord.Embed(colour=0x9059ff, description=":pencil2:**INPUT:**\n```py\n{}```\n:robot:**OUTPUT:**\n```py\n{}: {}```".format(code, type(e).__name__, e))
-            embed.set_footer(text="Code Evaluation", icon_url=self.bot.user.avatar_url)
-            embed.timestamp = datetime.datetime.utcnow()
-            await ctx.send(embed=embed)
-            return
+            embed=discord.Embed(colour=0xff0000, description=f"�� **INPUT**:\n```py\n{code}```\n�� **OUTPUT**:\n```py\n{e}```")
+            embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
+            return await ctx.send(embed=embed)
         
         
         
