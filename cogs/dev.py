@@ -167,7 +167,10 @@ class Developer:
                 embed=discord.Embed(colour=rnd(self.colours), description=f":inbox_tray: **INPUT**:\n```py\n{code}```\n:outbox_tray: **OUTPUT**:\n```py\n{result}```")
                 embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
                 return await ctx.send(embed=embed)
-
+            
+            elif code.endswith(" -silent") or code.endswith(" -s"):
+                pass
+            
             else:
                 if len(str(result)) > 1500:
                     r = requests.post(f"https://hastebin.com/documents",
