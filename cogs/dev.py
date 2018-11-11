@@ -118,7 +118,7 @@ class Developer:
         except Exception as e:
             await ctx.send(f"**Error sending support response!**\n```{e}```")
             
-    @command.command()
+    @commands.command()
     async def players(self, ctx):
         embed = discord.Embed(colour=rnd(self.colour))
             
