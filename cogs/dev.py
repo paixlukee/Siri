@@ -125,7 +125,8 @@ class Developer:
     @commands.command(aliases=['debug', 'ev'])
     @commands.is_owner()
     async def eval(self, ctx, *, code):
-        """thanksss skuwww"""
+        # thanksss skuwww
+        code = code.replace('“', '"').replace('”', '"')
         try:
             env = {
                 'bot': ctx.bot,
