@@ -17,6 +17,7 @@ class Server:
             
     async def on_member_join(self, member):
         if member.guild.id == 493325581606453248:
+            await member.add_roles(discord.utils.get(member.guild.roles, name="Member"))
             log = self.bot.get_channel(495840490147807235)
             embed = discord.Embed(colour=0x42f46b, description=f"Welcome to **Siri Support**, {member.mention}! Please review the rules in <#493326871594008576>, for support, <#493331059459489802> is the channel for you, the <@&493327873982332938> is ready to help!")
             embed.set_thumbnail(url=member.avatar_url_as(format='png'))
@@ -90,7 +91,15 @@ class Server:
                 await log.send(embed=embed, content=cnt)
             else:
                 pass
-                              
+ 
+    @commands.command()
+    @commands.is_owner()
+    async def gmember(self, ctx):
+        msg = await ctx.send(f"Adding roles to **{ctx.guild.member_count} users**.")
+        for user in ctx.guild.members:
+            await user.add_roles(discord.utils.get(ctx.guild.roles, name="Member"))
+        msg.delete()
+        await ctx.send(f"Added roles to **{ctx.guild.member_count}**")
             
     @commands.command(pass_context=True)
     async def kick(self, ctx, user: discord.Member= None, *, reason=None):
