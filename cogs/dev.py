@@ -11,13 +11,15 @@ import random
 from discord.ext.commands import errors, converter
 from random import choice as rnd
 import re
-
+import config
 import aiohttp
 import asyncio
 import json
 import datetime
 from .utils import checks
 
+client = MongoClient(config.mongo_client)
+db = client['siri']
 
 class Developer:
     def __init__(self, bot):
@@ -143,6 +145,8 @@ class Developer:
                 'lavalink': lavalink,
                 're': re,
                 'os': os,
+                'MongoClient': client,
+                'db': db,
                 'rnd': rnd,
                 'time_rx': re.compile('[0-9]+'),
                 'player': await self.bot.lavalink.get_player(ctx.guild.id),
