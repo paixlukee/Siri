@@ -109,11 +109,11 @@ class Economy:
             pass
         if day is None:
             await ctx.send("<:redtick:492800273211850767> `Incorrect Usage`\n```siri birthday DD-MM-YYYY```") 
-        elif bday[0] > 31:
+        elif int(bday[0]) > 31:
             await ctx.send("<:redtick:492800273211850767> `Incorrect Usage`\n```siri birthday DD-MM-YYYY```")
-        elif bday[1] > 12:
+        elif int(bday[1]) > 12:
             await ctx.send("<:redtick:492800273211850767> `Incorrect Usage`\n```siri birthday DD-MM-YYYY```")
-        elif bday[2] < 1900:
+        elif int(bday[2]) < 1900:
             await ctx.send("<:redtick:492800273211850767> `Incorrect Usage`\n```siri birthday DD-MM-YYYY```")
         elif len(date) < 3:
             await ctx.send("<:redtick:492800273211850767> `Incorrect Format`\n```DD-MM-YYYY```")           
