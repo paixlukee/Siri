@@ -346,7 +346,7 @@ class Economy:
         db.posts.update_one({"user": user}, {"$set":{"house": count}})
 
     async def set_desc(self, user:int, description=None):
-        db.posts.update_one({"user": user}, {"$set":{"birthday": description}})
+        db.posts.update_one({"user": user}, {"$set":{"description": description}})
 
     async def set_bday(self, user:int, date=None):
         db.posts.update_one({"user": user}, {"$set":{"birthday": date}})
