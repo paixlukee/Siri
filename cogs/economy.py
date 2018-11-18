@@ -355,7 +355,7 @@ class Economy:
             "2nd Place - 2 of the item you suggested, and §10,000\n"\
             "\nContest ends when we have enough suggestions.\n"\
             "\nIf you have any questions, ask here: https://discord.gg/CjRP2Mc\n"\
-            "\nGood Luck!"\
+            "\nGood Luck!"
         await ctx.send(f"```{info}```")
                             
     async def update_data(self, user):
