@@ -338,6 +338,26 @@ class Economy:
         embed.set_author(name="Incoming Suggestion", icon_url=ctx.author.avatar_url_as(format='png'))
         await self.bot.get_channel(493333785610551300).send(embed=embed) 
                             
+    @commands.command()
+    async def contestinfo(self, ctx):
+        info = "ITEM CONTEST\n"\
+            "___________\n"\
+            "For the economy commands, there are only 3 items you can buy [Apple, iPhone, House].\n"\
+            "But, I want to add 2 more items.\n"\
+            "The one who gives me the best suggestion, will get a prize.\n\n"\
+            "HOW TO ENTER:\n"\
+            "1. Run the command 'siri itemsuggest' with your suggestion.\n"\
+            "2. Your suggestion will be sent, wait until the contest ends.\n"\
+            "3. When the contest ends, I will say the winners in https://discord.gg/CjRP2Mc\n"\
+            "4. If you win, claim your prize in the support server.\n"\
+            "\nPRIZES:"\
+            "1st Place - 3 of the item you suggested, and §15,000\n"\
+            "2nd Place - 2 of the item you suggested, and §10,000\n"\
+            "\nContest ends when we have enough suggestions.\n"\
+            "\nIf you have any questions, ask here: https://discord.gg/CjRP2Mc\n"\
+            "\nGood Luck!"\
+        await ctx.send(f"```{info}```")
+                            
     async def update_data(self, user):
         post = {
             "user": user.id,
