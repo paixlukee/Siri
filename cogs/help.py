@@ -1,23 +1,28 @@
 import discord
 from discord.ext import commands
-
+from random import choice as rnd
 import time
 from discord.ext.commands import errors, converter
+import config
 
+client = MongoClient(config.mongo_client)
+db = client['siri']
 
 class Help:
     def __init__(self, bot):
         self.bot = bot
-
+        self.colours = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
+        self.news = db.posts.find_one({"utility": "help"})
 
     @commands.command(name="help", aliases=['cmds'])
-    @commands.cooldown(1, 1, commands.BucketType.user)
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def _help(self, ctx, l:str = None, cmd:str = None):
         """This Command."""
         if ctx.message.author.bot: return
         elif not l:            
-            embed = discord.Embed(description="**What can I help you with?**\n\n> **For help with a module**.. `siri help module|mdl <module>`\n> **For help with a command**.. `siri help command|cmd <command>`")
+            embed = discord.Embed(colour=rnd(self.colours), description="**What can I help you with?**\n\n> **For help with a module**.. `siri help module|mdl <module>`\n> **For help with a command**.. `siri help command|cmd <command>`")
             embed.add_field(name="Current Modules..", value="`help`  `utility`  `crypto`  `bot`  `economy`  `music`")
+            embed.add_field(name="News..", value=f"```{self.news['news']}```")
             embed.set_footer(text="Siri | NOT affiliated with Apple", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
             embed.set_image(url="http://media.idownloadblog.com/wp-content/uploads/2016/06/iOS-10-Siri-waveform-image-001.png")
             await ctx.send(embed=embed)
