@@ -133,7 +133,7 @@ class Economy:
             if posts['apple'] > 0:
                 responses = ['Yum.', 'Mmm.', 'Tasty?', 'Were you hungry?', 'How is it?']
                 await ctx.send(f"You ate :apple:`1`! | {random.choice(responses)}") 
-                await self.apple(user=str(ctx.author.id), count=-1)
+                await self.apple(user=ctx.author.id, count=-1)
             else:
                 await ctx.send("<:redtick:492800273211850767> You don't have any apples!")
         else:
