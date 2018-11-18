@@ -23,7 +23,7 @@ class Help:
         if ctx.message.author.bot: return
         elif not l:            
             embed = discord.Embed(colour=rnd(self.colours), description="**What can I help you with?**\n\n> **For help with a module**.. `siri help module|mdl <module>`\n> **For help with a command**.. `siri help command|cmd <command>`")
-            embed.add_field(name="Current Modules..", value="`help`  `utility`  `crypto`  `bot`  `economy`  `music`")
+            embed.add_field(name="Current Modules..", value="`utility`  `crypto`  `bot`  `economy`  `music`")
             embed.add_field(name="News..", value=f"```{self.news['news']}```")
             embed.set_footer(text="Siri | NOT affiliated with Apple", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
             embed.set_image(url="http://media.idownloadblog.com/wp-content/uploads/2016/06/iOS-10-Siri-waveform-image-001.png")
