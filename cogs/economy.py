@@ -51,28 +51,28 @@ class Economy:
         elif not posts is None:
             
             if colour.lower() == 'pink': # This is a reeaallly bad way of doing it. enh.
-                await self.set_col(user=str(ctx.author.id), colour=0xff93f4)
+                await self.set_col(user=ctx.author.id, colour=0xff93f4)
                 await ctx.send("<:greentick:492800272834494474> Set.")
             elif colour.lower() == 'blue':
-                await self.set_col(user=str(ctx.author.id), colour=0x0000ff)
+                await self.set_col(user=ctx.author.id, colour=0x0000ff)
                 await ctx.send("<:greentick:492800272834494474> Set.")
             elif colour.lower() == 'green':
-                await self.set_col(user=str(ctx.author.id), colour=0x00ff00)
+                await self.set_col(user=ctx.author.id, colour=0x00ff00)
                 await ctx.send("<:greentick:492800272834494474> Set.")
             elif colour.lower() == 'red':
-                await self.set_col(user=str(ctx.author.id), colour=0xff0000)
+                await self.set_col(user=ctx.author.id, colour=0xff0000)
                 await ctx.send("<:greentick:492800272834494474> Set.")
             elif colour.lower() == 'violet' or colour.lower() == 'purple':
-                await self.set_col(user=str(ctx.author.id), colour=0xa341f4)
+                await self.set_col(user=ctx.author.id, colour=0xa341f4)
                 await ctx.send("<:greentick:492800272834494474> Set.")
             elif colour.lower() == 'orange':
-                await self.set_col(user=str(ctx.author.id), colour=0xff9d00)
+                await self.set_col(user=ctx.author.id, colour=0xff9d00)
                 await ctx.send("<:greentick:492800272834494474> Set.")
             elif colour.lower() == 'yellow':
-                await self.set_col(user=str(ctx.author.id), colour=0xffff00)
+                await self.set_col(user=ctx.author.id, colour=0xffff00)
                 await ctx.send("<:greentick:492800272834494474> Set.")
             elif colour.lower() == 'white':
-                await self.set_col(user=str(ctx.author.id), colour=0xffffff)
+                await self.set_col(user=ctx.author.id, colour=0xffffff)
                 await ctx.send("<:greentick:492800272834494474> Set.")
             else:
                 await ctx.send("<:redtick:492800273211850767> That isn't a valid colour! View the colour list with `siri help cmd setcolour`\n```If you would like to suggest a colour, send a ticket ('siri ticket <message>') with the colour name and hex.```")
@@ -345,7 +345,7 @@ class Economy:
         count = bal + count
         db.posts.update_one({"user": user}, {"$set":{"house": count}})
 
-    async def set_desc(self, user:int, description=None):
+    async def set_desc(self, user:int, description):
         db.posts.update_one({"user": user}, {"$set":{"description": description}})
 
     async def set_bday(self, user:int, date=None):
