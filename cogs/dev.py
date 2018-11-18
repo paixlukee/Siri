@@ -34,6 +34,11 @@ class Developer:
     @commands.is_owner()
     async def set(self, ctx):
         pass
+    
+    @set.command()
+    async def hnews(self, ctx, *, message):
+        db.posts.update_one({"utility": "help"}, {"$set":{"news": message}})
+        await ctx.send("<:greentick:492800272834494474> Set.")
         
     @set.command(pass_context=True)
     async def status(self, ctx, status):
