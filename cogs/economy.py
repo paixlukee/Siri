@@ -104,7 +104,7 @@ class Economy:
         """Sets Profile Birthday"""
         posts = db.posts.find_one({"user": ctx.author.id})
         try:
-            date = day.split('-')
+            bday = day.split('-')
         except:
             pass
         if day is None:
@@ -119,7 +119,6 @@ class Economy:
             await ctx.send("<:redtick:492800273211850767> `Incorrect Format`\n```DD-MM-YYYY```")           
         elif not posts is None:
             await ctx.send("<:greentick:492800272834494474> Set.")
-            bday = date
             await self.set_bday(user=ctx.author.id, date=bday)
         else:
             await ctx.send("<:redtick:492800273211850767> You don't have a bank account, create one with `siri bank create`!")
