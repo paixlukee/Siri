@@ -30,6 +30,7 @@ class Economy:
      
 
     @commands.command(aliases=['setcolor'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def setcolour(self, ctx, colour):
         """Sets Profile Colour
 
@@ -80,6 +81,7 @@ class Economy:
             await ctx.send("<:redtick:492800273211850767> You don't have a bank account, create one with `siri bank create`!")
 
     @commands.command(pass_context=True)
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def description(self, ctx, *, message):
         """Sets Profile Description"""
         posts = db.posts.find_one({"user": ctx.author.id})
@@ -97,6 +99,7 @@ class Economy:
             await ctx.send("<:redtick:492800273211850767> You don't have a bank account, create one with `siri bank create`!")
 
     @commands.command(aliases=['birthday'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def bday(self, ctx, day=None, month=None, year=None):
         """Sets Profile Birthday"""
         posts = db.posts.find_one({"user": ctx.author.id})
@@ -116,6 +119,7 @@ class Economy:
             await ctx.send("<:redtick:492800273211850767> You don't have a bank account, create one with `siri bank create`!")
 
     @commands.command(aliases=['market', 'shop'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def store(self, ctx):
         """Buy an item from the Apple Store"""
         embed = discord.Embed(colour=0xa341f4, title="Welcome to the Apple Store!", description="Items:")
@@ -126,6 +130,7 @@ class Economy:
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def eat(self, ctx):
         """Eat an apple"""
         posts = db.posts.find_one({"user": ctx.author.id})
@@ -141,6 +146,7 @@ class Economy:
         
 
     @commands.command(pass_context=True)
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def buy(self, ctx, item = None):
         """Buy an item ('siri store' to see the items)"""
         posts = db.posts.find_one({"user": ctx.author.id})
@@ -187,6 +193,7 @@ class Economy:
             await ctx.send("<:redtick:492800273211850767> I couldn't find that item.. Do `siri shop` to see what we have..")
 
     @commands.command(aliases=['Profile'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def profile(self, ctx, user: discord.User=None):
         """Get user profile"""           
         if user is None:
@@ -229,6 +236,7 @@ class Economy:
 
 
     @commands.command(pass_context=True)
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def give(self, ctx, count:int, user: discord.User=None):
         """Give your money to another user"""
         posts_user = db.posts.find_one({"user": user.id})
@@ -274,6 +282,7 @@ class Economy:
             await ctx.send("<:redtick:492800273211850767> You don't have a bank account, create one with `siri bank create`!") 
 
     @commands.command(aliases=['bal'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def balance(self, ctx, user:discord.User=None):
         """Check your/someone's balance"""
         if user is None:
@@ -295,6 +304,7 @@ class Economy:
 
 
     @commands.group(pass_context=True)
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def bank(self, ctx):
         if ctx.invoked_subcommand is None:
             user = db.posts.find_one({"user": ctx.author.id})
