@@ -44,7 +44,7 @@ class Economy:
         - White
 
         """
-        posts = db.posts.find({"user": ctx.author.id)})
+        posts = db.posts.find_one({"user": ctx.author.id})
         if colour is None:
             await ctx.send("<:redtick:492800273211850767> `Incorrect Usage`\n```siri setcolour <colour-name>```")
 
@@ -82,7 +82,7 @@ class Economy:
     @commands.command(pass_context=True)
     async def description(self, ctx, *, message):
         """Sets Profile Description"""
-        posts = db.posts.find({"user": ctx.author.id)})
+        posts = db.posts.find_one({"user": ctx.author.id})
 
         if message is None:
             await ctx.send("<:redtick:492800273211850767> `Incorrect Usage`\n```siri description <description>```")
@@ -99,7 +99,7 @@ class Economy:
     @commands.command(aliases=['birthday'])
     async def bday(self, ctx, day=None, month=None, year=None):
         """Sets Profile Birthday"""
-        posts = db.posts.find({"user": ctx.author.id)})
+        posts = db.posts.find_one({"user": ctx.author.id})
         try:
             date = day.split('-')
         except:
@@ -128,7 +128,7 @@ class Economy:
     @commands.command(pass_context=True)
     async def eat(self, ctx):
         """Eat an apple"""
-        posts = db.posts.find({"user": ctx.author.id)})
+        posts = db.posts.find_one({"user": ctx.author.id})
         if not posts is None:
             if posts['apple'] > 0:
                 responses = ['Yum.', 'Mmm.', 'Tasty?', 'Were you hungry?', 'How is it?']
@@ -143,7 +143,7 @@ class Economy:
     @commands.command(pass_context=True)
     async def buy(self, ctx, item = None):
         """Buy an item ('siri store' to see the items)"""
-        posts = db.posts.find({"user": ctx.author.id)})
+        posts = db.posts.find_one({"user": ctx.author.id})
         msg = await ctx.send("Processing..")
         if posts is None:
             await ctx.send("<:redtick:492800273211850767> You don't have a bank account, create one with `siri bank create`!")
@@ -201,7 +201,7 @@ class Economy:
                 except:
                     await ctx.send("There was an error!")
                     
-        u = db.posts.find({"user": member.id)})
+        u = db.posts.find_one({"user": member.id})
 
         if not u is None:
             bal = u['money']
