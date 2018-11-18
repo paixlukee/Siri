@@ -268,36 +268,28 @@ class Economy:
     @commands.command(pass_context=True)
     async def give(self, ctx, count:int, user: discord.User=None):
         """Give your money to another user"""
-        with open('assets/economy.json', 'r') as f:
-            users = json.load(f)
+        posts_user = db.posts.find_one({"user": user.id})
+        posts = db.posts.find_one({"user": ctx.author.id})
 
-        #b = ''.join(count)
-
-        if ctx.message.author == user:
-            await ctx.send("Giving money to yourself..?")
+        if ctx.author == user:
+            await ctx.send("<:redtick:492800273211850767> You cannot give money to yourself!")
 
         elif count < 0:
-            await ctx.send(f"You can't give under **{self.s}**1!")
+            await ctx.send(f"<:redtick:492800273211850767> You can't give under **{self.s}**1!")
 
-        elif users[str(ctx.author.id)]['money'] < count:
-            await ctx.send(f"You don't have **{self.s}**{count}!")
+        elif posts['money'] < count:
+            await ctx.send(f"<:redtick:492800273211850767> You don't have **{self.s}**{count}!")
 
-        elif not user.id in users:
-            await ctx.send(f"{user.mention} doesn't have a bank account!")
+        elif posts_user is None:
+            await ctx.send(f"<:redtick:492800273211850767> **{user.name}** doesn't have a bank account!")
         elif count is None:
-            await ctx.send("`Incorrect Usage`\n```siri give <@user> <count>```")
+            await ctx.send("`<:redtick:492800273211850767> Incorrect Usage`\n```siri give <@user> <count>```")
 
-        elif str(ctx.author.id) in users:
-            #try:
-            await self.add_money(users, user=user.id, count=count)
-            await self.take_money(users, user=str(ctx.author.id), count=count)
-            embed = discord.Embed(colour=0xeeeeff, description=f"{ctx.message.author.mention} has given {user.mention} **{self.s}**{count}!")
+        elif not posts is None:
+            await self.add_money(user=user.id, count=count)
+            await self.take_money(user=ctx.author.id, count=count)
+            embed = discord.Embed(colour=0x37749c, description=f"<:greentick:492800272834494474> {ctx.message.author.mention} has given {user.mention} **{self.s}**{count}!")
             await ctx.send(embed=embed)
-
-            with open('assets/economy.json', 'w') as f:
-                json.dump(users, f)
-            #except:
-                #await ctx.send("")
         else:
             await ctx.send("You don't have a bank account, create one with `siri bank create`!") 
 
@@ -306,53 +298,56 @@ class Economy:
     @commands.cooldown(1, 86400, commands.BucketType.user)
     async def daily(self, ctx):
         """Get your daily §5"""
-        posts = db.posts.find_one({"user": {"id": ctx.author.id}})
+        posts = db.posts.find_one({"user": ctx.author.id})
                             
         if not posts is None:
-            await self.add_money(users, user=ctx.author.id, count=5)
-            embed = discord.Embed(colour=0xeeeeff, description=f"For being a good sport all day, I have added **{self.s}**15 to your bank account! You can get more in **24**hrs!")
-            embed.set_footer(text=f"Balance: {self.s}{users[str(ctx.author.id)]['money']}")
+            bal = posts['money']
+            await self.add_money(user=ctx.author.id, count=5)
+            embed = discord.Embed(colour=0x37749c, description=f"<:greentick:492800272834494474> **{self.s}**5 has been added to your bank account! Come back in **24**hrs!")
+            embed.set_footer(text=f"Balance: {self.s}{bal}")
             await ctx.send(embed=embed)
 
         else:
-            await ctx.send("You don't have a bank account, create one with `siri bank create`!") 
+            await ctx.send("<:redtick:492800273211850767> You don't have a bank account, create one with `siri bank create`!") 
 
     @commands.command(aliases=['bal'])
     async def balance(self, ctx, user:discord.User=None):
         """Check your/someone's balance"""
         if user is None:
-            posts = db.posts.find_one({"user": {"id": ctx.author.id}})                
+            posts = db.posts.find_one({"user": ctx.author.id})                
             if not posts is None:
-                embed = discord.Embed(colour=0x0e0eff, description=f"You have **{self.s}**{posts['money']} left in your bank account.")
+                bal = posts['money']
+                embed = discord.Embed(colour=0x0e0eff, description=f"You have **{self.s}**{bal} left in your bank account.")
                 await ctx.send(embed=embed)
             else:
-                await ctx.send("You don't have a bank account, create one with `siri bank create`!")  
+                await ctx.send("<:redtick:492800273211850767> You don't have a bank account, create one with `siri bank create`!")  
         else:
-            posts = db.posts.find_one({"user": {"id": user.id}})                         
+            posts = db.posts.find_one({"user": user.id})                         
             if not posts is None:
-                embed = discord.Embed(colour=0x0e0eff, description=f"**{user.name}** has **{self.s}**{posts['money']} left.")
+                bal = posts['money']
+                embed = discord.Embed(colour=0x0e0eff, description=f"**{user.name}** has **{self.s}**{bal} left.")
                 await ctx.send(embed=embed)
             else:
-                await ctx.send(f"{user.mention} doesn't have a bank account!") 
+                await ctx.send(f"<:redtick:492800273211850767> UU{user.name}** doesn't have a bank account!") 
 
 
     @commands.group(pass_context=True)
     async def bank(self, ctx):
         if ctx.invoked_subcommand is None:
-            user = db.posts.find_one({"user": {"id": ctx.author.id}})
+            user = db.posts.find_one({"user": ctx.author.id})
             if not user is None:
                 await ctx.send("Check your balance with `siri balance`!")
             else:
-                await ctx.send("You don't have a bank account, create one with `siri bank create`!")
+                await ctx.send("<:redtick:492800273211850767> You don't have a bank account, create one with `siri bank create`!")
 
     @bank.command()
     async def create(self, ctx):
         """Create an account"""
         msg = await ctx.send("Please wait..")
-        user = db.posts.find_one({"user": {"id": ctx.author.id}})
+        user = db.posts.find_one({"user": ctx.author.id})
         if not user is None:
             await msg.delete()
-            await ctx.send("You already have an account!")
+            await ctx.send("<:redtick:492800273211850767> You already have an account!")
         else:
             await self.update_data(ctx.author)
             await msg.delete()
@@ -396,9 +391,9 @@ class Economy:
         users[user]['colour'] = colour
 
     async def add_money(self, user, count):
-        data = db.posts.update_one({"user": {"id": user}}
-        money = int(data['money']) + count
-        db.posts.update_one({"user": {"id": user}}, {"$set":{"money": money}})
+        data = db.posts.update_one({"user": user}
+        money = data['money'] + count
+        db.posts.update_one({"user": user}, {"$set":{"money": money}})
 
     async def take_money(self, user, count):
         users[user]['money'] -= count
