@@ -305,37 +305,32 @@ class Economy:
     @commands.command(pass_context=True)
     @commands.cooldown(1, 86400, commands.BucketType.user)
     async def daily(self, ctx):
-        """Get your daily §15"""
-        with open('assets/economy.json', 'r') as f:
-            users = json.load(f)
-
-        if str(ctx.author.id) in users:
-            await self.add_money(users, user=str(ctx.author.id), count=15)
+        """Get your daily §5"""
+        posts = db.posts.find_one({"user": {"id": ctx.author.id}})
+                            
+        if not posts is None:
+            await self.add_money(users, user=ctx.author.id, count=5)
             embed = discord.Embed(colour=0xeeeeff, description=f"For being a good sport all day, I have added **{self.s}**15 to your bank account! You can get more in **24**hrs!")
             embed.set_footer(text=f"Balance: {self.s}{users[str(ctx.author.id)]['money']}")
             await ctx.send(embed=embed)
 
-            with open('assets/economy.json', 'w') as f:
-                json.dump(users, f)
         else:
             await ctx.send("You don't have a bank account, create one with `siri bank create`!") 
 
     @commands.command(aliases=['bal'])
     async def balance(self, ctx, user:discord.User=None):
-        """Check your balance"""
-        with open('assets/economy.json', 'r') as f:
-            users = json.load(f)
-
+        """Check your/someone's balance"""
         if user is None:
-
-            if str(ctx.author.id) in users:
-                embed = discord.Embed(colour=0x0e0eff, description=f"You have **{self.s}**{users[str(ctx.author.id)]['money']} left in your bank account.")
+            posts = db.posts.find_one({"user": {"id": ctx.author.id}})                
+            if not posts is None:
+                embed = discord.Embed(colour=0x0e0eff, description=f"You have **{self.s}**{posts['money']} left in your bank account.")
                 await ctx.send(embed=embed)
             else:
                 await ctx.send("You don't have a bank account, create one with `siri bank create`!")  
         else:
-            if user.id in users:
-                embed = discord.Embed(colour=0x0e0eff, description=f"**{user.name}** has **{self.s}**{users[user.id]['money']} left.")
+            posts = db.posts.find_one({"user": {"id": user.id}})                         
+            if not posts is None:
+                embed = discord.Embed(colour=0x0e0eff, description=f"**{user.name}** has **{self.s}**{posts['money']} left.")
                 await ctx.send(embed=embed)
             else:
                 await ctx.send(f"{user.mention} doesn't have a bank account!") 
@@ -344,116 +339,68 @@ class Economy:
     @commands.group(pass_context=True)
     async def bank(self, ctx):
         if ctx.invoked_subcommand is None:
-            with open('assets/economy.json', 'r') as f:
-                users = json.load(f)
-
-            if str(ctx.author.id) in users:
+            user = db.posts.find_one({"user": {"id": ctx.author.id}})
+            if not user is None:
                 await ctx.send("Check your balance with `siri balance`!")
             else:
                 await ctx.send("You don't have a bank account, create one with `siri bank create`!")
 
-
-    @bank.command(name="create")
-    async def _create(self, ctx):
+    @bank.command()
+    async def create(self, ctx):
         """Create an account"""
         msg = await ctx.send("Please wait..")
-        user = db.posts.find({"user": {"id": str(ctx.author.id)}}).sort(str(ctx.author.id))
-        if str(ctx.author.id) in user:
+        user = db.posts.find_one({"user": {"id": ctx.author.id}})
+        if not user is None:
             await msg.delete()
             await ctx.send("You already have an account!")
         else:
-
-            await self.update_data(str(ctx.author.id))
-
+            await self.update_data(ctx.author)
             await msg.delete()
-            await ctx.send(f"**Hooray!** I have successfully created a bank account for you! I have also gave you **{self.s}**20 as a welcome gift!")
-
-    @commands.command(pass_context=True)
-    async def mtransfer(self, ctx, count:int, user: discord.User=None):
-        if str(ctx.author.id) =='396153668820402197':
-            await ctx.send(":ok_hand: Done.")
-            users = db.posts.find_one()
-            try:
-                await self.add_money(users, user=str(user.id), count=count)
-            except Exception as e:
-                await ctx.send(f"```{e}```")         
-        else:
-            trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
-            trl.set_footer(text="Sorry about that.")
-            await ctx.send(embed=trl)
-            
-    @commands.command()
-    async def users(self, ctx):
-        users = db.posts.find_one()
-        list = ''
-        for i, user in enumerate(users):
-            list += f'**{i + 1}**: `{user}`\n'
-        embed = discord.Embed(colour=0xfefeff, description=list)
-        await ctx.send(embed=embed)
-    
-    @commands.command()
-    async def tcreate(self, ctx):
-        await ctx.send("...")
-        try:
-            await self.update_data(str(ctx.author.id))
-        except Exception as e:
-            await ctx.send(f"F: update_data `{e}`")
-        await asyncio.sleep(0.5)
-        try:
-            result = db.profiles.create_index([(str(ctx.author.id), pymongo.ASCENDING)], unique=True)
-        except Exception as e:
-            await ctx.send(f"F: create_index `{e}`")
-        b = db.posts.find_one({"user": {"id": str(ctx.author.id)}})
-        for post in db.posts.find({"user": {"id": str(ctx.author.id)}}).sort(str(ctx.author.id)):
-            await ctx.send(post)
-        await ctx.send(str(b) + ' FIND_ONE')
-        try:
-            await ctx.send(b[str(ctx.author.id)])
-        except Exception as e:
-            await ctx.send(f"F: b[id] `{e}`")
+            await ctx.send(f"<:greentick:492800272834494474> Your bank account has been created successfully. **{self.s}**20 has been added to your account as a welcome gift.")
 
     async def update_data(self, user):
         post = {
-            user:{
-            "id": user,
+            "user": user.id,
             "money":25,
             "colour":0,
             "apple":0,
             "iphone":0,
             "house":0,
             "description":"DESCRIPTION NOT SET: `siri description <description>`",
-            "birthday":"BNS"}}
-        p = db.posts.insert_one(post)
+            "birthday":"BNS"
+        }
+        db.posts.insert_one(post)
 
     async def apple(self, users, user=None, count=None):
         users[user]['apple'] += count
         with open('assets/economy.json', 'w') as f:
                 json.dump(users, f)
 
-    async def iphone(self, users, user=None, count=None):
+    async def iphone(self, user=None, count=None):
         users[user]['iphone'] += count
         with open('assets/economy.json', 'w') as f:
                 json.dump(users, f)
 
-    async def house(self, users, user=None, count=None):
+    async def house(self, user=None, count=None):
         users[user]['house'] += count
         with open('assets/economy.json', 'w') as f:
                 json.dump(users, f)
 
-    async def set_desc(self, users, user=None, description=None):
+    async def set_desc(self, user=None, description=None):
         users[user]['description'] = description
 
-    async def set_bday(self, users, user=None, date=None):
+    async def set_bday(self, user=None, date=None):
         users[user]['birthday'] = date
 
-    async def set_col(self, users, user=None, colour=None):
+    async def set_col(self, user=None, colour=None):
         users[user]['colour'] = colour
 
-    async def add_money(self, users, user, count):
-        post = {user: {"money":count}}
-        post_id = db.posts.insert_one(post).inserted_id
+    async def add_money(self, user, count):
+        data = db.posts.update_one({"user": {"id": user}}
+        money = int(data['money']) + count
+        db.posts.update_one({"user": {"id": user}}, {"$set":{"money": money}})
 
-    async def take_money(self, users, user, count):
+    async def take_money(self, user, count):
         users[user]['money'] -= count
 
 def setup(bot):
