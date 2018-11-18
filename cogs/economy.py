@@ -392,11 +392,15 @@ class Economy:
 
     async def add_money(self, user, count):
         data = db.posts.update_one({"user": user}
-        money = data['money'] + count
+        bal = data['money']
+        money = bal + count
         db.posts.update_one({"user": user}, {"$set":{"money": money}})
 
     async def take_money(self, user, count):
-        users[user]['money'] -= count
+        data = db.posts.update_one({"user": user}
+        bal = data['money']
+        money = bal - count
+        db.posts.update_one({"user": user}, {"$set":{"money": money}})
 
 def setup(bot):
   bot.add_cog(Economy(bot))
