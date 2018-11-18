@@ -156,39 +156,38 @@ class Economy:
     @commands.command(pass_context=True)
     async def buy(self, ctx, item = None):
         """Buy an item ('siri store' to see the items)"""
-        with open('assets/economy.json', 'r') as f:
-            users = json.load(f)
+        posts = db.posts.find({"user": member.id)})
         msg = await ctx.send("Processing..")
-        if not str(ctx.author.id) in users:
+        if posts is None:
             await ctx.send("You don't have a bank account, create one with `siri bank create`!")
         elif item is None:
             await ctx.send("`Incorrect Usage`\n```siri buy <item>```")
             await msg.delete()
-        elif item == 'apple' or item == 'Apple' or item == '1': #2
+        elif item.lower() == 'apple' or item == '1':
             if users[str(ctx.author.id)]['money'] < 2:
                 await ctx.send("You don't have enough to buy this item!")
                 await msg.delete()
             else:
-                await self.take_money(users, user=str(ctx.author.id), count=2)
-                await self.apple(users, user=str(ctx.author.id), count=1)
+                await self.take_money(user=str(ctx.author.id), count=2)
+                await self.apple(user=str(ctx.author.id), count=1)
                 await msg.delete()
                 await ctx.send("You have successfully bought :apple:`1` from the Apple Store!")
-        elif item == 'iphone' or item == 'iPhone' or item == 'Iphone' or item == 'IPhone' or item == '2': #300
+        elif item.lower() == 'iphone' or item == '2':
             chance = random.randint(1, 25)
             chance_b = random.randint(1, 25)
-            if users[str(ctx.author.id)]['money'] < 300:
+            if posts['money'] < 300:
                 await ctx.send("You don't have enough to buy this item!")
                 await msg.delete()
             elif chance == chance_b:
-                await self.take_money(users, user=str(ctx.author.id), count=300)
+                await self.take_money(user=str(ctx.author.id), count=300)
                 await msg.delete()
                 await ctx.send(f"**BOGO!** You have won :iphone:`2` for the price of one!")
-                await self.iphone(users, user=str(ctx.author.id), count=2)
+                await self.iphone(user=str(ctx.author.id), count=2)
             else:
-                await self.take_money(users, user=str(ctx.author.id), count=300)
+                await self.take_money(user=str(ctx.author.id), count=300)
                 await msg.delete()
                 await ctx.send("You have successfully bought :iphone:`1` from the Apple Store!")
-                await self.iphone(users, user=str(ctx.author.id), count=1)
+                await self.iphone(user=str(ctx.author.id), count=1)
         elif item == 'house' or item == 'House' or item == '3': #2,000
             await msg.delete()
             if users[str(ctx.author.id)]['money'] < 2000:
@@ -202,16 +201,7 @@ class Economy:
 
     @commands.command(aliases=['Profile'])
     async def profile(self, ctx, user: discord.User=None):
-        """Get user profile"""
-        #a = db.posts.find_one()
-        profiles = []
-        a = db.posts.find({"user": {"id": str(ctx.author.id)}}).sort(str(ctx.author.id))
-        u = a[str(ctx.author.id)]
-        for post in db.posts.find({"user": {"id": str(ctx.author.id)}}).sort(str(ctx.author.id)):
-            profiles.append(post[str(ctx.author.id)])
-            
-        u = profiles[1]
-            
+        """Get user profile"""           
         if user is None:
             member = ctx.message.author
 
@@ -223,8 +213,10 @@ class Economy:
                     member = "<@" + user + ">"
                 except:
                     await ctx.send("There was an error!")
+                    
+        u = db.posts.find({"user": member.id)})
 
-        if str(member.id) in a:
+        if not u is None:
             bal = u['money']
             description = u['description']
             bday = u['birthday']
@@ -234,35 +226,16 @@ class Economy:
                 embed.add_field(name="Birthday..", value="BIRTHDAY NOT SET: `siri birthday DD-MM-YYYY`")
             else:
                 embed.add_field(name="Birthday..", value="**/**".join(bday))
-            if colour == 0:
-                embed.add_field(name="Colour..", value="COLOUR NOT SET: `siri setcolour <colour-name>`")
-            elif colour == 16749556:
-                embed.add_field(name="Colour..", value="<:pink:485323891317669888>")
-            elif colour == 255:
-                embed.add_field(name="Colour..", value="<:blue:485324426460528651>")
-            elif colour == 16711680:
-                embed.add_field(name="Colour..", value="<:red:485325173919318027>")
-            elif colour == 65280:
-                embed.add_field(name="Colour..", value="<:green:485325683594231818>")
-            elif colour == 10699252:
-                embed.add_field(name="Colour..", value="<:purple:485582995533725727>")
-            elif colour == 16751872:
-                embed.add_field(name="Colour..", value="<:orange:485585130216488975>")
-            elif colour == 16776960:
-                embed.add_field(name="Colour..", value="<:yellow:485585695109546006>")
-            elif colour == 16777215:
-                embed.add_field(name="Colour..", value="<:white:485587580323233827>")
-            else:
-                embed.add_field(name="Colour..", value=colour) # this ^^ format is really bad and i'll change it to a .replace() soon
-
+            
+            colour = colour.replace(0, "COLOUR NOT SET: `siri setcolour <colour-name>`").replace(16749556, "<:pink:485323891317669888>").replace(255, "<:blue:485324426460528651>").replace(16776960, "<:yellow:485585695109546006>")
+            colour = colour.replace(16711680, "<:red:485325173919318027>").replace(65280, "<:green:485325683594231818>").replace(10699252, "<:purple:485582995533725727>").replace(16751872, "<:orange:485585130216488975>").replace(16777215, "<:white:485587580323233827>")
+            embed.add_field(name="Colour..", value=colour)
             embed.add_field(name="Balance..", value=f"**{self.s}**{bal}")
-            #embed.add_field(name="Experience..", value=f"{points}**XP**")
             embed.add_field(name="Inventory..", value=f":apple:**{u['apple']}**:iphone:**{u['iphone']}**:house:**{u['house']}**")
-            # embed.set_footer(text="CONTACTS", icon_url="https:/cdn1.iconfinder.com/data/icons/style-2-stock/807/Contacts-01.png")
             embed.set_thumbnail(url=member.avatar_url)
             await ctx.send(embed=embed)
         else:
-            await ctx.send(f"{member.mention} doesn't have a bank account, create one with `siri bank create`!")
+            await ctx.send(f"<:redtick:492800273211850767> **{member.name}** doesn't have a bank account, create one with `siri bank create`!")
 
 
     @commands.command(pass_context=True)
@@ -366,29 +339,32 @@ class Economy:
         }
         db.posts.insert_one(post)
 
-    async def apple(self, users, user=None, count=None):
-        users[user]['apple'] += count
-        with open('assets/economy.json', 'w') as f:
-                json.dump(users, f)
+    async def apple(self, user=None, count=None):
+        data = db.posts.find_one({"user": user})
+        bal = data['apple']
+        count = bal + count
+        db.posts.update_one({"user": user}, {"$set":{"apple": count}})
 
     async def iphone(self, user=None, count=None):
-        users[user]['iphone'] += count
-        with open('assets/economy.json', 'w') as f:
-                json.dump(users, f)
+        data = db.posts.find_one({"user": user})
+        bal = data['iphone']
+        count = bal + count
+        db.posts.update_one({"user": user}, {"$set":{"iphone": count}})
 
     async def house(self, user=None, count=None):
-        users[user]['house'] += count
-        with open('assets/economy.json', 'w') as f:
-                json.dump(users, f)
+        data = db.posts.find_one({"user": user})
+        bal = data['house']
+        count = bal + count
+        db.posts.update_one({"user": user}, {"$set":{"house": count}})
 
     async def set_desc(self, user=None, description=None):
-        users[user]['description'] = description
+        db.posts.update_one({"user": user}, {"$set":{"birthday": date}})
 
     async def set_bday(self, user=None, date=None):
-        users[user]['birthday'] = date
+        db.posts.update_one({"user": user}, {"$set":{"birthday": date}})
 
     async def set_col(self, user=None, colour=None):
-        users[user]['colour'] = colour
+        db.posts.update_one({"user": user}, {"$set":{"colour": colour}})
 
     async def add_money(self, user, count):
         data = db.posts.find_one({"user": user})
