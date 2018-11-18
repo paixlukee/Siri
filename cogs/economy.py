@@ -335,7 +335,7 @@ class Economy:
     async def itemsuggest(self, ctx, *, message):
         await ctx.send("Thank you for the item suggestion! Please join http://discord.gg/VuvB4gt to view the results.")
         embed = discord.Embed(colour=0x37749c, description=f"**User:** `{ctx.author}`\n**User ID:** `{ctx.author.id}`\n**Suggestion**: `{message}`")
-        embed.set_author(name="Incoming Suggestion", icon_url=ctx.guild.icon_url_as(format='png'))
+        embed.set_author(name="Incoming Suggestion", icon_url=ctx.author.avatar_url_as(format='png'))
         await self.bot.get_channel(493333785610551300).send(embed=embed) 
                             
     async def update_data(self, user):
