@@ -4,6 +4,8 @@ from random import choice as rnd
 import time
 from discord.ext.commands import errors, converter
 import config
+from pymongo import MongoClient
+import pymongo
 
 client = MongoClient(config.mongo_client)
 db = client['siri']
