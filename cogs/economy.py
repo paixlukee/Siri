@@ -294,7 +294,7 @@ class Economy:
             posts = db.posts.find_one({"user": ctx.author.id})                
             if not posts is None:
                 bal = posts['money']
-                embed = discord.Embed(colour=0x0e0eff, description=f"You have **{self.s}**{bal} left in your bank account.")
+                embed = discord.Embed(colour=0x37749c, description=f"You have **{self.s}**{bal} left in your bank account.")
                 await ctx.send(embed=embed)
             else:
                 await ctx.send("<:redtick:492800273211850767> You don't have a bank account, create one with `siri bank create`!")  
@@ -302,7 +302,7 @@ class Economy:
             posts = db.posts.find_one({"user": user.id})                         
             if not posts is None:
                 bal = posts['money']
-                embed = discord.Embed(colour=0x0e0eff, description=f"**{user.name}** has **{self.s}**{bal} left.")
+                embed = discord.Embed(colour=0x37749c, description=f"**{user.name}** has **{self.s}**{bal} left.")
                 await ctx.send(embed=embed)
             else:
                 await ctx.send(f"<:redtick:492800273211850767> UU{user.name}** doesn't have a bank account!") 
@@ -331,6 +331,13 @@ class Economy:
             await msg.delete()
             await ctx.send(f"<:greentick:492800272834494474> Your bank account has been created successfully. **{self.s}**20 has been added to your account as a welcome gift.")
 
+    @commands.command()
+    async def itemsuggest(self, ctx, *, message):
+        await ctx.send("Thank you for the item suggestion! Please join http://discord.gg/VuvB4gt to view the results.")
+        embed = discord.Embed(colour=0x37749c, description=f"**User:** `{ctx.author}`\n**User ID:** `{ctx.author.id}`\n**Suggestion**: `{message}`")
+        embed.set_author(name="Incoming Suggestion", icon_url=ctx.guild.icon_url_as(format='png'))
+        await self.bot.get_channel(493333785610551300).send(embed=embed) 
+                            
     async def update_data(self, user):
         post = {
             "user": user.id,
