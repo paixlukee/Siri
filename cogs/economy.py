@@ -214,8 +214,9 @@ class Economy:
             else:
                 embed.add_field(name="Birthday..", value="**/**".join(bday))
             
-            colour = colour.replace(0, "COLOUR NOT SET: `siri setcolour <colour-name>`").replace(16749556, "<:pink:485323891317669888>").replace(255, "<:blue:485324426460528651>").replace(16776960, "<:yellow:485585695109546006>")
-            colour = colour.replace(16711680, "<:red:485325173919318027>").replace(65280, "<:green:485325683594231818>").replace(10699252, "<:purple:485582995533725727>").replace(16751872, "<:orange:485585130216488975>").replace(16777215, "<:white:485587580323233827>")
+            colour = str(colour)
+            colour = colour.replace(0, "COLOUR NOT SET: `siri setcolour <colour-name>`").replace('16749556', "<:pink:485323891317669888>").replace('255', "<:blue:485324426460528651>").replace('16776960', "<:yellow:485585695109546006>")
+            colour = colour.replace('16711680', "<:red:485325173919318027>").replace('65280', "<:green:485325683594231818>").replace('10699252', "<:purple:485582995533725727>").replace('16751872', "<:orange:485585130216488975>").replace('16777215', "<:white:485587580323233827>")
             embed.add_field(name="Colour..", value=colour)
             embed.add_field(name="Balance..", value=f"**{self.s}**{bal}")
             embed.add_field(name="Inventory..", value=f":apple:**{u['apple']}**:iphone:**{u['iphone']}**:house:**{u['house']}**")
