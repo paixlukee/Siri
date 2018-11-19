@@ -278,14 +278,17 @@ class Economy:
         r = requests.get(f"https://discordbots.org/api/bots/481337766379126784/check?userId={ctx.author.id}", headers={"Authorization": config.dbl_token}).json()             
         if not posts is None:
             if r['voted'] == 1:
-                bal = posts['money']
-                await self.add_money(user=ctx.author.id, count=5)
-                embed = discord.Embed(colour=0x37749c, description=f"<:greentick:492800272834494474> **{self.s}**5 has been added to your bank account! Come back in **24**hrs!")
-                embed.set_footer(text=f"Balance: {self.s}{bal}")
-                await ctx.send(embed=embed)
+                am = "(**+10**, since you have upvoted!) "
+                await self.add_money(user=ctx.author.id, count=10)
             else:
-                await ctx.send("<:redtick:492800273211850767> You haven't upvoted yet! Go to https://discordbots.org/bot/481337766379126784/vote to upvote the bot.")
-
+                am = "(Upvote [here](https://discordbots.org/bot/481337766379126784/vote) to earn more tomorrow!) "
+                await self.add_money(user=ctx.author.id, count=5)
+                
+            bal = posts['money']
+            await self.add_money(user=ctx.author.id, count=5)
+            embed = discord.Embed(colour=0x37749c, description=f"<:greentick:492800272834494474> **{self.s}**5 has been added to your bank account! {am}Come back in **24**hrs!")
+            embed.set_footer(text=f"Balance: {self.s}{bal}")
+            await ctx.send(embed=embed)
         else:
             await ctx.send("<:redtick:492800273211850767> You don't have a bank account, create one with `siri bank create`!") 
 
