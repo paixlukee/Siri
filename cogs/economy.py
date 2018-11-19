@@ -279,14 +279,14 @@ class Economy:
         if not posts is None:
             if r['voted'] == 1:
                 am = "(**+5**, since you have upvoted!) "
-                await self.add_money(user=ctx.author.id, count=10)
+                count = 10
             else:
-                am = "(Upvote [here](https://discordbots.org/bot/481337766379126784/vote) to earn even more tomorrow!) "
-                await self.add_money(user=ctx.author.id, count=5)
+                am = "(Upvote [here](https://discordbots.org/bot/481337766379126784/vote) to earn an additional 5, tomorrow!) "
+                count = 5
                 
             bal = posts['money']
-            await self.add_money(user=ctx.author.id, count=5)
-            embed = discord.Embed(colour=0x37749c, description=f"<:greentick:492800272834494474> **{self.s}**5 has been added to your bank account! {am}Come back in **24**hrs!")
+            await self.add_money(user=ctx.author.id, count=count)
+            embed = discord.Embed(colour=0x37749c, description=f"<:greentick:492800272834494474> **{self.s}**{count} has been added to your bank account! {am}Come back in **24**hrs!")
             embed.set_footer(text=f"Balance: {self.s}{bal}")
             await ctx.send(embed=embed)
         else:
