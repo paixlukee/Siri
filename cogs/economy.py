@@ -278,10 +278,10 @@ class Economy:
         r = requests.get(f"https://discordbots.org/api/bots/481337766379126784/check?userId={ctx.author.id}", headers={"Authorization": config.dbl_token}).json()             
         if not posts is None:
             if r['voted'] == 1:
-                am = "(**+10**, since you have upvoted!) "
+                am = "(**+5**, since you have upvoted!) "
                 await self.add_money(user=ctx.author.id, count=10)
             else:
-                am = "(Upvote [here](https://discordbots.org/bot/481337766379126784/vote) to earn more tomorrow!) "
+                am = "(Upvote [here](https://discordbots.org/bot/481337766379126784/vote) to earn even more tomorrow!) "
                 await self.add_money(user=ctx.author.id, count=5)
                 
             bal = posts['money']
