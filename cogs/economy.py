@@ -275,7 +275,7 @@ class Economy:
     async def daily(self, ctx):
         """Get your daily §5"""
         posts = db.posts.find_one({"user": ctx.author.id})
-        r = requests.get(f"https://discordbots.org/api/bots/481337766379126784/check?userId={ctx.author.id}").json()             
+        r = requests.get(f"https://discordbots.org/api/bots/481337766379126784/check?userId={ctx.author.id}", headers={"Authorization": config.dbl_token}).json()             
         if not posts is None:
             if r['voted'] == 1:
                 bal = posts['money']
