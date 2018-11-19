@@ -275,13 +275,16 @@ class Economy:
     async def daily(self, ctx):
         """Get your daily §5"""
         posts = db.posts.find_one({"user": ctx.author.id})
-                            
+        r = requests.get(f"https://discordbots.org/api/bots/481337766379126784/check?userId={ctx.author.id}").json()             
         if not posts is None:
-            bal = posts['money']
-            await self.add_money(user=ctx.author.id, count=5)
-            embed = discord.Embed(colour=0x37749c, description=f"<:greentick:492800272834494474> **{self.s}**5 has been added to your bank account! Come back in **24**hrs!")
-            embed.set_footer(text=f"Balance: {self.s}{bal}")
-            await ctx.send(embed=embed)
+            if r['voted'] == 1:
+                bal = posts['money']
+                await self.add_money(user=ctx.author.id, count=5)
+                embed = discord.Embed(colour=0x37749c, description=f"<:greentick:492800272834494474> **{self.s}**5 has been added to your bank account! Come back in **24**hrs!")
+                embed.set_footer(text=f"Balance: {self.s}{bal}")
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send("<:redtick:492800273211850767> You haven't upvoted yet! Go to https://discordbots.org/bot/481337766379126784/vote to upvote the bot.")
 
         else:
             await ctx.send("<:redtick:492800273211850767> You don't have a bank account, create one with `siri bank create`!") 
