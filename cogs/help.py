@@ -14,7 +14,7 @@ class Help:
     def __init__(self, bot):
         self.bot = bot
         self.colours = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
-        self.news = db.posts.find_one({"utility": "help"})
+        self.news = db.utility.find_one({"utility": "help"})
 
     @commands.command(name="help", aliases=['cmds'])
     @commands.cooldown(1, 3, commands.BucketType.user)
