@@ -4,7 +4,7 @@ from discord.ext import commands
 import datetime
 import requests
 import random
-
+import math
 import time
 from discord.ext.commands import errors, converter
 from random import choice, randint
