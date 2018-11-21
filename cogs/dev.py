@@ -30,6 +30,14 @@ class Developer:
         self._last_result = None
         self.colours = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
         
+    @commands.command(aliases=['ptr'])
+    @commands.is_owner()
+    async def patron(self, ctx, user:discord.User, tier='BRONZE'):
+        db.utility.update_one({"utility": "patrons"}, {"$push":{tier.lower(): user.id}})
+        await ctx.send(f"Success! **{user}** is now a patron in the **{tier.upper}** tier!") 
+            
+        
+        
     @commands.group(pass_context=True)
     @commands.is_owner()
     async def set(self, ctx):
