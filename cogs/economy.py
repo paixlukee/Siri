@@ -32,7 +32,7 @@ class Economy:
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def leaderboard(self, ctx):
         msg = await ctx.send("Please wait..")
-        pages = math.ceil(len([x for x in db.posts.find()]) / 12)
+        #pages = math.ceil(len([x for x in db.posts.find()]) / 12)
         clb = ''
 
         for i, x in [x for x in db.posts.find()]:
@@ -42,7 +42,7 @@ class Economy:
             
         embed = discord.Embed(colour=0x37749c, description=clb)
         embed.set_author(name="Leaderboard", icon_url=ctx.me.avatar_url_as(format='png'))
-        embed.set_footer(text=f"{pages} Pages")
+        #embed.set_footer(text=f"{pages} Pages")
         await msg.delete()
         await ctx.send(embed=embed)
             
