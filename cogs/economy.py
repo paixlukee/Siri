@@ -33,15 +33,15 @@ class Economy:
     async def leaderboard(self, ctx):
         msg = await ctx.send("Please wait..")
         pages = math.ceil(len([x for x in db.posts.find()]) / 12)
-        start = (page - 1) * 12
-        end = start + 12
         clb = ''
 
         for i, x in [x for x in db.posts.find()]:
-            clb += f'**{i + 1}.** **{self.bot.get_user(x['user'])}** - **{self.s}{x['money']}**'
+            name = self.bot.get_user(x['user'])
+            clb += f'**{i + 1}.** **{name}** - **{self.s}{x['money']}**'
             
         embed = discord.Embed(colour=0x37749c, description=clb)
         embed.set_author(name="Leaderboard", icon_url=ctx.me.avatar_url_as(format='png'))
+        embed.set_footer(text=f"{pages} Pages")
         await msg.delete()
         await ctx.send(embed=embed)
             
