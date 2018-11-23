@@ -36,9 +36,9 @@ class Economy:
         clb = ''
 
         for i, x in [x for x in db.posts.find()]:
-            name = self.bot.get_user(x['user'])
-            money = x['money']
-            clb += f'**{i + 1}.** **{name}** - **{self.s}{money}**'
+            #name = self.bot.get_user(x['user'])
+            #money = x['money']
+            clb += 'pp'#f'**{i + 1}.** **{name}** - **{self.s}{money}**'
             
         embed = discord.Embed(colour=0x37749c, description=clb)
         embed.set_author(name="Leaderboard", icon_url=ctx.me.avatar_url_as(format='png'))
