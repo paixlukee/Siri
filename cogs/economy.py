@@ -13,7 +13,6 @@ import aiohttp
 import asyncio
 import json
 import os
-import asyncpg
 
 from pymongo import MongoClient
 import pymongo
@@ -36,8 +35,8 @@ class Economy:
         clb = ''
 
         for i, x in db.posts.find().items():
-            name = self.bot.get_user(x['user'])
-            money = x['money']
+            name = self.bot.get_user(x[i+1]['user'])
+            money = x[i+1]['money']
             clb += f'**{i + 1}.** **{name}** - **{self.s}{money}**'
             
         embed = discord.Embed(colour=0x37749c, description=clb)
