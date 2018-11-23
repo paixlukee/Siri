@@ -35,7 +35,7 @@ class Economy:
         #pages = math.ceil(len([x for x in db.posts.find()]) / 12)
         clb = ''
 
-        for i, x in db.posts.find():
+        for i, x in db.posts.find().items():
             name = self.bot.get_user(x['user'])
             money = x['money']
             clb += f'**{i + 1}.** **{name}** - **{self.s}{money}**'
