@@ -161,6 +161,7 @@ class Developer:
                 'lavalink': lavalink,
                 're': re,
                 'os': os,
+                'pymongo': pymongo,
                 'MongoClient': client,
                 'db': db,
                 'rnd': rnd,
