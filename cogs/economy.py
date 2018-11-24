@@ -36,7 +36,6 @@ class Economy:
         choices = ['money', 'apple', 'iphone', 'house']
         start = (page - 1) * 8
         end = start + 8
-        pages = math.ceil(len([x for x in db.posts.find().sort(sort_by.lower(), -1)]) / 8)
         embed = discord.Embed(colour=0x37749c, description="Siri Economy Leaderboard")
         await msg.delete()
         if sort_by in choices:
@@ -47,7 +46,7 @@ class Economy:
                 apple = x['apple']
                 iphone = x['iphone']
                 house = x['house']
-                embed.add_field(name=name, value=f":moneybag:{money}:apple:{apple}:iphone:{iphone}:house:{house}", inline=False)             
+                embed.add_field(name=name, value=f":moneybag:{money} :apple:{apple} :iphone:{iphone} :house:{house}", inline=False)             
             embed.set_author(name="Leaderboard", icon_url=ctx.me.avatar_url_as(format='png'))
             embed.set_footer(text=f"Sorted by: {sort_by}")
             await ctx.send(embed=embed)
