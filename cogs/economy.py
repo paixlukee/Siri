@@ -33,11 +33,12 @@ class Economy:
         """View Siri's Economy Leaderboard"""
         msg = await ctx.send("Please wait..")
         page = 1
+        choices = ['money', 'apple', 'iphone', 'house']
         start = (page - 1) * 8
         end = start + 8
         pages = math.ceil(len([x for x in db.posts.find().sort(sort_by.lower(), -1)]) / 8)
         embed = discord.Embed(colour=0x37749c, description="Siri Economy Leaderboard")
-        try:
+        if sort_by in choices:
             find_c = db.posts.find().sort(sort_by.lower(), -1)
             for x in find_c[start:end]:
                 name = self.bot.get_user(x['user'])
@@ -45,8 +46,8 @@ class Economy:
                 apple = x['apple']
                 iphone = x['iphone']
                 house = x['house']
-                embed.add_field(name=name, value=f":apple:{apple} :iphone:{iphone} :house:{house} :moneybag:{money}", inline=False)
-        except:
+                embed.add_field(name=name, value=f":moneybag:{money}:apple:{apple}:iphone:{iphone}:house:{house}", inline=False)
+        else:
             await ctx.send("<:redtick:492800273211850767> That is not an option! You can only sort by.. `money', `apple`, `iphone`, and `house`")   
             
         embed.set_author(name="Leaderboard", icon_url=ctx.me.avatar_url_as(format='png'))
