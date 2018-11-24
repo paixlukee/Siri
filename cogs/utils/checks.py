@@ -7,12 +7,6 @@ def is_owner_check(message):
 def is_owner():
     return commands.check(lambda ctx: is_owner_check(ctx.message))
 
-def is_patron_check(message):
-    return message.author.id == None
-
-def is_patron():
-    return commands.check(lambda ctx: is_patron_check(ctx.message))
-
 def check_permissions(ctx, perms):
     msg = ctx.message
     if is_owner_check(msg):
