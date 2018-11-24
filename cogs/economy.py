@@ -53,7 +53,7 @@ class Economy:
             await ctx.send(embed=embed)
         
         else:
-            await ctx.send("<:redtick:492800273211850767> That is not an option! You can only sort by.. `money', `apple`, `iphone`, and `house`") 
+            await ctx.send("<:redtick:492800273211850767> That is not an option! You can only sort by.. `money`, `apple`, `iphone`, and `house`") 
             
 
     @commands.command(aliases=['setcolor'])
