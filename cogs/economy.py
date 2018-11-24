@@ -34,7 +34,7 @@ class Economy:
         page = 1
         start = (page - 1) * 8
         end = start + 8
-        pages = math.ceil(len(db.posts.find().sort(sort_by.lower(), -1)) / 8)
+        pages = math.ceil(len([x for x in db.posts.find().sort(sort_by.lower(), -1)]) / 8)
         embed = discord.Embed(colour=0x37749c, description="Siri Economy Leaderboard")
         try:
             find_c = db.posts.find().sort(sort_by.lower(), -1)
