@@ -38,6 +38,7 @@ class Economy:
         end = start + 8
         pages = math.ceil(len([x for x in db.posts.find().sort(sort_by.lower(), -1)]) / 8)
         embed = discord.Embed(colour=0x37749c, description="Siri Economy Leaderboard")
+        await msg.delete()
         if sort_by in choices:
             find_c = db.posts.find().sort(sort_by.lower(), -1)
             for x in find_c[start:end]:
@@ -46,14 +47,13 @@ class Economy:
                 apple = x['apple']
                 iphone = x['iphone']
                 house = x['house']
-                embed.add_field(name=name, value=f":moneybag:{money}:apple:{apple}:iphone:{iphone}:house:{house}", inline=False)
+                embed.add_field(name=name, value=f":moneybag:{money}:apple:{apple}:iphone:{iphone}:house:{house}", inline=False)             
+            embed.set_author(name="Leaderboard", icon_url=ctx.me.avatar_url_as(format='png'))
+            embed.set_footer(text=f"Sorted by: {sort_by}")
+            await ctx.send(embed=embed)
+        
         else:
-            await ctx.send("<:redtick:492800273211850767> That is not an option! You can only sort by.. `money', `apple`, `iphone`, and `house`")   
-            
-        embed.set_author(name="Leaderboard", icon_url=ctx.me.avatar_url_as(format='png'))
-        embed.set_footer(text=f"Sorted by: {sort_by}")
-        await msg.delete()
-        await ctx.send(embed=embed)
+            await ctx.send("<:redtick:492800273211850767> That is not an option! You can only sort by.. `money', `apple`, `iphone`, and `house`") 
             
 
     @commands.command(aliases=['setcolor'])
