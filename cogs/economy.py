@@ -32,12 +32,15 @@ class Economy:
     async def leaderboard(self, ctx):
         msg = await ctx.send("Please wait..")
         #pages = math.ceil(len([x for x in db.posts.find()]) / 12)
-        clb = ''
+        embed = discord.Embed(colour=0x37749c, description="Siri Economy Leaderboard")
 
         for x in db.posts.find().sort("money", -1):
             name = self.bot.get_user(x['user'])
             money = x['money']
-            clb += f'**{name}** - **{self.s}{money}**'
+            apple = x['apple']
+            iphone = x['iphone']
+            house = x['house']
+            embed.add_field(name=name, value=f":moneybag:{money} :apple:{apple} :iphone:{iphone} :house:{house}")
             
         embed = discord.Embed(colour=0x37749c, description=clb)
         embed.set_author(name="Leaderboard", icon_url=ctx.me.avatar_url_as(format='png'))
