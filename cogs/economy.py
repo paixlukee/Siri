@@ -31,10 +31,13 @@ class Economy:
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def leaderboard(self, ctx, sort_by='money'):
         msg = await ctx.send("Please wait..")
-        #pages = math.ceil(len([x for x in db.posts.find()]) / 12)
+        start = (page - 1) * 8
+        end = start + 8
+        pages = math.ceil(len(db.posts.find().sort(sort_by.lower(), -1) / 8)
         embed = discord.Embed(colour=0x37749c, description="Siri Economy Leaderboard")
         try:
-            for x in db.posts.find().sort(sort_by.lower(), -1):
+            find_c = db.posts.find().sort(sort_by.lower(), -1)
+            for x in find_c[start:end]:
                 name = self.bot.get_user(x['user'])
                 money = x['money']
                 apple = x['apple']
