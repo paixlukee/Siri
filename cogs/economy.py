@@ -31,6 +31,7 @@ class Economy:
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def leaderboard(self, ctx, sort_by='money'):
         msg = await ctx.send("Please wait..")
+        page = 1
         start = (page - 1) * 8
         end = start + 8
         pages = math.ceil(len(db.posts.find().sort(sort_by.lower(), -1)) / 8)
