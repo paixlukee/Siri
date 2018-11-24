@@ -29,18 +29,20 @@ class Economy:
         
     @commands.command(aliases=['lb'])
     @commands.cooldown(1, 3, commands.BucketType.user)
-    async def leaderboard(self, ctx):
+    async def leaderboard(self, ctx, sort_by='money'):
         msg = await ctx.send("Please wait..")
         #pages = math.ceil(len([x for x in db.posts.find()]) / 12)
         embed = discord.Embed(colour=0x37749c, description="Siri Economy Leaderboard")
-
-        for x in db.posts.find().sort("money", -1):
-            name = self.bot.get_user(x['user'])
-            money = x['money']
-            apple = x['apple']
-            iphone = x['iphone']
-            house = x['house']
-            embed.add_field(name=name, value=f":apple:{apple} :iphone:{iphone} :house:{house} :moneybag:{money}", inline=False)
+        try:
+            for x in db.posts.find().sort(sort_by.lower(), -1):
+                name = self.bot.get_user(x['user'])
+                money = x['money']
+                apple = x['apple']
+                iphone = x['iphone']
+                house = x['house']
+                embed.add_field(name=name, value=f":apple:{apple} :iphone:{iphone} :house:{house} :moneybag:{money}", inline=False)
+        except:
+            await ctx.send("<:redtick:492800273211850767> That is not an option! You can only sort by.. `money', `apple`, `iphone`, and `house`")   
             
         embed.set_author(name="Leaderboard", icon_url=ctx.me.avatar_url_as(format='png'))
         #embed.set_footer(text=f"{pages} Pages")
