@@ -45,7 +45,7 @@ class Economy:
             await ctx.send("<:redtick:492800273211850767> That is not an option! You can only sort by.. `money', `apple`, `iphone`, and `house`")   
             
         embed.set_author(name="Leaderboard", icon_url=ctx.me.avatar_url_as(format='png'))
-        #embed.set_footer(text=f"{pages} Pages")
+        embed.set_footer(text=f"Sorted by: {sort_by}")
         await msg.delete()
         await ctx.send(embed=embed)
             
