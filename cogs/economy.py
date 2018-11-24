@@ -40,7 +40,7 @@ class Economy:
             apple = x['apple']
             iphone = x['iphone']
             house = x['house']
-            embed.add_field(name=name, value=f":moneybag:{money} :apple:{apple} :iphone:{iphone} :house:{house}")
+            embed.add_field(name=name, value=f":moneybag:{money} :apple:{apple} :iphone:{iphone} :house:{house}", inline=True)
             
         embed.set_author(name="Leaderboard", icon_url=ctx.me.avatar_url_as(format='png'))
         #embed.set_footer(text=f"{pages} Pages")
