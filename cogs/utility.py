@@ -239,9 +239,7 @@ class Utility:
         except:
             pass
         
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get("https://discordbots.org/api/bots/481337766379126784") as r:
-                r = await r.json()
+        r = requests.get("https://discordbots.org/api/bots/481337766379126784", data={"Authorization": config.dbl_token}).json()
         users = len(set(self.bot.get_all_members()))
         channels = []
         for guild in self.bot.guilds:
