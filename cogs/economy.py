@@ -260,6 +260,7 @@ class Economy:
             embed.add_field(name="Colour..", value=colour)
             embed.add_field(name="Balance..", value=f"**{self.s}**{bal}")
             embed.add_field(name="Inventory..", value=f":apple:**{u['apple']}**:iphone:**{u['iphone']}**:house:**{u['house']}**")
+                   
             embed.set_thumbnail(url=member.avatar_url)
             await ctx.send(embed=embed)
         else:
@@ -272,6 +273,7 @@ class Economy:
         """Give your money to another user"""
         posts_user = db.posts.find_one({"user": user.id})
         posts = db.posts.find_one({"user": ctx.author.id})
+                          
 
         if ctx.author == user:
             await ctx.send("<:redtick:492800273211850767> You cannot give money to yourself!")
@@ -292,6 +294,13 @@ class Economy:
             await self.take_money(user=ctx.author.id, count=count)
             embed = discord.Embed(colour=0x37749c, description=f"<:greentick:492800272834494474> {ctx.message.author.mention} has given {user.mention} **{self.s}**{count}!")
             await ctx.send(embed=embed)
+                            
+            if not 'badges' in posts:
+                db.posts.update_one({"user": ctx.author.id}, {"$set":{"badges": []}})
+            if not 'givemoney' in posts['badges']:
+                db.posts.update_one({"user": ctx.author.id}, {"$push":{"badges": 'givemoney'}})
+            else:
+                pass
         else:
             await ctx.send("You don't have a bank account, create one with `siri bank create`!") 
 
