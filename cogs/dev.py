@@ -33,8 +33,7 @@ class Developer:
     async def patron(self, ctx, user:discord.User, tier='BRONZE'):
         db.utility.update_one({"utility": "patrons"}, {"$push":{tier.lower(): user.id}})
         await ctx.send(f"<:greentick:492800272834494474> **{user}** is now a patron in the **{tier.upper()}** tier!") 
-            
-        
+                  
         
     @commands.group(pass_context=True)
     @commands.is_owner()
