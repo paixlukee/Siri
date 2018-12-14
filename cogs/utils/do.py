@@ -20,5 +20,5 @@ async def post(self, list:str):
               headers = {'Authorization': dbl_token}
               p = requests.post('https://discordbots.org/api/bots/481337766379126784/stats', data=data, headers=headers).json()
               return "Server count has been posted.`"
-      except Exception as e:
-          return f'{type(e).__name__}: {e}'
+          except Exception as e:
+              return f'{type(e).__name__}: {e}'
