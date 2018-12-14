@@ -9,7 +9,7 @@ import config
 
 dbl_token = config.dbl_token
 
-async def post(self, list:str):
+async def post(list:str):
   lists = ['dbl']
   if not list.lower() in lists:
       return f"'{list}' list not available."
