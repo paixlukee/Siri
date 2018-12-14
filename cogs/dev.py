@@ -4,7 +4,6 @@ from datetime import datetime
 import lavalink
 import requests
 import os
-
 import time
 from random import choice, randint
 import random
@@ -16,8 +15,7 @@ import aiohttp
 import asyncio
 import json
 import datetime
-from .utils import checks
-
+from .utils import checks, do
 from pymongo import MongoClient
 import pymongo
 
@@ -165,6 +163,7 @@ class Developer:
                 'MongoClient': client,
                 'db': db,
                 'rnd': rnd,
+                'do': do,
                 'time_rx': re.compile('[0-9]+'),
                 'player': await self.bot.lavalink.get_player(ctx.guild.id),
                 '_': self._last_result
