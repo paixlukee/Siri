@@ -15,7 +15,8 @@ import aiohttp
 import asyncio
 import json
 import datetime
-from .utils import do, checks
+from .utils import do
+from .utils import checks
 from pymongo import MongoClient
 import pymongo
 
