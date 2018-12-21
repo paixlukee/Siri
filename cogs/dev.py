@@ -141,9 +141,8 @@ class Developer:
     @commands.command(aliases=['debug', 'ev'])
     @commands.is_owner()
     async def eval(self, ctx, *, code):
-        # thanksss skuwww
         o_code = code
-        code = code.replace('“', '"').replace('”', '"').replace("-s", "").replace("-silent", "")
+        code = code.replace('“', '"').replace('”', '"').replace("-silent", "").replace("-s", "").replace("```py", "").replace("```", "")
         try:
             env = {
                 'bot': ctx.bot,
@@ -157,6 +156,7 @@ class Developer:
                 'commands': commands,
                 'requests': requests,
                 'lavalink': lavalink,
+                'asyncio': asyncio,
                 're': re,
                 'os': os,
                 'pymongo': pymongo,
@@ -184,6 +184,7 @@ class Developer:
                 result = await result
 
             self._last_result = result
+            
             if code == "bot.http.token":
                 embed=discord.Embed(colour=rnd(self.colours), description=f":inbox_tray: **INPUT**:\n```py\n{code}```\n:outbox_tray: **OUTPUT**:\n```py\n{result}```")
                 embed.set_footer(text="\u200b", icon_url=ctx.me.avatar_url_as(format='png'))
