@@ -30,7 +30,7 @@ class Server:
             await member.send("Welcome to **Siri Support**, Please review the rules & info in <#493326871594008576>, for support, <#493331059459489802> is the channel for you, the Support Team is ready to help!")
         elif member.guild.id == 433339597188104192:
             await member.send('Hello! Welcome to the Nest guild. Please fill out the required information in <#458437461119598593>. If you have any questions or concerns, DM an Admin.')
-            await self.bot.get_channel(472471188170604544).send(f'→ <@&464126145898479646>, A member ({member.mention}) has joined the server. Please approve them with `siri apv @{member.name}` after they fill out the required information in <#458437461119598593>. To deny them, do `siri dny @{member.name} REASON`.')
+            await self.bot.get_channel(472471188170604544).send(f'<@&464126145898479646>, A member ({member.mention}) has joined the server. Please approve them with `siri apv @{member.name}` after they fill out the required information in <#458437461119598593>. To deny them, do `siri dny @{member.name} REASON`.')
         elif member.guild.id == 482922868410417163:
             log = self.bot.get_channel(482926662401654795)
             resp = ['derpy is qt', 'this server qt', 'am i qt boat?', 'mmlol', 'be good or bearcop', 'augu is best loli', 'sam good boye', 'FGHJKLKJHG', 'dm me qt', 'do u play osu i play osu r u good at osu i like osu i made osu skin my osu username is xosiri_qt123', 'ok cool idc bitch', 'are u interested in donating $5 to the Discord Bot Rights movement?', 'whats ur favourite anime i like spongebob', 'praise sam he giv good back rubs']
@@ -252,7 +252,7 @@ class Server:
             r2 = random.randint(0, 9)
             rt = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
             code = str(r1) + rnd(rt) + str(r2) + rnd(rt)
-            await self.bot.get_channel(472471188170604544).send(f'→ **{ctx.author}** has approved a member ({member.mention). [code. `{code}`]')
+            await self.bot.get_channel(472471188170604544).send(f'→ **{ctx.author}** has approved a member ({member.mention}. [code. `{code}`]')
         except Exception as e:
             await ctx.send(f'<:redtick:492800273211850767> `{e}`')
             
@@ -265,7 +265,7 @@ class Server:
         r2 = random.randint(0, 9)
         rt = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
         code = str(r1) + rnd(rt) + str(r2) + rnd(rt)
-        await self.bot.get_channel(472471188170604544).send(f'→ **{ctx.author}** has denied a member ({member.mention), reason: `{reason}`. [code. `{code}`]')
+        await self.bot.get_channel(472471188170604544).send(f'→ **{ctx.author}** has denied a member ({member.mention}, reason: `{reason}`. [code. `{code}`]')
         await ctx.guild.kick(member, reason='Denied access to server.')
                      
         
