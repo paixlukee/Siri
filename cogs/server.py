@@ -3,6 +3,7 @@ import asyncio
 import datetime
 from discord.ext import commands
 from random import choice as rnd
+from random import randint
 import config
 import requests
 
@@ -26,6 +27,9 @@ class Server:
             await log.send(embed=embed)
             #
             await member.send("Welcome to **Siri Support**, Please review the rules & info in <#493326871594008576>, for support, <#493331059459489802> is the channel for you, the Support Team is ready to help!")
+        elif member.guild.id == 433339597188104192:
+            await member.send('Hello! Welcome to the Nest guild. Please fill out the required information in <#458437461119598593>. If you have any questions or concerns, DM an Admin.')
+            await self.bot.get_channel(472471188170604544).send(f'<@&464126145898479646>, A member ({member.mention}) has joined the server. Please approve them with `siri apv @{member.name}` after they fill out the required information in <#458437461119598593>. To deny them, do `siri dny @{member.name} REASON`.')
         elif member.guild.id == 482922868410417163:
             log = self.bot.get_channel(482926662401654795)
             resp = ['derpy is qt', 'this server qt', 'am i qt boat?', 'mmlol', 'be good or bearcop', 'augu is best loli', 'sam good boye', 'FGHJKLKJHG', 'dm me qt', 'do u play osu i play osu r u good at osu i like osu i made osu skin my osu username is xosiri_qt123', 'ok cool idc bitch', 'are u interested in donating $5 to the Discord Bot Rights movement?', 'whats ur favourite anime i like spongebob', 'praise sam he giv good back rubs']
@@ -235,6 +239,32 @@ class Server:
                     await ctx.send(f"`{role}` isn't a self-role!")
         else:
             pass
+        
+    @commands.command()
+    async def apv(self, ctx, member: discord.Member):
+        try:
+            await member.add_roles(discord.utils.get(ctx.guild.roles, name="Detective Solvers"))
+            await ctx.message.add_reaction('👍')
+            await member.send('You have been approved. You can now view the general channels.')
+            r1 = random.randint(0, 9)
+            r2 = random.randint(0, 9)
+            rt = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
+            code = r1 + rnd(rt) + r2 + rnd(rt)
+            await bot.get_channel(472471188170604544).send(f'**{member}** has approved a member. [code. {code}]')
+        except Exception as e:
+            await ctx.send(f'<:redtick:492800273211850767> `{e}`')
+            
+    @commands.command()
+    async def dny(self, ctx, member: discord.Member, reason='N/A')
+        await ctx.message.add_reaction('👍')
+        await member.send(f'You have been denied access to the Nest guild. Reason: `{reason}`')
+        r1 = random.randint(0, 9)
+        r2 = random.randint(0, 9)
+        rt = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
+        code = r1 + rnd(rt) + r2 + rnd(rt)
+        await bot.get_channel(472471188170604544).send(f'**{member}** has denied a member, reason: `{reason}`. [code. {code}]')
+        await guild.kick(member, reason='Denied access to server.')
+                     
         
     @commands.command(aliases=['bugreport'])
     async def reportbug(self, ctx, *, topic, option=None, description=None):
