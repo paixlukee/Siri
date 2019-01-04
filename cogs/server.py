@@ -252,7 +252,7 @@ class Server:
             r2 = random.randint(0, 9)
             rt = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
             code = str(r1) + rnd(rt) + str(r2) + rnd(rt)
-            await self.bot.get_channel(472471188170604544).send(f'→ **{member}** has approved a member. [code. `{code}`]')
+            await self.bot.get_channel(472471188170604544).send(f'→ **{ctx.author}** has approved a member. [code. `{code}`]')
         except Exception as e:
             await ctx.send(f'<:redtick:492800273211850767> `{e}`')
             
@@ -265,7 +265,7 @@ class Server:
         r2 = random.randint(0, 9)
         rt = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
         code = str(r1) + rnd(rt) + str(r2) + rnd(rt)
-        await self.bot.get_channel(472471188170604544).send(f'→ **{member}** has denied a member, reason: `{reason}`. [code. `{code}`]')
+        await self.bot.get_channel(472471188170604544).send(f'→ **{ctx.author}** has denied a member, reason: `{reason}`. [code. `{code}`]')
         await ctx.guild.kick(member, reason='Denied access to server.')
                      
         
