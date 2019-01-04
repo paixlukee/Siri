@@ -251,7 +251,7 @@ class Server:
             r1 = random.randint(0, 9)
             r2 = random.randint(0, 9)
             rt = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
-            code = r1 + rnd(rt) + r2 + rnd(rt)
+            code = str(r1) + rnd(rt) + str(r2) + rnd(rt)
             await bot.get_channel(472471188170604544).send(f'**{member}** has approved a member. [code. {code}]')
         except Exception as e:
             await ctx.send(f'<:redtick:492800273211850767> `{e}`')
