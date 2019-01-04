@@ -4,6 +4,7 @@ import datetime
 from discord.ext import commands
 from random import choice as rnd
 from random import randint
+import random
 import config
 import requests
 
