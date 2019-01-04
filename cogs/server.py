@@ -266,7 +266,7 @@ class Server:
         rt = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
         code = str(r1) + rnd(rt) + str(r2) + rnd(rt)
         await self.bot.get_channel(472471188170604544).send(f'→ **{member}** has denied a member, reason: `{reason}`. [code. `{code}`]')
-        await guild.kick(member, reason='Denied access to server.')
+        await ctx.guild.kick(member, reason='Denied access to server.')
                      
         
     @commands.command(aliases=['bugreport'])
