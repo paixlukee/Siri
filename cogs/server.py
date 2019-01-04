@@ -242,6 +242,7 @@ class Server:
             pass
         
     @commands.command()
+    @commands.has_permissions(kick_members=True)
     async def apv(self, ctx, member: discord.Member):
         try:
             await member.add_roles(discord.utils.get(ctx.guild.roles, name="Detective Solvers"))
@@ -256,6 +257,7 @@ class Server:
             await ctx.send(f'<:redtick:492800273211850767> `{e}`')
             
     @commands.command()
+    @commands.has_permissions(kick_members=True)
     async def dny(self, ctx, member: discord.Member, reason='N/A'):
         await ctx.message.add_reaction('👍')
         await member.send(f'You have been denied access to the Nest guild. Reason: `{reason}`')
