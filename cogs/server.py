@@ -255,7 +255,7 @@ class Server:
             await ctx.send(f'<:redtick:492800273211850767> `{e}`')
             
     @commands.command()
-    async def dny(self, ctx, member: discord.Member, reason='N/A')
+    async def dny(self, ctx, member: discord.Member, reason='N/A'):
         await ctx.message.add_reaction('👍')
         await member.send(f'You have been denied access to the Nest guild. Reason: `{reason}`')
         r1 = random.randint(0, 9)
