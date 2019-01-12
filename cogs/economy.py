@@ -318,23 +318,23 @@ class Economy:
         if not posts is None:
             if r['voted'] == 1:
                 am = "(**+5**, since you have upvoted!)"
-                count + 5          
+                count = count + 5          
             if p == 'GOLD':
                 am = "(**+75**, since you are a GOLD patron!)"
-                count + 75
+                count = count + 75
             elif p == 'SILVER':
                 am = "(**+50**, since you are a SILVER patron!)"
-                count + 50
+                count = count + 50
             elif p == 'BRONZE':
                 am = "(**+25**, since you are a BRONZE patron!)"
-                count + 25
+                count = count + 25
             else:
-                am = "(Upvote [here](https://discordbots.org/bot/481337766379126784/vote) to earn an additional 5, tomorrow!) "
+                am = "(Upvote [here](https://discordbots.org/bot/481337766379126784/vote) to earn an additional 5, tomorrow!)"
                 count = 5
                 
             bal = posts['money']
             await self.add_money(user=ctx.author.id, count=count)
-            embed = discord.Embed(colour=0x37749c, description=f"<:greentick:492800272834494474> **{self.s}**{count} has been added to your bank account! {am}Come back in **24**hrs!")
+            embed = discord.Embed(colour=0x37749c, description=f"<:greentick:492800272834494474> **{self.s}**{count} has been added to your bank account! {am} Come back in **24**hrs!")
             embed.set_footer(text=f"Balance: {self.s}{bal}")
             await ctx.send(embed=embed)
         else:
