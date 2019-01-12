@@ -21,7 +21,7 @@ class Server:
         if member.guild.id == 493325581606453248:
             await member.add_roles(discord.utils.get(member.guild.roles, name="Member"))
             log = self.bot.get_channel(495840490147807235)
-            mutual = "`, `".join([x.name for x in bot.guilds if ctx.author in x.members])
+            mutual = "`, `".join([x.name for x in self.bot.guilds if ctx.author in x.members])
             embed = discord.Embed(colour=0x42f46b, description=f"Welcome to **Siri Support**, {member.mention}! Please review the rules in <#493326871594008576>, for support, <#493331059459489802> is the channel for you, the <@&493327873982332938> is ready to help!\n\n**Mutual Guilds**: `{mutual}`")
             embed.set_thumbnail(url=member.avatar_url_as(format='png'))
             embed.set_footer(text="Member Join", icon_url=member.guild.icon_url)
