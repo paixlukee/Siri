@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 import pymongo
+import config
 
 client = MongoClient(config.mongo_client)
 db = client['siri']
