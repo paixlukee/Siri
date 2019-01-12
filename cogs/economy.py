@@ -19,6 +19,8 @@ import pymongo
 
 import config
 
+from .utils import patron
+
 client = MongoClient(config.mongo_client)
 db = client['siri']
 
@@ -308,13 +310,24 @@ class Economy:
     @commands.command(pass_context=True)
     @commands.cooldown(1, 86400, commands.BucketType.user)
     async def daily(self, ctx):
-        """Get your daily §5"""
+        """Get your daily §"""
         posts = db.posts.find_one({"user": ctx.author.id})
+        patron = await patron.check(ctx.author.id)
         r = requests.get(f"https://discordbots.org/api/bots/481337766379126784/check?userId={ctx.author.id}", headers={"Authorization": config.dbl_token}).json()             
+        count = 5
         if not posts is None:
             if r['voted'] == 1:
-                am = "(**+5**, since you have upvoted!) "
-                count = 10
+                am = "(**+5**, since you have upvoted!)"
+                count + 5          
+            if patron == 'GOLD':
+                am = "(**+75**, since you are a GOLD patron!)"
+                count + 75
+            elif patron == 'SILVER':
+                am = "(**+50**, since you are a SILVER patron!)"
+                count + 50
+            elif patron == 'BRONZE':
+                am = "(**+25**, since you are a BRONZE patron!)"
+                count + 25
             else:
                 am = "(Upvote [here](https://discordbots.org/bot/481337766379126784/vote) to earn an additional 5, tomorrow!) "
                 count = 5
