@@ -17,9 +17,9 @@ import os
 from pymongo import MongoClient
 import pymongo
 
-import config
-
 from .utils import patron
+
+import config
 
 client = MongoClient(config.mongo_client)
 db = client['siri']
