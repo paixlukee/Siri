@@ -19,7 +19,7 @@ import json
 
 import config
 
-extensions = ['cogs.utility', 'cogs.help', 'cogs.crypto', 'cogs.economy', 'cogs.dev', 'cogs.music']
+extensions = ['cogs.utility', 'cogs.help', 'cogs.economy', 'cogs.dev', 'cogs.music']
 
 class Siri(commands.AutoShardedBot):
     def __init__(self):
@@ -74,7 +74,8 @@ class Siri(commands.AutoShardedBot):
     async def on_guild_join(self, guild):
         log = self.get_channel(493330793599598592)
         server = guild
-        embed = discord.Embed(description=f":tada: **Yay!** Siri has joined `{guild.name}`! Siri is now in `{str(len(self.guilds))}` guilds!")
+        embed = discord.Embed(colour=0xf44141, description=f"Siri has joined `{guild.name}`! Siri is now in `{str(len(self.guilds))}` guilds!")
+        embed.set_footer(text=f'ID: {guild.id}', icon_url=guild.icon_url_as(format='png'))
         await log.send(embed=embed)
         targets = [
             discord.utils.get(server.channels, name="bot"),
@@ -100,7 +101,8 @@ class Siri(commands.AutoShardedBot):
 
     async def on_guild_remove(self, guild):
         log = self.get_channel(493330793599598592)
-        embed = discord.Embed(description=f":thumbsdown: **Aw!** Siri has been kicked from `{guild.name}`.. Siri is now in `{str(len(self.guilds))}` guilds.")
+        embed = discord.Embed(colour=0x62f442, description=f"Siri has been kicked from `{guild.name}`.. Siri is now in `{str(len(self.guilds))}` guilds.")
+        embed.set_footer(text=f'ID: {guild.id}', icon_url=guild.icon_url_as(format='png'))
         await log.send(embed=embed)
 
     @commands.command(hidden=True)
@@ -161,14 +163,23 @@ class Siri(commands.AutoShardedBot):
                 print(f'[UPDATE] Loaded all modules')
                 print("------\n\n")
                 for extension in extensions:
+                    loaded = []
+                    not_loaded = []
                     try:
                         self.load_extension(extension)
-                        embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog loaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
-                        await ctx.send(embed=embed)    
+                        loaded.append(f'`{extension}`')    
                     except Exception as error:
-                        embed = discord.Embed(title="<:WrongMark:473277055107334144> Error loading cog:", color=0xff775b, description="**Cog:** `cogs\{}.py`\n**Errors:**\n```{}```".format(extension, error))
-                        await ctx.send(embed=embed)
+                        not_loaded.append(f'`{extension}` - `{error}`')
                         print('\n\nEXTEN./COG ERROR: {} was not loaded due to an error: \n-- [{}] --\n\n'.format(extension, error))
+                    
+                    loaded = '\n'.join(loaded)
+                    not_loaded = '\n'.join(not_loaded)
+                    embed = discord.Embed(colour=0x0000ff)
+                    embed.add_field(name='Loaded', value=loaded)
+                    if not_loaded is None:
+                        embed.add_field(name='Not Loaded', value=not_loaded)
+                        
+                    await ctx.send(embed=embed)
             else:
                 self.load_extension("cogs.{}".format(extension))
                 embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog loaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
