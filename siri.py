@@ -161,9 +161,9 @@ class Siri(commands.AutoShardedBot):
             if extension == 'all':
                 print(f'[UPDATE] Loaded all modules')
                 print("------\n\n")
+                loaded = []
+                not_loaded = []
                 for extension in extensions:
-                    loaded = []
-                    not_loaded = []
                     try:
                         self.load_extension(extension)
                         loaded.append(f'`{extension}`')    
@@ -171,14 +171,14 @@ class Siri(commands.AutoShardedBot):
                         not_loaded.append(f'`{extension}` - `{error}`')
                         print('\n\nEXTEN./COG ERROR: {} was not loaded due to an error: \n-- [{}] --\n\n'.format(extension, error))
                     
-                    loaded = '\n'.join(loaded)
-                    not_loaded = '\n'.join(not_loaded)
-                    embed = discord.Embed(colour=0x0000ff)
-                    embed.add_field(name='Loaded', value=loaded)
-                    if not_loaded is None:
-                        embed.add_field(name='Not Loaded', value=not_loaded)
+                loaded = '\n'.join(loaded)
+                not_loaded = '\n'.join(not_loaded)
+                embed = discord.Embed(colour=0x0000ff)
+                embed.add_field(name='Loaded', value=loaded)
+                if not_loaded is None:
+                    embed.add_field(name='Not Loaded', value=not_loaded)
                         
-                    await ctx.send(embed=embed)
+                await ctx.send(embed=embed)
             else:
                 self.load_extension("cogs.{}".format(extension))
                 embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog loaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
