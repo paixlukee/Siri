@@ -74,7 +74,7 @@ class Siri(commands.AutoShardedBot):
     async def on_guild_join(self, guild):
         log = self.get_channel(493330793599598592)
         server = guild
-        embed = discord.Embed(colour=0xf44141, description=f"Siri has joined `{guild.name}`! Siri is now in `{str(len(self.guilds))}` guilds!")
+        embed = discord.Embed(colour=0x62f442, description=f"Siri has joined `{guild.name}`! Siri is now in `{str(len(self.guilds))}` guilds!")
         embed.set_footer(text=f'ID: {guild.id}', icon_url=guild.icon_url_as(format='png'))
         await log.send(embed=embed)
         targets = [
@@ -101,7 +101,7 @@ class Siri(commands.AutoShardedBot):
 
     async def on_guild_remove(self, guild):
         log = self.get_channel(493330793599598592)
-        embed = discord.Embed(colour=0x62f442, description=f"Siri has been kicked from `{guild.name}`.. Siri is now in `{str(len(self.guilds))}` guilds.")
+        embed = discord.Embed(colour=0xf44141, description=f"Siri has been kicked from `{guild.name}`.. Siri is now in `{str(len(self.guilds))}` guilds.")
         embed.set_footer(text=f'ID: {guild.id}', icon_url=guild.icon_url_as(format='png'))
         await log.send(embed=embed)
 
