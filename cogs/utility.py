@@ -737,10 +737,8 @@ class Utility:
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def translate(self, ctx, lang_code, *, message):
         """Translate some text"""
-        try:
-            await self.add_money(user=ctx.message.author.id, count=1)
-        except:
-            pass
+                                
+        print(f'[TRANSLATE]: {ctx.guild.id}')
         to = lang_code
         msg = message.replace(" ", "+")#dont steal my key lol
         async with aiohttp.ClientSession(headers={'Accept': 'application/json'}) as session:
