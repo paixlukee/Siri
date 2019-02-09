@@ -124,7 +124,6 @@ class Siri(commands.AutoShardedBot):
     async def pull(self, ctx):
         msg = await ctx.send("Pulling..")
         shell = await self.run_cmd('git pull Siri --no-commit --no-edit --ff-only master')
-        await self.run_cmd('git fetch --all')
         shell = str(shell)
         shell = shell.replace("https://github.com/paixlukee/Siri", "Github")
         embed = discord.Embed(colour=0x0000ff, description=f"```css\n{shell}```")
