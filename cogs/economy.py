@@ -229,6 +229,9 @@ class Economy:
     @commands.command(aliases=['slot'])
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def slots(self, ctx, bet:int):
+        
+        if bet = None:
+            await ctx.send('Please provide your bet with the command.')
 
         emojis = [':seven:', ':cherries:', ':grapes:', ':lemon:', ':tangerine:', ':crown:', ':bell:', ':gem:']
         a = random.choice(emojis)
