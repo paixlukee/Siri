@@ -229,40 +229,44 @@ class Economy:
     @commands.command(aliases=['slot'])
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def slots(self, ctx, bet:int = None):
-        emojis = [':seven:', ':cherries:', ':grapes:', ':lemon:', ':tangerine:', ':crown:', ':bell:', ':gem:']
-        a = random.choice(emojis)
-        b = random.choice(emojis)
-        c = random.choice(emojis)
-        
-
-        if a == b == c:
-            if a == ':seven:':
-                won = bet*7
-                slot1 = discord.Embed(description=f"{a}   {b}   {c}")
-                slot1.set_footer(text=f"JACKPOT! You've won §{won}!")
-            elif a == ':crown:' or a == ':gem:':
-                won = bet*4
-                slot1 = discord.Embed(description=f"{a}   {b}   {c}")
-                slot1.set_footer(text=f"Amazing! You've won §{won}!")
-            else: 
-                won = bet*3
-                slot1 = discord.Embed(description=f"{a}   {b}   {c}")
-                slot1.set_footer(text=f"Great! You've won §{won}!")
-            await ctx.send(embed=slot1)
-            await self.add_money(user=ctx.author.id, count=won)
-        elif a == b or a == c or b == c:
-            won = bet*2
-            slot2 = discord.Embed(description=f"{a}   {b}   {c}")
-            slot2.set_footer(text=f"Nice! You've won §{won}!")
-            await ctx.send(embed=slot2)
-            await self.add_money(user=ctx.author.id, count=won)
-        elif bet == None:
-            await ctx.send('Please provide your bet with the command.')
+        posts = db.posts.find_one({"user": ctx.author.id})
+        if not posts['money'] < bet:
+            await ctx.send('You can\'t bet what you don\'t have.')
         else:
-            slot3 = discord.Embed(description=f"{a}   {b}   {c}")
-            slot3.set_footer(text=f"Aw! You didn't win anything.")
-            await ctx.send(embed=slot3)
-            await self.take_money(user=ctx.author.id, count=bet)
+            emojis = [':seven:', ':cherries:', ':grapes:', ':lemon:', ':tangerine:', ':crown:', ':bell:', ':gem:']
+            a = random.choice(emojis)
+            b = random.choice(emojis)
+            c = random.choice(emojis)
+
+
+            if a == b == c:
+                if a == ':seven:':
+                    won = bet*7
+                    slot1 = discord.Embed(description=f"{a}   {b}   {c}")
+                    slot1.set_footer(text=f"JACKPOT! You've won §{won}!")
+                elif a == ':crown:' or a == ':gem:':
+                    won = bet*4
+                    slot1 = discord.Embed(description=f"{a}   {b}   {c}")
+                    slot1.set_footer(text=f"Amazing! You've won §{won}!")
+                else: 
+                    won = bet*3
+                    slot1 = discord.Embed(description=f"{a}   {b}   {c}")
+                    slot1.set_footer(text=f"Great! You've won §{won}!")
+                await ctx.send(embed=slot1)
+                await self.add_money(user=ctx.author.id, count=won)
+            elif a == b or a == c or b == c:
+                won = bet*2
+                slot2 = discord.Embed(description=f"{a}   {b}   {c}")
+                slot2.set_footer(text=f"Nice! You've won §{won}!")
+                await ctx.send(embed=slot2)
+                await self.add_money(user=ctx.author.id, count=won)
+            elif bet == None:
+                await ctx.send('Please provide your bet with the command.')
+            else:
+                slot3 = discord.Embed(description=f"{a}   {b}   {c}")
+                slot3.set_footer(text=f"Aw! You didn't win anything.")
+                await ctx.send(embed=slot3)
+                await self.take_money(user=ctx.author.id, count=bet)
            
                 
     @commands.command(aliases=['Profile'])
