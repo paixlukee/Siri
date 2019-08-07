@@ -234,7 +234,6 @@ class Economy:
         a = random.choice(emojis)
         b = random.choice(emojis)
         c = random.choice(emojis)
-        print(bet)
         
         await self.take_money(user=ctx.author.id, count=bet)
 
@@ -498,7 +497,7 @@ class Economy:
         money = bal + count
         db.posts.update_one({"user": user}, {"$set":{"money": money}})
 
-    async def take_money(self, user:int, count):
+    async def take_money(self, user:int, count:int):
         data = db.posts.find_one({"user": user})
         bal = data['money']
         money = bal - count
