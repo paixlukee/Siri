@@ -26,7 +26,7 @@ class Help:
             embed.add_field(name="Current Modules..", value="`utility`  `bot`  `economy`  `music`")
             if not self.news['news'].lower() == 'none':
                 embed.add_field(name="News..", value=f"```{self.news['news']}```")
-            embed.set_footer(text="Siri | NOT affiliated with Apple", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
+            #embed.set_footer(text="Siri | NOT affiliated with Apple", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
             embed.set_image(url="http://media.idownloadblog.com/wp-content/uploads/2016/06/iOS-10-Siri-waveform-image-001.png")
             await ctx.send(embed=embed)
             
