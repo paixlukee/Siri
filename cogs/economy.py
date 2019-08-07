@@ -237,25 +237,25 @@ class Economy:
         if a == b == c:
             if a == ':seven:':
                 won = bet*7
-                slot1 = discord.Embed(description="{a}   {b}   {c}")
+                slot1 = discord.Embed(description=f"{a}   {b}   {c}")
                 slot1.set_footer(text=f"JACKPOT! You've won §{won}!")
             elif a == ':crown:' or a == ':gem:':
                 won = bet*4
-                slot1 = discord.Embed(description="{a}   {b}   {c}")
+                slot1 = discord.Embed(description=f"{a}   {b}   {c}")
                 slot1.set_footer(text=f"Amazing! You've won §{won}!")
             else: 
                 won = bet*3
-                slot1 = discord.Embed(description="{a}   {b}   {c}")
+                slot1 = discord.Embed(description=f"{a}   {b}   {c}")
                 slot1.set_footer(text=f"Great! You've won §{won}!")
             await ctx.send(embed=slot1)
         elif a == b or a == c or b == c:
             won = bet*2
-            slot2 = discord.Embed(description="{a}   {b}   {c}")
-            slot2.set_footer(text="Nice! You've won §{won}!")
+            slot2 = discord.Embed(description=f"{a}   {b}   {c}")
+            slot2.set_footer(text=f"Nice! You've won §{won}!")
             await ctx.send(embed=slot2)
         else:
-            slot3 = discord.Embed(description="{a}   {b}   {c}")
-            slot3.set_footer(text="Aw! You didn't win anything.")
+            slot3 = discord.Embed(description=f"{a}   {b}   {c}")
+            slot3.set_footer(text=f"Aw! You didn't win anything.")
             await ctx.send(embed=slot3)
                 
     @commands.command(aliases=['Profile'])
