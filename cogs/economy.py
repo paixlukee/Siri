@@ -229,9 +229,12 @@ class Economy:
     @commands.command(aliases=['slot'])
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def slots(self, ctx, bet:int = None):
+        """ Place a bet and play slots!"""
         posts = db.posts.find_one({"user": ctx.author.id})
-        if not posts['money'] > bet:
+        if not posts['money'] > bet or posts['money'] == bet:
             await ctx.send('You can\'t bet what you don\'t have.')
+        elif bet < 1:
+            await ctx.send('Your bet must be above §0')
         else:
             emojis = [':seven:', ':cherries:', ':grapes:', ':lemon:', ':tangerine:', ':crown:', ':bell:', ':gem:']
             a = random.choice(emojis)
