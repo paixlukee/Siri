@@ -256,7 +256,7 @@ class Economy:
             slot2.set_footer(text=f"Nice! You've won §{won}!")
             await ctx.send(embed=slot2)
             await self.add_money(user=ctx.author.id, count=won)
-        elif bet = None:
+        elif bet == None:
             await ctx.send('Please provide your bet with the command.')
         else:
             slot3 = discord.Embed(description=f"{a}   {b}   {c}")
