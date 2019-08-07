@@ -250,7 +250,7 @@ async def slots(self, ctx, bet:int):
         await ctx.send(embed=slot1)
     elif a == b or a == c or b == c:
         won = bet*2
-        slot2 = discord.Embed(description="{a}   {b}   {c}"
+        slot2 = discord.Embed(description="{a}   {b}   {c}")
         slot2.set_footer(text="Nice! You've won §{won}!")
         await ctx.send(embed=slot2)
     else:
