@@ -235,7 +235,6 @@ class Economy:
         b = random.choice(emojis)
         c = random.choice(emojis)
         
-        await self.take_money(user=ctx.author.id, count=bet)
 
         if a == b == c:
             if a == ':seven:':
@@ -262,6 +261,7 @@ class Economy:
             slot3 = discord.Embed(description=f"{a}   {b}   {c}")
             slot3.set_footer(text=f"Aw! You didn't win anything.")
             await ctx.send(embed=slot3)
+            await self.take_money(user=ctx.author.id, count=bet)
            
                 
     @commands.command(aliases=['Profile'])
