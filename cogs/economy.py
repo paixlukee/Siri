@@ -227,6 +227,7 @@ class Economy:
 
             
     @commands.command(aliases=['slot'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def slots(self, ctx, bet:int):
 
         emojis = [':seven:', ':cherries:', ':grapes:', ':lemon:', ':tangerine:', ':crown:', ':bell:', ':gem:']
@@ -250,18 +251,18 @@ class Economy:
                 slot1 = discord.Embed(description=f"{a}   {b}   {c}")
                 slot1.set_footer(text=f"Great! You've won §{won}!")
             await ctx.send(embed=slot1)
+            await self.add_money(user=ctx.author.id, count=won)
         elif a == b or a == c or b == c:
             won = bet*2
             slot2 = discord.Embed(description=f"{a}   {b}   {c}")
             slot2.set_footer(text=f"Nice! You've won §{won}!")
             await ctx.send(embed=slot2)
+            await self.add_money(user=ctx.author.id, count=won)
         else:
-            won = 0
             slot3 = discord.Embed(description=f"{a}   {b}   {c}")
             slot3.set_footer(text=f"Aw! You didn't win anything.")
             await ctx.send(embed=slot3)
-            
-        await self.add_money(user=ctx.author.id, count=won)
+           
                 
     @commands.command(aliases=['Profile'])
     @commands.cooldown(1, 3, commands.BucketType.user)
