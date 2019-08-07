@@ -231,9 +231,9 @@ class Economy:
     async def slots(self, ctx, bet:int = None):
         """ Place a bet and play slots!"""
         posts = db.posts.find_one({"user": ctx.author.id})
-        if not int(posts['money']) > bet or int(posts['money']) == bet:
+        if not int(posts['money']) > int(bet) or int(posts['money']) == int(bet):
             await ctx.send('You can\'t bet what you don\'t have.')
-        elif bet < 1:
+        elif int(bet) < 1:
             await ctx.send('Your bet must be above §0')
         else:
             emojis = [':seven:', ':cherries:', ':grapes:', ':lemon:', ':tangerine:', ':crown:', ':bell:', ':gem:']
