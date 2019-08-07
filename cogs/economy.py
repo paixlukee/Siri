@@ -234,6 +234,7 @@ class Economy:
         a = random.choice(emojis)
         b = random.choice(emojis)
         c = random.choice(emojis)
+        print(bet)
         
         await self.take_money(user=ctx.author.id, count=bet)
 
