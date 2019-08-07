@@ -22,7 +22,7 @@ class Help:
         """This Command."""
         if ctx.message.author.bot: return
         elif not l:            
-            embed = discord.Embed(colour=rnd(self.colours), description="**What can I help you with?**\n\n**For help with a module**.. `siri help module|mdl <module>`\n**For help with a command**.. `siri help command|cmd <command>`")
+            embed = discord.Embed(colour=rnd(self.colours), description="**What can I help you with?**\n\n**For help with a module**.. `siri help module help`\n**For help with a command**.. `siri help command help`")
             embed.add_field(name="Current Modules..", value="`utility`  `bot`  `economy`  `music`")
             if not self.news['news'].lower() == 'none':
                 embed.add_field(name="News..", value=f"```{self.news['news']}```")
