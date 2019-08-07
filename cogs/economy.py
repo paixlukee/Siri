@@ -494,13 +494,13 @@ class Economy:
     async def add_money(self, user:int, count):
         data = db.posts.find_one({"user": user})
         bal = data['money']
-        money = bal + count
+        money = int(bal) + count
         db.posts.update_one({"user": user}, {"$set":{"money": money}})
 
     async def take_money(self, user:int, count:int):
         data = db.posts.find_one({"user": user})
         bal = data['money']
-        money = bal - count
+        money = int(bal) - count
         db.posts.update_one({"user": user}, {"$set":{"money": money}})
 
 def setup(bot):
