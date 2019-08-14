@@ -236,8 +236,7 @@ class Economy:
         elif int(bet) < 1:
             await ctx.send('Your bet must be above §0')
         else:
-            emojis = [':seven:', ':cherries:', ':grapes:', ':lemon:', ':tangerine:', ':crown:', ':bell:', ':gem:']
-            emojis = [':cherries:', ':grapes:', ':lemon:', ':tangerine:']
+            emojis = [':seven:', ':cherries:', ':grapes:', ':lemon:', ':tangerine:', ':crown:', ':bell:', ':gem:', ':shell:']
             fruits = [':cherries:', ':grapes:', ':lemon:', ':tangerine:']
             a = random.choice(emojis)
             b = random.choice(emojis)
