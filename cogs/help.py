@@ -69,7 +69,7 @@ class Help:
                 name = "Bot"
                 d = "Bot info/stats"
             elif cmd == "Economy" or cmd == "economy":
-                modules = ["`balance`", "`bank create`", "`birthday`", "`buy`","`daily`", "`slots`","`description`", "`eat`","`give`", "`leaderboard`", "`profile`", "`setcolour`", "`shop`"]
+                modules = ["`balance`", "`bank create`", "`birthday`", "`buy`","`daily`","`description`", "`eat`", "`flip`","`give`", "`leaderboard`", "`profile`", "`setcolour`", "`shop`", "`slots`"]
                 name = "Economy"
                 d = "Economy Commands"
             elif cmd == "Music" or cmd == "music":
