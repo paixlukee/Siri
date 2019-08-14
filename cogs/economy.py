@@ -235,6 +235,8 @@ class Economy:
             await ctx.send('You can\'t bet what you don\'t have.')
         elif int(bet) < 1:
             await ctx.send('Your bet must be above §0')
+        elif bet == None:
+            await ctx.send('You didn\'t specify a bet.')
         else:
             emojis = [':seven:', ':cherries:', ':grapes:', ':lemon:', ':tangerine:', ':crown:', ':bell:', ':gem:', ':shell:']
             fruits = [':cherries:', ':grapes:', ':lemon:', ':tangerine:']
@@ -278,6 +280,33 @@ class Economy:
                     slot3.set_footer(text=f"Aw! You didn't win anything.")
                     await ctx.send(embed=slot3)
                     await self.take_money(user=ctx.author.id, count=bet)
+                    
+    @commands.command(aliases=['flipacoin'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
+    async def flip(self, ctx, ht=None, bet:int=None):
+        """Double your money by flipping a coin"""
+        posts = db.posts.find_one({"user": ctx.author.id})
+        if not int(posts['money']) > int(bet) or int(posts['money']) == int(bet):
+            await ctx.send('You can\'t bet what you don\'t have.')
+        elif int(bet) < 1:
+            await ctx.send('Your bet must be above §0')
+        elif not ht or not bet or ht.lower() not in ['heads', 'tails']:
+            await ctx.send('You need to specify heads or tails and a bet. Example: `siri flip heads 50`')
+        else:
+            choices = ['heads', 'tails']
+            win = random.choice(choices)
+
+            if win == ht.lower():
+                won = bet*2
+                slot2 = discord.Embed(description=f"<:coin:611327929749733386> **{win.upper()}**")
+                slot2.set_footer(text=f"Nice! You've won §{won}!")
+                await ctx.send(embed=slot2)
+                await self.add_money(user=ctx.author.id, count=won)
+            else:                    
+                slot3 = discord.Embed(description=f"<:coin:611327929749733386> **{win.upper()}**")
+                slot3.set_footer(text=f"Aw! You didn't win anything.")
+                await ctx.send(embed=slot3)
+                await self.take_money(user=ctx.author.id, count=bet)
            
                 
     @commands.command(aliases=['Profile'])
