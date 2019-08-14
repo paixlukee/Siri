@@ -298,12 +298,12 @@ class Economy:
 
             if win == ht.lower():
                 won = bet*2
-                slot2 = discord.Embed(description=f"<:coin:611327929749733386> **{win.upper()}**")
+                slot2 = discord.Embed(description=f"<:coin:611327929749733386> **{win.capitalize()}**")
                 slot2.set_footer(text=f"Nice! You've won §{won}!")
                 await ctx.send(embed=slot2)
                 await self.add_money(user=ctx.author.id, count=won)
             else:                    
-                slot3 = discord.Embed(description=f"<:coin:611327929749733386> **{win.upper()}**")
+                slot3 = discord.Embed(description=f"<:coin:611327929749733386> **{win.capitalize()}**")
                 slot3.set_footer(text=f"Aw! You didn't win anything.")
                 await ctx.send(embed=slot3)
                 await self.take_money(user=ctx.author.id, count=bet)
