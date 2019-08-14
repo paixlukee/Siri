@@ -286,14 +286,12 @@ class Economy:
     async def flip(self, ctx, ht=None, bet:int=None):
         """Double your money by flipping a coin"""
         posts = db.posts.find_one({"user": ctx.author.id})
-        if bet == None:
-            await ctx.send('You didn\'t specify a bet.')
+        if not ht or not bet or ht.lower() not in ['heads', 'tails']:
+            await ctx.send('You need to specify heads or tails and a bet. Example: `siri flip heads 50`')
         elif not int(posts['money']) > int(bet) or int(posts['money']) == int(bet):
             await ctx.send('You can\'t bet what you don\'t have.')
         elif int(bet) < 1:
             await ctx.send('Your bet must be above §0')
-        elif not ht or not bet or ht.lower() not in ['heads', 'tails']:
-            await ctx.send('You need to specify heads or tails and a bet. Example: `siri flip heads 50`')
         else:
             choices = ['heads', 'tails']
             win = random.choice(choices)
