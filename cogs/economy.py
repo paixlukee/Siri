@@ -231,12 +231,12 @@ class Economy:
     async def slots(self, ctx, bet:int = None):
         """ Place a bet and play slots!"""
         posts = db.posts.find_one({"user": ctx.author.id})
-        if not int(posts['money']) > int(bet) or int(posts['money']) == int(bet):
+        if bet == None:
+            await ctx.send('You didn\'t specify a bet.')
+        elif not int(posts['money']) > int(bet) or int(posts['money']) == int(bet):
             await ctx.send('You can\'t bet what you don\'t have.')
         elif int(bet) < 1:
             await ctx.send('Your bet must be above §0')
-        elif bet == None:
-            await ctx.send('You didn\'t specify a bet.')
         else:
             emojis = [':seven:', ':cherries:', ':grapes:', ':lemon:', ':tangerine:', ':crown:', ':bell:', ':gem:', ':shell:']
             fruits = [':cherries:', ':grapes:', ':lemon:', ':tangerine:']
@@ -286,7 +286,9 @@ class Economy:
     async def flip(self, ctx, ht=None, bet:int=None):
         """Double your money by flipping a coin"""
         posts = db.posts.find_one({"user": ctx.author.id})
-        if not int(posts['money']) > int(bet) or int(posts['money']) == int(bet):
+        if bet == None:
+            await ctx.send('You didn\'t specify a bet.')
+        elif not int(posts['money']) > int(bet) or int(posts['money']) == int(bet):
             await ctx.send('You can\'t bet what you don\'t have.')
         elif int(bet) < 1:
             await ctx.send('Your bet must be above §0')
