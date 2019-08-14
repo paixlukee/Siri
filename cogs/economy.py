@@ -237,6 +237,7 @@ class Economy:
             await ctx.send('Your bet must be above §0')
         else:
             emojis = [':seven:', ':cherries:', ':grapes:', ':lemon:', ':tangerine:', ':crown:', ':bell:', ':gem:']
+            fruits = [':cherries:', ':grapes:', ':lemon:', ':tangerine:']
             a = random.choice(emojis)
             b = random.choice(emojis)
             c = random.choice(emojis)
@@ -266,10 +267,17 @@ class Economy:
             elif bet == None:
                 await ctx.send('Please provide your bet with the command.')
             else:
-                slot3 = discord.Embed(description=f"{a}   {b}   {c}")
-                slot3.set_footer(text=f"Aw! You didn't win anything.")
-                await ctx.send(embed=slot3)
-                await self.take_money(user=ctx.author.id, count=bet)
+                if a in fruits and b in fruits and c in fruits:
+                    won = bet*3
+                    slot2 = discord.Embed(description=f"{a}   {b}   {c}")
+                    slot2.set_footer(text=f"Fruit Bonanza! You've won §{won}!")
+                    await ctx.send(embed=slot2)
+                    await self.add_money(user=ctx.author.id, count=won)
+                else:                    
+                    slot3 = discord.Embed(description=f"{a}   {b}   {c}")
+                    slot3.set_footer(text=f"Aw! You didn't win anything.")
+                    await ctx.send(embed=slot3)
+                    await self.take_money(user=ctx.author.id, count=bet)
            
                 
     @commands.command(aliases=['Profile'])
