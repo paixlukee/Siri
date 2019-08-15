@@ -161,6 +161,7 @@ class Developer:
                 'os': os,
                 'pymongo': pymongo,
                 'MongoClient': client,
+                'json': json,
                 'db': db,
                 'rnd': rnd,
                 'do': do,
