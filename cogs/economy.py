@@ -297,7 +297,7 @@ class Economy:
             win = random.choice(choices)
 
             if win == ht.lower():
-                won = bet*2
+                won = bet
                 slot2 = discord.Embed(description=f"<:coin:611327929749733386> **{win.capitalize()}**")
                 slot2.set_footer(text=f"Nice! You've won §{won}!")
                 await ctx.send(embed=slot2)
