@@ -35,7 +35,14 @@ class Server:
         elif member.guild.id == 482922868410417163:
             log = self.bot.get_channel(482926662401654795)
             resp = ['derpy is qt', 'this server qt', 'am i qt boat?', 'mmlol', 'be good or bearcop', 'augu is best loli', 'sam good boye', 'FGHJKLKJHG', 'dm me qt', 'do u play osu i play osu r u good at osu i like osu i made osu skin my osu username is xosiri_qt123', 'ok cool idc bitch', 'are u interested in donating $5 to the Discord Bot Rights movement?', 'whats ur favourite anime i like spongebob', 'praise sam he giv good back rubs']
-            await log.send(f"<a:welcomeglitch:498634744251285516> hi, **{member.name}**! {rnd(resp)}")  
+            await log.send(f"<a:welcomeglitch:498634744251285516> hi, **{member.name}**! {rnd(resp)}") 
+        elif member.guild.id == 608050333423239235:
+            general = self.bot.get_channel(608050333423239241)
+            footers = ['Did you know: According to extensive research by scientists around the globe, traps are indeed, not gay.']
+            embed = discord.Embed(description='Read the rules in <#609143513124175894>. Choose North or South by clicking a reaction below. Choose carefully, you have to ask an admin to change!')
+            embed.set_author(icon_url=ctx.author.avatar_url_as(format='png'), name="Welcome, lukee")
+            embed.set_footer(text=rnd(footers))
+            await general.send(embed=embed)
     async def on_member_remove(self, member):
         if member.guild.id == 493325581606453248:
             quotes = ['So long, farewell, auf Wiedersehen, goodbye. I leave and heave a sigh and say goodbye.', 'Hasta la vista, baby', 'Good luck, we\'re all counting on you', 'You have been my friend. That in itself is a tremendous thing.', 'Never say goodbye because goodbye means going away and going away means forgetting', 'I make it easier for people to leave by making them hate me a little.', 'Agh.. finally.']
