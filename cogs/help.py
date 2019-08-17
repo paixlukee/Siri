@@ -46,7 +46,7 @@ class Help:
                     if _cmd.help is None:
                         embed2 = discord.Embed(description=f"> **Command:** `{cmd}`\n\n```siri {_cmd} <{help}>\n\nNo Description yet.```") 
                         embed2.set_author(name="Siri", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
-                        if cmd == 'help':
+                        if cmd.lower() == 'help':
                             embed2.set_footer(text="This is just a test command. Now try other commands that are listed in the help menu!")
                         await ctx.send(embed=embed2)
                     else:
@@ -85,7 +85,7 @@ class Help:
                 md = " ".join(modules)
                 embed3 = discord.Embed(description=f"> **Module:** `{name}`\n> **Description:** `{d}`\n> **Commands:** {md}")
                 embed3.set_author(name="Siri", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
-                if name == 'help':
+                if name.lower() == 'help':
                             embed2.set_footer(text="This is just a test command. Now try other modules that are listed in the help menu!")
                 await ctx.send(embed=embed3)
             except:
