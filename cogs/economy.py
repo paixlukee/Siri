@@ -293,7 +293,6 @@ class Economy:
             await ctx.send('c')
         else:
             resp = random.choice(posts['work'])
-            print(posts['work'])
             embed = discord.Embed(description=f"{resp['text']} You have been paid {self.s}{resp['money']}.")
             embed.set_footer(text=f"Work again in 24 Hours!")
             await ctx.send(embed=embed)
