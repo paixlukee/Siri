@@ -281,6 +281,22 @@ class Economy:
                     await ctx.send(embed=slot3)
                     await self.take_money(user=ctx.author.id, count=bet)
                     
+                    
+    @commands.command(aliases=['job'])
+    @commands.cooldown(1, 86400, commands.BucketType.user)
+    async def work(self, ctx):
+        """Go to work!"""
+        posts = db.utility.find_one({"utility": "responses"})
+        f = 'no'
+        if f == 'f':
+            await ctx.send('c')
+        else:
+            resp = rnd(posts['responses']['work'])
+            embed = discord.Embed(description=f"{resp['text']} You have been paid {self.s}{resp['money']}.")
+            embed.set_footer(text=f"Work again in 24 Hours!")
+            await ctx.send(embed=embed)
+            await self.add_money(user=ctx.author.id, count=resp['money'])
+                    
     @commands.command(aliases=['flipacoin'])
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def flip(self, ctx, ht=None, bet:int=None):
