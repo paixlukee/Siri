@@ -8,6 +8,7 @@ import math
 import time
 from discord.ext.commands import errors, converter
 from random import choice, randint
+from random import choice, randint as rnd
 
 import aiohttp
 import asyncio
