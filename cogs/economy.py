@@ -284,7 +284,7 @@ class Economy:
                     
                     
     @commands.command(aliases=['job'])
-    @commands.cooldown(1, 86400, commands.BucketType.user)
+    @commands.cooldown(1, 43200, commands.BucketType.user)
     async def work(self, ctx):
         """Go to work!"""
         posts = db.utility.find_one({"utility": "responses"})
@@ -294,7 +294,7 @@ class Economy:
         else:
             resp = random.choice(posts['work'])
             embed = discord.Embed(description=f"<:greentick:492800272834494474> {resp['text']} You have been paid **{self.s}{resp['money']}**.")
-            embed.set_footer(text=f"Work again in 24 Hours!")
+            embed.set_footer(text=f"Work again in 12 Hours!")
             await ctx.send(embed=embed)
             await self.add_money(user=ctx.author.id, count=resp['money'])
                     
