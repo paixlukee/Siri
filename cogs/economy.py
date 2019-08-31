@@ -29,6 +29,7 @@ class Economy:
     def __init__(self, bot):
         self.bot = bot
         self.s = '§'
+        self.colour = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
         
     @commands.command(aliases=['lb'])
     @commands.cooldown(1, 3, commands.BucketType.user)
@@ -249,21 +250,21 @@ class Economy:
             if a == b == c:
                 if a == ':seven:':
                     won = bet*7
-                    slot1 = discord.Embed(description=f"{a}   {b}   {c}")
+                    slot1 = discord.Embed(colour=rnd(self.colour), description=f"{a}   {b}   {c}")
                     slot1.set_footer(text=f"JACKPOT! You've won §{won}!")
                 elif a == ':crown:' or a == ':gem:':
                     won = bet*4
-                    slot1 = discord.Embed(description=f"{a}   {b}   {c}")
+                    slot1 = discord.Embed(colour=rnd(self.colour), description=f"{a}   {b}   {c}")
                     slot1.set_footer(text=f"Amazing! You've won §{won}!")
                 else: 
                     won = bet*3
-                    slot1 = discord.Embed(description=f"{a}   {b}   {c}")
+                    slot1 = discord.Embed(colour=rnd(self.colour), description=f"{a}   {b}   {c}")
                     slot1.set_footer(text=f"Great! You've won §{won}!")
                 await ctx.send(embed=slot1)
                 await self.add_money(user=ctx.author.id, count=won)
             elif a == b or a == c or b == c:
                 won = bet*2
-                slot2 = discord.Embed(description=f"{a}   {b}   {c}")
+                slot2 = discord.Embed(colour=rnd(self.colour), description=f"{a}   {b}   {c}")
                 slot2.set_footer(text=f"Nice! You've won §{won}!")
                 await ctx.send(embed=slot2)
                 await self.add_money(user=ctx.author.id, count=won)
@@ -272,12 +273,12 @@ class Economy:
             else:
                 if a in fruits and b in fruits and c in fruits:
                     won = bet*3
-                    slot2 = discord.Embed(description=f"{a}   {b}   {c}")
+                    slot2 = discord.Embed(colour=rnd(self.colour), description=f"{a}   {b}   {c}")
                     slot2.set_footer(text=f"Fruit Bonanza! You've won §{won}!")
                     await ctx.send(embed=slot2)
                     await self.add_money(user=ctx.author.id, count=won)
                 else:                    
-                    slot3 = discord.Embed(description=f"{a}   {b}   {c}")
+                    slot3 = discord.Embed(colour=rnd(self.colour), description=f"{a}   {b}   {c}")
                     slot3.set_footer(text=f"Aw! You didn't win anything.")
                     await ctx.send(embed=slot3)
                     await self.take_money(user=ctx.author.id, count=bet)
@@ -293,7 +294,7 @@ class Economy:
             await ctx.send('c')
         else:
             resp = random.choice(posts['work'])
-            embed = discord.Embed(description=f"<:greentick:492800272834494474> {resp['text']} You have been paid **{self.s}{resp['money']}**.")
+            embed = discord.Embed(colour=rnd(self.colour), description=f"<:greentick:492800272834494474> {resp['text']} You have been paid **{self.s}{resp['money']}**.")
             embed.set_footer(text=f"Work again in 12 Hours!")
             await ctx.send(embed=embed)
             await self.add_money(user=ctx.author.id, count=resp['money'])
@@ -315,12 +316,12 @@ class Economy:
 
             if win == ht.lower():
                 won = bet
-                slot2 = discord.Embed(description=f"<:coin:611327929749733386> **{win.capitalize()}**")
+                slot2 = discord.Embed(colour=rnd(self.colour), description=f"<:coin:611327929749733386> **{win.capitalize()}**")
                 slot2.set_footer(text=f"Nice! You've won §{won}!")
                 await ctx.send(embed=slot2)
                 await self.add_money(user=ctx.author.id, count=won)
             else:                    
-                slot3 = discord.Embed(description=f"<:coin:611327929749733386> **{win.capitalize()}**")
+                slot3 = discord.Embed(colour=rnd(self.colour), description=f"<:coin:611327929749733386> **{win.capitalize()}**")
                 slot3.set_footer(text=f"Aw! You didn't win anything.")
                 await ctx.send(embed=slot3)
                 await self.take_money(user=ctx.author.id, count=bet)
