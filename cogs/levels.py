@@ -20,10 +20,11 @@ class Levels:
     def __init__(self, bot):
         self.bot = bot
 
-    async def on_message(self, message):
+    async def on_message(self, name, message):
         update = await self.update_data(message.author.id)
-        await self.add_experience(message.author.id)
-        await self.level_up(message.author.id, message.guild.id, message.channel, message.author.name)
+        if update == False:
+            await self.add_experience(message.author.id)
+            await self.level_up(message.author.id, message.guild.id, message.channel, message.author.name)
 
 
     async def update_data(self, user):
