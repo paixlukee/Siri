@@ -73,6 +73,7 @@ class Levels:
 
     @commands.command()
     async def lvlmsgs(self, ctx):
+        """Set level messages for your server"""
         servers = db.utility.find_one({"utility": "serverconf"})
         if ctx.guild.id in servers['level_msgs']:
             await ctx.send(f"Turned level messages off for **{ctx.guild}**.")
