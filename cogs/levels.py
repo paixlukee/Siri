@@ -75,20 +75,20 @@ class Levels:
         servers = db.utility.find_one({"utility": "serverconf"})
         if ctx.guild.id in servers['level_msgs']:
             await ctx.send(f"Turned level messages off for **{ctx.guild}**.")
-            db.utility.update_one({"utility": serverconf}, {"$pull":{"level_msgs": ctx.guild.id}})
+            db.utility.update_one({"utility": "serverconf"}, {"$pull":{"level_msgs": ctx.guild.id}})
         else:
             await ctx.send(f"Turned level messages on for **{ctx.guild}**.")
-            db.utility.update_one({"utility": serverconf}, {"$push":{"level_msgs": ctx.guild.id}})
+            db.utility.update_one({"utility": "serverconf"}, {"$push":{"level_msgs": ctx.guild.id}})
 
     @commands.command()
     async def lvlimgs(self, ctx):
         servers = db.utility.find_one({"utility": "serverconf"})
         if ctx.guild.id in servers['level_msgs']:
             await ctx.send(f"Turned level images off for **{ctx.guild}**.")
-            db.utility.update_one({"utility": serverconf}, {"$pull":{"level_images": ctx.guild.id}})
+            db.utility.update_one({"utility": "serverconf"}, {"$pull":{"level_images": ctx.guild.id}})
         else:
             await ctx.send(f"Turned level images on for **{ctx.guild}**. Permission `level_messages` must be turned on for this to show any change.")
-            db.utility.update_one({"utility": serverconf}, {"$push":{"level_images": ctx.guild.id}})
+            db.utility.update_one({"utility": "serverconf"}, {"$push":{"level_images": ctx.guild.id}})
 
 
 
