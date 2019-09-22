@@ -45,9 +45,11 @@ class Levels:
 
     async def add_experience(self, user):
         data = db.posts.find_one({"user": user})
-        cur_exp = data['exp']
-        new_exp = cur_exp + 3
-        db.posts.update_one({"user": user}, {"$set":{"exp": new_exp}})
+        if not data:
+            print(data)
+            cur_exp = data['exp']
+            new_exp = cur_exp + 3
+            db.posts.update_one({"user": user}, {"$set":{"exp": new_exp}})
 
     async def level_up(self, user, serverid, channel, name):
         data = db.posts.find_one({"user": user})
