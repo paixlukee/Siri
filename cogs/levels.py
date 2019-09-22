@@ -22,7 +22,7 @@ class Levels:
 
     async def on_message(self, name, message):
         update = await self.update_data(message.author.id)
-        if update = False:
+        if update == False:
             await message.channel.send('You don\' have a bank account yet! Create one with `siri bank create`')
         else:
             await self.add_experience(message.author.id)
