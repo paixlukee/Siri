@@ -22,7 +22,7 @@ class Levels:
 
     async def on_message(self, message):
         update = await self.update_data(message.author.id)
-        if update == False:
+        if update == True:
             await self.add_experience(message.author.id)
             await self.level_up(message.author.id, message.guild.id, message.channel, message.author.name)
 
@@ -34,7 +34,9 @@ class Levels:
             for i in user.items():
                 if i[0] == 'level':
                     has_lvl = True
+                    print('1')
             if has_lvl == False:
+                print('2')
                 db.posts.update_one({"user": user}, {"$set":{"level": 1}})
                 db.posts.update_one({"user": user}, {"$set":{"exp": 0}})
                 db.posts.update_one({"user": user}, {"$set":{"last_msg": None}})
@@ -47,7 +49,6 @@ class Levels:
     async def add_experience(self, user):
         data = db.posts.find_one({"user": user})
         if not data:
-            print(data)
             cur_exp = data['exp']
             new_exp = cur_exp + 3
             db.posts.update_one({"user": user}, {"$set":{"exp": new_exp}})
