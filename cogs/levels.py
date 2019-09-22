@@ -66,9 +66,10 @@ class Levels:
 
             if serverid in servers['level_msgs']:
                 if serverid in servers['level_images']:
-                    await channel.send(f"**{name}** just leveled up to **{new_lvl}**!")
+                    await message.channel.send(f"**{name}** just leveled up to **Level {level}**!")
                 else:
-                    await channel.send(f"**{name}** just leveled up to **{new_lvl}**!")
+                    #await message.channel.send(f"**{name}** just leveled up to **{level}**!")
+                    await message.channel.send(file=discord.File('lumodal.png'))
 
     @commands.command()
     async def lvlmsgs(self, ctx):
