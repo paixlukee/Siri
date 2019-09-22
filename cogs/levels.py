@@ -30,7 +30,6 @@ class Levels:
     async def update_data(self, user):
         user = db.posts.find_one({"user": user})
         if user:
-            return True
             has_lvl = False
             for i in user.items():
                 if i[0] == 'level':
@@ -39,6 +38,8 @@ class Levels:
                 db.posts.update_one({"user": user}, {"$set":{"level": 1}})
                 db.posts.update_one({"user": user}, {"$set":{"exp": 0}})
                 db.posts.update_one({"user": user}, {"$set":{"last_msg": None}})
+                
+            return True
 
         else:
             return False
