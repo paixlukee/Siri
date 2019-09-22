@@ -20,7 +20,7 @@ class Levels:
     def __init__(self, bot):
         self.bot = bot
 
-    async def on_message(self, name, message):
+    async def on_message(self, message):
         update = await self.update_data(message.author.id)
         if update == False:
             await message.channel.send('You don\' have a bank account yet! Create one with `siri bank create`')
