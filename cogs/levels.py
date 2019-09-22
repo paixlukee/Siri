@@ -22,11 +22,8 @@ class Levels:
 
     async def on_message(self, message):
         update = await self.update_data(message.author.id)
-        if update == False:
-            await message.channel.send('You don\' have a bank account yet! Create one with `siri bank create`')
-        else:
-            await self.add_experience(message.author.id)
-            await self.level_up(message.author.id, message.guild.id, message.channel, message.author.name)
+        await self.add_experience(message.author.id)
+        await self.level_up(message.author.id, message.guild.id, message.channel, message.author.name)
 
 
     async def update_data(self, user):
