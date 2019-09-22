@@ -61,7 +61,7 @@ class Levels:
         cur_exp = level
         new_lvl = int(exp_change ** (1/4))
 
-        if cur_exp < end_exp:
+        if cur_exp < new_lvl:
             db.posts.update_one({"user": user}, {"$set":{"level": new_lvl}})
 
             if serverid in servers['level_msgs']:
