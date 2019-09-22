@@ -65,7 +65,7 @@ class Levels:
             db.posts.update_one({"user": user}, {"$set":{"level": new_lvl}})
 
             if serverid in servers['level_msgs']:
-                if serverid in servers['level_images']:
+                if not serverid in servers['level_images']:
                     await channel.send(f"**{name}** just leveled up to **Level {level}**!")
                 else:
                     #await message.channel.send(f"**{name}** just leveled up to **{level}**!")
