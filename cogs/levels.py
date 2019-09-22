@@ -46,7 +46,7 @@ class Levels:
 
     async def add_experience(self, user):
         data = db.posts.find_one({"user": user})
-        if not data:
+        if data:
             cur_exp = data['exp']
             new_exp = cur_exp + 3
             db.posts.update_one({"user": user}, {"$set":{"exp": new_exp}})
@@ -73,22 +73,22 @@ class Levels:
     @commands.command()
     async def lvlmsgs(self, ctx):
         servers = db.utility.find_one({"utility": "serverconf"})
-        if ctx.guild.id in servers['lvl_msgs']:
+        if ctx.guild.id in servers['level_msgs']:
             await ctx.send(f"Turned level messages off for **{ctx.guild}**.")
-            db.utility.update_one({"utility": serverconf}, {"$pull":{"lvl_msgs": ctx.guild.id}})
+            db.utility.update_one({"utility": serverconf}, {"$pull":{"level_msgs": ctx.guild.id}})
         else:
             await ctx.send(f"Turned level messages on for **{ctx.guild}**.")
-            db.utility.update_one({"utility": serverconf}, {"$push":{"lvl_msgs": ctx.guild.id}})
+            db.utility.update_one({"utility": serverconf}, {"$push":{"level_msgs": ctx.guild.id}})
 
     @commands.command()
     async def lvlimgs(self, ctx):
         servers = db.utility.find_one({"utility": "serverconf"})
-        if ctx.guild.id in servers['lvl_msgs']:
+        if ctx.guild.id in servers['level_msgs']:
             await ctx.send(f"Turned level images off for **{ctx.guild}**.")
-            db.utility.update_one({"utility": serverconf}, {"$pull":{"lvl_images": ctx.guild.id}})
+            db.utility.update_one({"utility": serverconf}, {"$pull":{"level_images": ctx.guild.id}})
         else:
             await ctx.send(f"Turned level images on for **{ctx.guild}**. Permission `level_messages` must be turned on for this to show any change.")
-            db.utility.update_one({"utility": serverconf}, {"$push":{"lvl_images": ctx.guild.id}})
+            db.utility.update_one({"utility": serverconf}, {"$push":{"level_images": ctx.guild.id}})
 
 
 
