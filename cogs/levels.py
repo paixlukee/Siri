@@ -34,12 +34,11 @@ class Levels:
             for i in user.items():
                 if i[0] == 'level':
                     has_lvl = True
-                    print('1')
             if has_lvl == False:
-                print('2')
-                db.posts.update_one({"user": user}, {"$set":{"level": 1}})
+                e = db.posts.update_one({"user": user}, {"$set":{"level": 1}})
                 db.posts.update_one({"user": user}, {"$set":{"exp": 0}})
                 db.posts.update_one({"user": user}, {"$set":{"last_msg": None}})
+                print(e)
                 
             return True
 
