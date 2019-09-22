@@ -66,9 +66,9 @@ class Levels:
 
             if serverid in servers['level_msgs']:
                 if serverid in servers['level_images']:
-                    await message.channel.send(f"**{name}** just leveled up to **{level}**!")
+                    await channel.send(f"**{name}** just leveled up to **{level}**!")
                 else:
-                    await message.channel.send(f"**{name}** just leveled up to **{level}**!")
+                    await channel.send(f"**{name}** just leveled up to **{level}**!")
 
     @commands.command()
     async def lvlmsgs(self, ctx):
