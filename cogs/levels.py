@@ -35,9 +35,9 @@ class Levels:
                 if i[0] == 'level':
                     has_lvl = True
             if has_lvl == False:
-                db.posts.update_one({"user": user}, {"$addToSet":{"level": 1}})
-                db.posts.update_one({"user": user}, {"$addToSet":{"exp": 0}})
-                db.posts.update_one({"user": user}, {"$addToSet":{"last_msg": None}})
+                db.posts.update_one({"user": user}, {"$set":{"level": 1}})
+                db.posts.update_one({"user": user}, {"$set":{"exp": 0}})
+                db.posts.update_one({"user": user}, {"$set":{"last_msg": None}})
                 
             return True
 
