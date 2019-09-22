@@ -22,7 +22,7 @@ class Levels:
 
     async def on_message(self, name, message):
         update = await self.update_data(message.author.id)
-        if update == False:
+        if update = True:
             await self.add_experience(message.author.id)
             await self.level_up(message.author.id, message.guild.id, message.channel, message.author.name)
 
