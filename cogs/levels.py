@@ -59,7 +59,9 @@ class Levels:
         exp = data['exp']
         exp_change = exp
         cur_exp = level
-        end_exp = int(exp_change ** (1/4))
+        new_lvl = int(exp_change ** (1/4))
+
+        db.posts.update_one({"user": user}, {"$set":{"level": new_lvl}})
 
         if cur_exp < end_exp:
             level_change = end_exp
