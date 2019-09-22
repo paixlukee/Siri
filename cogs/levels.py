@@ -63,13 +63,21 @@ class Levels:
 
         if cur_exp < new_lvl:
             db.posts.update_one({"user": user}, {"$set":{"level": new_lvl}})
+            await self.add_money(user, 50)
 
             if serverid in servers['level_msgs']:
                 if not serverid in servers['level_images']:
-                    await channel.send(f"**{name}** just leveled up to **Level {new_lvl}**!")
+                    await channel.send(f"**{name}** just levelled up to **Level {new_lvl}**!")
                 else:
                     #await message.channel.send(f"**{name}** just leveled up to **{level}**!")
                     await channel.send(file=discord.File('lumodal.png'))
+                    
+                    
+    async def add_money(self, user:int, count):
+        data = db.posts.find_one({"user": user})
+        bal = data['money']
+        money = int(bal) + count
+        db.posts.update_one({"user": user}, {"$set":{"money": money}})
 
     @commands.command()
     async def lvlmsgs(self, ctx):
