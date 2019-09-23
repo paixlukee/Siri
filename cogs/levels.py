@@ -86,7 +86,15 @@ class Levels:
             await ctx.send(f"{user.name}'s siri level is {data['level']} (cmd is WIP)")
         else:
             data = db.posts.find_one({"user": ctx.author.id})
-            await ctx.send(f"{ctx.author.name}\'s siri level is {data['level']} (cmd is WIP)")
+            img = Image.open(f"sirirankcard.jpg")
+            draw = ImageDraw.Draw(img)
+            font = ImageFont.truetype('impact.ttf', 40)
+            draw.text((49,61), ctx.author, font=font, fill=(255, 255, 255, 255))
+            bytes = BytesIO()
+            img.save(bytes, 'PNG')
+            bytes.seek(0)
+            await ctx.send(file="sirirankcard.jpg")
+            #await ctx.send(f"{ctx.author.name}\'s siri level is {data['level']} (cmd is WIP)")
         
     @commands.command()
     async def lvlmsgs(self, ctx):
