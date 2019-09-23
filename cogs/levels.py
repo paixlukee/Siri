@@ -83,10 +83,10 @@ class Levels:
     async def level(self, ctx, user: discord.User = None):
         if user:
             data = db.posts.find_one({"user": user.id})
-            await ctx.send(f'{user.name}\'s siri level is {data['level']} (cmd is WIP)')
+            await ctx.send(f"{user.name}'s siri level is {data['level']} (cmd is WIP)")
         else:
             data = db.posts.find_one({"user": ctx.author.id})
-            await ctx.send('{ctx.author.name}\'s siri level is {data['level']} (cmd is WIP)')
+            await ctx.send(f"{ctx.author.name}\'s siri level is {data['level']} (cmd is WIP)")
         
     @commands.command()
     async def lvlmsgs(self, ctx):
