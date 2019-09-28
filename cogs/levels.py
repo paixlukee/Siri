@@ -92,11 +92,11 @@ class Levels:
             draw = ImageDraw.Draw(card_link)
             #font = ImageFont.truetype("Raleway-Medium.ttf", 40, encoding="unic")
             font = ImageFont.load_default()
-            draw.text((49,61), str(ctx.author), font=font, fill=(255, 255, 255, 255))
+            draw.text((49,61), str(ctx.author), font=font, fill=(0, 0, 0, 0))
             bytes = BytesIO()
             card_link.save(bytes, 'PNG')
             bytes.seek(0)
-            await ctx.send(file=discord.File(Image.open("sirirankcard.jpg")))
+            await ctx.send(file=discord.File(Union["sirirankcard.jpg", bytes]))
             #await ctx.send(f"{ctx.author.name}\'s siri level is {data['level']} (cmd is WIP)")
         
     @commands.command()
