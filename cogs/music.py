@@ -126,7 +126,7 @@ class Music:
         results = await self.bot.lavalink.get_tracks(query)
 
         try:
-            tracks = len(results['tracks'][0])
+            tracks = len(results['tracks'])
         except:
             tracks = 1
 
