@@ -89,7 +89,7 @@ class Levels:
             card_link = requests.get("https://i.ibb.co/16QRQJC/sirirankcard.jpg")
             img = Image.open(BytesIO(card_link.content))
             draw = ImageDraw.Draw(img)
-            font = ImageFont.truetype('impact.ttf', 40)
+            font = ImageFont.truetype('Impact.ttf', 40)
             draw.text((49,61), ctx.author, font=font, fill=(255, 255, 255, 255))
             bytes = BytesIO()
             img.save(bytes, 'PNG')
