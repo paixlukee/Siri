@@ -86,7 +86,8 @@ class Levels:
             await ctx.send(f"{user.name}'s siri level is {data['level']} (cmd is WIP)")
         else:
             data = db.posts.find_one({"user": ctx.author.id})
-            card_link = requests.get("https://i.ibb.co/16QRQJC/sirirankcard.jpg")
+            #card_link = requests.get("https://i.ibb.co/16QRQJC/sirirankcard.jpg")
+            card_link = Image.open("sirirankcard.jpg")
             img = Image.open(BytesIO(card_link.content))
             draw = ImageDraw.Draw(img)
             font = ImageFont.truetype('Arial.ttf', 40)
