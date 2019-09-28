@@ -92,7 +92,7 @@ class Levels:
             draw = ImageDraw.Draw(card_link)
             #font = ImageFont.truetype("Raleway-Medium.ttf", 40, encoding="unic")
             font = ImageFont.load_default()
-            draw.text((49,61), ctx.author, font=font, fill=(255, 255, 255, 255))
+            draw.text((49,61), str(ctx.author), font=font, fill=(255, 255, 255, 255))
             bytes = BytesIO()
             img.save(bytes, 'PNG')
             bytes.seek(0)
