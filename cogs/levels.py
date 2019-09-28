@@ -90,7 +90,7 @@ class Levels:
             card_link = Image.open("sirirankcard.jpg")
             #img = Image.open(BytesIO(card_link.content))
             draw = ImageDraw.Draw(card_link)
-            font = ImageFont.truetype('Raleway-Medium_ttf', 40)
+            font = ImageFont.load_file('Raleway-Medium_ttf', 40)
             draw.text((49,61), ctx.author, font=font, fill=(255, 255, 255, 255))
             bytes = BytesIO()
             img.save(bytes, 'PNG')
