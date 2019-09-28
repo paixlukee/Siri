@@ -94,7 +94,7 @@ class Levels:
             font = ImageFont.load_default()
             draw.text((49,61), str(ctx.author), font=font, fill=(255, 255, 255, 255))
             bytes = BytesIO()
-            img.save(bytes, 'PNG')
+            card_link.save(bytes, 'PNG')
             bytes.seek(0)
             await ctx.send(file=card_link)
             #await ctx.send(f"{ctx.author.name}\'s siri level is {data['level']} (cmd is WIP)")
