@@ -93,6 +93,7 @@ class Levels:
             data = db.posts.find_one({"user": ctx.author.id})
             level = data['level']
             exp_needed = self.level_endings[str(level)]#int(data['exp'] // (1/4))
+            exp = data['exp']
             card_link = Image.open("sirirankcard.jpg")
             draw = ImageDraw.Draw(card_link)
             font_size = 14
@@ -111,7 +112,7 @@ class Levels:
             width = (int(data['exp'])/int(exp_needed))*(42/300)*2000+20
             draw.text((43,48), str(ctx.author), font=font, fill=(30, 30, 30, 30))
             draw.text((42,122), text=f"LEVEL {level}", font=font_2, fill=(50, 50, 50, 50))
-            draw.text((42,285), text=f"{data['exp']}/{exp_needed}", font=font_2, fill=(50, 50, 50, 50))
+            draw.text((42,285), text=f"{exp}/{exp_needed}", font=font_2, fill=(50, 50, 50, 50))
             draw.rectangle([(42,88), (width, 120)], fill=(68, 116, 219, 0))
             bytes = BytesIO()
             card_link.save(bytes, 'PNG')
