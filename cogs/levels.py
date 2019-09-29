@@ -93,7 +93,7 @@ class Levels:
             font_size = 14
             if len(str(ctx.author)) > 26:
                 font_size = 14
-            elif len(str(ctx.author)) > 150:
+            elif len(str(ctx.author)) > 15:
                 font_size = 17
             elif len(str(ctx.author)) > 10:
                 font_size = 25
