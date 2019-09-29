@@ -106,12 +106,11 @@ class Levels:
             level = data['level']
             draw.text((43,48), str(ctx.author), font=font, fill=(30, 30, 30, 30))
             draw.text((42,122), text=f"LEVEL {level}", font=font_2, fill=(50, 50, 50, 50))
-            draw.rectangle([(42,88), (80, 120)], fill=(68, 116, 219, 0))
+            draw.rectangle([(42,88), (250, 120)], fill=(68, 116, 219, 0))
             bytes = BytesIO()
             card_link.save(bytes, 'PNG')
             bytes.seek(0)
             await ctx.send(file=discord.File(bytes.getvalue(), "sirirankcard.jpg"))
-            #await ctx.send(f"{ctx.author.name}\'s siri level is {data['level']} (cmd is WIP)")
         
     @commands.command()
     async def lvlmsgs(self, ctx):
