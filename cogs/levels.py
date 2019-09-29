@@ -85,7 +85,7 @@ class Levels:
             data = db.posts.find_one({"user": user.id})
             await ctx.send(f"{user.name}'s siri level is {data['level']} (cmd is WIP)")
         else:
-            data = db.posts.find_one({"user": ctx.author.id})
+            #data = db.posts.find_one({"user": ctx.author.id})
             #card_link = requests.get("https://i.ibb.co/16QRQJC/sirirankcard.jpg")
             card_link = Image.open("sirirankcard.jpg")
             #img = Image.open(BytesIO(card_link.content))
@@ -102,9 +102,9 @@ class Levels:
             else:
                 font_size = 32
             font = ImageFont.truetype("Raleway-Medium.ttf", font_size, encoding="unic")
-            level = data['level']
+            #level = data['level']
             draw.text((41,48), str(ctx.author), font=font, fill=(0, 0, 0, 0))
-            draw.text((41,138), f"LEVEL {level}", font=10, fill=(50, 50, 50, 50))
+            draw.text((41,138), f"LEVEL 5", font=10, fill=(50, 50, 50, 50))
             bytes = BytesIO()
             card_link.save(bytes, 'PNG')
             bytes.seek(0)
