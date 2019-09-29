@@ -67,7 +67,7 @@ class Levels:
         cur_exp = level
         new_lvl = int(exp_change ** (1/4))
 
-        if exp == self.level_endings[level]:
+        if exp == self.level_endings[str(level)]:
             db.posts.update_one({"user": user}, {"$set":{"level": new_lvl}})
             await self.add_money(user, 50)
 
@@ -93,7 +93,7 @@ class Levels:
         else:
             data = db.posts.find_one({"user": ctx.author.id})
             level = data['level']
-            exp_needed = self.level_endings[level]#int(data['exp'] // (1/4))
+            exp_needed = self.level_endings[str(level)]#int(data['exp'] // (1/4))
             card_link = Image.open("sirirankcard.jpg")
             draw = ImageDraw.Draw(card_link)
             font_size = 14
