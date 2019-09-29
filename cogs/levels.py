@@ -105,7 +105,7 @@ class Levels:
             font = ImageFont.truetype("Raleway-Medium.ttf", font_size, encoding="unic")
             #font = ImageFont.load_default()
             draw.text((41,48), str(ctx.author), font=font, fill=(0, 0, 0, 0))
-            draw.text((41,138), f'LEVEL {data['level']}', font=10, fill=(50, 50, 50, 50))
+            draw.text((41,138), "LEVEL " + str({data['level']}), font=10, fill=(50, 50, 50, 50))
             bytes = BytesIO()
             card_link.save(bytes, 'PNG')
             bytes.seek(0)
