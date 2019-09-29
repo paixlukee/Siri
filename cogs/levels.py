@@ -39,10 +39,10 @@ class Levels:
             for i in data.items():
                 if i[0] == 'level':
                     has_lvl = True
-            if has_lvl == False:
+            if has_lvl == False or data['last_msg'] == None:
                 db.posts.update_one({"user": user}, {"$set":{"level": 1}})
                 db.posts.update_one({"user": user}, {"$set":{"exp": 0}})
-                db.posts.update_one({"user": user}, {"$set":{"last_msg": None}})
+                db.posts.update_one({"user": user}, {"$set":{"last_msg": ""}})
                 
             return True
 
