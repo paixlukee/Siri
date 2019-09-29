@@ -90,13 +90,13 @@ class Levels:
             card_link = Image.open("sirirankcard.jpg")
             #img = Image.open(BytesIO(card_link.content))
             draw = ImageDraw.Draw(card_link)
-            if len(int(ctx.author)) > 20:
+            if len(str(ctx.author)) > 20:
                 font_size = 14
-            elif len(int(ctx.author)) > 15:
+            elif len(str(ctx.author)) > 15:
                 font_size = 17
-            elif len(int(ctx.author)) > 10:
+            elif len(str(ctx.author)) > 10:
                 font_size = 25
-            elif len(int(ctx.author)) < 10:
+            elif len(str(ctx.author)) < 10:
                 font_size = 30
             font = ImageFont.truetype("Raleway-Medium.ttf", font_size, encoding="unic")
             #font = ImageFont.load_default()
