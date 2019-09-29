@@ -106,7 +106,7 @@ class Levels:
             level = data['level']
             draw.text((43,48), str(ctx.author), font=font, fill=(0, 0, 0, 0))
             draw.text((42,122), text=f"LEVEL {level}", font=font_2, fill=(50, 50, 50, 50))
-            draw.rectangle([(42,90), (50, 150)], fill=(68, 116, 219, 0))
+            draw.rectangle([(42,91), (50, 130)], fill=(68, 116, 219, 0))
             bytes = BytesIO()
             card_link.save(bytes, 'PNG')
             bytes.seek(0)
