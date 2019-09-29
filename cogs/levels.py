@@ -96,7 +96,7 @@ class Levels:
             bytes = BytesIO()
             card_link.save(bytes, 'PNG')
             bytes.seek(0)
-            await ctx.send(file=discord.File(union(fp="sirirankcard.jpg", bytes)))
+            await ctx.send(file=discord.File(fp=union("sirirankcard.jpg", bytes)))
             #await ctx.send(f"{ctx.author.name}\'s siri level is {data['level']} (cmd is WIP)")
         
     @commands.command()
