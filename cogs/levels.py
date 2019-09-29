@@ -90,8 +90,8 @@ class Levels:
             card_link = Image.open("sirirankcard.jpg")
             #img = Image.open(BytesIO(card_link.content))
             draw = ImageDraw.Draw(card_link)
-            font_size = 30
-            if len(str(ctx.author)) > 20:
+            font_size = 14
+            if len(str(ctx.author)) > 26:
                 font_size = 14
             elif len(str(ctx.author)) > 15:
                 font_size = 17
