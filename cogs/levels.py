@@ -89,6 +89,8 @@ class Levels:
         # dont feel like cleaning this up and clearing like 30 lines of code, stfu
         if user:
             data = db.posts.find_one({"user": user.id})
+            if not data:
+                await ctx.send("<:redtick:492800273211850767> This user doesn't have a bank account!") 
             level = data['level']
             exp_needed = self.level_endings[str(level)]#int(data['exp'] // (1/4))
             exp = data['exp']
@@ -118,6 +120,8 @@ class Levels:
             await ctx.send(file=discord.File(bytes.getvalue(), "sirirankcard.jpg"))
         else:
             data = db.posts.find_one({"user": ctx.author.id})
+            if not data:
+                await ctx.send("<:redtick:492800273211850767> You don't have a bank account, create one with `siri bank create`!") 
             level = data['level']
             exp_needed = self.level_endings[str(level)]#int(data['exp'] // (1/4))
             exp = data['exp']
