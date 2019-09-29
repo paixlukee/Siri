@@ -109,7 +109,9 @@ class Levels:
                 font_size = 32
             font = ImageFont.truetype("Raleway-Medium.ttf", font_size, encoding="unic")
             font_2 = ImageFont.truetype("Raleway-Medium.ttf", 10, encoding="unic")
+            print(exp_needed)
             width = (int(data['exp'])/int(exp_needed))*(42/300)*2000
+            print(width)
             draw.text((43,48), str(ctx.author), font=font, fill=(30, 30, 30, 30))
             draw.text((42,122), text=f"LEVEL {level}", font=font_2, fill=(50, 50, 50, 50))
             draw.rectangle([(42,88), (width, 120)], fill=(68, 116, 219, 0))
