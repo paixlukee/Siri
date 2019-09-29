@@ -19,6 +19,12 @@ db = client['siri']
 class Levels:
     def __init__(self, bot):
         self.bot = bot
+        self.level_endings = {"1":"12", "2":"72", "3":"144", "4":"288","5":"576","6":"1152",
+                              "7":"2304","8":"4608","9":"9216","10":"18432","11":"36864","12":"73728",
+                              "13":"147456","14":"200000","15":"250000","16":"300000","17":"350000","18":"400000",
+                              "19":"450000","20":"500000","21":"550000","22":"600000","23":"650000","24":"700000",
+                              "25":"750000","26":"800000","27":"850000","28":"900000","29":"1000000","30":"1050000",
+                              "31":"1100000","32":"1150000", "33":"1200000", "34":"1250000", "35":"1300000"}
 
     async def on_message(self, message):
         update = await self.update_data(message.author.id)
@@ -61,7 +67,7 @@ class Levels:
         cur_exp = level
         new_lvl = int(exp_change ** (1/4))
 
-        if cur_exp < new_lvl:
+        if exp == self.level_endings[level]:
             db.posts.update_one({"user": user}, {"$set":{"level": new_lvl}})
             await self.add_money(user, 50)
 
@@ -86,7 +92,8 @@ class Levels:
             await ctx.send(f"{user.name}'s siri level is {data['level']} (cmd is WIP)")
         else:
             data = db.posts.find_one({"user": ctx.author.id})
-            exp_needed = int(data['exp'] // (1/4))
+            level = data['level']
+            exp_needed = self.level_endings[level]#int(data['exp'] // (1/4))
             card_link = Image.open("sirirankcard.jpg")
             draw = ImageDraw.Draw(card_link)
             font_size = 14
@@ -102,7 +109,6 @@ class Levels:
                 font_size = 32
             font = ImageFont.truetype("Raleway-Medium.ttf", font_size, encoding="unic")
             font_2 = ImageFont.truetype("Raleway-Medium.ttf", 10, encoding="unic")
-            level = data['level']
             width = (int(data['exp'])/exp_needed)*(42/300)*2000
             draw.text((43,48), str(ctx.author), font=font, fill=(30, 30, 30, 30))
             draw.text((42,122), text=f"LEVEL {level}", font=font_2, fill=(50, 50, 50, 50))
