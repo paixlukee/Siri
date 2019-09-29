@@ -19,12 +19,11 @@ db = client['siri']
 class Levels:
     def __init__(self, bot):
         self.bot = bot
-        self.level_endings = {"1":"12", "2":"72", "3":"144", "4":"288","5":"576","6":"1152",
-                              "7":"2304","8":"4608","9":"9216","10":"18432","11":"36864","12":"73728",
-                              "13":"147456","14":"200000","15":"250000","16":"300000","17":"350000","18":"400000",
-                              "19":"450000","20":"500000","21":"550000","22":"600000","23":"650000","24":"700000",
-                              "25":"750000","26":"800000","27":"850000","28":"900000","29":"1000000","30":"1050000",
-                              "31":"1100000","32":"1150000", "33":"1200000", "34":"1250000", "35":"1300000"}
+        self.level_endings = {"1":"12", "2":"36", "3":"72", "4":"108","5":"144","6":"288",
+                              "7":"576","8":"1152","9":"2304","10":"4608","11":"9216","12":"18432",
+                              "13":"36864","14":"73728","15":"147456","16":"294912","17":"368640","18":"516096",
+                              "19":"811008","20":"1105920","21":"1253376","22":"1548288","23":"1843200","24":"1990656",
+                              "25":"2138112"}
 
     async def on_message(self, message):
         update = await self.update_data(message.author.id)
@@ -65,9 +64,9 @@ class Levels:
         exp = data['exp']
         exp_change = exp
         cur_exp = level
-        new_lvl = int(exp_change ** (1/4))
+        #new_lvl = int(exp_change ** (1/4))
 
-        if exp == self.level_endings[str(level)]:
+        if str(exp) == self.level_endings[str(level)]:
             db.posts.update_one({"user": user}, {"$set":{"level": new_lvl}})
             await self.add_money(user, 50)
 
@@ -109,9 +108,7 @@ class Levels:
                 font_size = 32
             font = ImageFont.truetype("Raleway-Medium.ttf", font_size, encoding="unic")
             font_2 = ImageFont.truetype("Raleway-Medium.ttf", 10, encoding="unic")
-            print(exp_needed)
             width = (int(data['exp'])/int(exp_needed))*(42/300)*2000
-            print(width)
             draw.text((43,48), str(ctx.author), font=font, fill=(30, 30, 30, 30))
             draw.text((42,122), text=f"LEVEL {level}", font=font_2, fill=(50, 50, 50, 50))
             draw.rectangle([(42,88), (width, 120)], fill=(68, 116, 219, 0))
