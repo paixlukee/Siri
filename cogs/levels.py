@@ -97,8 +97,10 @@ class Levels:
                 font_size = 17
             elif len(str(ctx.author)) > 10:
                 font_size = 25
-            elif len(str(ctx.author)) < 10:
+            elif len(str(ctx.author)) < 9:
                 font_size = 30
+            else:
+                font_size = 32
             font = ImageFont.truetype("Raleway-Medium.ttf", font_size, encoding="unic")
             #font = ImageFont.load_default()
             draw.text((43,61), str(ctx.author), font=font, fill=(0, 0, 0, 0))
