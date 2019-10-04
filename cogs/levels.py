@@ -84,8 +84,8 @@ class Levels:
         money = int(bal) + count
         db.posts.update_one({"user": user}, {"$set":{"money": money}})
         
-    @commands.command(aliases=['pro', 'shop'])
-    async def market(self, ctx, user: discord.User = None):
+    @commands.command(aliases=['pro', 'tshop'])
+    async def tmarket(self, ctx, user: discord.User = None):
         #data = db.posts.find_one({"user": user.id})
         #if not data:
             #await ctx.send("<:redtick:492800273211850767> This user doesn't have a bank account!")
