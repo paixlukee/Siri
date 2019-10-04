@@ -84,6 +84,25 @@ class Levels:
         money = int(bal) + count
         db.posts.update_one({"user": user}, {"$set":{"money": money}})
         
+    @commands.command(aliases=['pro', 'shop'])
+    async def market(self, ctx, user: discord.User = None):
+        #data = db.posts.find_one({"user": user.id})
+        #if not data:
+            #await ctx.send("<:redtick:492800273211850767> This user doesn't have a bank account!")
+        card_link = Image.open("background1.jpg")
+        draw = ImageDraw.Draw(card_link)
+        img2 = Image.open(BytesIO("profilemarket.png"))
+        font = ImageFont.truetype("Raleway-Medium.ttf", 30, encoding="unic")
+        font_2 = ImageFont.truetype("Raleway-Medium.ttf", 10, encoding="unic")
+        draw.text((120,100), text=f"Super Shop", font=font, fill=(50, 50, 50, 50))
+        draw.text((120,200), str(user), font=font, fill=(30, 30, 30, 30))
+        draw.text((120,300), '300', font=font, fill=(30, 30, 30, 30))
+        img.paste(img2, (500, 250))
+        bytes = BytesIO()
+        card_link.save(bytes, 'PNG')
+        bytes.seek(0)
+        await ctx.send(file=discord.File(bytes.getvalue(), "profilemarket.jpg"))
+        
     @commands.command(aliases=['rank'])
     async def level(self, ctx, user: discord.User = None):
         """Check your/someone else's rank. """
