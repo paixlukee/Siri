@@ -224,7 +224,7 @@ class Developer:
         letters2 = ['q', 'Q', 'p', 'P', 'o', 'v', 'V', 'z', 'e', 'E', 'I', 'L', 't', 'T', 'r', 'R', 'j', 'J', 'O']
         randc = f'{a}{rnd(letters)}{b}{rnd(letters2)}{c}'
         try:
-            c = self.bot.get_channel('478833607126024192')
+            c = self.bot.get_channel('493330961421959169')
             if option == 'other' or option == 'o':
                 #try:
                 embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n* {message}```")
