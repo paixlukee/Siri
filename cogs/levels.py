@@ -104,7 +104,7 @@ class Levels:
         await ctx.send(file=discord.File(bytes.getvalue(), "profilemarket.jpg"))
         
     @commands.command(aliases=['rank'])
-    async def level(self, ctx, user: discord.User = None):
+    async def levela(self, ctx, user: discord.User = None):
         """Check your/someone else's rank. """
         # dont feel like cleaning this up and clearing like 30 lines of code, stfu
         if user:
