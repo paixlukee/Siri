@@ -227,7 +227,7 @@ class Developer:
             c = self.bot.get_channel(493330961421959169)
             if option == 'other' or option == 'o':
                 #try:
-                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n* {message}```")
+                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=message)
                 embed.set_image(url=link)
                 #except:
                     #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n* {message}```")
@@ -235,7 +235,7 @@ class Developer:
                 await ctx.send(":ok_hand: Done.")
             elif option == 'add' or option == 'a':
                 #try:
-                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n+ {message}```")
+                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=message)
                 embed.set_image(url=link)
                 #except:
                     #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n+ {message}```")
@@ -243,7 +243,7 @@ class Developer:
                 await ctx.send(":ok_hand: Done.")
             elif option == 'remove' or option == 'r':
                 #try:
-                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n- {message}```")
+                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=message)
                 embed.set_image(url=link)
                 #except:
                     #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n- {message}```")
