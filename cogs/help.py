@@ -16,14 +16,14 @@ class Help:
         self.colours = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
         self.news = db.utility.find_one({"utility": "help"})
 
-    @commands.command(name="help", aliases=['cmds'])
+    @commands.command(name="help", aliases=['cmds', 'Help'])
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def _help(self, ctx, l:str = None, cmd:str = None):
         """This Command."""
         if ctx.message.author.bot: return
         elif not l:            
-            embed = discord.Embed(colour=rnd(self.colours), description="**What can I help you with?**\n\n**For help with a module**.. `siri help module help`\n**For help with a command**.. `siri help command help`")
-            embed.add_field(name="Current Modules..", value="`utility`  `bot`  `economy`  `music`")
+            embed = discord.Embed(colour=rnd(self.colours), description="**What can I help you with?**\n\n**For help with a category**.. `siri help category help`\n**For help with a command**.. `siri help command help`")
+            embed.add_field(name="Current Categories..", value="`utility`  `bot`  `economy`  `music`")
             if not self.news['news'].lower() == 'none':
                 embed.add_field(name="News..", value=f"```{self.news['news']}```")
             #embed.set_footer(text="Siri | NOT affiliated with Apple", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
@@ -56,7 +56,7 @@ class Help:
                 except:
                     await ctx.send(f"<:WrongMark:473277055107334144> No command called \"{cmd}\" found.")
 
-        elif l == "Module" or l == "module" or l == "mdl":
+        elif l == "Module" or l == "module" or l == "mdl" or l == 'c' or l == 'Category' or l == 'category':
 
             if cmd == "Utility" or cmd == "utility":
                 modules = ["`article`", "`avatar`", "`chatbot`", "`colour`", "`define`","`discordstatus`", "`hastebin`","`IMDb`","`langdetect`", "`map`", "`news`","`shorten`", "`search`","`serverinfo`", "`userinfo`","`strawpoll`","`translate`", "`weather`", "`wikipedia`"]
