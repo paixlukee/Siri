@@ -22,15 +22,15 @@ class Test:
     async def on_message(self, message):
         if message.channel.id == 605099421897588736:
             def check(m):
-                return m.channel == ctx.channel
-            custom_emoji = re.findall(r'<:\w*:\d*>', ctx.message.content)
+                return m.channel == message.channel
+            custom_emoji = re.findall(r'<:\w*:\d*>', message.content)
             custom_emoji = [int(e.split(':')[1].replace('>', '')) for e in custom_emoji]
             custom_emoji = [discord.utils.get(client.get_all_emojis(), id=e) for e in custom_emoji]
             if custom_emoji:
-                history = await ctx.channel.history(limit=3).flatten()
+                history = await message.channel.history(limit=3).flatten()
                 emoji = []
                 for x in history:
-                    custom_emoji = re.findall(r'<:\w*:\d*>', ctx.message.content)
+                    custom_emoji = re.findall(r'<:\w*:\d*>', message.content)
                     custom_emoji = [int(e.split(':')[1].replace('>', '')) for e in custom_emoji]
                     custom_emoji = [discord.utils.get(client.get_all_emojis(), id=e) for e in custom_emoji]
                     if custom_emoji:
@@ -39,7 +39,7 @@ class Test:
                 if len(emoji) == 3:
                     for x in emoji:
                         x.delete()
-                    await ctx.send("Don't spam! Keep emoji spam in #emoji-spam")
+                    await message.channel.send("Don't spam! Keep emoji spam in #emoji-spam")
             
 
 
