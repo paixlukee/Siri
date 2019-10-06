@@ -31,11 +31,11 @@ class Help:
             await ctx.send(embed=embed)
             
         elif cmd and not l:
-            await ctx.send("<:WrongMark:473277055107334144> **Incorrect usage:** `siri help command <name>` or `siri help module <name>`")
+            await ctx.send("<:WrongMark:473277055107334144> **Incorrect usage:** `siri help command <name>` or `siri help category <name>`")
 
         elif l == "Command" or l == "command" or l == "cmd":
             if not cmd:
-                await ctx.send("<:WrongMark:473277055107334144> **Incorrect usage:** `siri help command <name>` or `siri help module <name>`")
+                await ctx.send("<:WrongMark:473277055107334144> **Incorrect usage:** `siri help command <name>` or `siri help category <name>`")
             else:
                 try:
                     _cmd = self.bot.get_command(cmd)
@@ -79,19 +79,19 @@ class Help:
                 name = "Music"
                 d = "Music Commands"
             else:
-                return await ctx.send(f"<:WrongMark:473277055107334144> No module named \"{cmd}\" found.")
+                return await ctx.send(f"<:WrongMark:473277055107334144> No category named \"{cmd}\" found.")
 
             try:
                 md = " ".join(modules)
-                embed3 = discord.Embed(description=f"> **Module:** `{name}`\n> **Description:** `{d}`\n> **Commands:** {md}")
+                embed3 = discord.Embed(description=f"> **Category:** `{name}`\n> **Description:** `{d}`\n> **Commands:** {md}")
                 embed3.set_author(name="Siri", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
                 if str(name).lower() == 'help':
-                            embed2.set_footer(text="This is just a test command. Now try other modules that are listed in the help menu!")
+                            embed2.set_footer(text="This is just a test command. Now try other categories that are listed in the help menu!")
                 await ctx.send(embed=embed3)
             except:
                 pass
         else:
-            await ctx.send("<:WrongMark:473277055107334144> That's not an option! Options: `module|mdl`, `command|cmd`")
+            await ctx.send("<:WrongMark:473277055107334144> That's not an option! Options: `category`, `command`")
 
 def setup(bot):
     bot.add_cog(Help(bot))
