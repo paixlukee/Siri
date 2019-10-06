@@ -21,7 +21,7 @@ class Help:
     async def _help(self, ctx, l:str = None, cmd:str = None):
         """This Command."""
         if ctx.message.author.bot: return
-        elif not l:            
+        elif not l:
             embed = discord.Embed(colour=rnd(self.colours), description="**What can I help you with?**\n\n**For help with a category**.. `siri help category help`\n**For help with a command**.. `siri help command help`")
             embed.add_field(name="Current Categories..", value="`utility`  `bot`  `economy`  `music`")
             if not self.news['news'].lower() == 'none':
@@ -29,13 +29,13 @@ class Help:
             #embed.set_footer(text="Siri | NOT affiliated with Apple", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
             embed.set_image(url="http://media.idownloadblog.com/wp-content/uploads/2016/06/iOS-10-Siri-waveform-image-001.png")
             await ctx.send(embed=embed)
-            
+
         elif cmd and not l:
-            await ctx.send("<:WrongMark:473277055107334144> **Incorrect usage:** `siri help command <name>` or `siri help category <name>`")
+            await ctx.send("<:redtick:492800273211850767> **Incorrect usage:** `siri help command <name>` or `siri help category <name>`")
 
         elif l == "Command" or l == "command" or l == "cmd":
             if not cmd:
-                await ctx.send("<:WrongMark:473277055107334144> **Incorrect usage:** `siri help command <name>` or `siri help category <name>`")
+                await ctx.send("<:redtick:492800273211850767> **Incorrect usage:** `siri help command <name>` or `siri help category <name>`")
             else:
                 try:
                     _cmd = self.bot.get_command(cmd)
@@ -44,7 +44,7 @@ class Help:
                     h1 = _cmd.help
                     h2 = h1.replace("<>", "")
                     if _cmd.help is None:
-                        embed2 = discord.Embed(description=f"**Command:** `{cmd}`\n\n```siri {_cmd} <{help}>\n\nNo Description yet.```") 
+                        embed2 = discord.Embed(description=f"**Command:** `{cmd}`\n\n```siri {_cmd} <{help}>\n\nNo Description yet.```")
                         embed2.set_author(name="Siri", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
                         if cmd.name.lower() == 'help':
                             embed2.set_footer(text="This is just a test command. Now try other commands that are listed in the help menu!")
@@ -54,7 +54,7 @@ class Help:
                         embed2.set_author(name="Siri", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
                         await ctx.send(embed=embed2)
                 except:
-                    await ctx.send(f"<:WrongMark:473277055107334144> No command called \"{cmd}\" found.")
+                    await ctx.send(f"<:redtick:492800273211850767> No command called \"{cmd}\" found.")
 
         elif l == "Module" or l == "module" or l == "mdl" or l == 'c' or l == 'Category' or l == 'category':
 
@@ -79,7 +79,7 @@ class Help:
                 name = "Music"
                 d = "Music Commands"
             else:
-                return await ctx.send(f"<:WrongMark:473277055107334144> No category named \"{cmd}\" found.")
+                return await ctx.send(f"<:redtick:492800273211850767> No category named \"{cmd}\" found.")
 
             try:
                 md = " ".join(modules)
@@ -91,7 +91,7 @@ class Help:
             except:
                 pass
         else:
-            await ctx.send("<:WrongMark:473277055107334144> That's not an option! Options: `category`, `command`")
+            await ctx.send("<:redtick:492800273211850767> That's not an option! Options: `category`, `command`")
 
 def setup(bot):
     bot.add_cog(Help(bot))
