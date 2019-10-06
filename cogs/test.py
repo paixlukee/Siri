@@ -12,6 +12,7 @@ import aiohttp
 import asyncio
 import json
 import os
+import re
 import config
 
 class Test:
@@ -19,14 +20,27 @@ class Test:
         self.bot = bot
 
     async def on_message(message):
-        embed = discord.Embed(description=f'To view more information for a command, do {config.prefix}help')
-        embed.set_author(name='Help Commands', icon_url=ctx.me.avatar_url_as(format='png'))
-        embed.add_field(name='Utility', value='command, command, command')
-        embed.add_field(name='Fun', value='command, command, command')
-        embed.add_field(name='Moderation', value='command, command, command')
-        #embed.add_field(name='Music', value='command, command, command')
-        #embed.add_field(name='Custom Commands', value='...')
-        await ctx.send(embed=embed)
+        if message.channel.id == 605099421897588736:
+            def check(m):
+                return m.channel == ctx.channel
+            custom_emoji = re.findall(r'<:\w*:\d*>', msg.content)
+            custom_emoji = [int(e.split(':')[1].replace('>', '')) for e in custom_emoji]
+            custom_emoji = [discord.utils.get(client.get_all_emojis(), id=e) for e in custom_emoji]
+            if custom_emoji:
+                history = await ctx.channel.history(limit=3).flatten()
+                emoji = []
+                for x in history:
+                    custom_emoji = re.findall(r'<:\w*:\d*>', msg.content)
+                    custom_emoji = [int(e.split(':')[1].replace('>', '')) for e in custom_emoji]
+                    custom_emoji = [discord.utils.get(client.get_all_emojis(), id=e) for e in custom_emoji]
+                    if custom_emoji:
+                        emoji.append(x)
+                        
+                if len(emoji) == 3:
+                    for x in emoji:
+                        x.delete()
+                    await ctx.send("Don't spam! Keep emoji spam in #emoji-spam")
+            
 
 
 
