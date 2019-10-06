@@ -21,11 +21,10 @@ class Test:
 
     async def on_message(self, message):
         if message.channel.id == 605099421897588736:
-            def check(m):
-                return m.channel == message.channel
             custom_emoji = re.findall(r'<:\w*:\d*>', message.content)
             custom_emoji = [int(e.split(':')[1].replace('>', '')) for e in custom_emoji]
             custom_emoji = [discord.utils.get(client.get_all_emojis(), id=e) for e in custom_emoji]
+            print(custom_emoji)
             if not len(custom_emoji) == 0:
                 history = await message.channel.history(limit=3).flatten()
                 print(history)
