@@ -19,7 +19,7 @@ class Test:
     def __init__(self, bot):
         self.bot = bot
 
-    async def on_message(message):
+    async def on_message(self, message):
         if message.channel.id == 605099421897588736:
             def check(m):
                 return m.channel == ctx.channel
