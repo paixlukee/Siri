@@ -26,7 +26,7 @@ class Test:
             custom_emoji = re.findall(r'<:\w*:\d*>', message.content)
             custom_emoji = [int(e.split(':')[1].replace('>', '')) for e in custom_emoji]
             custom_emoji = [discord.utils.get(client.get_all_emojis(), id=e) for e in custom_emoji]
-            if custom_emoji:
+            if len(custom_emoji) !== 0:
                 history = await message.channel.history(limit=3).flatten()
                 print(history)
                 emoji = []
@@ -34,7 +34,7 @@ class Test:
                     custom_emoji = re.findall(r'<:\w*:\d*>', message.content)
                     custom_emoji = [int(e.split(':')[1].replace('>', '')) for e in custom_emoji]
                     custom_emoji = [discord.utils.get(client.get_all_emojis(), id=e) for e in custom_emoji]
-                    if custom_emoji:
+                    if len(custom_emoji) !== 0:
                         emoji.append(x)
                 print(emoji)
                         
