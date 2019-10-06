@@ -86,7 +86,7 @@ class Help:
                 embed3 = discord.Embed(description=f"**Category:** `{name}`\n**Description:** `{d}`\n**Commands:** {md}")
                 embed3.set_author(name="Siri", icon_url="https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120")
                 if str(name).lower() == 'help':
-                            embed2.set_footer(text="This is just a test command. Now try other categories that are listed in the help menu!")
+                            embed3.set_footer(text="This is just a test command. Now try other categories that are listed in the help menu!")
                 await ctx.send(embed=embed3)
             except:
                 pass
