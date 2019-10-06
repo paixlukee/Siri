@@ -23,14 +23,14 @@ class Test:
         if message.channel.id == 605099421897588736:
             def check(m):
                 return m.channel == ctx.channel
-            custom_emoji = re.findall(r'<:\w*:\d*>', msg.content)
+            custom_emoji = re.findall(r'<:\w*:\d*>', ctx.message.content)
             custom_emoji = [int(e.split(':')[1].replace('>', '')) for e in custom_emoji]
             custom_emoji = [discord.utils.get(client.get_all_emojis(), id=e) for e in custom_emoji]
             if custom_emoji:
                 history = await ctx.channel.history(limit=3).flatten()
                 emoji = []
                 for x in history:
-                    custom_emoji = re.findall(r'<:\w*:\d*>', msg.content)
+                    custom_emoji = re.findall(r'<:\w*:\d*>', ctx.message.content)
                     custom_emoji = [int(e.split(':')[1].replace('>', '')) for e in custom_emoji]
                     custom_emoji = [discord.utils.get(client.get_all_emojis(), id=e) for e in custom_emoji]
                     if custom_emoji:
