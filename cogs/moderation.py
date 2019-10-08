@@ -27,7 +27,7 @@ class Moderation:
     @commands.command()
     async def logs(self, ctx, channel:discord.TextChannel=None):
         """Set logs for your server"""
-        if author.guild_permissions.kick_members:
+        if ctx.author.guild_permissions.kick_members:
             servers = db.utility.find_one({"utility": "serverconf"})
             if not channel:
                 await ctx.send("<:redtick:492800273211850767> You didn't specify which channel.")
