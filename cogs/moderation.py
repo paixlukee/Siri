@@ -30,8 +30,8 @@ class Moderation:
         if ctx.author.guild_permissions.kick_members:
             servers = db.utility.find_one({"utility": "serverconf"})
             if not channel:
-                await ctx.send("<:redtick:492800273211850767> You didn't specify which channel.")
-            elif ctx.guild.id in servers[0]['logs']:
+                await ctx.send("<:redtick:492800273211850767> You didn't specify a channel.")
+            elif ctx.guild.id in servers['logs']:
                 await ctx.send(f"Turned logs off for this server.")
                 db.utility.update_one({"utility": "serverconf"}, {"$pull":{"logs": {ctx.guild.id: channel.id}}})
             else:
