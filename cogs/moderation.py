@@ -25,7 +25,7 @@ class Moderation:
         self.bot = bot
         
     @commands.command()
-    async def logs(self, ctx, channel:discord.Channel=None):
+    async def logs(self, ctx, channel:discord.TextChannel=None):
         """Set logs for your server"""
         if author.guild_permissions.kick_members:
             servers = db.utility.find_one({"utility": "serverconf"})
