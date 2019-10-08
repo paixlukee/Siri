@@ -14,6 +14,8 @@ import json
 import os
 import re
 import config
+from pymongo import MongoClient
+import pymongo
 
 client = MongoClient(config.mongo_client)
 db = client['siri']
