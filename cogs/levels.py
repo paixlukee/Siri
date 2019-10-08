@@ -173,7 +173,7 @@ class Levels:
     @commands.command()
     async def lvlmsgs(self, ctx):
         """Set level messages for your server"""
-        if author.guild_permissions.manage_guild:
+        if ctx.author.guild_permissions.manage_guild:
             servers = db.utility.find_one({"utility": "serverconf"})
             if ctx.guild.id in servers['level_msgs']:
                 await ctx.send(f"Turned level messages off for **{ctx.guild}**.")
@@ -186,7 +186,7 @@ class Levels:
 
     @commands.command()
     async def lvlimgs(self, ctx):
-        if author.guild_permissions.manage_guild:
+        if ctx.author.guild_permissions.manage_guild:
             servers = db.utility.find_one({"utility": "serverconf"})
             if ctx.guild.id in servers['level_msgs']:
                 await ctx.send(f"Turned level images off for **{ctx.guild}**.")
