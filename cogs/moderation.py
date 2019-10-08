@@ -29,6 +29,7 @@ class Moderation:
         """Set logs for your server"""
         if ctx.author.guild_permissions.kick_members:
             servers = db.utility.find_one({"utility": "serverconf"})
+            print(servers['logs'])
             if not channel:
                 await ctx.send("<:redtick:492800273211850767> You didn't specify a channel.")
             elif str(ctx.guild.id) in servers['logs']:
