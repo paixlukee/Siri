@@ -214,12 +214,12 @@ class Siri(commands.AutoShardedBot):
     async def on_command_error(self, ctx, error):
         colours = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
         if isinstance(error, commands.NotOwner):
-            trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
-            trl.set_footer(text="Sorry About That.")
-            await ctx.send(embed=trl)
+            #trl = discord.Embed(title=("<:WrongMark:473277055107334144> You are not authorised to use this command!") , colour=0xff775b)
+            #trl.set_footer(text="Sorry About That.")
+            await ctx.send("<:redtick:492800273211850767> You are not authorised to use this command!")
         elif isinstance(error, commands.BadArgument):
-            embed = discord.Embed(title=("<:WrongMark:473277055107334144> There was an error!") , colour=0xff775b, description=f"```py\n{error}```")
-            await ctx.send(embed=embed)
+            #embed = discord.Embed(title=("<:WrongMark:473277055107334144> There was an error!") , colour=0xff775b, description=f"```py\n{error}```")
+            await ctx.send(f"<:redtick:492800273211850767> Error! {error}")
         elif isinstance(error, commands.CommandOnCooldown):
             minutes, seconds = divmod(error.retry_after, 60)
             hours, minutes = divmod(minutes, 60)
@@ -227,8 +227,8 @@ class Siri(commands.AutoShardedBot):
                 hours = f"{round(hours)}h"
             else:
                 hours = ""
-            embed = discord.Embed(colour=rnd(colours), description=f":alarm_clock: **You are on cooldown!** Please wait **{hours} {round(minutes)}m {round(seconds)}s**.")
-            await ctx.send(embed=embed)
+            #embed = discord.Embed(colour=rnd(colours), description=f":alarm_clock: **You are on cooldown!** Please wait **{hours} {round(minutes)}m {round(seconds)}s**.")
+            await ctx.send(f"<:redtick:492800273211850767> You are on cooldown! Please wait **{hours} {round(minute)}m {round(seconds)}s")
         else:
             print(f"[{type(error).__name__.upper()}]: {error}")
 
