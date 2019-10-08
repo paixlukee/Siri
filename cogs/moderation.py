@@ -31,7 +31,7 @@ class Moderation:
             servers = db.utility.find_one({"utility": "serverconf"})
             if not channel:
                 await ctx.send("<:redtick:492800273211850767> You didn't specify a channel.")
-            elif ctx.guild.id in servers['logs']:
+            elif str(ctx.guild.id) in servers['logs']:
                 await ctx.send(f"Turned logs off for this server.")
                 db.utility.update_one({"utility": "serverconf"}, {"$pull":{"logs": {str(ctx.guild.id): str(channel.id)}}})
             else:
