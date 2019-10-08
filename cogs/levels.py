@@ -173,23 +173,29 @@ class Levels:
     @commands.command()
     async def lvlmsgs(self, ctx):
         """Set level messages for your server"""
-        servers = db.utility.find_one({"utility": "serverconf"})
-        if ctx.guild.id in servers['level_msgs']:
-            await ctx.send(f"Turned level messages off for **{ctx.guild}**.")
-            db.utility.update_one({"utility": "serverconf"}, {"$pull":{"level_msgs": ctx.guild.id}})
+        if author.guild_permissions.manage_guild:
+            servers = db.utility.find_one({"utility": "serverconf"})
+            if ctx.guild.id in servers['level_msgs']:
+                await ctx.send(f"Turned level messages off for **{ctx.guild}**.")
+                db.utility.update_one({"utility": "serverconf"}, {"$pull":{"level_msgs": ctx.guild.id}})
+            else:
+                await ctx.send(f"Turned level messages on for **{ctx.guild}**.")
+                db.utility.update_one({"utility": "serverconf"}, {"$push":{"level_msgs": ctx.guild.id}})
         else:
-            await ctx.send(f"Turned level messages on for **{ctx.guild}**.")
-            db.utility.update_one({"utility": "serverconf"}, {"$push":{"level_msgs": ctx.guild.id}})
+            await ctx.send("<:redtick:492800273211850767> You don't have permission `manage_guild`.")
 
     @commands.command()
     async def lvlimgs(self, ctx):
-        servers = db.utility.find_one({"utility": "serverconf"})
-        if ctx.guild.id in servers['level_msgs']:
-            await ctx.send(f"Turned level images off for **{ctx.guild}**.")
-            db.utility.update_one({"utility": "serverconf"}, {"$pull":{"level_images": ctx.guild.id}})
+        if author.guild_permissions.manage_guild:
+            servers = db.utility.find_one({"utility": "serverconf"})
+            if ctx.guild.id in servers['level_msgs']:
+                await ctx.send(f"Turned level images off for **{ctx.guild}**.")
+                db.utility.update_one({"utility": "serverconf"}, {"$pull":{"level_images": ctx.guild.id}})
+            else:
+                await ctx.send(f"Turned level images on for **{ctx.guild}**. Permission `level_messages` must be turned on for this to show any change.")
+                db.utility.update_one({"utility": "serverconf"}, {"$push":{"level_images": ctx.guild.id}})
         else:
-            await ctx.send(f"Turned level images on for **{ctx.guild}**. Permission `level_messages` must be turned on for this to show any change.")
-            db.utility.update_one({"utility": "serverconf"}, {"$push":{"level_images": ctx.guild.id}})
+            await ctx.send("<:redtick:492800273211850767> You don't have permission `manage_guild`.")
 
 
 
