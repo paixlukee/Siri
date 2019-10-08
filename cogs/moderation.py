@@ -33,10 +33,10 @@ class Moderation:
                 await ctx.send("<:redtick:492800273211850767> You didn't specify a channel.")
             elif ctx.guild.id in servers['logs']:
                 await ctx.send(f"Turned logs off for this server.")
-                db.utility.update_one({"utility": "serverconf"}, {"$pull":{"logs": {ctx.guild.id: channel.id}}})
+                db.utility.update_one({"utility": "serverconf"}, {"$pull":{"logs": {int(ctx.guild.id): int(channel.id)}}})
             else:
                 await ctx.send(f"Turned logs on for {channel.mention}.")
-                db.utility.update_one({"utility": "serverconf"}, {"$push":{"logs": {ctx.guild.id: channel.id}}})
+                db.utility.update_one({"utility": "serverconf"}, {"$push":{"logs": {int(ctx.guild.id): int(channel.id)}}})
         else:
             await ctx.send("<:redtick:492800273211850767> You don't have permission `manage_guild`.")
             
