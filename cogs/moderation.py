@@ -113,7 +113,9 @@ class Moderation:
                     embed.set_footer(text=f"Role {type}") 
                     embed.timestamp = datetime.datetime.utcnow()   
                     await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":ledger: **{member}** has got their roles updated:")
-
+                else:
+                    pass
+                    
     @commands.command()
     async def logs(self, ctx, channel:discord.TextChannel=None):
         """Set logs for your server"""
