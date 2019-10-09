@@ -63,10 +63,13 @@ class Moderation:
         if not message.author.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
             findings = None
+            print('hi')
             for x in servers['logs']:
                 if x['guild'] == member.guild.id:
                     findings = x 
+            print('hi')
             if findings:
+                print('hi')
                 embed = discord.Embed(colour=0xffff00)
                 embed.add_field(name="Content", value=message.content)
                 embed.set_footer(text="Message Delete") 
