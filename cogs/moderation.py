@@ -60,6 +60,7 @@ class Moderation:
                 await bot.get_channel(findings['channel']).send(embed=embed, content=f":pencil: {member} edited a message:")
             
     async def on_member_delete(self, message):
+        print('hi')
         if not message.author.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
             findings = None
