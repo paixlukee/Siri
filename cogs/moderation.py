@@ -32,7 +32,7 @@ class Moderation:
                 if x['guild'] == member.guild.id:
                     findings = x 
             if findings:
-                await self.bot.get_channel(findings['channel']).send(f":wave: {member} has joined the server. `ID: {member.id}`")
+                await self.bot.get_channel(findings['channel']).send(f":wave: **{member}** has joined the server. `ID: {member.id}`")
             
     async def on_member_remove(self, member):
         if not member.id == 481337766379126784:
@@ -42,7 +42,7 @@ class Moderation:
                 if x['guild'] == member.guild.id:
                     findings = x 
             if findings:
-                await self.bot.get_channel(findings['channel']).send(f":wave: {member} has left the server. `ID: {member.id}`")
+                await self.bot.get_channel(findings['channel']).send(f":wave: **{member}** has left the server. `ID: {member.id}`")
             
     async def on_message_edit(self, before, after):
         if not before.author.id == 481337766379126784:
@@ -57,7 +57,7 @@ class Moderation:
                 embed.add_field(name="After", value=after.content)
                 embed.set_footer(text="Message Edit") 
                 embed.timestamp = datetime.datetime.utcnow()
-                await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":pencil: {before.author} edited a message:")
+                await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":pencil: **{before.author}** edited a message:")
             
     async def on_message_delete(self, message):
         if not message.author.id == 481337766379126784:
@@ -71,7 +71,7 @@ class Moderation:
                 embed.add_field(name="Content", value=message.content)
                 embed.set_footer(text="Message Delete") 
                 embed.timestamp = datetime.datetime.utcnow()
-                await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":wastebasket: {message.author} deleted a message:")
+                await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":wastebasket: **{message.author}** deleted a message:")
         
     @commands.command()
     async def logs(self, ctx, channel:discord.TextChannel=None):
