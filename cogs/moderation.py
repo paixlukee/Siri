@@ -49,7 +49,7 @@ class Moderation:
             servers = db.utility.find_one({"utility": "serverconf"})
             findings = None
             for x in servers['logs']:
-                if x['guild'] == member.guild.id:
+                if x['guild'] == message.guild.id:
                     findings = x 
             if findings:
                 embed = discord.Embed(colour=0xffff00)
@@ -57,21 +57,21 @@ class Moderation:
                 embed.add_field(name="After", value=after.content)
                 embed.set_footer(text="Message Edit") 
                 embed.timestamp = datetime.datetime.utcnow()
-                await bot.get_channel(findings['channel']).send(embed=embed, content=f":pencil: {member} edited a message:")
+                await bot.get_channel(findings['channel']).send(embed=embed, content=f":pencil: {message.author} edited a message:")
             
     async def on_message_delete(self, message):
         if not message.author.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
             findings = None
             for x in servers['logs']:
-                if x['guild'] == member.guild.id:
+                if x['guild'] == message.guild.id:
                     findings = x 
             if findings:
                 embed = discord.Embed(colour=0xffff00)
                 embed.add_field(name="Content", value=message.content)
                 embed.set_footer(text="Message Delete") 
                 embed.timestamp = datetime.datetime.utcnow()
-                await bot.get_channel(findings['channel']).send(embed=embed, content=f":wastebasket: {member} deleted a message:")
+                await bot.get_channel(findings['channel']).send(embed=embed, content=f":wastebasket: {message.author} deleted a message:")
         
     @commands.command()
     async def logs(self, ctx, channel:discord.TextChannel=None):
