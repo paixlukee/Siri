@@ -25,7 +25,7 @@ class Moderation:
         self.bot = bot
         
     async def on_member_join(self, member):
-        if not message.author.id == 481337766379126784:
+        if not member.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
             findings = None
             for x in servers['logs']:
@@ -35,7 +35,7 @@ class Moderation:
                 await ctx.send(f":wave: {member} has joined the server. `ID: {member.id}`")
             
     async def on_member_remove(self, member):
-        if not message.author.id == 481337766379126784:
+        if not member.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
             findings = None
             for x in servers['logs']:
@@ -45,7 +45,7 @@ class Moderation:
                 await ctx.send(f":wave: {member} has left the server. `ID: {member.id}`")
             
     async def on_member_edit(self, before, after):
-        if not message.author.id == 481337766379126784:
+        if not before.author.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
             findings = None
             for x in servers['logs']:
