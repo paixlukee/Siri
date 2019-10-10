@@ -74,11 +74,11 @@ class Moderation:
                 await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":wastebasket: **{message.author}** deleted a message in {message.channel.mention}:")
  
     async def on_member_update(self, before, after):
-        if not message.author.id == 481337766379126784:
+        if not before.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
             findings = None
             for x in servers['logs']:
-                if x['guild'] == message.guild.id:
+                if x['guild'] == before.guild.id:
                     findings = x 
             if findings:                    
                 if not before.nick == after.nick:
@@ -108,11 +108,11 @@ class Moderation:
                     pass
                 
     async def on_user_update(self, before, after):
-        if not message.author.id == 481337766379126784:
+        if not before.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
             findings = None
             for x in servers['logs']:
-                if x['guild'] == message.guild.id:
+                if x['guild'] == before.guild.id:
                     findings = x 
             if findings:
                 if not before.name == after.name:
