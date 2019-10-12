@@ -73,39 +73,7 @@ class Moderation:
                 embed.timestamp = datetime.datetime.utcnow()
                 await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":wastebasket: **{message.author}** deleted a message in {message.channel.mention}:")
  
-    async def on_member_update(self, before, after):
-        if not before.id == 481337766379126784:
-            servers = db.utility.find_one({"utility": "serverconf"})
-            findings = None
-            for x in servers['logs']:
-                if x['guild'] == before.guild.id:
-                    findings = x 
-            if findings:                    
-                if not before.nick == after.nick:
-                    
-                    embed = discord.Embed(colour=0xffff00)
-                    embed.add_field(name="Before", value=before)
-                    embed.add_field(name="After", value=after)
-                    embed.set_footer(text="Nickname Edit") 
-                    embed.timestamp = datetime.datetime.utcnow()   
-                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":name_badge: **{member}** has changed their nickname:")
-                    
-                elif not before.roles == after.roles:
-                    
-                    if int(before.roles) > int(after.roles):
-                        type = "Add"
-                        colour = 0x00ff00
-                    else:
-                        type = "Remove"
-                        colour = 0xff0000
-                    role = 'h'    
-                    embed = discord.Embed(colour=colour)
-                    embed.add_field(name="Role", value=role)
-                    embed.set_footer(text=f"Role {type}") 
-                    embed.timestamp = datetime.datetime.utcnow()   
-                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":ledger: **{member}** has got their roles updated:")
-                else:
-                    pass
+
                 
 
                     
