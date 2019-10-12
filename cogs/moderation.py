@@ -107,34 +107,7 @@ class Moderation:
                 else:
                     pass
                 
-    async def on_user_update(self, before, after):
-        if not before.id == 481337766379126784:
-            servers = db.utility.find_one({"utility": "serverconf"})
-            findings = None
-            for x in servers['logs']:
-                if x['guild'] == before.guild.id:
-                    findings = x 
-            if findings:
-                if not before.name == after.name:
-                    
-                    embed = discord.Embed(colour=0xffff00)
-                    embed.add_field(name="Before", value=before)
-                    embed.add_field(name="After", value=after)
-                    embed.set_footer(text="Username Edit") 
-                    embed.timestamp = datetime.datetime.utcnow()   
-                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":page_facing_up: **{member}** has changed their username:")
-                    
-                elif not before.avatar == after.avatar:
-                    
-                    embed = discord.Embed(colour=0xff0000)
-                    embed_after = discord.Embed(colour=0x00ff00)
-                    embed.add_field(name="Avatar Before", value=before.avatar_url_as(format='png'))  
-                    embed.add_field(name="Avatar After", value=after.avatar_url_as(format='png'))
-                    embed.set_footer(text="Nickname Edit") 
-                    embed.timestamp = datetime.datetime.utcnow() 
-                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":frame_photo: **{member}** has changed their avatar:")
-                else:
-                    pass
+
                     
     @commands.command()
     async def logs(self, ctx, channel:discord.TextChannel=None):
