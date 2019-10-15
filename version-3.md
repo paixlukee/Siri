@@ -6,6 +6,7 @@ If you do experience bugs, please report them in the #report-bugs channel (Siri 
 
 Things you may see in V3:
 - Moderation Category (mod commands, logs, automod, etc)
+- More fun commands (fish, etc)
 - Major Design improvements
 - Utility revamp
 - Bug fixes in all categories
