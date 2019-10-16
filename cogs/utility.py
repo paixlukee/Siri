@@ -865,7 +865,7 @@ class Utility:
 
     @commands.command(aliases=['remind', 'rmd', 'timer'])
     @commands.cooldown(1, 100, commands.BucketType.user)
-    async def remindme(self, ctx, time=None, *, desc):
+    async def remindme(self, ctx, time=None, *, desc=None):
         """Set a timer.\n Example:\n siri remind 30m Call John"""
         if not desc: 
             await bot.get_command("remindme").reset_cooldown(ctx)
