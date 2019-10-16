@@ -889,19 +889,15 @@ class Utility:
         await ctx.send("__**Support**__:\nTo submit a ticket, do `siri ticket <message>`..\nTo join a support guild, click here: https://discord.gg/CjRP2Mc")
 
     @commands.command(aliases=['remind', 'rmd', 'timer'])
-    async def remindme(self, ctx, args=None):
+    async def remindme(self, ctx, time=None, *, desc):
         if not args:
             await ctx.send('<:redtick:492800273211850767> You forgot to put the arguments! Example:\n```siri remindme 10m Do the daily command.```')
         else:
-            split = args.split(' ')
-            if 's' in split[0].lower() or 'seconds' in split[0].lower() or split[1] == 'seconds':
-                sec = int(split[0].replace('s', '').replace('seconds', ''))
+            if 's' in time.lower() or 'seconds' in time.lower() or time.is_integer():
+                sec = int(time.replace('s', '').replace('seconds', ''))
                 await ctx.send('<:greentick:492800272834494474> I will remind you.')
                 await asyncio.sleep(sec)
-                if split[1] == 'seconds':
-                    await ctx.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{split[2]}**.')
-                else:
-                    await ctx.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{split[1]}**.')
+                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{desc}**.')
                    
     @commands.command(aliases=['color'])
     @commands.cooldown(1, 4, commands.BucketType.user)
