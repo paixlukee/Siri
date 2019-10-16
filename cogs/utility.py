@@ -56,31 +56,6 @@ class Utility:
         with open('assets\\economy.json', 'w') as f:
                  json.dump(users, f)
                 
-    async def set_timer(self, option:str=None, time:int=None, ctx=None, reason=None):
-        if option == 'minutes' or option == 'm':
-            t = time * 60
-            await asyncio.sleep(t)
-            return await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({time}m ago!)")
-        elif option == 'seconds' or option == 's':
-            t = time
-            await asyncio.sleep(t)
-            return await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({time}s ago!)")
-        elif option == 'hours' or option == 'h':
-            t = time * 3600 
-            await asyncio.sleep(t)
-            return await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({time}h ago!)")
-        elif option == 'day' or option == 'd':
-            t = time * 86400
-            await asyncio.sleep(t)
-            return await ctx.send(f"{ctx.author.mention}, :alarm_clock: **Ding!** I was supposed to remind you: `{reason}` ({time}d ago!)")
-        else:
-            return await ctx.send("That's not a valid option!\n**Options:** `seconds|s`, `minutes|m`, `hours|h`, and `days|d`")
-        
-        if time > 90500:
-            return await ctx.send("That time is too long!")
-        else:
-            pass
-            #fuck off extra
             
     async def on_message(self, message):
         if message.content.startswith('<@481337766379126784>'):
@@ -889,15 +864,37 @@ class Utility:
         await ctx.send("__**Support**__:\nTo submit a ticket, do `siri ticket <message>`..\nTo join a support guild, click here: https://discord.gg/CjRP2Mc")
 
     @commands.command(aliases=['remind', 'rmd', 'timer'])
+    @commands.cooldown(1, 100, commands.BucketType.user)
     async def remindme(self, ctx, time=None, *, desc):
-        if not desc:
+        """Set a timer.\n Example:\n siri remind 30m Call John"""
+        if not desc: 
             await ctx.send('<:redtick:492800273211850767> You forgot to put the arguments! Example:\n```siri remindme 10m Do the daily command.```')
-        else:
+        else: #lol bad code sorry
             if 's' in time.lower() or 'seconds' in time.lower():
                 sec = int(time.replace('s', '').replace('seconds', ''))
                 await ctx.send('<:greentick:492800272834494474> I will remind you.')
                 await asyncio.sleep(sec)
-                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{desc}**.')
+                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{desc}**. ({sec} seconds ago)')
+            elif 'm' in time.lower() or 'minutes' in time.lower():
+                bsec = int(time.replace('m', '').replace('minutes', ''))
+                sec = bsec*60
+                await ctx.send('<:greentick:492800272834494474> I will remind you.')
+                await asyncio.sleep(sec)
+                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{desc}**. ({bsec} minutes ago)')
+            elif 'h' in time.lower() or 'hours' in time.lower():
+                bsec = int(time.replace('h', '').replace('hours', ''))
+                sec = bsec*3600
+                await ctx.send('<:greentick:492800272834494474> I will remind you.')
+                await asyncio.sleep(sec)
+                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{desc}**. ({bsec} hours ago)')
+            elif 'd' in time.lower() or 'days' in time.lower():
+                bsec = int(time.replace('d', '').replace('days', ''))
+                sec = bsec*86400
+                await ctx.send('<:greentick:492800272834494474> I will remind you.')
+                await asyncio.sleep(sec)
+                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{desc}**. ({bsec} days ago)')
+            else:
+                await ctx.send('<:redtick:492800273211850767> Incorrect format! Example:\n```siri remindme 10m Do the daily command.```')
                    
     @commands.command(aliases=['color'])
     @commands.cooldown(1, 4, commands.BucketType.user)
