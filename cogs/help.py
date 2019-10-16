@@ -59,7 +59,7 @@ class Help:
         elif l == "Module" or l == "module" or l == "mdl" or l == 'c' or l == 'Category' or l == 'category':
 
             if cmd == "Utility" or cmd == "utility":
-                modules = ["`article`", "`avatar`", "`chatbot`", "`colour`", "`define`","`discordstatus`", "`hastebin`","`IMDb`","`langdetect`", "`map`", "`news`","`shorten`", "`search`","`serverinfo`", "`userinfo`","`strawpoll`","`translate`", "`weather`", "`wikipedia`"]
+                modules = ["`article`", "`avatar`", "`chatbot`", "`colour`", "`define`","`discordstatus`", "`hastebin`","`IMDb`","`langdetect`", "`map`", "`news`","`shorten`", "`search`","`serverinfo`", "`userinfo`","`strawpoll`", "`timer`","`translate`", "`weather`", "`wikipedia`"]
                 name = "Utility"
                 d = "Utility Commands"
             elif cmd == "Help" or cmd == "help":
