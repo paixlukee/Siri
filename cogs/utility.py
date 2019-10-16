@@ -897,7 +897,7 @@ class Utility:
             if 's' in split[0].lower() or 'seconds' in split[0].lower() or split[1] == 'seconds':
                 sec = int(split[0].replace('s', '').replace('seconds', ''))
                 await ctx.send('<:greentick:492800272834494474> I will remind you.')
-                await asyncio.sleep(split[0])
+                await asyncio.sleep(sec)
                 if split[1] == 'seconds':
                     await ctx.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{split[2]}**.')
                 else:
