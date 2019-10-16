@@ -890,10 +890,10 @@ class Utility:
 
     @commands.command(aliases=['remind', 'rmd', 'timer'])
     async def remindme(self, ctx, time=None, *, desc):
-        if not args:
+        if not desc:
             await ctx.send('<:redtick:492800273211850767> You forgot to put the arguments! Example:\n```siri remindme 10m Do the daily command.```')
         else:
-            if 's' in time.lower() or 'seconds' in time.lower() or time.is_integer():
+            if 's' in time.lower() or 'seconds' in time.lower():
                 sec = int(time.replace('s', '').replace('seconds', ''))
                 await ctx.send('<:greentick:492800272834494474> I will remind you.')
                 await asyncio.sleep(sec)
