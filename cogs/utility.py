@@ -868,7 +868,7 @@ class Utility:
     async def remindme(self, ctx, time=None, *, desc=None):
         """Set a timer.\n Example:\n siri remind 30m Call John"""
         if not desc: 
-            await bot.get_command("remindme").reset_cooldown(ctx)
+            await self.bot.get_command("remindme").reset_cooldown(ctx)
             await ctx.send('<:redtick:492800273211850767> You forgot to put the arguments! Example:\n```siri remindme 10m Do the daily command.```')                       
         else: #lol bad code sorry
             if 's' in time.lower() or 'seconds' in time.lower():
@@ -895,7 +895,7 @@ class Utility:
                 await asyncio.sleep(sec)
                 await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{desc}**. ({bsec} days ago)')
             else:
-                await bot.get_command("remindme").reset_cooldown(ctx)
+                await self.bot.get_command("remindme").reset_cooldown(ctx)
                 await ctx.send('<:redtick:492800273211850767> Incorrect format! Example:\n```siri remindme 10m Do the daily command.```')
                    
     @commands.command(aliases=['color'])
