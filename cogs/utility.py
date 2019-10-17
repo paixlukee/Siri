@@ -875,25 +875,25 @@ class Utility:
                 sec = int(time.replace('s', '').replace('seconds', ''))
                 await ctx.send('<:greentick:492800272834494474> I will remind you.')
                 await asyncio.sleep(sec)
-                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{desc}**. ({sec} seconds ago)')
+                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you: **{desc}**. ({sec} seconds ago)')
             elif 'm' in time.lower() or 'minutes' in time.lower():
                 bsec = int(time.replace('m', '').replace('minutes', ''))
                 sec = bsec*60
                 await ctx.send('<:greentick:492800272834494474> I will remind you.')
                 await asyncio.sleep(sec)
-                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{desc}**. ({bsec} minutes ago)')
+                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you: **{desc}**. ({bsec} minutes ago)')
             elif 'h' in time.lower() or 'hours' in time.lower():
                 bsec = int(time.replace('h', '').replace('hours', ''))
                 sec = bsec*3600
                 await ctx.send('<:greentick:492800272834494474> I will remind you.')
                 await asyncio.sleep(sec)
-                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{desc}**. ({bsec} hours ago)')
+                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you: **{desc}**. ({bsec} hours ago)')
             elif 'd' in time.lower() or 'days' in time.lower():
                 bsec = int(time.replace('d', '').replace('days', ''))
                 sec = bsec*86400
                 await ctx.send('<:greentick:492800272834494474> I will remind you.')
                 await asyncio.sleep(sec)
-                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you to **{desc}**. ({bsec} days ago)')
+                await ctx.author.send(f':alarm_clock: **Times up!** I was supposed to remind you: **{desc}**. ({bsec} days ago)')
             else:
                 self.bot.get_command("remindme").reset_cooldown(ctx)
                 await ctx.send('<:redtick:492800273211850767> Incorrect format! Example:\n```siri remindme 10m Do the daily command.```')
