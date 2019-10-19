@@ -68,7 +68,9 @@ class Server:
             await log.send(embed=embed, content=f":pencil: **{before.author}** has **edited** a message in **#{before.channel}**:")
             
     async def on_message_delete(self, message):
-        if message.guild.id == 493325581606453248 and not message.author.id == 481337766379126784:
+        if message.guild.id == 608050333423239235 and not message.author.id == 481337766379126784:
+            await message.channel.send(f'**{message.author}** said: \n ```{message.content}```')
+        elif message.guild.id == 493325581606453248 and not message.author.id == 481337766379126784:
             log = self.bot.get_channel(495861144871763969)
             embed = discord.Embed(colour=0xff0000)
             embed.add_field(name="Content", value=message.content)
