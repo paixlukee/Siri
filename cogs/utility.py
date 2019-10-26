@@ -555,10 +555,10 @@ class Utility:
             await ctx.send(embed=embed, content=f":books: | Here is the definition for **{word}**:")
         except Exception as e:
             await ctx.send("I couldn't find that word in the dictionary.")
-            #await ctx.send(e)
-            #await ctx.send(rnd(re['etymologies']))
-            #await ctx.send(rnd(re['senses'][0]['definitions']))
-            #await ctx.send(re['senses'][0]['examples'][0]['text'])
+            await ctx.send(e)
+            await ctx.send(rnd(re['etymologies']))
+            await ctx.send(rnd(re['senses'][0]['definitions']))
+            await ctx.send(re['senses'][0]['examples'][0]['text'])
 
     async def post(self, content):
         async with aiohttp.ClientSession() as session:
