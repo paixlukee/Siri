@@ -533,7 +533,7 @@ class Utility:
             pass
         try:
             q = word.replace(" ", "%20")
-            r = requests.get(f"https://od-api.oxforddictionaries.com:443/api/v1/entries/en/{q}",
+            r = requests.get(f"https://od-api.oxforddictionaries.com/api/v2/entries/en-us/{q}",
                 headers={
                     'app_id': '6cd11931', 
                     'app_key': 'a6d815d3a40f53811de4aad036361e5a'
