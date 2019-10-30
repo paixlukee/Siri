@@ -77,7 +77,6 @@ class Moderation:
         if not before.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
             findings = None
-            print(dir(before))
             for x in servers['logs']:
                 if x['guild'] == before.guild.id:
                     findings = x 
@@ -106,7 +105,7 @@ class Moderation:
                     embed.timestamp = datetime.datetime.utcnow()   
                     await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":ledger: **{member}** has got their roles updated:")
                 else:
-                    print('p')
+                    pass
 
     async def on_user_update(self, before, after):
         if not before.id == 481337766379126784:
@@ -135,7 +134,7 @@ class Moderation:
                     embed.timestamp = datetime.datetime.utcnow() 
                     await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":frame_photo: **{member}** has changed their avatar:")
                 else:
-                    print('p')
+                    pass
                     
     @commands.command()
     async def logs(self, ctx, channel:discord.TextChannel=None):
