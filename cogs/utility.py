@@ -1020,7 +1020,7 @@ class Utility:
         rl.set_thumbnail(url=guild.icon_url)
         rl.add_field(name="Name:", value='{}'.format(guild), inline=False)
         rl.add_field(name="ID:", value=guild.id)
-        rl.add_field(name="Region:", value=guild.region)
+        #rl.add_field(name="Region:", value=guild.region)
         rl.add_field(name="Emojis:", value=f"{o} (**{str(len(guild.emojis))}**)")
         rl.add_field(name="Roles:", value=f"{e} (**{str(len(guild.roles))}**)")
         rl.add_field(name='Guild Owner:', value=guild.owner.mention)
