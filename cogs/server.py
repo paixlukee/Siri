@@ -56,73 +56,7 @@ class Server:
             log = self.bot.get_channel(482926662401654795)
             resp = ['okay.. well. you\'re a nuisance anyways', 'i dont care what u have to say', 'finally u gone', 'u prob suck anyways', 'FGHJKLHGFDHG', 'ok cool idc bitchhhh', 'cu later hoe']
             await log.send(f"<:leave:498635244128305152> byebye, **{member.name}**! {rnd(resp)}")  
-            
-    async def on_message_edit(self, before, after):
-        if before.guild.id == 493325581606453248 and not before.author.id == 481337766379126784:
-            log = self.bot.get_channel(495861144871763969)
-            embed = discord.Embed(colour=0xffff00)
-            embed.add_field(name="Before", value=before.content)
-            embed.add_field(name="After", value=after.content)
-            embed.set_footer(text="Message Edit", icon_url=before.guild.icon_url_as(format='png')) 
-            embed.timestamp = datetime.datetime.utcnow()
-            await log.send(embed=embed, content=f":pencil: **{before.author}** has **edited** a message in **#{before.channel}**:")
-            
-    async def on_message_delete(self, message):
-        if message.guild.id == 608050333423239235 and not message.author.id == 481337766379126784:
-            await message.channel.send(f'**{message.author}** said: \n ```{message.content}```')
-        elif message.guild.id == 493325581606453248 and not message.author.id == 481337766379126784:
-            log = self.bot.get_channel(495861144871763969)
-            embed = discord.Embed(colour=0xff0000)
-            embed.add_field(name="Content", value=message.content)
-            embed.set_footer(text="Message Delete", icon_url=message.guild.icon_url_as(format='png')) 
-            embed.timestamp = datetime.datetime.utcnow()
-            await log.send(embed=embed, content=f":wastebasket: **{message.author}** has **removed** a message in **#{message.channel}**:")
-            
-    async def on_member_update(self, before, after):
-        if before.guild.id == 493325581606453248:
-            message = before
-            log = self.bot.get_channel(495861144871763969)           
-            embed = discord.Embed(colour=0x82b1ff)
-            if not before.name == after.name:
-                cnt = f":page_facing_up: **{before}** has changed their **username**:"
-                embed.add_field(name="Before", value=before)
-                embed.add_field(name="After", value=after)
-                embed.set_footer(text="Username Edit", icon_url=message.guild.icon_url_as(format='png')) 
-                embed.timestamp = datetime.datetime.utcnow()   
-                await log.send(embed=embed, content=cnt)
-            elif not before.nick == after.nick:
-                cnt = f":name_badge: **{before}** has changed their **nickname**:"
-                embed.add_field(name="Before", value=before.nick)
-                embed.add_field(name="After", value=after.nick)
-                embed.set_footer(text="Nickname Edit", icon_url=message.guild.icon_url_as(format='png')) 
-                embed.timestamp = datetime.datetime.utcnow()
-                await log.send(embed=embed, content=cnt)
-            elif not before.roles == after.roles:
-                cnt = f":ledger: **{before}** has got their **roles** updated:"
-                embed.add_field(name="Before", value=" ".join([x.mention for x in before.roles]))
-                embed.add_field(name="After", value=" ".join([x.mention for x in after.roles]))
-                embed.set_footer(text="Role Update", icon_url=message.guild.icon_url_as(format='png')) 
-                embed.timestamp = datetime.datetime.utcnow() 
-                await log.send(embed=embed, content=cnt)
-            else:
-                pass
-            
-    async def on_user_update(self, before, after):
-        if before.guild.id == 493325581606453248:
-            message = before
-            log = self.bot.get_channel(495861144871763969)           
-            embed = discord.Embed(colour=0x82b1ff)
-            if not before.name == after.name:
-                cnt = f":page_facing_up: **{before}** has changed their **username**:"
-                embed.add_field(name="Before", value=before)
-                embed.add_field(name="After", value=after)
-                embed.set_footer(text="Username Edit", icon_url=message.guild.icon_url_as(format='png')) 
-                embed.timestamp = datetime.datetime.utcnow()   
-                await log.send(embed=embed, content=cnt)
 
-                
-            else:
-                pass
  
     @commands.command()
     @commands.is_owner()
