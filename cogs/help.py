@@ -20,9 +20,9 @@ class Help:
         self.music = ["`play`", "`queue`", "`np`", "`shuffle`", "`repeat`","`stop`", "`volume`", "`pause`", "`resume`", "`leave`", "`msearch`", "`remove`"]
         self.news = db.utility.find_one({"utility": "help"})
         
-    @commands.command()
-    @commands.cooldown(1,3, commands.BucketType.user)
-    async def help2(self, ctx, cmd:str=None):
+    @commands.command(aliases=['cmds', 'Help'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
+    async def help(self, ctx, cmd:str=None):
         if not cmd:
             embed = discord.Embed(colour=rnd(self.colours), title="What can I help you with?", description="For help with a command, do `siri help command`.")
             embed.add_field(name="Bot", value=" ".join(self.botc))
@@ -47,13 +47,13 @@ class Help:
                     else:
                         params = _help
                     embed2 = discord.Embed(description=f"**Command:** `{cmd}`\n\n```siri {_cmd} {params}\n\n{desc}```", colour=rnd(self.colours))
-                    embed2.set_author(name="Help Menu", icon_url="https://cdn.discordapp.com/icons/493325581606453248/5b26d49a78c617fbba0e9cf17c5d8ff0.png?size=1024")
+                    embed2.set_footer(text="Help Menu", icon_url="https://cdn.discordapp.com/icons/493325581606453248/5b26d49a78c617fbba0e9cf17c5d8ff0.png?size=1024")
                     await ctx.send(embed=embed2)            
                 
 
-    @commands.command(name="help", aliases=['cmds', 'Help'])
+    @commands.command()
     @commands.cooldown(1, 3, commands.BucketType.user)
-    async def _help(self, ctx, l:str = None, cmd:str = None):
+    async def oldhelp(self, ctx, l:str = None, cmd:str = None):
         """This Command."""
         if ctx.message.author.bot: return
         elif not l:
