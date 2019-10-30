@@ -130,11 +130,11 @@ async def on_user_update(self, before, after):
                 embed_after = discord.Embed(colour=0x00ff00)
                 embed.add_field(name="Avatar Before", value=before.avatar_url_as(format='png'))  
                 embed.add_field(name="Avatar After", value=after.avatar_url_as(format='png'))
-                embed.set_footer(text="Nickname Edit") 
+                embed.set_footer(text="Avatar Update") 
                 embed.timestamp = datetime.datetime.utcnow() 
                 await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":frame_photo: **{member}** has changed their avatar:")
             else:
-                pass
+                print('p')
 
                 
 
