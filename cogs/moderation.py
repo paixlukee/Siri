@@ -73,72 +73,69 @@ class Moderation:
                 embed.timestamp = datetime.datetime.utcnow()
                 await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":wastebasket: **{message.author}** deleted a message in {message.channel.mention}:")
  
-async def on_member_update(self, before, after):
-    if not before.id == 481337766379126784:
-        servers = db.utility.find_one({"utility": "serverconf"})
-        findings = None
-        print(dir(before))
-        for x in servers['logs']:
-            if x['guild'] == before.guild.id:
-                findings = x 
-        if findings:                    
-            if not before.nick == after.nick:
-                
-                embed = discord.Embed(colour=0xffff00)
-                embed.add_field(name="Before", value=before)
-                embed.add_field(name="After", value=after)
-                embed.set_footer(text="Nickname Edit") 
-                embed.timestamp = datetime.datetime.utcnow()   
-                await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":name_badge: **{member}** has changed their nickname:")
-                
-            elif not before.roles == after.roles:
-                
-                if int(before.roles) > int(after.roles):
-                    type = "Add"
-                    colour = 0x00ff00
+    async def on_member_update(self, before, after):
+        if not before.id == 481337766379126784:
+            servers = db.utility.find_one({"utility": "serverconf"})
+            findings = None
+            print(dir(before))
+            for x in servers['logs']:
+                if x['guild'] == before.guild.id:
+                    findings = x 
+            if findings:                    
+                if not before.nick == after.nick:
+
+                    embed = discord.Embed(colour=0xffff00)
+                    embed.add_field(name="Before", value=before)
+                    embed.add_field(name="After", value=after)
+                    embed.set_footer(text="Nickname Edit") 
+                    embed.timestamp = datetime.datetime.utcnow()   
+                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":name_badge: **{member}** has changed their nickname:")
+
+                elif not before.roles == after.roles:
+
+                    if int(before.roles) > int(after.roles):
+                        type = "Add"
+                        colour = 0x00ff00
+                    else:
+                        type = "Remove"
+                        colour = 0xff0000
+                    role = 'h'    
+                    embed = discord.Embed(colour=colour)
+                    embed.add_field(name="Role", value=role)
+                    embed.set_footer(text=f"Role {type}") 
+                    embed.timestamp = datetime.datetime.utcnow()   
+                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":ledger: **{member}** has got their roles updated:")
                 else:
-                    type = "Remove"
-                    colour = 0xff0000
-                role = 'h'    
-                embed = discord.Embed(colour=colour)
-                embed.add_field(name="Role", value=role)
-                embed.set_footer(text=f"Role {type}") 
-                embed.timestamp = datetime.datetime.utcnow()   
-                await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":ledger: **{member}** has got their roles updated:")
-            else:
-                print('p')
-            
-async def on_user_update(self, before, after):
-    if not before.id == 481337766379126784:
-        servers = db.utility.find_one({"utility": "serverconf"})
-        findings = None
-        for x in servers['logs']:
-            if x['guild'] == before.guild.id:
-                findings = x 
-        if findings:
-            if not before.name == after.name:
-                
-                embed = discord.Embed(colour=0xffff00)
-                embed.add_field(name="Before", value=before)
-                embed.add_field(name="After", value=after)
-                embed.set_footer(text="Username Edit") 
-                embed.timestamp = datetime.datetime.utcnow()   
-                await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":page_facing_up: **{member}** has changed their username:")
-                
-            elif not before.avatar == after.avatar:
-                
-                embed = discord.Embed(colour=0xff0000)
-                embed_after = discord.Embed(colour=0x00ff00)
-                embed.add_field(name="Avatar Before", value=before.avatar_url_as(format='png'))  
-                embed.add_field(name="Avatar After", value=after.avatar_url_as(format='png'))
-                embed.set_footer(text="Avatar Update") 
-                embed.timestamp = datetime.datetime.utcnow() 
-                await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":frame_photo: **{member}** has changed their avatar:")
-            else:
-                print('p')
+                    print('p')
 
-                
+    async def on_user_update(self, before, after):
+        if not before.id == 481337766379126784:
+            servers = db.utility.find_one({"utility": "serverconf"})
+            findings = None
+            for x in servers['logs']:
+                if x['guild'] == before.guild.id:
+                    findings = x 
+            if findings:
+                if not before.name == after.name:
 
+                    embed = discord.Embed(colour=0xffff00)
+                    embed.add_field(name="Before", value=before)
+                    embed.add_field(name="After", value=after)
+                    embed.set_footer(text="Username Edit") 
+                    embed.timestamp = datetime.datetime.utcnow()   
+                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":page_facing_up: **{member}** has changed their username:")
+
+                elif not before.avatar == after.avatar:
+
+                    embed = discord.Embed(colour=0xff0000)
+                    embed_after = discord.Embed(colour=0x00ff00)
+                    embed.add_field(name="Avatar Before", value=before.avatar_url_as(format='png'))  
+                    embed.add_field(name="Avatar After", value=after.avatar_url_as(format='png'))
+                    embed.set_footer(text="Avatar Update") 
+                    embed.timestamp = datetime.datetime.utcnow() 
+                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":frame_photo: **{member}** has changed their avatar:")
+                else:
+                    print('p')
                     
     @commands.command()
     async def logs(self, ctx, channel:discord.TextChannel=None):
