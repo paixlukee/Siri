@@ -1018,8 +1018,6 @@ class Utility:
         rl = discord.Embed(colour=discord.Color(0x00e1e1))
         rl.set_author(name="Server Info", icon_url=guild.icon_url)
         rl.set_thumbnail(url=guild.icon_url)
-        rl.add_field(name="Name:", value='{}'.format(guild), inline=False)
-        rl.add_field(name="ID:", value=guild.id)
         #rl.add_field(name="Region:", value=guild.region)
         rl.add_field(name="Emojis:", value=f"{o} (**{str(len(guild.emojis))}**)")
         rl.add_field(name="Roles:", value=f"{e} (**{str(len(guild.roles))}**)")
@@ -1028,6 +1026,7 @@ class Utility:
         rl.add_field(name="Channels:", value=str(len(guild.channels)))
         rl.add_field(name="Verification:", value=guild.verification_level)
         rl.add_field(name='Server Created:', value=guild.created_at.__format__('%A, %B %d, %Y'))
+        rl.set_footer(text=f'Guild ID: {guild.id}')
         await ctx.send(embed=rl)
 
     @commands.command(aliases=['userinformation'])
