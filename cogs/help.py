@@ -37,18 +37,18 @@ class Help:
                 await ctx.send("<:redtick:492800273211850767> There is no command named \"command\". Replace \"command\" with one of the commands listed in the help menu.")
             else:
                 _cmd = self.bot.get_command(cmd)
-               if not _cmd:
-                   await ctx.send(f"<:redtick:492800273211850767> No command called \"{cmd}\" found.")
-               else:
-                   _help = "> <".join(_cmd.clean_params)
-                   desc = _cmd.help
-                   if not params:
-                       params = f"<{_help}>"
-                   else:
-                       params = _help
-                   embed2 = discord.Embed(description=f"**Command:** `{cmd}`\n\n```siri {_cmd} {params}\n\n{desc}```", colour=rnd(self.colours))
-                   embed2.set_author(name="Help Menu", icon_url="https://cdn.discordapp.com/icons/493325581606453248/5b26d49a78c617fbba0e9cf17c5d8ff0.png?size=1024")
-                   await ctx.send(embed=embed2)
+                if not _cmd:
+                    await ctx.send(f"<:redtick:492800273211850767> No command called \"{cmd}\" found.")
+                else:
+                    _help = "> <".join(_cmd.clean_params)
+                    desc = _cmd.help
+                    if not params:
+                        params = f"<{_help}>"
+                    else:
+                        params = _help
+                    embed2 = discord.Embed(description=f"**Command:** `{cmd}`\n\n```siri {_cmd} {params}\n\n{desc}```", colour=rnd(self.colours))
+                    embed2.set_author(name="Help Menu", icon_url="https://cdn.discordapp.com/icons/493325581606453248/5b26d49a78c617fbba0e9cf17c5d8ff0.png?size=1024")
+                    await ctx.send(embed=embed2)
                 
                 
                 
