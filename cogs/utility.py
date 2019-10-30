@@ -1024,7 +1024,7 @@ class Utility:
         rl.add_field(name='Guild Owner:', value=guild.owner.mention)
         rl.add_field(name="Members:", value=guild.member_count)
         rl.add_field(name="Channels:", value=str(len(guild.channels)))
-        rl.add_field(name="Verification:", value=guild.verification_level)
+        #rl.add_field(name="Verification:", value=guild.verification_level)
         rl.add_field(name='Server Created:', value=guild.created_at.__format__('%A, %B %d, %Y'))
         rl.set_footer(text=f'Guild ID: {guild.id}')
         await ctx.send(embed=rl)
