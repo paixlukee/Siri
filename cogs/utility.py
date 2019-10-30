@@ -861,7 +861,7 @@ class Utility:
     @commands.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def support(self, ctx):
-        await ctx.send("__**Support**__:\nTo submit a ticket, do `siri ticket <message>`..\nTo join a support guild, click here: https://discord.gg/CjRP2Mc")
+        await ctx.send("__**Support**__:\nTo submit a ticket, do `siri ticket <message>`..\nTo join a support guild, click here: https://discord.gg/VuvB4gt")
 
     @commands.command(aliases=['remind', 'rmd', 'timer'])
     @commands.cooldown(1, 100, commands.BucketType.user)
