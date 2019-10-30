@@ -1047,7 +1047,6 @@ class Utility:
         semoji = str(ctx.author.status).replace("online", "<:status_online:596576749790429200>").replace("idle", "<:status_idle:596576773488115722>").replace("dnd", "<:status_dnd:596576774364856321>").replace("offline", "<:status_offline:596576752013279242>").replace("streaming", "<:status_streaming:596576747294818305>")
         message = ctx.message
         guild = ctx.message.guild
-        await message.add_reaction('🔍')
         trl = discord.Embed(colour=user.colour, description=f"{semoji} **{user.name}**#{ctx.author.discriminator} | **{ctx.author.id}**")
         #trl.set_author(name=user, icon_url=user.avatar_url)
         trl.set_thumbnail(url=user.avatar_url)
@@ -1056,7 +1055,7 @@ class Utility:
             trl.add_field(name="Nickname:", value=user.nick)
         #trl.add_field(name="Status:", value=user.status)
         trl.add_field(name="Playing:", value=user.activity.name + ': ' + user.activity.state)
-        trl.add_field(name="Roles:", value=", ".join(user.roles))
+        trl.add_field(name="Roles:", value=[str(x.name).replace('@','') for x in user.roles])
         trl.add_field(name='Account Created:', value=user.created_at.__format__('%A, %B %d, %Y'))
         trl.add_field(name='Joined Server:', value=user.joined_at.__format__('%A, %B %d, %Y'))
         await ctx.send(embed=trl)
