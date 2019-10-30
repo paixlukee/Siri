@@ -1055,7 +1055,7 @@ class Utility:
             trl.add_field(name="Nickname:", value=user.nick)
         #trl.add_field(name="Status:", value=user.status)
         trl.add_field(name=user.activity.name + ':', value=user.activity.state)
-        trl.add_field(name="Roles:", value=", ".join([str(x.name) for x in user.roles].pop('@everyone')))
+        trl.add_field(name="Roles:", value=", ".join([str(x.name) for x in user.roles]))
         trl.add_field(name='Account Created:', value=user.created_at.__format__('%A, %B %d, %Y'))
         trl.add_field(name='Joined Server:', value=user.joined_at.__format__('%A, %B %d, %Y'))
         trl.set_footer(text=f'User ID: {user.id}')
