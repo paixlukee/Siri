@@ -42,15 +42,13 @@ class Help:
                 else:
                     _help = "> <".join(_cmd.clean_params)
                     desc = _cmd.help
-                    if not params:
+                    if not _cmd.clean_params:
                         params = f"<{_help}>"
                     else:
                         params = _help
                     embed2 = discord.Embed(description=f"**Command:** `{cmd}`\n\n```siri {_cmd} {params}\n\n{desc}```", colour=rnd(self.colours))
                     embed2.set_author(name="Help Menu", icon_url="https://cdn.discordapp.com/icons/493325581606453248/5b26d49a78c617fbba0e9cf17c5d8ff0.png?size=1024")
-                    await ctx.send(embed=embed2)
-                
-                
+                    await ctx.send(embed=embed2)            
                 
 
     @commands.command(name="help", aliases=['cmds', 'Help'])
