@@ -14,7 +14,7 @@ class Help:
     def __init__(self, bot):
         self.bot = bot
         self.colours = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
-        self.utility = ["article", "avatar", "chatbot", "colour", "define","discordstatus", "hastebin","IMDb","langdetect", "map", "news","shorten", "search","serverinfo", "userinfo","strawpoll", "timer","translate", "weather`", "wikipedia"]
+        self.utility = ["article", "avatar", "chatbot", "colour", "define","discordstatus", "hastebin","IMDb","langdetect", "map", "news","shorten", "search","serverinfo", "userinfo","strawpoll", "timer","translate", "weather", "wikipedia"]
         self.botc = ["ticket", "stats", "support", "ping"]
         self.economy = ["balance", "bank create", "birthday", "buy","daily","description", "eat", "flip","give", "level","lvlmsgs","leaderboard", "profile","setcolour", "shop", "slots"]
         self.music = ["play", "queue", "np", "shuffle", "repeat","stop", "volume", "pause", "resume", "leave", "msearch", "remove"]
