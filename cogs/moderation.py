@@ -105,7 +105,7 @@ async def on_member_update(self, before, after):
                 embed.timestamp = datetime.datetime.utcnow()   
                 await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":ledger: **{member}** has got their roles updated:")
             else:
-                pass
+                print('p')
             
 async def on_user_update(self, before, after):
     if not before.id == 481337766379126784:
