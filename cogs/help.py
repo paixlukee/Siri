@@ -32,13 +32,13 @@ class Help:
             embed.set_footer(text="Help Menu", icon_url="https://cdn.discordapp.com/icons/493325581606453248/5b26d49a78c617fbba0e9cf17c5d8ff0.png?size=1024")
             embed.set_image(url="http://media.idownloadblog.com/wp-content/uploads/2016/06/iOS-10-Siri-waveform-image-001.png")
             await ctx.send(embed=embed)
-         else:
+        else:
             if cmd.lower() == 'command':
                 await ctx.send("<:redtick:492800273211850767> There is no command named \"command\". Replace \"command\" with one of the commands listed in the help menu.")
             else:
-               _cmd = self.bot.get_command(cmd)
+                _cmd = self.bot.get_command(cmd)
                if not _cmd:
-                    await ctx.send(f"<:redtick:492800273211850767> No command called \"{cmd}\" found.")
+                   await ctx.send(f"<:redtick:492800273211850767> No command called \"{cmd}\" found.")
                else:
                    _help = "> <".join(_cmd.clean_params)
                    desc = _cmd.help
