@@ -77,6 +77,7 @@ async def on_member_update(self, before, after):
     if not before.id == 481337766379126784:
         servers = db.utility.find_one({"utility": "serverconf"})
         findings = None
+        print(dir(before))
         for x in servers['logs']:
             if x['guild'] == before.guild.id:
                 findings = x 
