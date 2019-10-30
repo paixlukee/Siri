@@ -14,7 +14,44 @@ class Help:
     def __init__(self, bot):
         self.bot = bot
         self.colours = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
+        self.utility = ["`article`", "`avatar`", "`chatbot`", "`colour`", "`define`","`discordstatus`", "`hastebin`","`IMDb`","`langdetect`", "`map`", "`news`","`shorten`", "`search`","`serverinfo`", "`userinfo`","`strawpoll`", "`timer`","`translate`", "`weather`", "`wikipedia`"]
+        self.botc = ["`ticket`", "`stats`", "`support`", "`ping`"]
+        self.economy = ["`balance`", "`bank create`", "`birthday`", "`buy`","`daily`","`description`", "`eat`", "`flip`","`give`", "`level`","`lvlmsgs`","`leaderboard`", "`profile`","`setcolour`", "`shop`", "`slots`"]
+        self.music = ["`play`", "`queue`", "`np`", "`shuffle`", "`repeat`","`stop`", "`volume`", "`pause`", "`resume`", "`leave`", "`msearch`", "`remove`"]
         self.news = db.utility.find_one({"utility": "help"})
+        
+    @commands.command()
+    @commands.cooldown(1,3, commands.BucketType.user)
+    async def help2(self, ctx, cmd:str=None):
+        if not cmd:
+            embed = discord.Embed(colour=rnd(self.colours), title="What can I help you with?", description="For help with a command, do `siri help command`.")
+            embed.add_field(name="Bot", value=" ".join(self.botc))
+            embed.add_field(name="Utility", value=" ".join(self.utility))
+            embed.add_field(name="Economy", value=" ".join(self.economy))
+            embed.add_field(name="Music", value=" ".join(self.music))
+            embed.set_footer(text="Help Menu", icon_url="https://cdn.discordapp.com/icons/493325581606453248/5b26d49a78c617fbba0e9cf17c5d8ff0.png?size=1024")
+            embed.set_image(url="http://media.idownloadblog.com/wp-content/uploads/2016/06/iOS-10-Siri-waveform-image-001.png")
+            await ctx.send(embed=embed)
+         else:
+            if cmd.lower() == 'command':
+                await ctx.send("<:redtick:492800273211850767> There is no command named \"command\". Replace \"command\" with one of the commands listed in the help menu.")
+            else:
+               _cmd = self.bot.get_command(cmd)
+               if not _cmd:
+                    await ctx.send(f"<:redtick:492800273211850767> No command called \"{cmd}\" found.")
+               else:
+                   _help = "> <".join(_cmd.clean_params)
+                   desc = _cmd.help
+                   if not params:
+                       params = f"<{_help}>"
+                   else:
+                       params = _help
+                   embed2 = discord.Embed(description=f"**Command:** `{cmd}`\n\n```siri {_cmd} {params}\n\n{desc}```", colour=rnd(self.colours))
+                   embed2.set_author(name="Help Menu", icon_url="https://cdn.discordapp.com/icons/493325581606453248/5b26d49a78c617fbba0e9cf17c5d8ff0.png?size=1024")
+                   await ctx.send(embed=embed2)
+                
+                
+                
 
     @commands.command(name="help", aliases=['cmds', 'Help'])
     @commands.cooldown(1, 3, commands.BucketType.user)
@@ -59,7 +96,7 @@ class Help:
         elif l == "Module" or l == "module" or l == "mdl" or l == 'c' or l == 'Category' or l == 'category':
 
             if cmd == "Utility" or cmd == "utility":
-                modules = ["`article`", "`avatar`", "`chatbot`", "`colour`", "`define`","`discordstatus`", "`hastebin`","`IMDb`","`langdetect`", "`map`", "`news`","`shorten`", "`search`","`serverinfo`", "`userinfo`","`strawpoll`", "`timer`","`translate`", "`weather`", "`wikipedia`"]
+                modules = self.utility
                 name = "Utility"
                 d = "Utility Commands"
             elif cmd == "Help" or cmd == "help":
@@ -67,15 +104,15 @@ class Help:
                 name = "Help"
                 d = "Help Menu"
             elif cmd == "Bot" or cmd == "bot":
-                modules = ["`ticket`", "`stats`", "`support`", "`ping`"]
+                modules = self.botc
                 name = "Bot"
                 d = "Bot info/stats"
             elif cmd == "Economy" or cmd == "economy":
-                modules = ["`balance`", "`bank create`", "`birthday`", "`buy`","`daily`","`description`", "`eat`", "`flip`","`give`", "`level`","`lvlmsgs`","`leaderboard`", "`profile`","`setcolour`", "`shop`", "`slots`"]
+                modules = self.economy
                 name = "Economy"
                 d = "Economy Commands"
             elif cmd == "Music" or cmd == "music":
-                modules = ["`play`", "`queue`", "`np`", "`shuffle`", "`repeat`","`stop`", "`volume`", "`pause`", "`resume`", "`leave`", "`msearch`", "`remove`"]
+                modules = self.music
                 name = "Music"
                 d = "Music Commands"
             else:
