@@ -21,7 +21,7 @@ import config
 
 extensions = ['cogs.utility', 'cogs.help', 'cogs.economy', 'cogs.dev', 'cogs.music', 'cogs.server', 'cogs.levels']
 
-class Bot:
+class Botdev:
     def __init__(self, bot):
         self.bot = bot
         
@@ -151,4 +151,4 @@ class Bot:
             print(f"[{type(error).__name__.upper()}]: {error}")
             
 def setup(bot):
-    bot.add_cog(Bot(bot))
+    bot.add_cog(Botdev(bot))
