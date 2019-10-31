@@ -30,7 +30,7 @@ class Siri(commands.AutoShardedBot):
         if not self.is_ready() or after.author.bot:
             return
 
-        await self.process_commands(after)#hi thanks
+        await self.process_commands(after)
 
     async def run_cmd(self, cmd: str) -> str:
          process =\
@@ -58,7 +58,7 @@ class Siri(commands.AutoShardedBot):
         print(f"[AWAITING] Run 'siri load all'")
         self.loop.create_task(self.status_task())
         embed = discord.Embed(title='⚡ **Siri** is connected!', description=f"**Guilds**.. `{str(len(self.guilds))}`")
-        await self.load_extension("cogs.help")
+        await self.load_extension("cogs.bot")
         try:
             await log.send(embed=embed)
         except:
