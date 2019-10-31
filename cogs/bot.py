@@ -149,3 +149,6 @@ class Bot:
             await ctx.send(f"<:redtick:492800273211850767> You are on cooldown! Please wait **{hours} {round(minutes)}m {round(seconds)}s**.")
         else:
             print(f"[{type(error).__name__.upper()}]: {error}")
+            
+def setup(bot):
+    bot.add_cog(Bot(bot))
