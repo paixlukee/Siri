@@ -61,7 +61,7 @@ class Siri(commands.AutoShardedBot):
                 '\___ \| |  __| |\n'\
                 ' ___) | | |  | |\n'\
                 '|____/|_|_|  |_|')
-        print('\n------')
+        print(f'Discord Version {discord.__version}\n------')
         print(f'[UPDATE] Logged in as: {self.user.name} ({str(self.user.id)})')
         print(f"[AWAITING] Run 'siri load all'")
         self.loop.create_task(self.status_task())
