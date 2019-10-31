@@ -88,7 +88,7 @@ class Moderation:
                     embed.add_field(name="After", value=after)
                     embed.set_footer(text="Nickname Edit") 
                     embed.timestamp = datetime.datetime.utcnow()   
-                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":name_badge: **{member}** has changed their nickname:")
+                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":name_badge: **{before}** has changed their nickname:")
 
                 elif not before.roles == after.roles:
 
@@ -103,7 +103,7 @@ class Moderation:
                     embed.add_field(name="Role", value=role)
                     embed.set_footer(text=f"Role {type}") 
                     embed.timestamp = datetime.datetime.utcnow()   
-                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":ledger: **{member}** has got their roles updated:")
+                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":ledger: **{before}** has got their roles updated:")
                 else:
                     pass
 
@@ -122,7 +122,7 @@ class Moderation:
                     embed.add_field(name="After", value=after)
                     embed.set_footer(text="Username Edit") 
                     embed.timestamp = datetime.datetime.utcnow()   
-                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":page_facing_up: **{member}** has changed their username:")
+                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":page_facing_up: **{before}** has changed their username:")
 
                 elif not before.avatar == after.avatar:
 
@@ -132,7 +132,7 @@ class Moderation:
                     embed.add_field(name="Avatar After", value=after.avatar_url_as(format='png'))
                     embed.set_footer(text="Avatar Update") 
                     embed.timestamp = datetime.datetime.utcnow() 
-                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":frame_photo: **{member}** has changed their avatar:")
+                    await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":frame_photo: **{before}** has changed their avatar:")
                 else:
                     pass
                     
