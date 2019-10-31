@@ -23,7 +23,8 @@ db = client['siri']
 class Moderation:
     def __init__(self, bot):
         self.bot = bot
-        
+    
+    @commands.Cog.listener()
     async def on_member_join(self, member):
         if not member.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
@@ -33,7 +34,8 @@ class Moderation:
                     findings = x 
             if findings:
                 await self.bot.get_channel(findings['channel']).send(f":wave: **{member}** has joined the server. `ID: {member.id}`")
-            
+    
+    @commands.Cog.listener()
     async def on_member_remove(self, member):
         if not member.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
@@ -43,7 +45,8 @@ class Moderation:
                     findings = x 
             if findings:
                 await self.bot.get_channel(findings['channel']).send(f":wave: **{member}** has left the server. `ID: {member.id}`")
-            
+    
+    @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         if not before.author.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
@@ -58,7 +61,8 @@ class Moderation:
                 embed.set_footer(text="Message Edit") 
                 embed.timestamp = datetime.datetime.utcnow()
                 await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":pencil: **{before.author}** edited a message in {before.channel.mention}:")
-            
+     
+    @commands.Cog.listener()
     async def on_message_delete(self, message):
         if not message.author.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
@@ -73,6 +77,7 @@ class Moderation:
                 embed.timestamp = datetime.datetime.utcnow()
                 await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":wastebasket: **{message.author}** deleted a message in {message.channel.mention}:")
  
+    @commands.Cog.listener()
     async def on_member_update(self, before, after):
         if not before.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
@@ -106,7 +111,8 @@ class Moderation:
                     await self.bot.get_channel(findings['channel']).send(embed=embed, content=f":ledger: **{before}** has got their roles updated:")
                 else:
                     pass
-
+    
+    @commands.Cog.listener()
     async def on_user_update(self, before, after):
         if not before.id == 481337766379126784:
             servers = db.utility.find_one({"utility": "serverconf"})
