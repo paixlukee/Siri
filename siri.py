@@ -21,10 +21,15 @@ import config
 
 extensions = ['cogs.utility', 'cogs.help', 'cogs.economy', 'cogs.dev', 'cogs.music']
 
+def get_prefix(bot, message):
+    """Siri's prefix list"""
+    return commands(*config.prefixes)(bot, message)
+
 class Siri(commands.AutoShardedBot):
     def __init__(self):
         super().__init__(command_prefix=config.prefixes)
         self.remove_command("help")
+        self.bot = Siri
         
     async def on_message_edit(self, before, after):
         if not self.is_ready() or after.author.bot:
@@ -39,11 +44,11 @@ class Siri(commands.AutoShardedBot):
          return "".join(x.decode("utf-8") for x in results)
 
     async def status_task(self):
-        users = len(set(self.get_all_members()))
-        sayings = [f'{users} users smile', f'{str(len(self.guilds))} guilds', 'What can I help you with?']
+        users = len(set(self.bot.get_all_members()))
+        sayings = [f'{users} users smile', f'{str(len(self.bot.guilds))} guilds', 'What can I help you with?']
         while True:
             game = discord.Activity(name=f'{rnd(sayings)} | siri help', type=discord.ActivityType.watching)
-            await self.change_presence(status=discord.Status.online, activity=game)
+            await self.bot.change_presence(status=discord.Status.online, activity=game)
             await asyncio.sleep(30)
 
     async def on_ready(self):
@@ -56,9 +61,9 @@ class Siri(commands.AutoShardedBot):
         print(f'Discord Version {discord.__version__}\n------')
         print(f'[UPDATE] Logged in as: {self.user.name} ({str(self.user.id)})')
         print(f"[AWAITING] Run 'siri load all'")
-        self.loop.create_task(self.status_task())
-        embed = discord.Embed(title='⚡ **Siri** is connected!', description=f"**Guilds**.. `{str(len(self.guilds))}`")
-        await self.load_extension("cogs.bot")
+        self.bot.loop.create_task(self.status_task())
+        embed = discord.Embed(title='⚡ **Siri** is connected!', description=f"**Guilds**.. `{str(len(self.bot.guilds))}`")
+        await self.bot.load_extension("cogs.bot")
         try:
             await log.send(embed=embed)
         except:
@@ -67,7 +72,7 @@ class Siri(commands.AutoShardedBot):
     async def on_guild_join(self, guild):
         log = self.get_channel(493330793599598592)
         server = guild
-        embed = discord.Embed(colour=0x62f442, description=f"Siri has joined `{guild.name}`! Siri is now in `{str(len(self.guilds))}` guilds!")
+        embed = discord.Embed(colour=0x62f442, description=f"Siri has joined `{guild.name}`! Siri is now in `{str(len(self.bot.guilds))}` guilds!")
         embed.set_footer(text=f'ID: {guild.id}', icon_url=guild.icon_url_as(format='png'))
         await log.send(embed=embed)
         targets = [
@@ -84,7 +89,7 @@ class Siri(commands.AutoShardedBot):
             ]
         embed = discord.Embed(colour=0x0000ff, title="👋 Hello!", description="Hello! I am DiscordSiri.\n\n**For help, do** `siri help`\n**For support, do** `siri ticket <message>`\n**Want even more support? Join my guild:** https://discord.gg/VuvB4gt\n**To chat with me, ping me!**\n**To create a profile and start earning §, do** `siri bank create`")
         embed.set_image(url="https://image.ibb.co/mJY82z/siribanner.png")
-        embed.set_footer(text="Siri created by lukee#0420 - Thank you for adding me!", icon_url=self.user.avatar_url)
+        embed.set_footer(text="Siri created by lukee#0420 - Thank you for adding me!", icon_url=self.bot.user.avatar_url)
         for x in targets:
             try:
                 await x.send(embed=embed)
@@ -93,7 +98,7 @@ class Siri(commands.AutoShardedBot):
             break
 
     async def on_guild_remove(self, guild):
-        log = self.get_channel(493330793599598592)
+        log = self.bot.get_channel(493330793599598592)
         embed = discord.Embed(colour=0xf44141, description=f"Siri has been kicked from `{guild.name}`.. Siri is now in `{str(len(self.guilds))}` guilds.")
         embed.set_footer(text=f'ID: {guild.id}', icon_url=guild.icon_url_as(format='png'))
         await log.send(embed=embed)
