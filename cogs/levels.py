@@ -25,6 +25,7 @@ class Levels(commands.Cog):
                               "19":"811008","20":"1105920","21":"1253376","22":"1548288","23":"1843200","24":"1990656",
                               "25":"2138112"}
 
+    @commands.Cog.listener()
     async def on_message(self, message):
         update = await self.update_data(message.author.id)
         if update == True:
