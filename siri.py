@@ -39,13 +39,13 @@ bot = commands.Bot(command_prefix=prefix)
 
         #await self.process_commands(after)
 
-async def run_cmd(self, cmd: str) -> str:
+async def run_cmd(cmd: str) -> str:
      process =\
      await asyncio.create_subprocess_shell(cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
      results = await process.communicate()
      return "".join(x.decode("utf-8") for x in results)
 
-def status_task(self):
+def status_task():
     users = len(set(bot.get_all_members()))
     sayings = [f'{users} users smile', f'{str(len(bot.guilds))} guilds', 'What can I help you with?']
     while True:
@@ -54,17 +54,17 @@ def status_task(self):
         await asyncio.sleep(30)
 
 @bot.event
-def on_ready(self):
-    log = self.get_channel(493330793599598592)
+def on_ready():
+    log = bot.get_channel(493330793599598592)
     print(f'\n ____  _      _ \n'\
                 '/ ___|(_)_ __(_)\n'\
                 '\___ \| |  __| |\n'\
                 ' ___) | | |  | |\n'\
                 '|____/|_|_|  |_|')
     print(f'Discord Version {discord.__version__}\n------')
-    print(f'[UPDATE] Logged in as: {self.user.name} ({str(self.user.id)})')
+    print(f'[UPDATE] Logged in as: {bot.user.name} ({str(bot.user.id)})')
     print(f"[AWAITING] Run 'siri load all'")
-    bot.loop.create_task(self.status_task())
+    bot.loop.create_task(status_task())
     embed = discord.Embed(title='⚡ **Siri** is connected!', description=f"**Guilds**.. `{str(len(bot.guilds))}`")
     await bot.load_extension("cogs.bot")
     try:
@@ -73,8 +73,8 @@ def on_ready(self):
         print('\n\nfailed to send message to 478821892309123091 (#logs)')
 
 @bot.event
-def on_guild_join(self, guild):
-    log = self.get_channel(493330793599598592)
+def on_guild_join(guild):
+    log = bot.get_channel(493330793599598592)
     server = guild
     embed = discord.Embed(colour=0x62f442, description=f"Siri has joined `{guild.name}`! Siri is now in `{str(len(bot.guilds))}` guilds!")
     embed.set_footer(text=f'ID: {guild.id}', icon_url=guild.icon_url_as(format='png'))
@@ -102,16 +102,16 @@ def on_guild_join(self, guild):
         break
 
 @bot.event
-def on_guild_remove(self, guild):
+def on_guild_remove(guild):
     log = bot.get_channel(493330793599598592)
-    embed = discord.Embed(colour=0xf44141, description=f"Siri has been kicked from `{guild.name}`.. Siri is now in `{str(len(self.guilds))}` guilds.")
+    embed = discord.Embed(colour=0xf44141, description=f"Siri has been kicked from `{guild.name}`.. Siri is now in `{str(len(bot.guilds))}` guilds.")
     embed.set_footer(text=f'ID: {guild.id}', icon_url=guild.icon_url_as(format='png'))
     await log.send(embed=embed)
 
 @bot.event
-def on_message(self, message):
+def on_message(message):
     if message.author.bot: return
-        await self.process_commands(message)
+        await bot.process_commands(message)
         
 bot.run(config.token, bot=True, reconnect=True)
     #def run(self):
