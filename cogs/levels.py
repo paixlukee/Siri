@@ -16,7 +16,7 @@ import pymongo
 client = MongoClient(config.mongo_client)
 db = client['siri']
 
-class Levels:
+class Levels(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.level_endings = {"1":"12", "2":"36", "3":"72", "4":"108","5":"144","6":"288",
