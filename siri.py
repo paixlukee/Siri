@@ -31,7 +31,7 @@ def prefix(bot, message):
         #self.remove_command("help")
         #bot = Siri
         
-bot = commands.Bot(command_prefix=*config.prefixes)
+bot = commands.Bot(command_prefix=config.prefixes)
         
     #async def on_message_edit(self, before, after):
         #if not self.is_ready() or after.author.bot:
