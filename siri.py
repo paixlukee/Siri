@@ -116,6 +116,7 @@ async def on_message(message):
         
 if __name__ == '__main__':
     bot.load_extension("cogs.bot")
+    bot.remove_command("help")
     
         
 bot.run(config.token, bot=True, reconnect=True)
