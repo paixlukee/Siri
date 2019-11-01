@@ -20,7 +20,7 @@ import pymongo
 client = MongoClient(config.mongo_client)
 db = client['siri']
 
-class Moderation:
+class Moderation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
