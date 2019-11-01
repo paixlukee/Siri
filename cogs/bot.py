@@ -129,6 +129,7 @@ class Botdev(commands.Cog):
             embed = discord.Embed(title="<:WrongMark:473277055107334144> Error reloading cog:", color=0xff775b, description="**Cog:** `cogs\{}.py`\n**Errors:**\n```{}```".format(extension, error))
             await ctx.send(embed=embed)
 
+    @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         colours = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
         if isinstance(error, commands.NotOwner):
