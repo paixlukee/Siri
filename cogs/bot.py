@@ -21,7 +21,7 @@ import config
 
 extensions = ['cogs.utility', 'cogs.help', 'cogs.economy', 'cogs.dev', 'cogs.music', 'cogs.server', 'cogs.levels']
 
-class Botdev:
+class Botdev(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
