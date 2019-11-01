@@ -53,7 +53,7 @@ def status_task():
         await asyncio.sleep(30)
 
 @bot.event
-def on_ready():
+async def on_ready():
     log = bot.get_channel(493330793599598592)
     print(f'\n ____  _      _ \n'\
                 '/ ___|(_)_ __(_)\n'\
@@ -72,7 +72,7 @@ def on_ready():
         print('\n\nfailed to send message to 478821892309123091 (#logs)')
 
 @bot.event
-def on_guild_join(guild):
+async def on_guild_join(guild):
     log = bot.get_channel(493330793599598592)
     server = guild
     embed = discord.Embed(colour=0x62f442, description=f"Siri has joined `{guild.name}`! Siri is now in `{str(len(bot.guilds))}` guilds!")
@@ -101,14 +101,14 @@ def on_guild_join(guild):
         break
 
 @bot.event
-def on_guild_remove(guild):
+async def on_guild_remove(guild):
     log = bot.get_channel(493330793599598592)
     embed = discord.Embed(colour=0xf44141, description=f"Siri has been kicked from `{guild.name}`.. Siri is now in `{str(len(bot.guilds))}` guilds.")
     embed.set_footer(text=f'ID: {guild.id}', icon_url=guild.icon_url_as(format='png'))
     await log.send(embed=embed)
 
 @bot.event
-def on_message(message):
+async def on_message(message):
     if message.author.bot: return
         await bot.process_commands(message)
         
