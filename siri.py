@@ -19,7 +19,7 @@ import json
 
 import config
 
-extensions = ['cogs.utility', 'cogs.help', 'cogs.economy', 'cogs.dev', 'cogs.music']
+#extensions = ['cogs.utility', 'cogs.help', 'cogs.economy', 'cogs.dev', 'cogs.music']
 
 def prefix(bot, message):
     """Siri's prefix list"""
@@ -65,7 +65,6 @@ async def on_ready():
     print(f"[AWAITING] Run 'siri load all'")
     bot.loop.create_task(status_task())
     embed = discord.Embed(title='⚡ **Siri** is connected!', description=f"**Guilds**.. `{str(len(bot.guilds))}`")
-    await bot.load_extension("cogs.bot")
     try:
         await log.send(embed=embed)
     except:
@@ -114,6 +113,13 @@ async def on_message(message):
     else:
         await bot.process_commands(message)
         
+        
+if __name__ == '__main__':
+    await bot.load_extension("cogs.bot")
+    
+        
 bot.run(config.token, bot=True, reconnect=True)
     #def run(self):
         #super().run(config.token, reconnect=True)
+        
+        
