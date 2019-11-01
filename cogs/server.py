@@ -11,12 +11,14 @@ import requests
 class Server(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        
+     
+    @commands.Cog.listener()
     async def on_message(self, message):
         if message.channel.id == 494480470839525378 and not message.author.id == 481337766379126784:
             await asyncio.sleep(0.5)
             await message.delete()
-            
+      
+    @commands.Cog.listener()
     async def on_member_join(self, member):
         if member.guild.id == 493325581606453248:
             await member.add_roles(discord.utils.get(member.guild.roles, name="Member"))
