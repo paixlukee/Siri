@@ -45,7 +45,7 @@ async def run_cmd(cmd: str) -> str:
      results = await process.communicate()
      return "".join(x.decode("utf-8") for x in results)
 
-def status_task():
+async def status_task():
     users = len(set(bot.get_all_members()))
     sayings = [f'{users} users smile', f'{str(len(bot.guilds))} guilds', 'What can I help you with?']
     while True:
