@@ -23,7 +23,7 @@ import pymongo
 client = MongoClient(config.mongo_client)
 db = client['siri']
 
-class Developer:
+class Developer(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self._last_result = None
