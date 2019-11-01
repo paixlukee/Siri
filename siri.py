@@ -115,7 +115,7 @@ async def on_message(message):
         
         
 if __name__ == '__main__':
-    await bot.load_extension("cogs.bot")
+    bot.load_extension("cogs.bot")
     
         
 bot.run(config.token, bot=True, reconnect=True)
