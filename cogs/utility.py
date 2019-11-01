@@ -35,7 +35,7 @@ class Colour:
     
 
 
-class Utility:
+class Utility(commands.Cog):
     def __init__(self, bot):#
         self.bot = bot
         self.process = psutil.Process(os.getpid())
