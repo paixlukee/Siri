@@ -10,7 +10,7 @@ import pymongo
 client = MongoClient(config.mongo_client)
 db = client['siri']
 
-class Help:
+class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.colours = [0x37749c, 0xd84eaf, 0x45b4de, 0x42f4c5, 0xffb5f3, 0x42eef4, 0xe751ff, 0x51ffad]
