@@ -109,7 +109,9 @@ async def on_guild_remove(guild):
 
 @bot.event
 async def on_message(message):
-    if message.author.bot: return
+    if message.author.bot: 
+        return
+    else:
         await bot.process_commands(message)
         
 bot.run(config.token, bot=True, reconnect=True)
