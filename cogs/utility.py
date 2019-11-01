@@ -56,7 +56,7 @@ class Utility(commands.Cog):
         with open('assets\\economy.json', 'w') as f:
                  json.dump(users, f)
                 
-            
+    @commands.Cog.listener()    
     async def on_message(self, message):
         if message.content.startswith('<@481337766379126784>'):
             fmsg = message.content
