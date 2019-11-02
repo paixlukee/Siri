@@ -200,7 +200,7 @@ class Utility(commands.Cog):
                     embed.set_thumbnail(url=img)
                 except:
                     pass
-                await msg.delete()a
+                await msg.delete()
                 await ctx.send(embed=embed)
             else:
                 await msg.delete()
