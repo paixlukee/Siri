@@ -184,7 +184,7 @@ class Utility(commands.Cog):
         session = aiohttp.ClientSession(connector=conn)
         async with session.get(url, params=payload, headers={'user-agent': 'Siri v2'}) as r:
             result = await r.json()
-        session.close()
+        await session.close()
         if '-1' not in result['query']['pages']:
             for page in result['query']['pages']:
                 title = result['query']['pages'][page]['title']
