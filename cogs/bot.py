@@ -124,7 +124,7 @@ class Botdev(commands.Cog):
             embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog reloaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
             await ctx.send(embed=embed)
             print('\n\nCOG RELOAD\n--[Cog reloaded, {}.py]--\n\n'.format(extension))
-            print('\x1b[1;32;40m' + '[COG-RELOADED]: ' + '\x1b[0m' + '{} was loaded successfully'.format(extension))
+            print('\x1b[1;32;40m' + '[COG-RELOADED]: ' + '\x1b[0m' + '{} was reloaded successfully'.format(extension))
         except Exception as error:
             print('\x1b[1;31;40m' + '[COG-RELOAD-ERROR]: ' + '\x1b[0m' + '{} was not reloaded due to an error: {} '.format(extension, error))
             embed = discord.Embed(title="<:WrongMark:473277055107334144> Error reloading cog:", color=0xff775b, description="**Cog:** `cogs\{}.py`\n**Errors:**\n```{}```".format(extension, error))
@@ -150,7 +150,7 @@ class Botdev(commands.Cog):
             #embed = discord.Embed(colour=rnd(colours), description=f":alarm_clock: **You are on cooldown!** Please wait **{hours} {round(minutes)}m {round(seconds)}s**.")
             await ctx.send(f"<:redtick:492800273211850767> You are on cooldown! Please wait **{hours} {round(minutes)}m {round(seconds)}s**.")
         else:
-            print("\x1b[1;31;40m" + f"[{type(error).__name__.upper()}]:" + "\x1b[0m" + str(error))
+            print("\x1b[1;31;40m" + f"[{type(error).__name__.upper()}]: " + "\x1b[0m" + str(error))
             
 def setup(bot):
     bot.add_cog(Botdev(bot))
