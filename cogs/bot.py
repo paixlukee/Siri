@@ -123,7 +123,6 @@ class Botdev(commands.Cog):
             self.bot.load_extension("cogs.{}".format(extension))
             embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog reloaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
             await ctx.send(embed=embed)
-            print('\n\nCOG RELOAD\n--[Cog reloaded, {}.py]--\n\n'.format(extension))
             print('\x1b[1;32;40m' + '[COG-RELOADED]: ' + '\x1b[0m' + '{} was reloaded successfully'.format(extension))
         except Exception as error:
             print('\x1b[1;31;40m' + '[COG-RELOAD-ERROR]: ' + '\x1b[0m' + '{} was not reloaded due to an error: {} '.format(extension, error))
