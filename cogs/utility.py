@@ -157,53 +157,54 @@ class Utility(commands.Cog):
             await ctx.send("Include the query with the command!")
         elif q.lower() in restricted:
             await ctx.send(f":warning: **Caution!** That is NSFW!") #lmao i hope u like this
+        else:
 
-        embed = discord.Embed(description="<a:loading:473279565670907914> Searching..")
-        msg = await ctx.send(embed=embed)
+            embed = discord.Embed(description="<a:loading:473279565670907914> Searching..")
+            msg = await ctx.send(embed=embed)
 
-        try:
-            async with aiohttp.ClientSession(headers={'Accept': 'application/json'}) as session:
-                    async with session.get(f'https://en.wikipedia.org/w/api.php?action=query&titles={q}&prop=pageimages&format=json&pithumbsize=400') as get:
-                        resp = await get.json()
-                        for page in resp['query']['pages']:
-                            img = resp['query']['pages'][page]['thumbnail']['source']
-        except:
-            pass
-
-        query = q
-        url = 'https://en.wikipedia.org/w/api.php?'
-        payload = {}
-        payload['action'] = 'query'
-        payload['format'] = 'json'
-        payload['prop'] = 'extracts'
-        payload['titles'] = ''.join(query).replace(' ', '+')
-        payload['exsentences'] = '5'
-        payload['redirects'] = '1'
-        payload['explaintext'] = '1'
-        conn = aiohttp.TCPConnector(verify_ssl=False)
-        session = aiohttp.ClientSession(connector=conn)
-        async with session.get(url, params=payload, headers={'user-agent': 'Siri v2'}) as r:
-            result = await r.json()
-        await session.close()
-        if '-1' not in result['query']['pages']:
-            for page in result['query']['pages']:
-                title = result['query']['pages'][page]['title']
-                desc = result['query']['pages'][page]['extract'].replace('\n', '\n\n')
-                l = 'https://en.wikipedia.org/wiki/{}'.format(title.replace(' ', '_'))
-            if len(desc) > 50:
-                embed = discord.Embed(title=title, description=u'\u2063\n{}[...]({})\n\u2063'.format(desc[:-30], l), url=l)
-            else:
-                embed = discord.Embed(title=title, description=u'\u2063\n{}\n\u2063'.format(desc, l), url=l)
-            embed.set_footer(text='Siri Knowledge', icon_url='https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120')
-            try:    
-                embed.set_thumbnail(url=img)
+            try:
+                async with aiohttp.ClientSession(headers={'Accept': 'application/json'}) as session:
+                        async with session.get(f'https://en.wikipedia.org/w/api.php?action=query&titles={q}&prop=pageimages&format=json&pithumbsize=400') as get:
+                            resp = await get.json()
+                            for page in resp['query']['pages']:
+                                img = resp['query']['pages'][page]['thumbnail']['source']
             except:
                 pass
-            await msg.delete()
-            await ctx.send(embed=embed)
-        else:
-            await msg.delete()
-            await ctx.send("<:WrongMark:473277055107334144> I could not find anything with that query..")
+
+            query = q
+            url = 'https://en.wikipedia.org/w/api.php?'
+            payload = {}
+            payload['action'] = 'query'
+            payload['format'] = 'json'
+            payload['prop'] = 'extracts'
+            payload['titles'] = ''.join(query).replace(' ', '+')
+            payload['exsentences'] = '5'
+            payload['redirects'] = '1'
+            payload['explaintext'] = '1'
+            conn = aiohttp.TCPConnector(verify_ssl=False)
+            session = aiohttp.ClientSession(connector=conn)
+            async with session.get(url, params=payload, headers={'user-agent': 'Siri v2'}) as r:
+                result = await r.json()
+            await session.close()
+            if '-1' not in result['query']['pages']:
+                for page in result['query']['pages']:
+                    title = result['query']['pages'][page]['title']
+                    desc = result['query']['pages'][page]['extract'].replace('\n', '\n\n')
+                    l = 'https://en.wikipedia.org/wiki/{}'.format(title.replace(' ', '_'))
+                if len(desc) > 50:
+                    embed = discord.Embed(title=title, description=u'\u2063\n{}[...]({})\n\u2063'.format(desc[:-30], l), url=l)
+                else:
+                    embed = discord.Embed(title=title, description=u'\u2063\n{}\n\u2063'.format(desc, l), url=l)
+                embed.set_footer(text='Siri Knowledge', icon_url='https://vignette.wikia.nocookie.net/logopedia/images/d/d0/Siri.png/revision/latest?cb=20170730135120')
+                try:    
+                    embed.set_thumbnail(url=img)
+                except:
+                    pass
+                await msg.delete()a
+                await ctx.send(embed=embed)
+            else:
+                await msg.delete()
+                await ctx.send("<:WrongMark:473277055107334144> I could not find anything with that query..")
 
     @commands.command(aliases=['info', 'botinfo', 'status'])
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -364,7 +365,8 @@ class Utility(commands.Cog):
                     "X-Mashape-Host": "contextualwebsearch-websearch-v1.p.mashape.com"
                     #"Accept": "application/json"
             }).json()
-            try:
+            x = 0
+            if x == 0:
                 re = r['value'][0]
                 t = re['title']
                 title = t.replace("<b>", "").replace("</b>", "")
@@ -381,7 +383,7 @@ class Utility(commands.Cog):
                 #await ctx.send(f":ok_hand:\n{r}")#relatedSearch
                 await ctx.send(embed=embed)
                 await msg.delete()
-            except:
+            else:
                 await msg.delete()
                 await ctx.send(f"I couldn't find anything..")
 
@@ -531,7 +533,8 @@ class Utility(commands.Cog):
             await self.add_money(user=ctx.message.author.id, count=1)
         except:
             pass
-        try:
+        x = 0
+        if x == 0:
             q = word.replace(" ", "%20")
             r = requests.get(f"https://od-api.oxforddictionaries.com/api/v2/entries/en-us/{q}",
                 headers={
@@ -553,12 +556,12 @@ class Utility(commands.Cog):
             embed.set_footer(text=f"© Oxford Dictionary")
 
             await ctx.send(embed=embed, content=f":books: | Here is the definition for **{word}**:")
-        except Exception as e:
+        else:
             await ctx.send("I couldn't find that word in the dictionary.")
-            await ctx.send(e)
-            await ctx.send(rnd(re['etymologies']))
-            await ctx.send(rnd(re['senses'][0]['definitions']))
-            await ctx.send(re['senses'][0]['examples'][0]['text'])
+            #await ctx.send(e)
+            #await ctx.send(rnd(re['etymologies']))
+            #await ctx.send(rnd(re['senses'][0]['definitions']))
+            #await ctx.send(re['senses'][0]['examples'][0]['text'])
 
     async def post(self, content):
         async with aiohttp.ClientSession() as session:
