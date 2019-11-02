@@ -150,7 +150,7 @@ class Botdev(commands.Cog):
             #embed = discord.Embed(colour=rnd(colours), description=f":alarm_clock: **You are on cooldown!** Please wait **{hours} {round(minutes)}m {round(seconds)}s**.")
             await ctx.send(f"<:redtick:492800273211850767> You are on cooldown! Please wait **{hours} {round(minutes)}m {round(seconds)}s**.")
         else:
-            print("\x1b[1;31;40m" + f"[{type(error).__name__.upper()}]:" + "\x1b[0m" + error)
+            print("\x1b[1;31;40m" + f"[{type(error).__name__.upper()}]:" + "\x1b[0m" + str(error))
             
 def setup(bot):
     bot.add_cog(Botdev(bot))
