@@ -118,7 +118,7 @@ class Moderation(commands.Cog):
             servers = db.utility.find_one({"utility": "serverconf"})
             findings = None
             for x in servers['logs']:
-                if x['guild'] == before.guild.id:
+                if x['guild'] == [x for x in self.bot.guilds if before in x]:
                     findings = x 
             if findings:
                 if not before.name == after.name:
