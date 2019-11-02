@@ -60,9 +60,9 @@ async def on_ready():
                 '\___ \| |  __| |\n'\
                 ' ___) | | |  | |\n'\
                 '|____/|_|_|  |_|')
-    print(f'Discord Version {discord.__version__}\n------')
-    print(f'[UPDATE] Logged in as: {bot.user.name} ({str(bot.user.id)})')
-    print(f"[AWAITING] Run 'siri load all'")
+    print('\x1b[1;34;40m' + 'Discord Version: ' + '\x1b[0m' + f'{discord.__version__}\n------')
+    print('\x1b[1;36;40m' + '[UPDATE]: ' + '\x1b[0m' + 'Logged in as: {bot.user.name} ({str(bot.user.id)})')
+    print("\x1b[1;33;40m" + "[AWAITING]: " + "\x1b[0m" + "Run 'siri load all'")
     bot.loop.create_task(status_task())
     embed = discord.Embed(title='⚡ **Siri** is connected!', description=f"**Guilds**.. `{str(len(bot.guilds))}`")
     try:
