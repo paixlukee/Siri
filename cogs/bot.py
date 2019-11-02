@@ -77,7 +77,7 @@ class Botdev(commands.Cog):
     async def load(self, ctx, extension):
         try:
             if extension == 'all':
-                print(f'[UPDATE] Loaded all modules')
+                print('\x1b[1;36;40m' + '[UPDATE]: ' + '\x1b[0m' + 'Loaded all modules')
                 print("------\n\n")
                 loaded = []
                 not_loaded = []
@@ -87,7 +87,7 @@ class Botdev(commands.Cog):
                         loaded.append(f'`{extension}`')    
                     except Exception as error:
                         not_loaded.append(f'`{extension}` - `{error}`')
-                        print('\n\nEXTEN./COG ERROR: {} was not loaded due to an error: \n-- [{}] --\n\n'.format(extension, error))
+                        print('\x1b[1;31;40m' + '[COG-LOAD-ERROR]: ' + '\x1b[0m' + '{} was not loaded due to an error: {} '.format(extension, error))
                     
                 loaded = '\n'.join(loaded)
                 not_loaded = '\n'.join(not_loaded)
@@ -95,7 +95,6 @@ class Botdev(commands.Cog):
                 embed.add_field(name='Loaded', value=loaded)
                 if not_loaded is None:
                     embed.add_field(name='Not Loaded', value=not_loaded)
-                        
                 await ctx.send(embed=embed)
             else:
                 self.bot.load_extension("cogs.{}".format(extension))
@@ -112,6 +111,7 @@ class Botdev(commands.Cog):
     async def unload(self, ctx, extension):
         self.bot.unload_extension("cogs.{}".format(extension))
         embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog unloaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
+        print('\x1b[1;32;40m' + '[COG-RELOADED]: ' + '\x1b[0m' + '{} was unloaded successfully'.format(extension))
         await ctx.send(embed=embed)
             
 
@@ -124,8 +124,9 @@ class Botdev(commands.Cog):
             embed = discord.Embed(title="<:CheckMark:473276943341453312> Cog reloaded:", color=0x5bff69, description="**Cog:** `cogs\{}.py`".format(extension))
             await ctx.send(embed=embed)
             print('\n\nCOG RELOAD\n--[Cog reloaded, {}.py]--\n\n'.format(extension))
+            print('\x1b[1;32;40m' + '[COG-RELOADED]: ' + '\x1b[0m' + '{} was loaded successfully'.format(extension))
         except Exception as error:
-            print('\n\nEXTEN./COG ERROR: {} was not reloaded due to an error: \n-- [{}] --\n\n'.format(extension, error))
+            print('\x1b[1;31;40m' + '[COG-RELOAD-ERROR]: ' + '\x1b[0m' + '{} was not reloaded due to an error: {} '.format(extension, error))
             embed = discord.Embed(title="<:WrongMark:473277055107334144> Error reloading cog:", color=0xff775b, description="**Cog:** `cogs\{}.py`\n**Errors:**\n```{}```".format(extension, error))
             await ctx.send(embed=embed)
 
@@ -149,7 +150,7 @@ class Botdev(commands.Cog):
             #embed = discord.Embed(colour=rnd(colours), description=f":alarm_clock: **You are on cooldown!** Please wait **{hours} {round(minutes)}m {round(seconds)}s**.")
             await ctx.send(f"<:redtick:492800273211850767> You are on cooldown! Please wait **{hours} {round(minutes)}m {round(seconds)}s**.")
         else:
-            print(f"[{type(error).__name__.upper()}]: {error}")
+            print("\x1b[1;31;40m" + f"[{type(error).__name__.upper()}]:" + "\x1b[0m" + error)
             
 def setup(bot):
     bot.add_cog(Botdev(bot))
