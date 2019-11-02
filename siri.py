@@ -49,7 +49,7 @@ async def status_task():
     users = len(set(bot.get_all_members()))
     sayings = [f'{users} users smile', f'{str(len(bot.guilds))} guilds', 'What can I help you with?']
     while True:
-        await bot.change_presence(status=discord.Status.online, activity=discord.Activity(name=f'{rnd(sayings)} | siri help', type=discord.ActivityType.watching))
+        await bot.change_presence(activity=discord.Game(name=f'{rnd(sayings)} | siri help', type=2))
         await asyncio.sleep(30)
 
 @bot.event
