@@ -339,13 +339,14 @@ class Utility(commands.Cog):
             r = requests.get('https://api.dashblock.io/model/v1', params=params).json()
             embed = discord.Embed()
             li = 'result_1:link'
-            embed.add_field(name=['entities'][0]['result_1'][0], value=['entities'][0]['result_description'][0], url=['entities'][0][li][0])
+            #print(r)
+            embed.add_field(name=r['entities'][0]['result_1'][0], value=r['entities'][0]['result_description'][0], url=r['entities'][0][li][0])
             try:
-                embed.add_field(name=['entities'][0]['result_1'][1], value=['entities'][0]['result_description'][1], url=['entities'][0][li][1])
+                embed.add_field(name=r['entities'][0]['result_1'][1], value=r['entities'][0]['result_description'][1], url=r['entities'][0][li][1])
             except:
                 pass 
             try:
-                embed.add_field(name=['entities'][0]['result_1'][2], value=['entities'][0]['result_description'][2], url=['entities'][0][li][2])
+                embed.add_field(name=r['entities'][0]['result_1'][2], value=r['entities'][0]['result_description'][2], url=r['entities'][0][li][2])
             except: 
                 pass
             embed.set_footer(text=r['entities'][0]['result_number'], icon_url='http://pluspng.com/img-png/google-logo-png-open-2000.png')
