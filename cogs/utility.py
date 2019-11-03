@@ -329,7 +329,6 @@ class Utility(commands.Cog):
     async def search2(self, ctx, *, query=None):
         """Search for something on the web"""
         query = urllib.parse.quote(query.lower())
-        #x = 0
         try:
             params = {
                 "api_key": "3ad66d70-ed3d-11e9-b95d-6dbb1ccf39ac",
@@ -338,20 +337,22 @@ class Utility(commands.Cog):
             }
             r = requests.get('https://api.dashblock.io/model/v1', params=params).json()
             embed = discord.Embed()
-            li = 'result_1:link'
-            embed.add_field(name='[' + r['entities'][0]['result_1'][0] + ']' + '(' + r['entities'][0][li][0] + ')', value=r['entities'][0]['result_description'][0])
+            #embed.add_field(name='[' + r['entities'][0]['result_1'][0] + ']' + '(' + r['entities'][0][result_1:link][0] + ')', value=r['entities'][0]['result_description'][0])
+            embed.description = '[' + r['entities'][0]['result_1'][0] + ']' + '(' + r['entities'][0]['result_1:link'][0] + ')\n' + r['entities'][0]['result_description'][0]
             try:
-                embed.add_field(name=f'[' + r['entities'][0]['result_1'][1] + ']' + '(' + r['entities'][0][li][1] + ')', value=r['entities'][0]['result_description'][1])
+                #embed.add_field(name=f'[' + r['entities'][0]['result_1'][1] + ']' + '(' + r['entities'][0]['result_1:link'][1] + ')', value=r['entities'][0]['result_description'][1])
+                embed.description += '\n[' + r['entities'][0]['result_1'][1] + ']' + '(' + r['entities'][0]['result_1:link'][1] + ')\n' + r['entities'][0]['result_description'][1]
             except:
                 pass 
             try:
-                embed.add_field(name='[' + r['entities'][0]['result_1'][2] + ']' + '(' + r['entities'][0][li][2] + ')', value=r['entities'][0]['result_description'][2])
+                #embed.add_field(name='[' + r['entities'][0]['result_1'][2] + ']' + '(' + r['entities'][0]['result_1:link'][2] + ')', value=r['entities'][0]['result_description'][2])
+                embed.description += '\n[' + r['entities'][0]['result_1'][2] + ']' + '(' + r['entities'][0][result_1:link][2] + ')\n' + r['entities'][0]['result_description'][2]
             except: 
                 pass
             embed.set_footer(text=r['entities'][0]['result_number'], icon_url='http://pluspng.com/img-png/google-logo-png-open-2000.png')
             await ctx.send(embed=embed)
         except:
-            await ctx.send('<:redtick:492800273211850767> Nothing was found for that query ')# + str(e))
+            await ctx.send('<:redtick:492800273211850767> Nothing was found for that query ')
    
     @commands.command(aliases=['lookup', 'websearch'])
     @commands.cooldown(1, 4, commands.BucketType.user)
