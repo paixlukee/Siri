@@ -339,7 +339,7 @@ class Utility(commands.Cog):
             r = requests.get('https://api.dashblock.io/model/v1', params=params)
             embed = discord.Embed()
             li = 'result_1:link'
-            print(['entities'][0]['result_1']+['entities'][0]['result_description']+['entities'][0][li])
+            print(['entities'][0]['result_1']+['entities'][0]['result_description'])
             embed.add_field(name=['entities'][0]['result_1'][0], value=['entities'][0]['result_description'][0], url=['entities'][0][li][0])
             try:
                 embed.add_field(name=['entities'][0]['result_1'][1], value=['entities'][0]['result_description'][1], url=['entities'][0][li][1])
