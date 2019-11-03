@@ -324,7 +324,7 @@ class Utility(commands.Cog):
         #await ctx.send(ra)
         await ctx.send(f"**{ctx.message.author.name}**, {response}")
                              
-    def get(params):
+    def get(self, params):
         r = requests.get('https://api.dashblock.io/model/v1', params=params).json()
         return r 
           
