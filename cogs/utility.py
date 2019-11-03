@@ -335,7 +335,8 @@ class Utility(commands.Cog):
         embed = discord.Embed(description="<a:loading:473279565670907914> Searching..")
         msg = await ctx.send(embed=embed)
         query = urllib.parse.quote(query.lower())
-        try:
+        x = 0
+        if x == 0:
             params = {
                 "api_key": "3ad66d70-ed3d-11e9-b95d-6dbb1ccf39ac",
                 "url": f"https://www.google.com/search?q={query}&safe=active",
@@ -360,7 +361,7 @@ class Utility(commands.Cog):
             embed.set_footer(text=r['entities'][0]['result_number'], icon_url='http://pluspng.com/img-png/google-logo-png-open-2000.png')
             await msg.delete()
             await ctx.send(embed=embed)
-        except:
+        else:
             await msg.delete()
             await ctx.send('<:redtick:492800273211850767> Nothing was found for that query ')
    
