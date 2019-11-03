@@ -225,29 +225,33 @@ class Developer(commands.Cog):
         randc = f'{a}{rnd(letters)}{b}{rnd(letters2)}{c}'
         try:
             c = self.bot.get_channel(493330961421959169)
+            msg = message.replace('\n','\n•')
             if option == 'other' or option == 'o':
-                #try:
-                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=message)
+                msg = message.replace('\n','\n•')
+                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=f'• {msg}')
                 embed.set_image(url=link)
                 #except:
                     #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n* {message}```")
                 await c.send(embed=embed)
                 await ctx.send(":ok_hand: Done.")
             elif option == 'add' or option == 'a':
-                #try:
-                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=message)
+                msg = message.replace('\n','\n+')
+                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=f'+ {msg}')
                 embed.set_image(url=link)
                 #except:
                     #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n+ {message}```")
                 await c.send(embed=embed)
                 await ctx.send(":ok_hand: Done.")
             elif option == 'remove' or option == 'r':
-                #try:
-                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=message)
+                msg = message.replace('\n','\n-')
+                embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=f'- {msg}')
                 embed.set_image(url=link)
                 #except:
                     #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n- {message}```")
-                await c.send(embed=embed)
+                if message.endswith('-p')
+                    await c.send(embed=embed, content='')
+                else:
+                    await c.send(embed=embed, content='<@&498349513707094016>')
                 await ctx.send(":ok_hand: Done.")
             else:
                 await ctx.send("That isn't an option.")
