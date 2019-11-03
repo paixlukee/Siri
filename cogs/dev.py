@@ -248,7 +248,7 @@ class Developer(commands.Cog):
                 embed.set_image(url=link)
                 #except:
                     #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n- {message}```")
-                if message.endswith('-p')
+                if message.endswith('-p'):
                     await c.send(embed=embed, content='')
                 else:
                     await c.send(embed=embed, content='<@&498349513707094016>')
