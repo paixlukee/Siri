@@ -343,7 +343,7 @@ class Utility(commands.Cog):
                 "model_id": "e5rMsxpU"
             }             
             loop = asyncio.get_event_loop()
-            r = await asyncio.run_in_exectutor(None, self.get, params)
+            r = await asyncio.run_in_executor(None, self.get(), params)
             embed = discord.Embed()
             embed.description = '[' + r['entities'][0]['result_1'][0] + ']' + '(' + r['entities'][0]['result_1:link'][0] + ')\n' + r['entities'][0]['result_description'][0]
             try:
