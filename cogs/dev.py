@@ -226,7 +226,7 @@ class Developer(commands.Cog):
         try:
             c = self.bot.get_channel(493330961421959169)
             if option == 'other' or option == 'o':
-                msg = message.replace('|','\n•')
+                msg = message.replace('|','\n•').replace('-p', '')
                 embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=f'• {msg}')
                 embed.set_image(url=link)
                 #except:
@@ -234,7 +234,7 @@ class Developer(commands.Cog):
                 await c.send(embed=embed)
                 await ctx.send(":ok_hand: Done.")
             elif option == 'add' or option == 'a':
-                msg = message.replace('|','\n+')
+                msg = message.replace('|','\n+').replace('-p', '')
                 embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=f'+ {msg}')
                 embed.set_image(url=link)
                 #except:
@@ -242,15 +242,15 @@ class Developer(commands.Cog):
                 await c.send(embed=embed)
                 await ctx.send(":ok_hand: Done.")
             elif option == 'remove' or option == 'r':
-                msg = message.replace('|','\n-')
+                msg = message.replace('|','\n-').replace('-p', '')
                 embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=f'- {msg}')
                 embed.set_image(url=link)
                 #except:
                     #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n- {message}```")
                 if message.endswith('-p'):
-                    await c.send(embed=embed, content='')
-                else:
                     await c.send(embed=embed, content='<@&498349513707094016>')
+                else:
+                    await c.send(embed=embed, content='')
                 await ctx.send(":ok_hand: Done.")
             else:
                 await ctx.send("That isn't an option.")
