@@ -231,7 +231,10 @@ class Developer(commands.Cog):
                 embed.set_image(url=link)
                 #except:
                     #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n* {message}```")
-                await c.send(embed=embed)
+                if message.endswith('-p'):
+                    await c.send(embed=embed, content='<@&498349513707094016>')
+                else:
+                    await c.send(embed=embed, content='')
                 await ctx.send(":ok_hand: Done.")
             elif option == 'add' or option == 'a':
                 msg = message.replace('|','\n+').replace('-p', '')
@@ -239,7 +242,10 @@ class Developer(commands.Cog):
                 embed.set_image(url=link)
                 #except:
                     #embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog Update ID. {randc}", description=f"```diff\n+ {message}```")
-                await c.send(embed=embed)
+                if message.endswith('-p'):
+                    await c.send(embed=embed, content='<@&498349513707094016>')
+                else:
+                    await c.send(embed=embed, content='')
                 await ctx.send(":ok_hand: Done.")
             elif option == 'remove' or option == 'r':
                 msg = message.replace('|','\n-').replace('-p', '')
