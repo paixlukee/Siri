@@ -225,7 +225,6 @@ class Developer(commands.Cog):
         randc = f'{a}{rnd(letters)}{b}{rnd(letters2)}{c}'
         try:
             c = self.bot.get_channel(493330961421959169)
-            msg = message.replace('\n','\n•')
             if option == 'other' or option == 'o':
                 msg = message.replace('\n','\n•')
                 embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=f'• {msg}')
