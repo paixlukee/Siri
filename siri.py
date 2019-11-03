@@ -39,11 +39,6 @@ bot = commands.Bot(command_prefix=config.prefixes)
 
         #await self.process_commands(after)
 
-async def run_cmd(cmd: str) -> str:
-     process =\
-     await asyncio.create_subprocess_shell(cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
-     results = await process.communicate()
-     return "".join(x.decode("utf-8") for x in results)
 
 async def status_task():
     users = len(set(bot.get_all_members()))
