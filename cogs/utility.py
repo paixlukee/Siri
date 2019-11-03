@@ -323,6 +323,10 @@ class Utility(commands.Cog):
         ra = requests.get("https://api.dialogflow.com/v1/contexts?v=20150910&sessionId=12345", headers={"Authorization" : "Bearer 1663b12fcc24462e9711d9801be96485"}).json()
         #await ctx.send(ra)
         await ctx.send(f"**{ctx.message.author.name}**, {response}")
+                             
+    def get(params):
+        r = requests.get('https://api.dashblock.io/model/v1', params=params).json()
+        return r 
           
     @commands.command()
     @commands.cooldown(1, 4, commands.BucketType.user)
@@ -336,8 +340,9 @@ class Utility(commands.Cog):
                 "api_key": "3ad66d70-ed3d-11e9-b95d-6dbb1ccf39ac",
                 "url": f"https://www.google.com/search?q={query}&safe=active",
                 "model_id": "e5rMsxpU"
-            }
-            r = requests.get('https://api.dashblock.io/model/v1', params=params).json()
+            }             
+            loop = asyncio.get_running_loop()
+            r = await loop.run_in_exectutor(None, self.get, params)
             embed = discord.Embed()
             embed.description = '[' + r['entities'][0]['result_1'][0] + ']' + '(' + r['entities'][0]['result_1:link'][0] + ')\n' + r['entities'][0]['result_description'][0]
             try:
