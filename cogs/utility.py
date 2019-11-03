@@ -328,9 +328,9 @@ class Utility(commands.Cog):
         r = requests.get('https://api.dashblock.io/model/v1', params=params).json()
         return r 
           
-    @commands.command()
+    @commands.command(aliases=['lookup', 'websearch'])
     @commands.cooldown(1, 4, commands.BucketType.user)
-    async def search2(self, ctx, *, query=None):
+    async def search(self, ctx, *, query = None):
         """Search for something on the web"""
         embed = discord.Embed(description="<a:loading:473279565670907914> Searching..")
         msg = await ctx.send(embed=embed)
@@ -365,68 +365,6 @@ class Utility(commands.Cog):
             await msg.delete()
             await ctx.send('<:redtick:492800273211850767> Nothing was found for that query ')
    
-    @commands.command(aliases=['lookup', 'websearch'])
-    @commands.cooldown(1, 4, commands.BucketType.user)
-    async def search(self, ctx, *, query = None):
-        embed = discord.Embed(description="<a:loading:473279565670907914> Searching..")
-        msg = await ctx.send(embed=embed)
-        """Search The Web
-
-        Advanced:
-
-        Terms can be excluded through a leading minus:
-        siri -alexa
-
-        You can mix terms with..
-        siri, alexa
-        siri AND alexa
-
-        Phrases can be surrounded by double-quotes:
-        "siri"
-
-        """
-        try:
-            await self.add_money(user=ctx.message.author.id, count=1)
-        except:
-            pass
-        restricted = ['penis', 'hentai', 'hentai loli', 'orgy', 'vagina', 'breast', 'nipple', 'porn', 'adult videos', 'xxx', 'sex', 'cock', 'ass', 'loli hentai', 'cunt', 'porn videos', 'gay porn', 'loli porn', 'lolicon']
-        if query is None:
-            await msg.delete()
-            await ctx.send("`Incorrect Usage`\n```siri search <search-query>```")        
-        elif query.lower() in restricted:
-            await msg.delete()
-            await ctx.send("I couldn't find anything..")
-
-        else:
-
-            q = query.replace(" ", "%20")
-            r = requests.get(f"https://contextualwebsearch-websearch-v1.p.mashape.com/api/Search/WebSearchAPI?q={q}&count=1&autocorrect=true",
-            headers={
-                    "X-Mashape-Key": "P0dWACT2bvmshnRsp9rKObno2hVZp1hLGCmjsnvBJ85tceAyv8",
-                    "X-Mashape-Host": "contextualwebsearch-websearch-v1.p.mashape.com"
-                    #"Accept": "application/json"
-            }).json()
-            x = 0
-            if x == 0:
-                re = r['value'][0]
-                t = re['title']
-                title = t.replace("<b>", "").replace("</b>", "")
-                d = re['description']
-                description = d.replace("<b>", "").replace("</b>", "")
-                s = r['relatedSearch']
-                es = ", ".join(s)
-                search = es.replace("<b>", "").replace("</b>", "")
-                embed = discord.Embed(colour=0x6d68ff, description=f"Top Result (**{r['totalCount']}**):\n\n**{title}**\n\n*{description}*\n\n{re['url']}\n\n**Related..**\n\n{search}")
-                try:
-                    embed.set_thumbnail(url=re['image']['url'])
-                except:
-                    pass
-                #await ctx.send(f":ok_hand:\n{r}")#relatedSearch
-                await ctx.send(embed=embed)
-                await msg.delete()
-            else:
-                await msg.delete()
-                await ctx.send(f"I couldn't find anything..")
 
 
     # megu ratelimits lmfao
