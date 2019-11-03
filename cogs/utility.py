@@ -337,16 +337,16 @@ class Utility(commands.Cog):
             }
             r = requests.get('https://api.dashblock.io/model/v1', params=params)
             embed = discord.Embed()
-            embed.add_field(name=['entities']['result_1'][0], value=['entities']['result_description'][0], url=['entities']['result_1:link'][0])
+            embed.add_field(name=['entities'][0]['result_1'][0], value=['entities']['result_description'][0], url=['entities']['result_1:link'][0])
             try:
-                embed.add_field(name=['entities']['result_1'][1], value=['entities']['result_description'][1], url=['entities']['result_1:link'][0])
+                embed.add_field(name=['entities'][0]['result_1'][1], value=['entities']['result_description'][1], url=['entities']['result_1:link'][0])
             except:
                 pass 
             try:
-                embed.add_field(name=['entities']['result_1'][2], value=['entities']['result_description'][2], url=['entities']['result_1:link'][0])
+                embed.add_field(name=['entities'][0]['result_1'][2], value=['entities']['result_description'][2], url=['entities']['result_1:link'][0])
             except: 
                 pass
-            embed.set_footer(text=r['entities']['result_number'], icon_url='http://pluspng.com/img-png/google-logo-png-open-2000.png')
+            embed.set_footer(text=r['entities'][0]['result_number'], icon_url='http://pluspng.com/img-png/google-logo-png-open-2000.png')
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send('<:redtick:492800273211850767> Nothing was found for that query ' + e)
