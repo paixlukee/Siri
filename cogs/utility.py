@@ -323,7 +323,34 @@ class Utility(commands.Cog):
         ra = requests.get("https://api.dialogflow.com/v1/contexts?v=20150910&sessionId=12345", headers={"Authorization" : "Bearer 1663b12fcc24462e9711d9801be96485"}).json()
         #await ctx.send(ra)
         await ctx.send(f"**{ctx.message.author.name}**, {response}")
-
+          
+    @commands.command()
+    @commands.cooldown(1, 4, commands.BucketType.user)
+    async def search2(self, ctx, *, query=None)
+    """Search for something on the web"""
+        query = urllib.parse.quote(query.lower())
+        try:
+            params = {
+                api_key: "3ad66d70-ed3d-11e9-b95d-6dbb1ccf39ac"
+                url: f"https://www.google.com/search?q={query}"
+                model_id: "e5rMsxpU"
+            }
+            r = requests.get('https://api.dashblock.io/model/v1', params=params)
+            embed = discord.Embed()
+            embed.add_field(name=['entities']['result_1'][0], value=['entities']['result_description'][0], url=['entities']['result_1:link'][0])
+            try:
+                embed.add_field(name=['entities']['result_1'][1], value=['entities']['result_description'][1], url=['entities']['result_1:link'][0])
+            except:
+                pass 
+            try:
+                embed.add_field(name=['entities']['result_1'][2], value=['entities']['result_description'][2], url=['entities']['result_1:link'][0])
+            except: 
+                pass
+            embed.set_footer(text=r['entities']['result_number'], icon_url='http://pluspng.com/img-png/google-logo-png-open-2000.png')
+            await ctx.send(embed=embed)
+        except Exception as e:
+            await ctx.send('<:redtick:492800273211850767> Nothing was found for that query ' + e)
+   
     @commands.command(aliases=['lookup', 'websearch'])
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def search(self, ctx, *, query = None):
@@ -389,16 +416,16 @@ class Utility(commands.Cog):
 
 
     # megu ratelimits lmfao
-    @commands.command(hidden=True)
-    @commands.cooldown(1, 55, commands.BucketType.user)
-    @checks.admin_or_permissions(manage_guild=True)
-    async def uwu(self, ctx, c:int, *, message):
-        if c > 10:
-            await ctx.send("Cannot surpass 10! *this is a hidden command for a reason you sick fuck*")
-        else:
-            await ctx.message.add_reaction('👌')
-            for e in range(c):
-                await ctx.send(message)
+   # @commands.command(hidden=True)
+    #@commands.cooldown(1, 55, commands.BucketType.user)
+    #@checks.admin_or_permissions(manage_guild=True)
+    #async def uwu(self, ctx, c:int, *, message):
+        #if c > 10:
+            #await ctx.send("Cannot surpass 10! *this is a hidden command for a reason you sick fuck*")
+        #else:
+            #await ctx.message.add_reaction('👌')
+            #for e in range(c): only for ref
+                #await ctx.send(message)
 
     @commands.command(aliases=['IMDb'])
     @commands.cooldown(1, 3, commands.BucketType.user)
