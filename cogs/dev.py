@@ -226,7 +226,7 @@ class Developer(commands.Cog):
         try:
             c = self.bot.get_channel(493330961421959169)
             if option == 'other' or option == 'o':
-                msg = message.replace('\n','\n•')
+                msg = message.replace('|','\n•')
                 embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=f'• {msg}')
                 embed.set_image(url=link)
                 #except:
@@ -234,7 +234,7 @@ class Developer(commands.Cog):
                 await c.send(embed=embed)
                 await ctx.send(":ok_hand: Done.")
             elif option == 'add' or option == 'a':
-                msg = message.replace('\n','\n+')
+                msg = message.replace('}','\n+')
                 embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=f'+ {msg}')
                 embed.set_image(url=link)
                 #except:
@@ -242,7 +242,7 @@ class Developer(commands.Cog):
                 await c.send(embed=embed)
                 await ctx.send(":ok_hand: Done.")
             elif option == 'remove' or option == 'r':
-                msg = message.replace('\n','\n-')
+                msg = message.replace('|','\n-')
                 embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=f'- {msg}')
                 embed.set_image(url=link)
                 #except:
