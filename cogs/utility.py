@@ -340,6 +340,7 @@ class Utility(commands.Cog):
             embed = discord.Embed()
             li = 'result_1:link'
             embed.add_field(name=['entities'][0]['result_1'][0], value=['entities'][0]['result_description'][0], url=['entities'][0][li][0])
+            print(['entities'][0]['result_1']+['entities'][0]['result_description']+['entities'][0][li])
             try:
                 embed.add_field(name=['entities'][0]['result_1'][1], value=['entities'][0]['result_description'][1], url=['entities'][0][li][1])
             except:
