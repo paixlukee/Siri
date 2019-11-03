@@ -340,13 +340,13 @@ class Utility(commands.Cog):
             embed = discord.Embed()
             li = 'result_1:link'
             #print(r)
-            embed.add_field(name=f'[{r['entities'][0]['result_1'][0]}]({r['entities'][0][li][0]})', value=r['entities'][0]['result_description'][0])
+            embed.add_field(name='[' + r['entities'][0]['result_1'][0] + ] + '(' + r['entities'][0][li][0] + ')', value=r['entities'][0]['result_description'][0])
             try:
-                embed.add_field(name=f'[{r['entities'][0]['result_1'][1]}]({r['entities'][0][li][1]})', value=r['entities'][0]['result_description'][1])
+                embed.add_field(name=f'[' + r['entities'][0]['result_1'][1] + ] + '(' + r['entities'][0][li][1] + ')', value=r['entities'][0]['result_description'][1])
             except:
                 pass 
             try:
-                embed.add_field(name=f'[{r['entities'][0]['result_1'][2]}]({r['entities'][0][li][2]})', value=r['entities'][0]['result_description'][2])
+                embed.add_field(name='[' + r['entities'][0]['result_1'][2] + ] + '(' + r['entities'][0][li][2] + ')', value=r['entities'][0]['result_description'][2])
             except: 
                 pass
             embed.set_footer(text=r['entities'][0]['result_number'], icon_url='http://pluspng.com/img-png/google-logo-png-open-2000.png')
