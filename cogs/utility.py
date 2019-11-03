@@ -336,10 +336,9 @@ class Utility(commands.Cog):
                 "url": f"https://www.google.com/search?q={query}",
                 "model_id": "e5rMsxpU"
             }
-            r = requests.get('https://api.dashblock.io/model/v1', params=params)
+            r = requests.get('https://api.dashblock.io/model/v1', params=params).json()
             embed = discord.Embed()
             li = 'result_1:link'
-            print(['entities']['result_1']+['entities']['result_description'])
             embed.add_field(name=['entities'][0]['result_1'][0], value=['entities'][0]['result_description'][0], url=['entities'][0][li][0])
             try:
                 embed.add_field(name=['entities'][0]['result_1'][1], value=['entities'][0]['result_description'][1], url=['entities'][0][li][1])
