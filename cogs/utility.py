@@ -327,7 +327,7 @@ class Utility(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def search2(self, ctx, *, query=None):
-    """Search for something on the web"""
+        """Search for something on the web"""
         query = urllib.parse.quote(query.lower())
         try:
             params = {
