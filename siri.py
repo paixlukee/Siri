@@ -75,6 +75,11 @@ async def on_guild_join(guild):
     log = bot.get_channel(493330793599598592)
     server = guild
     embed = discord.Embed(colour=0x62f442, description=f"Siri has joined `{guild.name}`! Siri is now in `{str(len(bot.guilds))}` guilds!")
+    online = len([x for x in guild.members if x.status == discord.Status.online])
+    idle = len([x for x in guild.members if x.status == discord.Status.idle])
+    dnd = len([x for x in guild.members if x.status == discord.Status.dnd])
+    offline = len([x for x in guild.members if x.status == discord.Status.offline])
+    embed.add_field(name="Members", value=f":busts_in_silhouette: {len(guild.members)}\n<:status_online:596576749790429200> {online}\n<:status_idle:596576773488115722> {idle}\n<:status_dnd:596576774364856321> {dnd}\n<:status_offline:596576752013279242> {offline}")
     embed.set_footer(text=f'ID: {guild.id}', icon_url=guild.icon_url_as(format='png'))
     await log.send(embed=embed)
     targets = [
