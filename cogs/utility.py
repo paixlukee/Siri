@@ -329,7 +329,8 @@ class Utility(commands.Cog):
     async def search2(self, ctx, *, query=None):
         """Search for something on the web"""
         query = urllib.parse.quote(query.lower())
-        try:
+        x = 0
+        if x == 0:
             params = {
                 "api_key": "3ad66d70-ed3d-11e9-b95d-6dbb1ccf39ac",
                 "url": f"https://www.google.com/search?q={query}",
@@ -348,7 +349,7 @@ class Utility(commands.Cog):
                 pass
             embed.set_footer(text=r['entities'][0]['result_number'], icon_url='http://pluspng.com/img-png/google-logo-png-open-2000.png')
             await ctx.send(embed=embed)
-        except Exception as e:
+        else:
             await ctx.send('<:redtick:492800273211850767> Nothing was found for that query ' + str(e))
    
     @commands.command(aliases=['lookup', 'websearch'])
