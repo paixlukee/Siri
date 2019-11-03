@@ -234,7 +234,7 @@ class Developer(commands.Cog):
                 await c.send(embed=embed)
                 await ctx.send(":ok_hand: Done.")
             elif option == 'add' or option == 'a':
-                msg = message.replace('}','\n+')
+                msg = message.replace('|','\n+')
                 embed = discord.Embed(colour=0xe0e0e0, title=f"Changelog", description=f'+ {msg}')
                 embed.set_image(url=link)
                 #except:
