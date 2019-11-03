@@ -331,8 +331,8 @@ class Utility(commands.Cog):
         query = urllib.parse.quote(query.lower())
         try:
             params = {
-                api_key: "3ad66d70-ed3d-11e9-b95d-6dbb1ccf39ac"
-                url: f"https://www.google.com/search?q={query}"
+                api_key: "3ad66d70-ed3d-11e9-b95d-6dbb1ccf39ac",
+                url: f"https://www.google.com/search?q={query}",
                 model_id: "e5rMsxpU"
             }
             r = requests.get('https://api.dashblock.io/model/v1', params=params)
