@@ -331,25 +331,25 @@ class Utility(commands.Cog):
         query = urllib.parse.quote(query.lower())
         try:
             params = {
-                api_key: "3ad66d70-ed3d-11e9-b95d-6dbb1ccf39ac",
-                url: f"https://www.google.com/search?q={query}",
-                model_id: "e5rMsxpU"
+                "api_key": "3ad66d70-ed3d-11e9-b95d-6dbb1ccf39ac",
+                "url": f"https://www.google.com/search?q={query}",
+                "model_id": "e5rMsxpU"
             }
             r = requests.get('https://api.dashblock.io/model/v1', params=params)
             embed = discord.Embed()
             embed.add_field(name=['entities'][0]['result_1'][0], value=['entities'][0]['result_description'][0], url=['entities'][0]['result_1:link'][0])
             try:
-                embed.add_field(name=['entities'][0]['result_1'][1], value=['entities'][0]['result_description'][1], url=['entities'][0]['result_1:link'][0])
+                embed.add_field(name=['entities'][0]['result_1'][1], value=['entities'][0]['result_description'][1], url=['entities'][0]['result_1:link'][1])
             except:
                 pass 
             try:
-                embed.add_field(name=['entities'][0]['result_1'][2], value=['entities'][0]['result_description'][2], url=['entities'][0]['result_1:link'][0])
+                embed.add_field(name=['entities'][0]['result_1'][2], value=['entities'][0]['result_description'][2], url=['entities'][0]['result_1:link'][2])
             except: 
                 pass
             embed.set_footer(text=r['entities'][0]['result_number'], icon_url='http://pluspng.com/img-png/google-logo-png-open-2000.png')
             await ctx.send(embed=embed)
         except Exception as e:
-            await ctx.send('<:redtick:492800273211850767> Nothing was found for that query ' + e)
+            await ctx.send('<:redtick:492800273211850767> Nothing was found for that query ' + str(e))
    
     @commands.command(aliases=['lookup', 'websearch'])
     @commands.cooldown(1, 4, commands.BucketType.user)
