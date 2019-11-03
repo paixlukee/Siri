@@ -338,7 +338,8 @@ class Utility(commands.Cog):
             }
             r = requests.get('https://api.dashblock.io/model/v1', params=params)
             embed = discord.Embed()
-            embed.add_field(name=['entities'][0]['result_1'][0], value=['entities'][0]['result_description'][0], url=['entities'][0]['result_1:link'][0])
+            li = 'result_1:link'
+            embed.add_field(name=['entities'][0]['result_1'][0], value=['entities'][0]['result_description'][0], url=['entities'][0][li][0])
             try:
                 embed.add_field(name=['entities'][0]['result_1'][1], value=['entities'][0]['result_description'][1], url=['entities'][0]['result_1:link'][1])
             except:
