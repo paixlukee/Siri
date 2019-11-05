@@ -105,7 +105,7 @@ class Levels(commands.Cog):
         await ctx.send(file=discord.File(bytes.getvalue(), "profilemarket.jpg"))
         
     @commands.command(aliases=['rank'])
-    async def levela(self, ctx, user: discord.User = None):
+    async def level(self, ctx, user: discord.User = None):
         """Check your/someone else's rank. """
         # dont feel like cleaning this up and clearing like 30 lines of code, stfu
         if user:
@@ -138,7 +138,7 @@ class Levels(commands.Cog):
             bytes = BytesIO()
             card_link.save(bytes, 'PNG')
             bytes.seek(0)
-            await ctx.send(file=discord.File(bytes.getvalue(), "sirirankcard.jpg"))
+            await ctx.send(file=discord.File(bytes.getvalue(), bytes("sirirankcard.jpg")))
         else:
             data = db.posts.find_one({"user": ctx.author.id})
             if not data:
