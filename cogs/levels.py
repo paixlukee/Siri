@@ -115,7 +115,7 @@ class Levels(commands.Cog):
             level = data['level']
             exp_needed = self.level_endings[str(level)]#int(data['exp'] // (1/4))
             exp = data['exp']
-            card_link = Image.open("sirirankcard.jpg")
+            card_link = Image.open(BytesIO("sirirankcard.jpg"))
             draw = ImageDraw.Draw(card_link)
             font_size = 14
             if len(str(user)) > 26:
@@ -138,7 +138,7 @@ class Levels(commands.Cog):
             bytes = BytesIO()
             card_link.save(bytes, 'PNG')
             bytes.seek(0)
-            await ctx.send(file=discord.File(bytes.getvalue(), card_link))
+            await ctx.send(file=discord.File(bytes.getvalue(), "sirirankcard.jpg"))
         else:
             data = db.posts.find_one({"user": ctx.author.id})
             if not data:
