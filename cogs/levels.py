@@ -138,7 +138,7 @@ class Levels(commands.Cog):
             bytes = BytesIO()
             card_link.save(bytes, 'PNG')
             bytes.seek(0)
-            await ctx.send(file=discord.File(bytes.getvalue(), bytes("sirirankcard.jpg")))
+            await ctx.send(file=discord.File(bytes.getvalue(), card_link))
         else:
             data = db.posts.find_one({"user": ctx.author.id})
             if not data:
