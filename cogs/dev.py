@@ -155,7 +155,6 @@ class Developer(commands.Cog):
                 'random': random,
                 'commands': commands,
                 'requests': requests,
-                'lavalink': lavalink,
                 'asyncio': asyncio,
                 're': re,
                 'os': os,
