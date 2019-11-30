@@ -165,7 +165,6 @@ class Developer(commands.Cog):
                 'rnd': rnd,
                 'do': do,
                 'time_rx': re.compile('[0-9]+'),
-                'player': await self.bot.lavalink.get_player(ctx.guild.id),
                 '_': self._last_result
             }
 
